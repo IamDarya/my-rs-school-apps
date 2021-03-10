@@ -33,6 +33,7 @@ a:hover {
 	line-height: 60px;
 	color: #F7F7F7;
 	padding-left: 120px;
+	cursor: pointer;
 }
 
 .logo_with_name > img {
