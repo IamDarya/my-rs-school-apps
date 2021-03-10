@@ -49,7 +49,7 @@ a:hover {
 
 /**********TOP PART***********/
 .fox_image {
-    background-image: url("Fox.png");
+    background-image: url("assets/Fox.png");
     width: 100%;
     height: 779px;
     max-width: 1440px;
@@ -109,7 +109,7 @@ input[type=text] {
     background-size: contain;
     border: none;
     background-color: transparent;
-    background-image: url('icon.png');
+    background-image: url('assets/icon.png');
     background-repeat: no-repeat;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
@@ -292,16 +292,16 @@ h2 {
 }
 
 .Deer {
-    background-image: url("Rectangle-2.jpg");
+    background-image: url("assets/Rectangle-2.jpg");
 }
 
 .Squirrel {
-    background-image: url("Rectangle-1.jpg");
+    background-image: url("assets/Rectangle-1.jpg");
     margin: 0 60px 0;
 }
 
 .Bird {
-    background-image: url("Rectangle.jpg");
+    background-image: url("assets/Rectangle.jpg");
 }
 
 .bigger {
@@ -415,7 +415,7 @@ button:focus {
 /**********FOOTER**********/
 
 .footer_image {
-    background-image: url("Rectangle-3.jpg");
+    background-image: url("assets/Rectangle-3.jpg");
     width: 100%;
     height: 359px;
     max-width: 1440px;
@@ -469,7 +469,7 @@ button:focus {
 }
 
 .faceb {
-    background-image: url("facebook.svg");
+    background-image: url("assets/facebook.svg");
 }
 
 .faceb:hover {
@@ -479,7 +479,7 @@ button:focus {
 }
 
 .inst {
-    background-image: url("instagram.svg");
+    background-image: url("assets/instagram.svg");
     background-size: cover;
 }
 
@@ -490,7 +490,7 @@ button:focus {
 }
 
 .pint {
-    background-image: url("pinterest.svg");
+    background-image: url("assets/pinterest.svg");
 }
 
 .pint:hover {
@@ -500,7 +500,7 @@ button:focus {
 }
 
 .telegr {
-    background-image: url("youtube.svg");
+    background-image: url("assets/youtube.svg");
     background-size: cover;
 }
 
