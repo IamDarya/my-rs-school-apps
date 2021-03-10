@@ -1,87 +1,93 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Wildlife</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-	<link rel="preconnect" href="https://fonts.gstatic.com">
- 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
- 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body>
-	<div class="fox">
- 		<div class="fox_image container">	
-			<div class="logo_with_name">
-				<img src="Frame.svg">
-				<p>Wildlife</p>
-			</div>
-			<header>
-				<ul>
-					<li class="blog"><a href="">Blog</a></li>
-					<li class="contacts"><a href="">Contacts</a></li>	
-					<li class="search"><input type="text" name="search" placeholder=""></li>
-					<li class="sign_in"><button class="btn sign_in_btn">Sign in</button></li>
-				</ul>
-			</header>
-			<div class="survival">
-				<h1>Survival</h1>
-				<p>What this means is that we exist<br>to help protect our environment<br>and do in numbers of ways. You<br>can save the planet by donation.</p>
-				<button class="btn_donate donate">Donate</button>
-			</div>
-		</div>	
-	</div>
+<html lang="en">
 
-	<div class="grey">
-		<div class="top_text_grey_part">
-			<h2>Latest articles</h2>
-			<p>Breaking news from the wild</p>
-		</div>
-		<div class="img_latest_articl container">
-			<button class="slide_icon">❮</button>
-				<div class="text_in_img Deer">
-					<p class="bigger">Deer</p><p class="smaller">Naturalist investigation</p>
-				</div>
-				<div class="text_in_img Squirrel">
-					<p class="bigger">Squirrel</p><p class="smaller">Kamikaze squirrels</p>
-				</div>
-				<div class="text_in_img Bird">
-					<p class="bigger">Bird</p><p class="smaller">Birds Fight Club</p>
-				</div>
-					<button class="slide_icon">❯</button>
-		</div>
-			<div class="get_notified_text">
-				<p>Get notefied about new amazing articles</p>
-			</div>
-			<div class="get_notified_bar">
-				<form class="example" action="action_page.php">
-	 				<input type="text" placeholder="Email" name="search">
-	 				<button class="btn success">Send</button>
-				</form>
-			</div>
-		</div>
-		<div class="footer">
-		 	<div class="footer_image container">	
-				<div class="logo_with_name">
-					<img src="Frame.svg">
-					<p>Wildlife</p>
-				</div>
-				<div class="nav_footer_container">
-					<ul>
-						<li id="Articles"><a href="">Articles</a></li>
-						<li id="About"><a href="">About us</a></li>	
-						<li id="Learn_more"><a href="">Learn more</a></li>
-					</ul>
-				</div>
-				<div class="social_footer_container">
-					<ul>
-						<li class="faceb soc_icons"><a href=""></a></li>
-						<li class="inst soc_icons"><a href=""></a></li>	
-						<li class="pint soc_icons"><a href=""></a></li>
-						<li class="yout soc_icons"><a href=""></a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
+<head>
+    <title>Wildlife</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="fox">
+        <div class="fox_image container">
+            <header>
+                <div class="logo_with_name">
+                    <img src="assets/Frame.svg" alt="logo">
+                    <p>Wildlife</p>
+                </div>
+                <ul>
+                    <li class="blog"><a href="">Blog</a></li>
+                    <li class="contacts"><a href="">Contacts</a></li>
+                    <li class="search"><a href=""><input type="text" name="search" placeholder="" autocomplete="off"></a></li>
+                    <li class="sign_in"><a href=""><button class="btn sign_in_btn">Sign in</button></a></li>
+                </ul>
+            </header>
+            <div class="survival">
+                <h1>Survival</h1>
+                <p>What this means is that we exist to help protect our environment and do in numbers of ways. You can save the planet by donation.</p>
+                <button class="btn_donate donate">Donate</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="grey">
+        <div class="top_text_grey_part">
+            <h2>Latest articles</h2>
+            <p>Breaking news from the wild</p>
+        </div>
+        <div class="img_latest_articl container">
+            <div class="slide_icon_div"><button class="slide_icon">❮</button></div>
+            <div class="text_in_img Deer">
+                <p class="bigger">Deer</p>
+                <p class="smaller"><a href="">Naturalist investigation</a></p>
+            </div>
+            <div class="text_in_img Squirrel">
+                <p class="bigger">Squirrel</p>
+                <p class="smaller"><a href="">Kamikaze squirrels</a></p>
+            </div>
+            <div class="text_in_img Bird">
+                <p class="bigger">Bird</p>
+                <p class="smaller"><a href="">Birds Fight Club</a></p>
+            </div>
+            <div class="slide_icon_div"><button class="slide_icon">❯</button></div>
+        </div>
+        <div class="get_notified_text">
+            <p>Get notefied about new amazing articles</p>
+        </div>
+        <div class="get_notified_bar">
+            <form class="example">
+                <input type="text" placeholder="Email" name="search" autocomplete="off">
+                <button type="submit" class="btn success">Send</button>
+            </form>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer_image container">
+            <div class="logo_with_name">
+                <img src="assets/Frame.svg" alt="logo">
+                <p>Wildlife</p>
+            </div>
+            <div class="nav_footer_container">
+                <ul>
+                    <li id="Articles"><a href="">Articles</a></li>
+                    <li id="About"><a href="">About us</a></li>
+                    <li id="Learn_more"><a href="">Learn more</a></li>
+                </ul>
+            </div>
+            <div class="social_footer_container">
+                <ul>
+                    <li class="faceb soc_icons"><a href=""></a></li>
+                    <li class="inst soc_icons"><a href=""></a></li>
+                    <li class="pint soc_icons"><a href=""></a></li>
+                    <li class="telegr soc_icons"><a href=""></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
