@@ -439,7 +439,7 @@ button:focus {
 .nav_footer_container {
     display: flex;
     justify-content: flex-end;
-    width: 990px;
+    width: max-content;
     position: absolute;
     font-family: Open Sans;
     font-style: normal;
@@ -448,6 +448,7 @@ button:focus {
     line-height: 60px;
     color: #F7F7F7;
     padding-top: 150px;
+    margin-left: 460px;
 }
 
 .nav_footer_container>ul {
@@ -517,11 +518,11 @@ button:focus {
 }
 
 #Articles {
-    margin: 0 20px;
+    margin: 0 22px;
 }
 
 #About {
-    margin: 0 60px;
+    margin: 0 55px;
 }
 
 #Learn_more {
