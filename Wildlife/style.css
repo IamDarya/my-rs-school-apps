@@ -366,7 +366,7 @@ button:focus {
 }
 
 /* Style the submit button */
-form.example button {
+form.example .send {
     float: left;
     padding: 15px;
     background: #CD6326;
@@ -385,7 +385,7 @@ form.example button {
     border-radius: 0px 5px 5px 0px;
 }
 
-form.example button:hover {
+form.example .send:hover {
     background: #E39128;
 }
 
@@ -408,11 +408,6 @@ form.example::after {
     color: #E39128;
     transition-duration: 0.6s;
     transform: scale(1, 1.5);
-}
-
-button:focus {
-    background-color: transparent;
-    outline: none;
 }
 
 /**********FOOTER**********/
