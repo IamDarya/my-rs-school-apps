@@ -348,7 +348,8 @@ h2 {
 }
 
 /* Style the search field */
-form.example input[type=text] {
+
+form.example input[type=email] {
     padding: 15px 15px 15px 0px;
     height: 60px;
     width: 540px;
