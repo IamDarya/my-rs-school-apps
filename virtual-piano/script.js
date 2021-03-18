@@ -50,8 +50,7 @@ function specialAudio(btn) {
 
 
 window.addEventListener('keydown', (event) => {
-	if(event.repeat == false) {
-			console.log(event + 'down');
+	if(event.repeat === false) {
     if (event.code === 'KeyD' || event.code === 'KeyF' || event.code === 'KeyG' ||
         event.code === 'KeyH' || event.code === 'KeyJ' || event.code === 'KeyK' ||
         event.code === 'KeyL' || event.code === 'KeyR' || event.code === 'KeyT' ||
@@ -63,9 +62,7 @@ window.addEventListener('keydown', (event) => {
 }
 });
 
-
 window.addEventListener('keyup', (event) => {
-				console.log(event + 'up');
     if (event.code === 'KeyD' || event.code === 'KeyF' || event.code === 'KeyG' ||
         event.code === 'KeyH' || event.code === 'KeyJ' || event.code === 'KeyK' ||
         event.code === 'KeyL' || event.code === 'KeyR' || event.code === 'KeyT' ||
