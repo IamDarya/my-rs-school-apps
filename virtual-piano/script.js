@@ -1,17 +1,20 @@
 const piano = document.querySelector('.piano');
-const pianoKeys = document.querySelector('.piano-key');
+const pianoKeys = document.querySelectorAll('.piano-key');
 const lettersBtn = document.querySelector('.btn-letters');
 const notesBtn = document.querySelector('.btn-notes');
 let trigger = false;
 
 lettersBtn.addEventListener('click', function(eventBtn) {
-	event.target.classList.add('btn-active');
-	notesBtn.classList.remove('btn-active');
+    event.target.classList.add('btn-active');
+    notesBtn.classList.remove('btn-active');
+    pianoKeys.forEach(element => element.classList.add('letter'));
+
 });
 
 notesBtn.addEventListener('click', function(eventBtn) {
-	event.target.classList.add('btn-active');
-	lettersBtn.classList.remove('btn-active');
+    event.target.classList.add('btn-active');
+    lettersBtn.classList.remove('btn-active');
+    pianoKeys.forEach(element => element.classList.remove('letter'));
 });
 
 
@@ -32,12 +35,6 @@ document.addEventListener('mouseup', function(event) {
     event.target.classList.remove('piano-key-active', 'piano-key-active-pseudo')
 });
 
-window.addEventListener('keydown', (event) => {
-    if (event.code === 'KeyK') {
-        playAudio();
-    }
-});
-
 function playAudio(event) {
     if (trigger === true) {
         specialAudio(event.target.dataset.letter);
@@ -50,3 +47,46 @@ function specialAudio(btn) {
     audio.currentTime = 0;
     audio.play();
 }
+
+
+window.addEventListener('keydown', (event) => {
+	if(event.repeat == false) {
+			console.log(event + 'down');
+    if (event.code === 'KeyD' || event.code === 'KeyF' || event.code === 'KeyG' ||
+        event.code === 'KeyH' || event.code === 'KeyJ' || event.code === 'KeyK' ||
+        event.code === 'KeyL' || event.code === 'KeyR' || event.code === 'KeyT' ||
+        event.code === 'KeyU' || event.code === 'KeyI' || event.code === 'KeyO') {
+        specialAudio(event.code.slice(-1));
+        const letter = document.querySelector(`.${event.code}`);
+        letter.classList.add('piano-key-active', 'piano-key-active-pseudo');
+    }
+}
+});
+
+
+window.addEventListener('keyup', (event) => {
+				console.log(event + 'up');
+    if (event.code === 'KeyD' || event.code === 'KeyF' || event.code === 'KeyG' ||
+        event.code === 'KeyH' || event.code === 'KeyJ' || event.code === 'KeyK' ||
+        event.code === 'KeyL' || event.code === 'KeyR' || event.code === 'KeyT' ||
+        event.code === 'KeyU' || event.code === 'KeyI' || event.code === 'KeyO') {
+        const letter = document.querySelector(`.${event.code}`);
+        letter.classList.remove('piano-key-active', 'piano-key-active-pseudo');
+    }
+});
+
+// *********FULLSCREEN*********
+
+const fullscreen = document.querySelector('.fullscreen');
+
+fullscreen.addEventListener("click", function() {
+  if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+});
+
+
