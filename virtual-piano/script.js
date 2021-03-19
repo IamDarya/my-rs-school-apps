@@ -3,6 +3,7 @@ const pianoKeys = document.querySelectorAll('.piano-key');
 const lettersBtn = document.querySelector('.btn-letters');
 const notesBtn = document.querySelector('.btn-notes');
 let trigger = false;
+let triggerKeys = { };
 
 lettersBtn.addEventListener('click', function(eventBtn) {
     event.target.classList.add('btn-active');
@@ -55,10 +56,13 @@ window.addEventListener('keydown', (event) => {
         event.code === 'KeyH' || event.code === 'KeyJ' || event.code === 'KeyK' ||
         event.code === 'KeyL' || event.code === 'KeyR' || event.code === 'KeyT' ||
         event.code === 'KeyU' || event.code === 'KeyI' || event.code === 'KeyO') {
+    	if(triggerKeys[event.code] !== true) {
+    	triggerKeys[event.code] = true;
         specialAudio(event.code.slice(-1));
         const letter = document.querySelector(`.${event.code}`);
         letter.classList.add('piano-key-active', 'piano-key-active-pseudo');
     }
+}
 }
 });
 
@@ -67,6 +71,7 @@ window.addEventListener('keyup', (event) => {
         event.code === 'KeyH' || event.code === 'KeyJ' || event.code === 'KeyK' ||
         event.code === 'KeyL' || event.code === 'KeyR' || event.code === 'KeyT' ||
         event.code === 'KeyU' || event.code === 'KeyI' || event.code === 'KeyO') {
+    	triggerKeys[event.code] = false;
         const letter = document.querySelector(`.${event.code}`);
         letter.classList.remove('piano-key-active', 'piano-key-active-pseudo');
     }
@@ -85,5 +90,3 @@ fullscreen.addEventListener("click", function() {
     }
   }
 });
-
-
