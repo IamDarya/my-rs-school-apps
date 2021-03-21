@@ -322,3 +322,68 @@ body {
     height: 40px;
   }
 }
+
+
+/***********MY NEON EFFECTS*************/
+.piano-key:not(.none):not(.sharp) {
+	box-shadow: 
+	0 0 11px 4px #00b4a4, 
+	0 0 1px 1px #00b4a4;
+}
+
+ .piano-key:hover::after {
+    text-shadow: 
+    0 0 4px #fff, 
+    0 0 2px rgb(255 255 255);;
+}
+
+.piano-key:hover::before {
+    text-shadow: 
+    0 0 4px #fff, 
+    0 0 2px rgb(255 255 255);;
+}
+
+
+
+.piano-key-active:hover::after {
+	text-shadow:
+	0 0 6px rgb(202 228 225 / 92%), 
+	0 0 30px rgb(202 228 225 / 34%), 
+	0 0 12px rgb(0 180 164), 
+	0 0 21px rgb(0 180 164), 
+	0 0 34px rgb(0 180 164), 
+	0 0 54px rgb(0 180 164);
+}
+
+.piano-key-active-pseudo:hover::after,
+.piano-key-active-pseudo:hover::before,
+.piano-key-active::after,
+.piano-key-active::before {
+	text-shadow:
+	0 0 6px rgb(202 228 225 / 92%), 
+	0 0 30px rgb(202 228 225 / 34%), 
+	0 0 12px rgb(0 180 164), 
+	0 0 21px rgb(0 180 164), 
+	0 0 34px rgb(0 180 164), 
+	0 0 54px rgb(0 180 164);
+}
+
+
+.btn-active {
+	box-shadow: 
+	0 0 0px 1px rgb(255 255 255 / 51%), 
+	0 0 11px 5px #11dbc9cc, 
+	0 0 0px 2px #00b4a4;
+}
+
+.header-title {
+	text-shadow:
+	0px 0px 6px #fff, 
+	0 0 9px #fff, 
+	0 0 3px #fff, 
+	0 0 2px #2f6f69, 
+	0px 0px 4px #0ff, 
+	0 0 20px #0ff, 
+	0 0 20px #0ff, 
+	0 0 20px #00b4a4;
+}
