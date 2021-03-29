@@ -16,6 +16,7 @@ body {
 a {
 	text-decoration: none;
 	color: #000000;
+	cursor: pointer;
 }
 
 .landing {
@@ -225,7 +226,7 @@ margin: 0px;
   background-size: cover;
   background-repeat: no-repeat;
   width: auto; /*??*/
-  height: 983px;
+  height: 1058px;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -233,5 +234,118 @@ margin: 0px;
 }
 
 .pets-in-zoo-block > .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 858px;
+  margin-top: 100px;
+}
+
+.photos-links-to-map {
+	display: grid;
+    grid-template-columns: repeat(4, 233px);
+    grid-template-rows: repeat(2, 300px);
+    grid-gap: 25px 20px;
+}
+
+.pets-in-zoo-photo-with-sliders {
+	display: flex;
+	align-items: center;
+	margin-top: 30px;
+}
+
+.button2 {
+	  background-color: #70cb0e;
+  font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 21px;
+  border-radius: 30px;
+  width: 286px;
+  height: 51px;
+}
+.sliders {
+		  background-color: #70cb0e;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  margin: 20px;
+  border: none;
+}
+
+.image-link{
+	display: flex;
+	justify-content: center;
+}
+
+.image-link:hover{
+transform: scale(1.1);
+transition: 0.3s;
+}
+
+.image-link > p{
+	position: absolute;
+	font-family: Roboto;
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 19px;
+text-align: center;
+color: #FFFFFF;
+}
+
+/*****Pay And Feed*****/
+
+.pay-and-feed {
+	height: 600px;
+	  background-color: #ffffff;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: auto; /*??*/
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-position-y: center; 
 
 }
+
+.pay-and-feed > .content {
+	display: flex;
+	flex-direction: column;
+	margin-top: 100px;
+}
+
+.pictures-and-arrows-pay-and-feed {
+	display: flex;
+	text-align: center;
+	margin-top: 80px;
+}
+
+.icon-pay-and-feed > p {
+	margin: 0px;
+	font-family: Roboto;
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 19px;
+text-align: center;
+/* Style_2 */
+color: #000000;
+}
+
+.icon-pay-and-feed {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+}
+
+.arrows-and-icon-one-on-one {
+	display: flex;
+}
+.arrows {
+	position: fixed;
+}
+
+/*****Testimonials*****/
