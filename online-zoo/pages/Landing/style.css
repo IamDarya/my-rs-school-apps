@@ -267,12 +267,17 @@ line-height: 21px;
   height: 51px;
 }
 .sliders {
-		  background-color: #70cb0e;
+		  background-color: #FFE68E;
   border-radius: 50%;
   width: 64px;
   height: 64px;
-  margin: 20px;
+  margin: 0px 20px 0px 20px;
   border: none;
+  align-self: center;
+}
+
+.sliders:hover {
+	background-color: #70cb0e;
 }
 
 .image-link{
@@ -349,3 +354,161 @@ color: #000000;
 }
 
 /*****Testimonials*****/
+
+.testimonials {
+	  background-color: #ffffff;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: auto; /*??*/
+  height: 797px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-position-y: center; 
+}
+
+.testimonials > .content {
+	display: flex;
+	flex-direction: column;
+	margin-top: 100px;
+	height: 597px;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.reviews {
+	display: grid;
+  grid-template-columns: 233px 233px 233px 233px;
+    grid-template-rows: 369px;
+	grid-gap: 20px;
+}
+
+.review-block {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.review-block > p {
+position: absolute;
+    width: 193px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    color: #000000;
+    margin: 91px 0px 0px 0px;
+
+}
+ 
+.review-block > img {
+	width: fit-content;
+	height: fit-content;
+}
+
+.button3 {
+width: 246px;
+}
+
+/*****Footer*****/
+
+.footer {
+	height: 270px;
+	background-color: #DFF5B0;
+	display: flex;
+	justify-content: center;
+}
+
+.footer > img {
+	align-self: flex-end;
+}
+
+.footer > .content {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	height: 170px;
+	align-self: flex-end;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+.top-navigation-of-footer {
+	display: flex;
+	justify-content: space-between;
+}
+
+.logo-button-in-footer {
+	display: flex;
+	justify-content: space-between;
+	width: 428px;
+	margin-right: 36px;
+}
+
+.logo-footer {
+	width: 98px; 
+	height: 50px;
+}
+
+.button4 {
+	width: 230px;
+}
+
+.ab-map-cont-feedb {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.ab-map-cont-feedb-all {
+	display: flex;
+	justify-content: space-between;
+	width: 256px;
+}
+
+.ab-map-cont-feedb > a {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+}
+
+.socil-media-icons {
+	width: 190px;
+	text-align-last: justify;
+}
+
+.buttom-navigation-of-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
+.copyright > p {
+	font-family: Roboto;
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 21px;
+color: #000000;
+margin: 0px;
+}
+
+.rss-yem-logos {
+	display: flex;
+	justify-content: space-between;
+	width: 295px;
+	height: 50px;
+}
+
+.copyright {
+	display: flex;
+	justify-content: space-between;
+	width: 788px;
+}
+
+
+
