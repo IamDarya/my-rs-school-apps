@@ -18,6 +18,7 @@ a {
 	color: #000000;
 	cursor: pointer;
 }
+
 .all {
 	display: grid;
 }
@@ -487,6 +488,10 @@ width: 246px;
     font-size: 18px;
     line-height: 21px;
     color: #000000;
+}
+
+.ab-map-cont-feedb > a:hover {
+  color: #70CB0E;
 }
 
 .socil-media-icons {
