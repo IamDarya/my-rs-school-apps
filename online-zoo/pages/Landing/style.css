@@ -64,6 +64,10 @@ header {
   margin-left: 23px;
 }
 
+.header-active-link:hover {
+  text-decoration: underline;
+}
+
 #about {
   text-shadow: 
   -1px 1px 0 #70CB0E,
