@@ -1,6 +1,11 @@
 .background {
+	background-image: url("../../assets/images/Error.png");
+	width: 1920px;
+	height: 1080px;
 	display: flex;
-	justify-self: center;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
 #contact > a {
@@ -13,4 +18,24 @@
   1px 1px 0 #70CB0E,
   1px -1px 0 #70CB0E,
   -1px -1px 0 #70CB0E;	
+}
+
+.link-back-to-landing {
+	position: absolute;
+font-family: Bebas Neue;
+font-style: normal;
+font-weight: bold;
+font-size: 20px;
+line-height: 20px;
+/* identical to box height */
+margin-top: 673px;
+text-align: center;
+
+color: #59c3fb;
+text-transform: uppercase;
+}
+
+.link-back-to-landing:hover {
+	transform: scale(1.5, 1.5);
+	transition: 1s;
 }
