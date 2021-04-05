@@ -1,0 +1,537 @@
+/*
+      www.OnlineWebFonts.Com 
+      You must credit the author Copy this link on your web 
+      <div>Font made from <a href="http://www.onlinewebfonts.com">oNline Web Fonts</a>is licensed by CC BY 3.0</div>
+      OR
+      <a href="http://www.onlinewebfonts.com">oNline Web Fonts</a>
+*/
+@font-face {font-family: "SceneW01-Black";
+ src: url("../../assets/fonts/SceneW01-Black.ttf") format("truetype"); /* chrome firefox opera Safari, Android, iOS 4.2+*/
+}
+
+body {
+  margin: 0;
+}
+
+a {
+	text-decoration: none;
+	color: #000000;
+	cursor: pointer;
+}
+
+.all {
+	display: grid;
+}
+
+.landing {
+  background: url("../../assets/images/LandingBackground.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: auto; /*??*/
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-position-y: center; 
+}
+
+.content {
+  width: 1160px;
+  height: auto;
+}
+
+/****HEADER****/
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+}
+
+.header-list {
+  list-style: none;
+  display: flex;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;  
+  letter-spacing: 0em;
+  text-align: left;
+  padding: 0px;
+  margin-left: 23px;
+}
+
+#about {
+  text-shadow: 
+  -1px 1px 0 #70CB0E,
+  1px 1px 0 #70CB0E,
+  1px -1px 0 #70CB0E,
+  -1px -1px 0 #70CB0E;
+}
+
+#about > a {
+	cursor: default;
+}
+
+.header-list > li {
+	margin-left: 35px;
+	cursor: pointer;
+}
+
+.navigation-logo {
+  display: flex;
+  height: fit-content;
+  width: 1160px;
+  margin-top: 12px;
+  height: 80px;
+}
+
+/****watch-animal****/
+
+h1 {
+	display: none;
+}
+
+.watch-animal {
+	width: 570px;
+	font-family: SceneW01-Black;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 70px;
+  line-height: 84px;
+/* or 84px */
+  letter-spacing: 0.03em;
+  height: 353px;
+  margin-top: 130px;
+}
+
+.watch-animal > p {
+	margin: 0px;
+}
+
+.online {
+	text-transform: uppercase;
+}
+
+.button {
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.button:focus {
+	outline: none;
+}
+
+.button:hover {
+	font-size: 20px;
+	transition: 0.3s;
+	background-color: #FFE68E;
+}
+
+.button1 {
+  background-color: #70cb0e;
+  font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 21px;
+  border-radius: 30px;
+  width: 233px;
+  height: 51px;
+  margin-top: 50px;
+}
+
+/*****How It Works*****/
+
+.how-it-works-block {
+  background: url("../../assets/images/HowItWorksBackground.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: auto; /*??*/
+  height: 983px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-position-y: center; 
+}
+
+.how-it-works-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin: 100px 0px 0px 0px;
+	  width: 933px;
+	  height: 783px;
+}
+
+h2 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 47px;
+  /* identical to box height */
+  text-align: center;
+  margin: 0px;
+}
+
+.images-how-it-works-block > ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  align-items: center;
+    justify-content: center;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .images-how-it-works-block > ul > li {
+  margin: 0px -10px 0px -10px;
+  }
+
+  .panda {
+  	z-index: 1; 
+  }
+  .monkey {
+  	z-index: 0;
+  }
+
+.img-eagle, .img-elephant {
+	width: 250px;
+	height: 350px;
+}
+
+.img-tiger, .img-monkey {
+	width: 300px;
+	height: 400px;
+}
+
+  .tiny-info-text > p, .tiny-info-text > a {
+font-family: Roboto;
+font-weight: 400;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 21px;
+text-align: center;
+margin: 0px;
+  }
+
+   .tiny-info-text > p > a {
+   	text-decoration: underline;
+   	color: #267bde;
+   }
+
+      .tiny-info-text > p > a:hover {
+   	text-decoration: underline;
+   	color: #70cb0e;
+   }
+
+/*****Pets In Zoo*****/
+.pets-in-zoo-block {
+  background-color: #ffffff;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: auto; /*??*/
+  height: 1058px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-position-y: center; 
+}
+
+.pets-in-zoo-block > .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 858px;
+  margin-top: 100px;
+}
+
+.photos-links-to-map {
+	display: grid;
+    grid-template-columns: repeat(4, 233px);
+    grid-template-rows: repeat(2, 300px);
+    grid-gap: 25px 20px;
+}
+
+.pets-in-zoo-photo-with-sliders {
+	display: flex;
+	align-items: center;
+	margin-top: 30px;
+}
+
+.button2 {
+	  background-color: #70cb0e;
+  font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 21px;
+  border-radius: 30px;
+  width: 286px;
+  height: 51px;
+}
+.sliders {
+		  background-color: #FFE68E;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  margin: 0px 20px 0px 20px;
+  border: none;
+  align-self: center;
+}
+
+.sliders:hover {
+	background-color: #70cb0e;
+}
+
+.image-link{
+	display: flex;
+	justify-content: center;
+}
+
+.image-link:hover{
+transform: scale(1.1);
+transition: 0.3s;
+}
+
+.image-link > p{
+	position: absolute;
+	font-family: Roboto;
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 19px;
+text-align: center;
+color: #FFFFFF;
+}
+
+/*****Pay And Feed*****/
+
+.pay-and-feed {
+	height: 600px;
+	  background-color: #ffffff;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: auto; /*??*/
+  align-items: center;
+  display: flex;
+  flex-direction: column; 
+}
+
+.icon-pay-and-feed {
+    width: 276px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.icon-pay-and-feed > p {
+margin: 0px;
+position: absolute;
+    width: 320px;
+    margin-top: 208px;
+}
+
+.pay-and-feed > .content {
+	display: flex;
+	flex-direction: column;
+	margin-top: 100px;
+}
+
+.pictures-and-arrows-pay-and-feed {
+	display: flex;
+	justify-content: space-between;
+	align-self: center;
+	width: 1051px;
+	height: 273px;
+	margin-left: 58px;
+	margin-top: 83px;
+}
+
+.arrows {
+	position: absolute;
+	align-self: center;
+	margin: 0px 0px 44px 213px;
+}
+
+/*****Testimonials*****/
+
+.testimonials {
+	  background-color: #ffffff;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: auto; /*??*/
+  height: 797px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-position-y: center; 
+}
+
+.testimonials > .content {
+	display: flex;
+	flex-direction: column;
+	margin-top: 100px;
+	height: 597px;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.reviews {
+	display: grid;
+  grid-template-columns: 233px 233px 233px 233px;
+    grid-template-rows: 369px;
+	grid-gap: 20px;
+}
+
+.review-block {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.review-block > p {
+position: absolute;
+    width: 193px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    color: #000000;
+    margin: 91px 0px 0px 0px;
+
+}
+ 
+.review-block > img {
+	width: fit-content;
+	height: fit-content;
+}
+
+.button3 {
+width: 246px;
+}
+
+/*****Footer*****/
+
+.footer {
+	height: 270px;
+	background-color: #DFF5B0;
+	display: flex;
+	justify-content: center;
+}
+
+.footer > img {
+	align-self: flex-end;
+}
+
+.footer > .content {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	height: 170px;
+	align-self: flex-end;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+.top-navigation-of-footer {
+	display: flex;
+	justify-content: space-between;
+}
+
+.logo-button-in-footer {
+	display: flex;
+	justify-content: space-between;
+	width: 428px;
+	margin-right: 36px;
+}
+
+.logo-footer {
+	width: 98px; 
+	height: 50px;
+}
+
+.button4 {
+	width: 230px;
+}
+
+.ab-map-cont-feedb {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.ab-map-cont-feedb-all {
+	display: flex;
+	justify-content: space-between;
+	width: 256px;
+}
+
+.ab-map-cont-feedb > a {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+}
+
+.ab-map-cont-feedb > a:hover {
+  color: #70CB0E;
+}
+
+.socil-media-icons {
+	width: 190px;
+	text-align-last: justify;
+}
+
+.socil-img:hover {
+ transform: scale(1.3, 1.3);
+}
+
+.buttom-navigation-of-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
+.copyright > p {
+	font-family: Roboto;
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 21px;
+color: #000000;
+margin: 0px;
+}
+
+.rss-yem-logos {
+	display: flex;
+	justify-content: space-between;
+	width: 295px;
+	height: 50px;
+}
+
+.copyright {
+	display: flex;
+	justify-content: space-between;
+	width: 788px;
+}
+
+
+
+
