@@ -20,7 +20,7 @@ a {
 }
 
 .all {
-	display: grid;
+	
 }
 
 .landing {
@@ -164,6 +164,7 @@ line-height: 21px;
   display: flex;
   flex-direction: column;
   background-position-y: center; 
+  background-position-x: center;
 }
 
 .how-it-works-content {
