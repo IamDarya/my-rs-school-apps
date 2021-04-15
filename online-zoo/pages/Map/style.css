@@ -214,3 +214,126 @@ line-height: 19px;
   visibility: visible;
 margin-left: 4px;
 }
+
+
+@media screen and (max-width: 320px) {
+.all {
+  transform: translateX(0);
+}
+
+.map {
+  margin-left: 97%;
+}
+
+.countries {
+  z-index: 1;
+}
+  }
+
+@media screen and (max-width: 640px) and (min-width: 321px)  {
+  .all {
+    transform: translateX(0);
+  }
+  
+  .navigation-logo {
+    width: 89%;
+    align-self: end;
+    margin-left: 20px;
+ }
+
+ .header-list {
+   margin-left: 15px!important;
+ }
+
+  .map {
+    height: 800px;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  .map-picture {
+    transform: scale(0.95);
+    height: 800px;
+  }
+
+  .countries {
+    z-index: 1;
+    width: 84.22%;
+    height: 49.25%;
+  }
+
+  .animals-icons {
+    width: 100%;
+    z-index: 2;
+    margin: 221px 0 0 0;
+  }
+
+  .alligator-gorilla {
+    width: 100%;
+  }
+
+  .eagle {
+    display: none;
+  }
+
+  .alligator {
+    margin-left: 13.9%;
+    align-self: stretch;
+  }
+
+.alligator.subclass {
+  margin: -7% 0 0 0;
+}
+
+.gorilla {
+  margin: 0 8% 4% 3%;
+}
+
+.panda.subclass {
+  width: 124px;
+  margin: -18px -75px 0 0;
+}
+
+.tooltip.panda .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 100%; /* To the right of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent #70CB0E;
+}
+
+.tooltip.panda .tooltiptext {
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  right: 105%;
+}
+
+.pozition-icon.gorilla-icon {
+  align-self: center;
+}
+  .button4.button2 {
+    width: 207px;
+  }
+
+  .pozition-icon {
+    height: 26px;
+    width: 21px;
+}
+
+  }
+
+@media screen and (max-width: 1160px) and (min-width: 641px) {
+
+  }
+
+@media screen and (max-width: 1200px) and (min-width: 1061px) {
+  
+  }
+
+
+
+
+
