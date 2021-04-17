@@ -604,11 +604,13 @@ margin: 0px;
       display: none;
     }
     .navigation-logo {
-      width: 90%;
+      width: 95%;
       align-self: center;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-top: 2px;
+      height: 80px;
     }
 
     .mobile-menu {
@@ -1090,7 +1092,7 @@ flex-wrap: wrap;
 }
 
 .content-footer-tablet {
-  width: 600px;
+  width: 93.75%;
   height: 259px;
   display: flex;
     flex-direction: column;
