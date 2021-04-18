@@ -215,6 +215,14 @@ line-height: 19px;
 margin-left: 4px;
 }
 
+.button.button2.button4.watch-online {
+  display: none;
+}
+
+.tooltiptext > p {
+  margin: 2.6px;
+}
+
 
 @media screen and (max-width: 320px) {
 .all {
@@ -222,11 +230,28 @@ margin-left: 4px;
 }
 
 .map {
-  margin-left: 97%;
+  margin-left: 73.8%;
+  height: 800px;
+}
+
+.map-picture {
+  transform: scale(0.8);
 }
 
 .countries {
   z-index: 1;
+  height: 143px;
+  margin: 194px 65px 0 0;
+}
+
+.alligator.subclass {
+  margin-top: -13px;
+  margin-left: 59px;
+}
+
+.pozition-icon.gorilla-icon {
+  margin-left: -10%;
+  margin-top: -22px;
 }
   }
 
@@ -257,8 +282,17 @@ margin-left: 4px;
 
   .countries {
     z-index: 1;
-    width: 84.22%;
-    height: 49.25%;
+    width: 532px;
+    height: 195px;
+  }
+
+  #esternDRC {
+    padding: 0 0 27px 19px;
+    text-transform: none;
+  }
+
+  #china {
+    margin-top: 17px;
   }
 
   .animals-icons {
@@ -323,6 +357,27 @@ margin-left: 4px;
     width: 21px;
 }
 
+.logo-button-in-footer.tablet {
+  margin-right: 0;
+}
+
+.button.button2.button4.watch-online {
+  display: inline;
+  width: 147px;
+  height: 40px;
+  background: #FFB600;
+ border-radius: 30px;
+}
+
+.tooltip .tooltiptext {
+  width: 169px;
+  height: 100px;
+  margin-top: -24px;
+}
+
+.tooltiptext > p {
+  margin: 5px 23px;
+}
   }
 
 @media screen and (max-width: 1160px) and (min-width: 641px) {

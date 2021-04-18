@@ -904,7 +904,7 @@ flex-wrap: wrap;
 }
   }
 
-@media screen and (max-width: 640px) and (min-width: 321px)  {
+@media screen and (min-width: 321px) and (max-width: 640px)  {
   .all {
     overflow: hidden;
   }
@@ -1120,7 +1120,7 @@ flex-wrap: wrap;
 }
   }
 
-@media screen and (max-width: 1160px) and (min-width: 641px) {
+@media screen (min-width: 641px) and (max-width: 1160px) {
 .content {
   width: 90%;
 }
@@ -1200,7 +1200,7 @@ flex-wrap: wrap;
 
   }
 
-@media screen and (max-width: 1200px) and (min-width: 1061px) {
+@media screen (min-width: 1061px) and (max-width: 1200px) {
   
   .landing {
     background: url("../../assets/images/LandingBackground1200.png");
