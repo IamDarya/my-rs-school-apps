@@ -1165,7 +1165,7 @@ flex-wrap: wrap;
   }
   
 .content {
-  width: 97.3%;
+  width: 93.3%;
 }  
 
 /* ***********landing*********** */
@@ -1255,7 +1255,9 @@ flex-wrap: wrap;
 .arrows {
   margin: 112px 0 0 84px;
 }
-
+.icon-pay-and-feed {
+  margin-bottom: -35px;
+}
 .icon-pay-and-feed > p {
   width: 192px;
   margin-top: 232px;
@@ -1759,6 +1761,18 @@ flex-wrap: wrap;
   .arrows {
     margin: 0px 0px 45px 190px;
   }
+
+  .icon-reviewer-1, .icon-reviewer-2, .icon-reviewer-3, .icon-reviewer-4 {
+    margin: -2px 10px 0px 0px;
+}
+
+.icons-rewiew {
+  width: 192px;
+}
+
+.avatar {
+  margin-top: 6px;
+}
     
     .footer > img {
       display: none;
