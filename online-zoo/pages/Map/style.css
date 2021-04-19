@@ -223,6 +223,31 @@ margin-left: 4px;
   margin: 2.6px;
 }
 
+.zoom {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 20px;
+  margin-top: 662px;
+  box-shadow: 3px 3px 15px rgb(174, 178, 180);
+}
+
+.zoom-button {
+  border: none;
+  width: 33px;
+  height: 39px;
+  font-size: 20px;
+  background-color: #FFFFFF;
+}
+
+.zoom-button.minus {
+border-radius: 15% 15% 0 0;
+}
+
+.zoom-button.plus {
+  border-radius: 0 0 15% 15%;
+}
+
 
 @media screen and (max-width: 320px) {
 .all {
@@ -242,6 +267,10 @@ margin-left: 4px;
   z-index: 1;
   height: 143px;
   margin: 194px 65px 0 0;
+}
+
+#esternDRC {
+  text-transform: none;
 }
 
 .alligator.subclass {
@@ -319,7 +348,7 @@ margin-left: 4px;
 }
 
 .gorilla {
-  margin: 0 8% 4% 3%;
+  margin: 25px 26px 18px -6px;
 }
 
 .panda.subclass {
@@ -378,14 +407,59 @@ margin-left: 4px;
 .tooltiptext > p {
   margin: 5px 23px;
 }
+
+.zoom {
+  margin-top: 518px;
+}
   }
 
-@media screen and (max-width: 1160px) and (min-width: 641px) {
-
+  @media screen and (max-width: 639px) and (min-width: 321px) {
+    .all {
+      transform: translateX(0);
+    }
+    .animals-icons {
+      width: 639px;
+    }
   }
+
+  @media screen and (max-width: 1060px) and (min-width: 641px) {
+  .tooltiptext.panda-tooltext {
+      right: 100%!important;
+    }
+
+    .tooltiptext.panda-tooltext::after {
+      content: " ";
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      margin-top: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent transparent #70CB0E;
+    }    
+
+    .all {
+      transform: translateX(0);
+    }
+
+  .zoom {
+    margin-top: 518px;
+  }
+  } 
 
 @media screen and (max-width: 1200px) and (min-width: 1061px) {
-  
+  #esternDRC {
+    text-transform: none;
+    margin-left: 20px;
+  }
+
+  .eagle {
+    margin: -1px 1px -4px -1px;
+  }
+
+  .panda {
+    margin: -4px 1px -2px 2px;
+  }
   }
 
 
