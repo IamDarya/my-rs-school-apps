@@ -273,9 +273,18 @@ border-radius: 15% 15% 0 0;
   text-transform: none;
 }
 
+.pozition-icon {
+  transform: scale(0.8);
+  margin-top: -8px;
+}
+
+.alligator {
+  margin-left: 54px;
+}
+
 .alligator.subclass {
   margin-top: -13px;
-  margin-left: 59px;
+  margin-left: 5px;
 }
 
 .pozition-icon.gorilla-icon {
@@ -339,7 +348,7 @@ border-radius: 15% 15% 0 0;
   }
 
   .animals-icons {
-    width: 100%;
+    width: 640px;
     z-index: 2;
     margin: 221px 0 0 0;
   }
