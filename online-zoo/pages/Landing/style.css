@@ -1115,7 +1115,7 @@ flex-wrap: wrap;
 }
   }  
 
-@media screen and (max-width: 599px) and (min-width: 441px) {
+@media screen and (max-width: 616px) and (min-width: 441px) {
 
   .header-list {
     margin-left: 0px;
@@ -1165,12 +1165,13 @@ flex-wrap: wrap;
   }
   
 .content {
-  width: 93.3%;
+  width: 97.3%;
 }  
 
 /* ***********landing*********** */
 .landing {
   background: url("../../assets/images/LandingBackground-tablet.png");
+  background-position-x: 30%;
 }
 
 .navigation-logo {
@@ -1183,6 +1184,7 @@ flex-wrap: wrap;
 
 .watch-animal > p {
   line-height: 60px;
+  margin-left: 10px;
 }
 
 .watch-animal {
@@ -1190,6 +1192,7 @@ flex-wrap: wrap;
   width: 414px;
   height: 281px;
   margin-top: 71px;
+  margin-left: 11px;
 }
 
 .button1 {
@@ -1255,9 +1258,7 @@ flex-wrap: wrap;
 .arrows {
   margin: 112px 0 0 84px;
 }
-.icon-pay-and-feed {
-  margin-bottom: -35px;
-}
+
 .icon-pay-and-feed > p {
   width: 192px;
   margin-top: 232px;
@@ -1268,6 +1269,10 @@ flex-wrap: wrap;
   width: 640px;
   justify-content: center;
   margin-left: 0;
+}
+
+.icon-pay-and-feed.panda-with-bamboo {
+  margin-top: -24px;
 }
 
 .arrow-img {
@@ -1406,7 +1411,7 @@ flex-wrap: wrap;
 
   }
 
-@media screen and (max-width: 830px) and (min-width:641px) {
+@media screen and (max-width: 850px) and (min-width:641px) {
 .reviews {
   grid-template-columns: 187px 187px 187px!important;
 }
@@ -1466,7 +1471,7 @@ flex-wrap: wrap;
 
   }    
 
-@media screen and (max-width: 1000px) and (min-width:641px) {
+@media screen and (max-width: 1009px) and (min-width:641px) {
   .content {
     width: 97.3%;
 }
@@ -1594,6 +1599,7 @@ flex-wrap: wrap;
 .icons-rewiew {
   margin-top: -15px;
   width: 156px;
+  margin-left: 19px;
 }
 
 .icon-reviewer-1, 
@@ -1621,7 +1627,7 @@ flex-wrap: wrap;
 }
 }
 
-@media screen and (max-width: 1101px) and (min-width:1001px) {
+@media screen and (max-width: 1119px) and (min-width:1008px) {
   .content {
     width: 97.3%;
 }

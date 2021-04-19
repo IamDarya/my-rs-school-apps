@@ -226,9 +226,9 @@ margin-left: 4px;
 .zoom {
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: fixed;
   right: 20px;
-  margin-top: 662px;
+  margin-bottom: 100px;
   box-shadow: 3px 3px 15px rgb(174, 178, 180);
 }
 
@@ -282,6 +282,20 @@ border-radius: 15% 15% 0 0;
   margin-left: -10%;
   margin-top: -22px;
 }
+
+.zoom {
+  margin-bottom: -519px;
+}
+  }
+
+  @media screen and (max-width: 639px) and (min-width: 321px) {
+    .all {
+      transform: translateX(0);
+    }
+    .animals-icons {
+      width: 639px;
+    }
+
   }
 
 @media screen and (max-width: 640px) and (min-width: 321px)  {
@@ -409,20 +423,11 @@ border-radius: 15% 15% 0 0;
 }
 
 .zoom {
-  margin-top: 518px;
+  margin-top: 618px;
 }
   }
 
-  @media screen and (max-width: 639px) and (min-width: 321px) {
-    .all {
-      transform: translateX(0);
-    }
-    .animals-icons {
-      width: 639px;
-    }
-  }
-
-  @media screen and (max-width: 1060px) and (min-width: 641px) {
+  @media screen and (max-width: 1105px) and (min-width: 641px) {
   .tooltiptext.panda-tooltext {
       right: 100%!important;
     }
@@ -459,6 +464,10 @@ border-radius: 15% 15% 0 0;
 
   .panda {
     margin: -4px 1px -2px 2px;
+  }
+
+  .zoom {
+    margin-bottom: 206px;
   }
   }
 
