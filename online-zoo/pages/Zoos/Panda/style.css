@@ -279,7 +279,7 @@ width: 100%;
   }
 
 .button4.button-mobile {
-    display: block;
+    display: block!important;
     width: 100%;
     margin-bottom: 20px;
   }
