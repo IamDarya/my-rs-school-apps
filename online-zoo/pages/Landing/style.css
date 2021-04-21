@@ -933,7 +933,7 @@ flex-wrap: wrap;
 
 }
 
-  @media screen and (max-width: 440px) and (min-width: 321px) {
+  @media screen and (max-width: 480px) and (min-width: 321px) {
     .photos-links-to-map {
       grid-template-columns: repeat(2, 140px)!important;
       grid-template-rows: repeat(2, 300px)!important;
