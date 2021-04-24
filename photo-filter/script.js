@@ -3,6 +3,7 @@ const resetBtn = document.querySelector('.btn-reset');
 const nextPicBtn = document.querySelector('.btn-next');
 const loadBtn = document.querySelector('input[type="file"]');
 const saveBtn = document.querySelector('.btn-save');
+const btnContainer = document.querySelectorAll('.btn')
 const canvas = document.querySelector('canvas'); 
 const imgContainer = document.getElementById('default-img');
 
@@ -51,7 +52,6 @@ function drawImage() {
     const ctx = canvas.getContext("2d");
     const coeff = canvas.height /imgContainer.height;
     ctx.filter = `blur(${coeff * blur}px) invert(${invert}%) sepia(${sepia}%) saturate(${saturate}%) hue-rotate(${hue}deg)`;
-    console.log(canvas.width);
     ctx.drawImage(img, 0, 0);
     var link = document.createElement('a');
     link.download = "download.png";
@@ -107,6 +107,15 @@ resetBtn.addEventListener('click', function(){
     document.documentElement.style.setProperty(`--${input.name}`, input.value + measure);
   });
 });
+
+btnContainer.forEach(btn => btn.addEventListener('click', function() {
+  for(let i = 0; i < btnContainer.length; i++) {
+    if(btnContainer[i].classList.contains('btn-active')) {
+      btnContainer[i].classList.remove('btn-active');
+    }
+  }
+  btn.classList.add('btn-active');
+}));
 
 // *********FULLSCREEN*********
 
