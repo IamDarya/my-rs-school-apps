@@ -5,6 +5,13 @@ const loadBtn = document.querySelector('input[type="file"]');
 const saveBtn = document.querySelector('.btn-save');
 const canvas = document.querySelector('canvas'); 
 const imgContainer = document.getElementById('default-img');
+
+let blur = document.querySelector('input[name=blur]').value;
+let invert = document.querySelector('input[name=invert]').value;
+let sepia = document.querySelector('input[name=sepia]').value;
+let saturate = document.querySelector('input[name=saturate]').value;
+let hue = document.querySelector('input[name=hue]').value;
+
 let calcForNextImgBtn = 0;
 
 function filterUpdate () {
@@ -12,6 +19,12 @@ function filterUpdate () {
   document.documentElement.style.setProperty(`--${this.name}`, this.value + measure);
   let outputSize = document.querySelector(`.${this.name}`);
   outputSize.value = this.value
+
+blur = document.querySelector('input[name=blur]').value;
+invert = document.querySelector('input[name=invert]').value;
+sepia = document.querySelector('input[name=sepia]').value;
+saturate = document.querySelector('input[name=saturate]').value;
+hue = document.querySelector('input[name=hue]').value;
 }
 
 function changeSRC (src) {
@@ -36,8 +49,10 @@ function drawImage() {
     canvas.width = img.width;
     canvas.height = img.height;
     const ctx = canvas.getContext("2d");
+    const coeff = canvas.height /imgContainer.height;
+    ctx.filter = `blur(${coeff * blur}px) invert(${invert}%) sepia(${sepia}%) saturate(${saturate}%) hue-rotate(${hue}deg)`;
+    console.log(canvas.width);
     ctx.drawImage(img, 0, 0);
-
     var link = document.createElement('a');
     link.download = "download.png";
     link.href = canvas.toDataURL('image/png')
@@ -91,4 +106,18 @@ resetBtn.addEventListener('click', function(){
     const measure = input.dataset.sizing;
     document.documentElement.style.setProperty(`--${input.name}`, input.value + measure);
   });
+});
+
+// *********FULLSCREEN*********
+
+const fullscreen = document.querySelector('.fullscreen');
+
+fullscreen.addEventListener("click", function() {
+  if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
 });
