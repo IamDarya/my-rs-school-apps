@@ -5,6 +5,7 @@ const loadBtn = document.querySelector('input[type="file"]');
 const saveBtn = document.querySelector('.btn-save');
 const btnContainer = document.querySelectorAll('.btn')
 const canvas = document.querySelector('canvas'); 
+let active = nextPicBtn;
 const imgContainer = document.getElementById('default-img');
 
 let blur = document.querySelector('input[name=blur]').value;
@@ -63,11 +64,13 @@ function drawImage() {
 
 saveBtn.addEventListener('click', function(e) {
 drawImage();
+ActiveStyleBtn(saveBtn);
 });
 
 
 nextPicBtn.addEventListener('click', function(){
   const date = new Date().getHours();
+  ActiveStyleBtn(nextPicBtn);
   if(date >= 6 && date < 12) {
     document.getElementById('default-img').src = 
     changeSRC('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/morning/');
@@ -90,6 +93,7 @@ loadBtn.addEventListener('change', function(e) {
   const file = loadBtn.files[0];
   const reader = new FileReader();
   reader.onload = () => {
+    ActiveStyleBtn(document.querySelector('.btn-load'));
     document.getElementById('default-img').src = reader.result;
     imgContainer.innerHTML = "";
   }
@@ -101,6 +105,7 @@ inputs.forEach(input => input.addEventListener('change', filterUpdate));
 inputs.forEach(input => input.addEventListener('mousemove', filterUpdate));
 
 resetBtn.addEventListener('click', function(){
+  ActiveStyleBtn(resetBtn);
   document.getElementById('filters').reset();
   inputs.forEach(function (input) {
     const measure = input.dataset.sizing;
@@ -108,14 +113,13 @@ resetBtn.addEventListener('click', function(){
   });
 });
 
-btnContainer.forEach(btn => btn.addEventListener('click', function() {
-  for(let i = 0; i < btnContainer.length; i++) {
-    if(btnContainer[i].classList.contains('btn-active')) {
-      btnContainer[i].classList.remove('btn-active');
-    }
-  }
-  btn.classList.add('btn-active');
-}));
+// btnContainer.forEach(btn => btn.addEventListener('mouseup', ActiveStyleBtn));
+
+function ActiveStyleBtn(btn) {
+  active.classList.remove('btn-active');
+  active = btn;
+  active.classList.add('btn-active');
+}
 
 // *********FULLSCREEN*********
 
