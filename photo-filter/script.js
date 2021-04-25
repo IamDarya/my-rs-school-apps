@@ -13,6 +13,8 @@ let invert = document.querySelector('input[name=invert]').value;
 let sepia = document.querySelector('input[name=sepia]').value;
 let saturate = document.querySelector('input[name=saturate]').value;
 let hue = document.querySelector('input[name=hue]').value;
+let contrast = document.querySelector('input[name=contrast]').value;
+let brightness = document.querySelector('input[name=contrast]').value;
 
 let calcForNextImgBtn = 0;
 
@@ -27,6 +29,8 @@ invert = document.querySelector('input[name=invert]').value;
 sepia = document.querySelector('input[name=sepia]').value;
 saturate = document.querySelector('input[name=saturate]').value;
 hue = document.querySelector('input[name=hue]').value;
+contrast = document.querySelector('input[name=contrast]').value;
+brightness = document.querySelector('input[name=brightness]').value;
 }
 
 function changeSRC (src) {
@@ -52,7 +56,8 @@ function drawImage() {
     canvas.height = img.height;
     const ctx = canvas.getContext("2d");
     const coeff = canvas.height /imgContainer.height;
-    ctx.filter = `blur(${coeff * blur}px) invert(${invert}%) sepia(${sepia}%) saturate(${saturate}%) hue-rotate(${hue}deg)`;
+    ctx.filter = `blur(${coeff * blur}px) invert(${invert}%) sepia(${sepia}%) saturate(${saturate}%) hue-rotate(${hue}deg) contrast(${contrast}%) brightness(${brightness}%)`;
+    console.log(`contrast(${contrast}%)`);
     ctx.drawImage(img, 0, 0);
     var link = document.createElement('a');
     link.download = "download.png";
