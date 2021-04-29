@@ -253,7 +253,7 @@
       </select>
       </div>
 <div class="amount-and-currency">
-      <input type="number" id="amount" placeholder="Amount" max="9999" required>
+      <input type="text" id="amount" placeholder="Amount" maxlength="4" required>
 
         <select class="currency-selector">
           <option data-symbol="$" selected>USD</option>
@@ -265,7 +265,28 @@
       <label for="text-feedback"></label>
       <textarea id="text-feedback" placeholder="Your text here:" maxlength="280" required></textarea>
 
-      <button class="button button2 button5 invalid" id="send" type="button">Next</button>
+      <button class="button button2 button5 invalid" id="send" type="submit">Next</button>
+    </form>
+   </div>
+  </div>
+
+
+  <div class="card-info hidden" id="card-info">
+    <button class="button" id="close-card"><img src="../../assets/icons/close.png" alt="close"></button>
+    <div class="all-elements-popup card">
+    <form action="">
+<div class="front-card">
+    <input type="text" id="card-number" placeholder="Card Number" maxlength="16" required>
+    <input type="number" id="mm" placeholder="MM" min="1" max="12" required>
+    <input type="number" id="yy" placeholder="YY" min="2000" max="2030" required>
+    <input type="text" id="cardholder-name" placeholder="Cardholder Name" required>
+</div>
+
+<div class="back-card">
+      <input type="text" id="cvc" placeholder="CVC" minlength="3" maxlength="3" required>
+    </div>
+
+      <button class="button button2 button5 button6 invalid" id="send-card" type="submit">Donate</button>
     </form>
    </div>
   </div>
