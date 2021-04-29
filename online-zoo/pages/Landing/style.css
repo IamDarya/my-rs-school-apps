@@ -13,6 +13,10 @@ body {
   margin: 0;
 }
 
+body.notScrollable {
+  overflow: hidden;
+}
+
 a {
 	text-decoration: none;
 	color: #000000;
@@ -675,6 +679,239 @@ margin: 0px;
 	justify-content: space-between;
 	width: 788px;
 }
+
+ /* ******POP UPS****** */
+
+ .all.blur {
+ filter: blur(2px);
+ }
+ .cover {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  opacity: 1;
+  z-index: 10;
+}
+
+.all-elements-popup {
+  display: flex;
+  flex-direction: column;
+  width: 470px;
+  height: 239px;
+  text-align: center;
+}
+
+#close {
+  padding: 0;
+  background: transparent;
+  align-self: flex-end;
+  margin: 16px 15px 11px 0;
+}
+
+#close:hover {
+  transform: scale(1.08);
+  filter: drop-shadow(4px 3px 2px rgb(50, 73, 52));
+}
+.form-feedback {
+  width: 630px;
+  height: 339px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: fixed;
+  z-index: 100;
+
+  top: calc(50vh - 250px);
+  left: calc(50vw - 313px);
+
+  background-color: white;
+}
+
+#text-feedback {
+  width: 458px;
+  height: 72px;
+  border: solid 1px #9ca498;
+  resize: none;
+}
+#text-feedback:focus {
+  outline: none;
+}
+textarea {
+  padding: 5px;
+  font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 19px;
+}
+
+#send {
+  background-color: #70CB0E;
+}
+
+#send.invalid {
+  background-color: #dadcceb6;
+}
+
+#send.invalid:hover {
+  font-size: 18px;
+}
+
+
+.hidden {
+  display: none;
+}
+
+#amount {
+  width: 303px;
+  height: 35px;
+  text-align: center;
+  border: solid 1px;
+  border-color: #9ca498;
+}
+
+#amount:focus {
+  outline: none;
+  text-align: center;
+}
+
+input[type='number'] {
+  font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 19px;
+display: flex;
+align-items: center;
+text-align: center;
+}
+
+.currency-selector {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 159px;
+  padding-left: 14%;
+  border: solid 1px #9ca498;
+  appearance: none;
+  color: inherit;
+  cursor: pointer;
+  height: 39px;
+}
+
+.currency-selector:hover {
+  background-color: #9ca49823;
+}
+
+.currency-selector:focus {
+  outline: none;
+}
+
+select {
+  font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 19px;
+}
+
+.grey-for-choose-animal {
+  color: #9ca498;
+}
+
+.amount-and-currency {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0 8px 0;
+}
+
+button.button2.button5 {
+  width: 168px;
+  height: 40px;
+  margin-top: 20px;
+}
+
+/* .animals-select {
+  width: 470px;
+  height: 39px;
+  background-color: #DFF5B0;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #000000;
+  text-align-last: center;
+} */
+
+.custom-select {
+  position: relative;
+  font-family: Arial;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element: */
+}
+
+.select-selected {
+  background-color: #DFF5B0;
+  border: solid 1px;
+  border-color: #9ca498;
+}
+
+/* Style the arrow inside the select element: */
+.select-selected:after {
+  position: absolute;
+  content: url('../../assets/icons/slide-button.png');
+  top: 7px;
+  right: 15px;
+  border: 6px solid transparent;
+}
+
+/* Point the arrow upwards when the select box is open (active): */
+.select-selected.select-arrow-active:after {
+  top: 7px;
+  transform: rotate(180deg);
+}
+
+/* style the items (options), including the selected item: */
+.select-items div,.select-selected {
+  cursor: pointer;
+  text-align-last: center;
+  padding: 10px 0 11px 0;
+}
+
+/* Style items (options): */
+.select-items {
+  position: absolute;
+  background-color: #DFF5B0;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  border: solid 1px;
+  border-color: #9ca498;
+  border-top: none;
+}
+
+/* Hide the items when the select box is closed: */
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color:#70CB0E;
+}
+
+
 @media screen and (max-width: 320px) {
   
   .content {

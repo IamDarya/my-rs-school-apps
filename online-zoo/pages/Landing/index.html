@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    <div class="wrapper">
   <div class="all">
     <div class="landing">
         <header>
@@ -26,6 +27,7 @@
                 </ul>
             </div>
         </header>
+
         <div class="content">
             <div class="watch-animal">
                 <h1>Online zoo</h1>
@@ -234,6 +236,41 @@
     </div>
 
 </div>
+</div>
+
+<div class="form-feedback hidden" id="form-feedback">
+    <button class="button" id="close"><img src="../../assets/icons/close.png" alt="close"></button>
+    <div class="all-elements-popup">
+    <form action="">
+      <label for="animals"></label>
+      <div class="custom-select">
+      <select id="animals-select" class="animals-select">
+        <option value="Choose animal">Choose animal...</option>
+        <option value="Alligator">Alligator</option>
+        <option value="Panda">Panda</option>
+        <option value="Eagle">Eagle</option>
+        <option value="Gorilla">Gorilla</option>
+      </select>
+      </div>
+<div class="amount-and-currency">
+      <input type="number" id="amount" placeholder="Amount" max="9999" required>
+
+        <select class="currency-selector">
+          <option data-symbol="$" selected>USD</option>
+          <option data-symbol="€">EUR</option>
+          <option data-symbol="$">AUD</option>
+        </select>
+</div>
+
+      <label for="text-feedback"></label>
+      <textarea id="text-feedback" placeholder="Your text here:" maxlength="280" required></textarea>
+
+      <button class="button button2 button5 invalid" id="send" type="button">Next</button>
+    </form>
+   </div>
+  </div>
+
+<div class="cover hidden" id="cover"></div>
     <script src="script.js"></script>
 </body>
 
