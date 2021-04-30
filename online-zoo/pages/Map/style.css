@@ -1,20 +1,29 @@
 body {
   margin: 0px;
+  overflow-x: hidden;
 }
 
 header {
   background-color: #a7e1ff;
+  z-index: 2;
+  position: relative;
 }
 
-.all
- {
- 	display: flex;
- 	background-color: #A7E1FF;
- 	flex-direction: column;
- }
+.all {
+  display: flex;
+  background-color: #A7E1FF;
+  flex-direction: column;
+}
+
+.wrapper {
+  height: 945px;
+  overflow: hidden;
+  position: relative;
+}
+
 .map {
-/*  background-size: cover;*/
- 	background-color: #A7E1FF;
+  /*  background-size: cover;*/
+  background-color: #A7E1FF;
   background-repeat: no-repeat;
 
   height: 945px;
@@ -23,138 +32,141 @@ header {
   align-items: center;
   align-self: center;
   justify-content: center;
-  background-position-y: center; 
+  background-position-y: center;
 }
 
 #map {
-  text-shadow: 
-  -1px 1px 0 #70CB0E,
-  1px 1px 0 #70CB0E,
-  1px -1px 0 #70CB0E,
-  -1px -1px 0 #70CB0E;
+  text-shadow:
+      -1px 1px 0 #70CB0E,
+      1px 1px 0 #70CB0E,
+      1px -1px 0 #70CB0E,
+      -1px -1px 0 #70CB0E;
 }
 
-#map > a {
-	cursor: default;
+#map>a {
+  cursor: default;
 }
 
-.map-picture {
-	display: flex;
+#map-picture {
+  zoom: 100%;
 }
 
 .countries {
-	position: absolute;
-	display: flex;
-	justify-content: space-between;
-	align-items: end;
-	width: 673px;
-	height: 188px;
-	margin: 193px 86px 0 0;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  width: 673px;
+  height: 188px;
+  margin: 193px 86px 0 0;
+  z-index: 1;
 }
+
 #china {
-	text-transform: none;
-	margin-top: 2%;
+  text-transform: none;
+  margin-top: 2%;
 }
 
 #esternDRC {
-	align-self: flex-end;
-	width: 61px;
+  align-self: flex-end;
+  width: 61px;
 }
 
 .animals-icons {
-display: flex;
-    width: 1026px;
-    height: 173px;
-    position: absolute;
-    justify-content: space-between;
-    margin: 221px 90px 0 0;
+  display: flex;
+  width: 1026px;
+  height: 173px;
+  position: absolute;
+  justify-content: space-between;
+  margin: 221px 90px 0 0;
+  z-index: 3;
 }
 
 .icon-map-animals {
-	width: 64px;
-	height: 64px;
-	    border: 2px;
-    border-color: #ffffff;
-    border-style: solid;
-    border-radius: 50%;
-    box-sizing: border-box;    
+  width: 64px;
+  height: 64px;
+  border: 2px;
+  border-color: #ffffff;
+  border-style: solid;
+  border-radius: 50%;
+  box-sizing: border-box;
 }
 
 .icon-map-animals:hover {
-    border: 4px;
-    border-color: #70CB0E;
-    border-style: solid;
-    border-radius: 50%;
-        transition: all 0.2s ease;
+  border: 4px;
+  border-color: #70CB0E;
+  border-style: solid;
+  border-radius: 50%;
+  transition: all 0.2s ease;
 }
 
 .pozition-icon.gorilla-icon {
-	margin-left: -7%;
+  margin-left: -7%;
 }
 
 .pozition-icon {
-	height: 35px;
-	width: 27px;
+  height: 35px;
+  width: 27px;
 }
 
 .subclass {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .alligator-gorilla {
-	display: flex;
-	justify-content: space-between;
-	width: 521px;
+  display: flex;
+  justify-content: space-between;
+  width: 521px;
 }
 
 .gorilla {
-	align-self: flex-end;
+  align-self: flex-end;
 }
 
 .eagle,
 .alligator,
 .gorilla,
 .panda {
-	display: flex;
-	justify-content: space-between;
-    height: fit-content;
+  display: flex;
+  justify-content: space-between;
+  height: fit-content;
 }
 
 .eagle.subclass {
-	width: 123px;
+  width: 123px;
 }
 
 .gorilla.subclass {
-	width: 139px;
+  width: 139px;
 }
 
 .panda.subclass {
-	width: 124px;
-	margin-top: 12px;
+  width: 124px;
+  margin-top: 12px;
 }
 
 .alligator.subclass {
-	width: 161px;
-	margin-top: 4%;
+  width: 161px;
+  margin-top: 4%;
 }
 
 
-.countries > p,
-.eagle > p,
-.alligator > p,
-.gorilla > p,
-.panda > p {
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 16px;
-line-height: 19px;
-/* identical to box height */
-text-align: center;
-text-transform: uppercase;
-margin: 0px;
+.countries>p,
+.eagle>p,
+.alligator>p,
+.gorilla>p,
+.panda>p {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0px;
 }
 
 
@@ -164,11 +176,11 @@ margin: 0px;
 }
 
 .tooltip .tooltiptext {
-	font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 16px;
-line-height: 19px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
   visibility: hidden;
   width: 111px;
   height: 47px;
@@ -182,7 +194,7 @@ line-height: 19px;
 }
 
 .tooltip .tooltiptext::after {
-   content: "";
+  content: "";
   position: absolute;
   top: 50%;
   right: 100%;
@@ -190,13 +202,14 @@ line-height: 19px;
   border-width: 5px;
   border-style: solid;
   border-color: transparent #70CB0E transparent transparent;
- }
+}
 
- .tooltip.eagle .tooltiptext::after {
+.tooltip.eagle .tooltiptext::after {
   content: " ";
   position: absolute;
   top: 50%;
-  left: 100%; /* To the right of the tooltip */
+  left: 100%;
+  /* To the right of the tooltip */
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
@@ -212,14 +225,14 @@ line-height: 19px;
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
-margin-left: 4px;
+  margin-left: 4px;
 }
 
 .button.button2.button4.watch-online {
   display: none;
 }
 
-.tooltiptext > p {
+.tooltiptext>p {
   margin: 2.6px;
 }
 
@@ -228,8 +241,9 @@ margin-left: 4px;
   flex-direction: column;
   position: fixed;
   right: 20px;
-  margin-bottom: 100px;
+  bottom: 320px;
   box-shadow: 3px 3px 15px rgb(174, 178, 180);
+  z-index: 10;
 }
 
 .zoom-button {
@@ -241,207 +255,216 @@ margin-left: 4px;
 }
 
 .zoom-button.minus {
-border-radius: 15% 15% 0 0;
+  border-radius: 15% 15% 0 0;
 }
 
 .zoom-button.plus {
   border-radius: 0 0 15% 15%;
 }
 
+.footer {
+  z-index: 2;
+  position: relative;
+}
+
 
 @media screen and (max-width: 320px) {
-.all {
-  transform: translateX(0);
-}
-
-.map {
-  margin-left: 73.8%;
-  height: 800px;
-}
-
-.map-picture {
-  transform: scale(0.8);
-}
-
-.countries {
-  z-index: 1;
-  height: 143px;
-  margin: 194px 65px 0 0;
-}
-
-#esternDRC {
-  text-transform: none;
-}
-
-.pozition-icon {
-  transform: scale(0.8);
-  margin-top: -8px;
-}
-
-.alligator {
-  margin-left: 54px;
-}
-
-.alligator.subclass {
-  margin-top: -13px;
-  margin-left: 5px;
-}
-
-.pozition-icon.gorilla-icon {
-  margin-left: -10%;
-  margin-top: -22px;
-}
-
-.zoom {
-  margin-bottom: -519px;
-}
-  }
-
-  @media screen and (max-width: 639px) and (min-width: 321px) {
-    .all {
-      transform: translateX(0);
-    }
-    .animals-icons {
-      width: 639px;
-    }
-
-  }
-
-@media screen and (max-width: 640px) and (min-width: 321px)  {
   .all {
-    transform: translateX(0);
+      transform: translateX(0);
   }
-  
-  .navigation-logo {
-    width: 89%;
-    align-self: end;
-    margin-left: 20px;
- }
-
- .header-list {
-   margin-left: 15px!important;
- }
 
   .map {
-    height: 800px;
-    width: 100%;
-    overflow-x: hidden;
+      margin-left: 73.8%;
+      height: 800px;
   }
+
   .map-picture {
-    transform: scale(0.95);
-    height: 800px;
+      transform: scale(0.8);
   }
 
   .countries {
-    z-index: 1;
-    width: 532px;
-    height: 195px;
+      z-index: 1;
+      height: 143px;
+      margin: 194px 65px 0 0;
   }
 
   #esternDRC {
-    padding: 0 0 27px 19px;
-    text-transform: none;
-  }
-
-  #china {
-    margin-top: 17px;
-  }
-
-  .animals-icons {
-    width: 640px;
-    z-index: 2;
-    margin: 221px 0 0 0;
-  }
-
-  .alligator-gorilla {
-    width: 100%;
-  }
-
-  .eagle {
-    display: none;
-  }
-
-  .alligator {
-    margin-left: 13.9%;
-    align-self: stretch;
-  }
-
-.alligator.subclass {
-  margin: -7% 0 0 0;
-}
-
-.gorilla {
-  margin: 25px 26px 18px -6px;
-}
-
-.panda.subclass {
-  width: 124px;
-  margin: -18px -75px 0 0;
-}
-
-.tooltip.panda .tooltiptext::after {
-  content: " ";
-  position: absolute;
-  top: 50%;
-  left: 100%; /* To the right of the tooltip */
-  margin-top: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent transparent #70CB0E;
-}
-
-.tooltip.panda .tooltiptext {
-  position: absolute;
-  z-index: 1;
-  top: -5px;
-  right: 105%;
-}
-
-.pozition-icon.gorilla-icon {
-  align-self: center;
-}
-  .button4.button2 {
-    width: 207px;
+      text-transform: none;
   }
 
   .pozition-icon {
-    height: 26px;
-    width: 21px;
-}
-
-.logo-button-in-footer.tablet {
-  margin-right: 0;
-}
-
-.button.button2.button4.watch-online {
-  display: inline;
-  width: 147px;
-  height: 40px;
-  background: #FFB600;
- border-radius: 30px;
-}
-
-.tooltip .tooltiptext {
-  width: 169px;
-  height: 100px;
-  margin-top: -24px;
-}
-
-.tooltiptext > p {
-  margin: 5px 23px;
-}
-
-.zoom {
-  margin-top: 618px;
-}
+      transform: scale(0.8);
+      margin-top: -8px;
   }
 
-  @media screen and (max-width: 1105px) and (min-width: 641px) {
-  .tooltiptext.panda-tooltext {
-      right: 100%!important;
-    }
+  .alligator {
+      margin-left: 54px;
+  }
 
-    .tooltiptext.panda-tooltext::after {
+  .alligator.subclass {
+      margin-top: -13px;
+      margin-left: 5px;
+  }
+
+  .pozition-icon.gorilla-icon {
+      margin-left: -10%;
+      margin-top: -22px;
+  }
+
+  .zoom {
+      margin-bottom: -519px;
+  }
+}
+
+@media screen and (max-width: 639px) and (min-width: 321px) {
+  .all {
+      transform: translateX(0);
+  }
+
+  .animals-icons {
+      width: 639px;
+  }
+
+}
+
+@media screen and (max-width: 640px) and (min-width: 321px) {
+  .all {
+      transform: translateX(0);
+  }
+
+  .navigation-logo {
+      width: 89%;
+      align-self: end;
+      margin-left: 20px;
+  }
+
+  .header-list {
+      margin-left: 15px !important;
+  }
+
+  .map {
+      height: 800px;
+      width: 100%;
+      overflow-x: hidden;
+  }
+
+  .map-picture {
+      transform: scale(0.95);
+      height: 800px;
+  }
+
+  .countries {
+      z-index: 1;
+      width: 532px;
+      height: 195px;
+  }
+
+  #esternDRC {
+      padding: 0 0 27px 19px;
+      text-transform: none;
+  }
+
+  #china {
+      margin-top: 17px;
+  }
+
+  .animals-icons {
+      width: 640px;
+      z-index: 2;
+      margin: 221px 0 0 0;
+  }
+
+  .alligator-gorilla {
+      width: 100%;
+  }
+
+  .eagle {
+      display: none;
+  }
+
+  .alligator {
+      margin-left: 13.9%;
+      align-self: stretch;
+  }
+
+  .alligator.subclass {
+      margin: -7% 0 0 0;
+  }
+
+  .gorilla {
+      margin: 25px 26px 18px -6px;
+  }
+
+  .panda.subclass {
+      width: 124px;
+      margin: -18px -75px 0 0;
+  }
+
+  .tooltip.panda .tooltiptext::after {
+      content: " ";
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      /* To the right of the tooltip */
+      margin-top: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent transparent #70CB0E;
+  }
+
+  .tooltip.panda .tooltiptext {
+      position: absolute;
+      z-index: 1;
+      top: -5px;
+      right: 105%;
+  }
+
+  .pozition-icon.gorilla-icon {
+      align-self: center;
+  }
+
+  .button4.button2 {
+      width: 207px;
+  }
+
+  .pozition-icon {
+      height: 26px;
+      width: 21px;
+  }
+
+  .logo-button-in-footer.tablet {
+      margin-right: 0;
+  }
+
+  .button.button2.button4.watch-online {
+      display: inline;
+      width: 147px;
+      height: 40px;
+      background: #FFB600;
+      border-radius: 30px;
+  }
+
+  .tooltip .tooltiptext {
+      width: 169px;
+      height: 100px;
+      margin-top: -24px;
+  }
+
+  .tooltiptext>p {
+      margin: 5px 23px;
+  }
+
+  .zoom {
+      margin-top: 618px;
+  }
+}
+
+@media screen and (max-width: 1105px) and (min-width: 641px) {
+  .tooltiptext.panda-tooltext {
+      right: 100% !important;
+  }
+
+  .tooltiptext.panda-tooltext::after {
       content: " ";
       position: absolute;
       top: 50%;
@@ -450,35 +473,32 @@ border-radius: 15% 15% 0 0;
       border-width: 5px;
       border-style: solid;
       border-color: transparent transparent transparent #70CB0E;
-    }    
+  }
 
-    .all {
+  .all {
       transform: translateX(0);
-    }
+  }
 
   .zoom {
-    margin-top: 518px;
+      margin-top: 518px;
   }
-  } 
+}
 
 @media screen and (max-width: 1200px) and (min-width: 1061px) {
+
   #esternDRC {
-    text-transform: none;
-    margin-left: 20px;
+      text-transform: none;
+      margin-left: 20px;
   }
 
   .eagle {
-    margin: -1px 1px -4px -1px;
+      margin: -1px 1px -4px -1px;
   }
 
   .panda {
-    margin: -4px 1px -2px 2px;
+      margin: -4px 1px -2px 2px;
   }
-
-  .zoom {
-    margin-bottom: 206px;
-  }
-  }
+}
 
 
 
