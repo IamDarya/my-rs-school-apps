@@ -60,10 +60,11 @@ zoomInButton.addEventListener('click', () => {
     mapImage.style.zoom = '120%';
   }
   else {
-    if (`${mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1) * 1.1}%` === '233.8457%') {
+    console.log(`${parseInt(mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1), 10) + 10}%`);
+    if (`${parseInt(mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1), 10) + 10}%` === '200%') {
       return;
     }
-    mapImage.style.zoom = `${mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1) * 1.1}%`;
+    mapImage.style.zoom = `${parseInt(mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1), 10) + 10}%`;
 }
 });
 
@@ -73,11 +74,11 @@ zoomOutButton.addEventListener('click', () => {
     mapImage.style.zoom = '80%';
   }
   else {
-    console.log(`${mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1) * 1.1}%`);
-    if (`${mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1) * 1.1}%` === '54.64107%') {
+    console.log(`${mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1) - 10}%`);
+    if (`${mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1) -10}%` === '50%') {
       return;
     }
-    mapImage.style.zoom = `${mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1) / 1.1}%`;
+    mapImage.style.zoom = `${mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1) -10}%`;
 }
 });
 
