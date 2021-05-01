@@ -140,11 +140,44 @@ justify-items: center;
 }
 
 .playlist {
-	display: flex;
-	justify-content: space-between;
+	display: grid;
+  grid-template-columns: repeat(7, 275px);
+  grid-template-rows: repeat(1, auto);
+  justify-content: space-between;
+  width: 100%;
+  grid-gap: 20px;
 }
 
-.playlist > iframe {
+#carousel {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+#carousel::-webkit-scrollbar {
+  height: 0;
+}
+
+.video-sliders {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.sliders.button {
+  width: 45px;
+  height: 45px;
+}
+
+.slid-right {
+  transform: rotate(90deg);
+}
+
+.slid-left {
+  transform: rotate(-90deg);
+}
+
+.video-item > iframe {
 	width: 275px;
 	height: 155px;
 }

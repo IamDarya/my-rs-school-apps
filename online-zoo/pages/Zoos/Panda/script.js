@@ -30,7 +30,98 @@ textToClick.forEach(event => event.addEventListener('click', hideOrOpenInfo));
 sliders.forEach(event => event.addEventListener('click', hideOrOpenInfoSlider));
 
 
+// *******CAROUSEL********
 
+const gap = 20;
+
+const carousel = document.getElementById("carousel"),
+  content = document.getElementById("content"),
+  next = document.getElementById("slider-right"),
+  prev = document.getElementById("slider-left");
+
+next.addEventListener("click", e => {
+  carousel.scrollBy(width + gap, 0);
+  if (carousel.scrollWidth !== 0) {
+          prev.style.opacity = "1";
+  }
+  if (content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+    next.style.opacity = "0";
+  }
+});
+prev.addEventListener("click", e => {
+  carousel.scrollBy(-(width + gap), 0);
+  if (carousel.scrollLeft - width - gap <= 0) {
+    prev.style.opacity = "0";
+  }
+  if (!content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+          next.style.opacity = "1";
+  }
+});
+
+let width = carousel.offsetWidth;
+window.addEventListener("resize", e => (width = carousel.offsetWidth));
+
+
+
+
+let slideType = 'all';
+let slideIndex = 0;
+let slideCoefficient = 4;
+let videoWidth = document.querySelector('.video-item').offsetWidth;
+window.addEventListener('resize', (e) => {
+  width = carousel.offsetWidth;
+  videoWidth = document.querySelector('img').offsetWidth;
+});
+
+  const slideFunc = () => {
+    slideIndex += slideType === 'all' ? slideCoefficient : 1;
+    if (slideIndex > 0) {
+        prev.style.opacity = "1";
+    }
+    if (slideIndex >= 4) {
+      next.style.opacity = '0';
+    }
+    if (slideIndex > 4) {
+      if (!(slideIndex < 7 && slideType === 'all')) {
+        slideIndex = 0;
+      }
+      prev.style.opacity = "0";
+      next.style.opacity = '1';
+    }
+    carousel.scrollTo((videoWidth + gap) * slideIndex, 0);
+  }
+  
+  let autoSlideInterval = setInterval(slideFunc, 3000);
+  let autoSlideTimeout = null;
+  
+  const delayAutoSliding = () => {
+    clearTimeout(autoSlideTimeout);
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = null;
+  
+    autoSlideTimeout = setTimeout(() => {
+      clearInterval(autoSlideInterval);
+      autoSlideInterval = setInterval(slideFunc, 3000);
+    }, 6000);
+  }
+  
+  carousel.addEventListener('click', delayAutoSliding);
+
+// *****SWITCH VIDEOS*****
+
+// const videos = document.querySelectorAll('.video-item');
+// document.addEventListener("click", (event) => {
+//     console.log(event);
+// });
+// function videoSwitch(elem) {
+//     console.log(elem.target);
+// }
+// videos.forEach(elem => elem.addEventListener('click', videoSwitch));
+
+// window.addEventListener("load", () => {
+//     let iframe = document.getElementById("1");
+//     console.log(iframe);
+// });
 
 // *****POP UPS*****
 
@@ -153,7 +244,6 @@ cvc.addEventListener('input', () => {
     validateCard();
   }
   else {
-    console.log(cvc.value);
     cvc.value = cvc.value.slice(0, -1);
   }
 });
