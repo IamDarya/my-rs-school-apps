@@ -182,7 +182,7 @@ line-height: 19px;
 
 .collapsible {
     background-color: #a7e1ff;
-    /* cursor: pointer; */
+    cursor: pointer;
     padding: 18px;
     width: 570px;
     border: none;

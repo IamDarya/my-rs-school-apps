@@ -1,9 +1,9 @@
 // *******INFO BLOCK(COLLAPSIBLE)********
 const textToClick = document.querySelectorAll('.collapsible');
+const sliders = document.querySelectorAll('.slider');
 
 function hideOrOpenInfo(event) {
     let e = event.target.id;
-    console.log(document.getElementById(`slider-${e.slice(0, e.length -8)}`));
     if(document.getElementById(`content-${e.slice(0, e.length-8)}`).classList.contains('hidden')) {
         document.getElementById(`content-${e.slice(0, e.length-8)}`).classList.remove('hidden');
         document.getElementById(`slider-${e.slice(0, e.length -8)}`).classList.add('transform');
@@ -14,7 +14,20 @@ function hideOrOpenInfo(event) {
     }
 }
 
+function hideOrOpenInfoSlider(event) {
+    let e = event.target.id;
+    if(document.getElementById(`content-${e.slice(7, e.length)}`).classList.contains('hidden')) {
+        document.getElementById(`content-${e.slice(7, e.length)}`).classList.remove('hidden');
+        document.getElementById(`slider-${e.slice(7, e.length)}`).classList.add('transform');
+    }
+    else {
+        document.getElementById(`content-${e.slice(7, e.length)}`).classList.add('hidden');
+        document.getElementById(`slider-${e.slice(7, e.length)}`).classList.remove('transform');
+    }
+}
+
 textToClick.forEach(event => event.addEventListener('click', hideOrOpenInfo));
+sliders.forEach(event => event.addEventListener('click', hideOrOpenInfoSlider));
 
 
 
