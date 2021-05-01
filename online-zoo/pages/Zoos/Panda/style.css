@@ -228,8 +228,13 @@ position: absolute;
     background-color: #FFE68E;
     border-radius: 50%;
     border: none;
-    margin-top: 63px;
+    margin-top: 28px;
     margin-right: 20px;
+    transform: rotate(180deg);
+}
+
+.transform {
+  transform: rotate(0deg);
 }
 
 .sliders-div {
