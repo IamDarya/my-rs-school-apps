@@ -64,31 +64,31 @@
                 <div class="info-interactive-all">
                     <div class="info-interactive left">
                         <div class="sliders-div">
-                            <button type="button" class="collapsible">Population</button>
-                            <button class="slider button"><img src="../../../assets/icons/slide-top.png" alt="Sorry, something went wrong."></button>
+                            <button type="button" id="first-collaps" class="collapsible">Population</button>
+                            <button id="slider-first" class="slider button population-slider"><img id="slider-first" src="../../../assets/icons/slide-top.png" alt="Sorry, something went wrong."></button>
                         </div>
-                        <div class="contentz">
+                        <div id="content-first" class="contentz population hidden">
                             <p>The eastern plains gorilla has a population of 17,000.</p>
                         </div>
                         <div class="sliders-div">
-                            <button type="button" class="collapsible">Nutrition</button>
-                            <button class="slider button"><img src="../../../assets/icons/slide-top.png" alt="Sorry, something went wrong."></button>
+                            <button type="button" id="second-collaps" class="collapsible">Nutrition</button>
+                            <button id="slider-second" class="slider button nutrition-slider"><img id="slider-second" src="../../../assets/icons/slide-top.png" alt="Sorry, something went wrong."></button>
                         </div>
-                        <div class="contentz">
+                        <div id="content-second" class="contentz nutrition hidden">
                             <p>The basis of gorilla food is plant food. From the plants used, wild celery, bedstraw, nettle, bamboo shoots, blue pygeum fruits can be distinguished. Fruits and nuts are an addition to the main diet, while animal food (insects) is a small part of the menu.</p>
                         </div>
                     </div>
                     <div class="info-interactive right">
-                        <div class="sliders-div"><button type="button" class="collapsible">Habitat</button>
-                            <button class="slider button"><img src="../../../assets/icons/slide-top.png" alt="Sorry, something went wrong."></button>
+                        <div class="sliders-div"><button type="button" id="third-collaps" class="collapsible">Habitat</button>
+                            <button id="slider-third" class="slider button"><img id="slider-third" src="../../../assets/icons/slide-top.png" alt="Sorry, something went wrong."></button>
                         </div>
-                        <div class="contentz">
+                        <div id="content-third" class="contentz hidden">
                             <p>The natural habitat of gorillas covers tropical or subtropical forests in sub – Saharan Africa.</p>
                         </div>
-                        <div class="sliders-div"> <button type="button" class="collapsible">Interesting facts</button>
-                            <button class="slider button"><img src="../../../assets/icons/slide-top.png" alt="Sorry, something went wrong."></button>
+                        <div class="sliders-div"><button type="button" id="fourth-collaps" class="collapsible">Interesting facts</button>
+                            <button id="slider-fourth" class="slider button"><img id="slider-fourth" src="../../../assets/icons/slide-top.png" alt="Sorry, something went wrong."></button>
                         </div>
-                        <div class="contentz">
+                        <div id="content-fourth" class="contentz hidden">
                             <p>The DNA of gorillas is strongly similar to that of humans, 95 to 99% depending on what is included, and they are the next closest living relatives of humans after chimpanzees and bonobos.</p>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
             <div class="top-navigation-of-footer">
                 <div class="logo-button-in-footer">
                     <a href="../../Landing/index.html" target="_blank"><img alt="Sorry, something went wrong"  class="logo-footer" src="../../../assets/icons/logo.svg"></a>
-                    <a target="_blank"><button class="button button2 button4">Donate for volunteers</button></a>
+                    <a target="_blank"><button id="button4" class="button button2 button4">Donate for volunteers</button></a>
                 </div>
                 <div class="ab-map-cont-feedb-all">
                     <div class="ab-map-cont-feedb"><a href="../../Landing/index.html" target="_blank">About</a><a href="../../Map/index.html" target="_blank">Map</a></div>
@@ -180,6 +180,60 @@
 
     </div>
 
+
+    <div class="form-feedback hidden" id="form-feedback">
+        <button class="button" id="close"><img src="../../../assets/icons/close.png" alt="close"></button>
+        <div class="all-elements-popup">
+            <form action="">
+                <label for="animals"></label>
+                <div class="custom-select">
+                    <select id="animals-select" class="animals-select">
+                        <option value="Choose animal">Choose animal...</option>
+                        <option value="Alligator">Alligator</option>
+                        <option value="Panda">Panda</option>
+                        <option value="Eagle">Eagle</option>
+                        <option value="Gorilla">Gorilla</option>
+                    </select>
+                </div>
+                <div class="amount-and-currency">
+                    <input type="text" id="amount" placeholder="Amount" maxlength="4" required>
+
+                    <select class="currency-selector">
+                        <option data-symbol="$" selected>USD</option>
+                        <option data-symbol="€">EUR</option>
+                        <option data-symbol="$">AUD</option>
+                    </select>
+                </div>
+
+                <label for="text-feedback"></label>
+                <textarea id="text-feedback" placeholder="Your text here:" maxlength="280" required></textarea>
+
+                <button class="button button2 button5 invalid" id="send" type="submit">Next</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card-info hidden" id="card-info">
+        <button class="button" id="close-card"><img src="../../../assets/icons/close.png" alt="close"></button>
+        <div class="all-elements-popup card">
+            <form action="">
+                <div class="front-card">
+                    <input type="text" id="card-number" placeholder="Card Number" maxlength="16" required>
+                    <input type="number" id="mm" placeholder="MM" min="1" max="12" required>
+                    <input type="number" id="yy" placeholder="YY" min="2000" max="2030" required>
+                    <input type="text" id="cardholder-name" placeholder="Cardholder Name" required>
+                </div>
+
+                <div class="back-card">
+                    <input type="text" id="cvc" placeholder="CVC" minlength="3" maxlength="3" required>
+                </div>
+
+                <button class="button button2 button5 button6 invalid" id="send-card" type="submit">Donate</button>
+            </form>
+        </div>
+    </div>
+    <div class="cover hidden" id="cover"></div>
+    <script src="script.js"></script>
 </body>
 
 </html>
