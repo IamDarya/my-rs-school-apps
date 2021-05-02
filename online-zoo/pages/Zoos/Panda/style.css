@@ -133,7 +133,65 @@ justify-items: center;
 	height: 653px;
 	width: -webkit-fill-available;
 	margin: 80px 0 20px 0;
+  border: none;
 }
+
+.video-item > svg {
+  width: 68px;
+  height: 58px;
+  opacity: 0.9;
+}
+.video-item > svg >path:hover {
+fill: red;
+}
+
+#first {
+background-image: url("https://i.ytimg.com/vi/65JHo3Cy2tY/default_live.jpg");
+}
+#second {
+background-image: url("https://i.ytimg.com/vi/v_cpPMjE0vU/default.jpg");  
+}
+#third {
+background-image: url("https://i.ytimg.com/vi_webp/yYp_Shk7XcI/default.webp");  
+}
+#fourth {
+background-image: url("https://i.ytimg.com/vi/65JHo3Cy2tY/default_live.jpg");  
+}
+#fifth {
+ background-image: url("https://i.ytimg.com/vi_webp/dqT-UlYlg1s/default.webp"); 
+}
+#sixth {
+ background-image: url("https://i.ytimg.com/vi/65JHo3Cy2tY/default_live.jpg"); 
+}
+#seventh {
+  background-image: url("https://i.ytimg.com/vi/D0eqnda8dOk/default_live.jpg");
+}
+#eight{
+  background-image: url("https://i.ytimg.com/vi/65JHo3Cy2tY/default_live.jpg");
+}
+
+#first,
+#second,
+#third,
+#fourth,
+#fifth,
+#sixth,
+#seventh,
+#eight {
+  width: 275px;
+  height: 155px;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.inactive {
+  display: none!important;
+}
+  
+
 
 .button.button2.button4.button-mobile {
   display: none;
