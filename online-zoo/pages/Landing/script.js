@@ -45,6 +45,257 @@ const getPos = function(current, active) {
 
 //*sliders PETS IN ZOO*//
 
+// var slideIndex = 1;
+// showSlides(slideIndex);
+
+// function plusSlides(n) {
+//   showSlides(slideIndex += n);
+// }
+
+// function currentSlide(n) {
+//   showSlides(slideIndex = n);
+// }
+
+// function showSlides(n) {
+//   var i;
+//   var slides = document.getElementsByClassName("mySlides");
+//   var dots = document.getElementsByClassName("dot");
+//   if (n > slides.length) {slideIndex = 1}    
+//   if (n < 1) {slideIndex = slides.length}
+//   for (i = 0; i < slides.length; i++) {
+//       slides[i].style.display = "none";  
+//   }
+//   for (i = 0; i < dots.length; i++) {
+//       dots[i].className = dots[i].className.replace(" active", "");
+//   }
+//   slides[slideIndex-1].style.display = "grid";  
+// }
+
+// const next = document.getElementById("slider-right");
+// const prev = document.getElementById("slider-left");
+
+// next.addEventListener("click", e => {
+// plusSlides(1);
+//      });
+//      prev.addEventListener("click", e => {
+// plusSlides(-1);
+//      });
+
+     //////////////////////////////////////////////
+
+     let items = document.querySelectorAll('.carousel-pets-in-zoo .item');
+     let currentItem = 0;
+     let isEnabled = true;
+     
+     function changeCurrentItem(n) {
+         currentItem = (n + items.length) % items.length;
+     }
+     
+     function hideItem(direction) {
+         isEnabled = false;
+         items[currentItem].classList.add(direction);
+         items[currentItem].addEventListener('animationend', function() {
+             this.classList.remove('active', direction);
+         });
+     }
+     
+     function showItem(direction) {
+         items[currentItem].classList.add('next', direction);
+         items[currentItem].addEventListener('animationend', function() {
+             this.classList.remove('next', direction);
+             this.classList.add('active');
+             isEnabled = true;
+         });
+     }
+     
+     function nextItem(n) {
+         hideItem('to-left');
+         changeCurrentItem(n + 1);
+         showItem('from-right');
+     }
+     
+     function previousItem(n) {
+         hideItem('to-right');
+         changeCurrentItem(n - 1);
+         showItem('from-left');
+     }
+     
+     document.getElementById('slider-left').addEventListener('click', function() {
+         if (isEnabled) {
+             previousItem(currentItem);
+         }
+     });
+     
+     document.getElementById('slider-right').addEventListener('click', function() {
+         if (isEnabled) {
+             nextItem(currentItem);
+         }
+     });
+     
+     const swipedetect = (el) => {
+       
+         let surface = el;
+         let startX = 0;
+         let startY = 0;
+         let distX = 0;
+         let distY = 0;
+         let startTime = 0;
+         let elapsedTime = 0;
+     
+         let threshold = 150;
+         let restraint = 100;
+         let allowedTime = 300;
+     
+         surface.addEventListener('mousedown', function(e){
+             startX = e.pageX;
+             startY = e.pageY;
+             startTime = new Date().getTime();
+             e.preventDefault();
+         }, false);
+     
+         surface.addEventListener('mouseup', function(e){
+             distX = e.pageX - startX;
+             distY = e.pageY - startY;
+             elapsedTime = new Date().getTime() - startTime;
+             if (elapsedTime <= allowedTime){
+                 if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint){
+                     if ((distX > 0)) {
+                         if (isEnabled) {
+                             previousItem(currentItem);
+                         }
+                     } else {
+                         if (isEnabled) {
+                             nextItem(currentItem);
+                         }
+                     }
+                 }
+             }
+             e.preventDefault();
+         }, false);
+     
+         surface.addEventListener('touchstart', function(e){
+             if (e.target.classList.contains('arrow') || e.target.classList.contains('control')) {
+                 if (e.target.classList.contains('left')) {
+                     if (isEnabled) {
+                         previousItem(currentItem);
+                     }
+                 } else {
+                     if (isEnabled) {
+                         nextItem(currentItem);
+                     }
+                 }
+             }
+                 var touchobj = e.changedTouches[0];
+                 startX = touchobj.pageX;
+                 startY = touchobj.pageY;
+                 startTime = new Date().getTime();
+                 e.preventDefault();
+         }, false);
+     
+         surface.addEventListener('touchmove', function(e){
+                 e.preventDefault();
+         }, false);
+     
+         surface.addEventListener('touchend', function(e){
+                 var touchobj = e.changedTouches[0];
+                 distX = touchobj.pageX - startX;
+                 distY = touchobj.pageY - startY;
+                 elapsedTime = new Date().getTime() - startTime;
+                 if (elapsedTime <= allowedTime){
+                         if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint){
+                                 if ((distX > 0)) {
+                                     if (isEnabled) {
+                                         previousItem(currentItem);
+                                     }
+                                 } else {
+                                     if (isEnabled) {
+                                         nextItem(currentItem);
+                                     }
+                                 }
+                         }
+                 }
+                 e.preventDefault();
+         }, false);
+     }
+     
+     var el = document.querySelector('.carousel');
+     swipedetect(el);
+
+// const gap = 20;
+
+// const carousel = document.getElementById("carousel"),
+//   content = document.getElementById("content"),
+//   next = document.getElementById("slider-right"),
+//   prev = document.getElementById("slider-left");
+
+// next.addEventListener("click", e => {
+//   carousel.scrollBy(width + gap, 0);
+//   if (carousel.scrollWidth !== 0) {
+//           prev.style.opacity = "1";
+//   }
+//   if (content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+//     next.style.opacity = "0";
+//   }
+// });
+// prev.addEventListener("click", e => {
+//   carousel.scrollBy(-(width + gap), 0);
+//   if (carousel.scrollLeft - width - gap <= 0) {
+//     prev.style.opacity = "0";
+//   }
+//   if (!content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+//           next.style.opacity = "1";
+//   }
+// });
+
+// let width = carousel.offsetWidth;
+// window.addEventListener("resize", e => (width = carousel.offsetWidth));
+
+
+
+
+// let slideType = 'all';
+// let slideIndex = 0;
+// let slideCoefficient = 4;
+// let videoWidth = document.getElementById('content').offsetWidth;
+// window.addEventListener('resize', (e) => {
+//   width = carousel.offsetWidth;
+//   videoWidth = document.querySelector('img').offsetWidth;
+// });
+
+//   const slideFunc = () => {
+//     slideIndex += slideType === 'all' ? slideCoefficient : 1;
+//     if (slideIndex > 0) {
+//         prev.style.opacity = "1";
+//     }
+//     if (slideIndex >= 4) {
+//       next.style.opacity = '0';
+//     }
+//     if (slideIndex > 4) {
+//       if (!(slideIndex < 8 && slideType === 'all')) {
+//         slideIndex = 0;
+//       }
+//       prev.style.opacity = "0";
+//       next.style.opacity = '1';
+//     }
+//     carousel.scrollTo((videoWidth + gap) * slideIndex, 0);
+//   }
+  
+//   let autoSlideInterval = setInterval(slideFunc, 3000);
+//   let autoSlideTimeout = null;
+  
+//   const delayAutoSliding = () => {
+//     clearTimeout(autoSlideTimeout);
+//     clearInterval(autoSlideInterval);
+//     autoSlideInterval = null;
+  
+//     autoSlideTimeout = setTimeout(() => {
+//       clearInterval(autoSlideInterval);
+//       autoSlideInterval = setInterval(slideFunc, 3000);
+//     }, 6000);
+//   }
+  
+//   carousel.addEventListener('click', delayAutoSliding);
+
 // *****POP UPS*****
 
 const coverElem = document.getElementById('cover');
