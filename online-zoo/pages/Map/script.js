@@ -18,13 +18,13 @@ const calculateCoords = (e, elem) => {
 
 const moveAt = (e) => {
   if (mapImage.style.position !== "absolute") {mapImage.style.position = "absolute";}
-  mapImage.style.left = e.pageX - leftIndent + 'px';
+  mapImage.style.left = e.pageX - leftIndent + 0.1 + 'px';
   if (e.pageX >= wrapper.offsetWidth) {
     stopDrag();
   } else if (e.pageX <= 0) {
     stopDrag();
   }
-  mapImage.style.top = e.pageY - (80 - pageYOffset) - topIndent + 'px';
+  mapImage.style.top = e.pageY - (79.9 - pageYOffset) - topIndent + 'px';
 }
 
 const stopDrag = () => {

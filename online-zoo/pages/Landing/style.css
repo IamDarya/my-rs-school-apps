@@ -11,6 +11,7 @@
 
 body {
   margin: 0;
+  overflow-x: hidden;
 }
 
 body.notScrollable {
@@ -331,6 +332,15 @@ margin: 0px;
    }
 /* *****carousel PETS IN ZOO***** */
 
+#carousel {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+#carousel::-webkit-scrollbar {
+  height: 0;
+}
 /*****Pets In Zoo*****/
 .pets-in-zoo-block {
   background-color: #ffffff;
@@ -354,10 +364,111 @@ margin: 0px;
 }
 
 .photos-links-to-map {
-	display: grid;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(1, auto);
+  justify-content: space-between;
+  grid-gap:0px 5px;
+  scroll-behavior: smooth;
+}
+
+.mySlides{
+	  display: none;
     grid-template-columns: repeat(4, 233px);
     grid-template-rows: repeat(2, 300px);
+    justify-content: space-between;
+    width: 992px;
     grid-gap: 25px 20px;
+    scroll-behavior: smooth;
+}
+
+.carousel-pets-in-zoo::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.carousel-pets-in-zoo {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.carousel-pets-in-zoo {
+  position: absolute;
+  transform: translate(-39%, -50%);
+  overflow-x: clip;
+}
+
+.items-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.item {
+  display: none;
+  position: relative;
+  animation: 0.5s ease-in-out;
+  margin: 0 auto;
+}
+
+.active,
+.next {
+  display: grid;
+}
+
+.next {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.arrow.right {
+  right: 50%;
+}
+
+.to-left {
+  animation-name: left;
+}
+
+.from-right {
+  animation-name: right;
+}
+
+.to-right {
+  animation-name: right;
+  animation-direction: reverse;
+}
+
+.from-left {
+  animation-name: left;
+  animation-direction: reverse;
+}
+
+#slider-right {
+  position: relative;
+  left: 500px;
+}
+#slider-left {
+  position: relative; 
+  right: 500px;
+}
+
+@keyframes left {
+  from {
+    left: 0;
+  }
+  to {
+    left: -100%;
+  }
+}
+
+@keyframes right {
+  from {
+    left: 100%;
+  }
+  to {
+    left: 0;
+  }
 }
 
 .pets-in-zoo-photo-with-sliders {
