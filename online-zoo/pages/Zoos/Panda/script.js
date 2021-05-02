@@ -36,8 +36,8 @@ const gap = 20;
 
 const carousel = document.getElementById("carousel"),
   content = document.getElementById("content"),
-  next = document.getElementById("slider-right"),
-  prev = document.getElementById("slider-left");
+  next = document.getElementById("slider-right-video"),
+  prev = document.getElementById("slider-left-video");
 
 next.addEventListener("click", e => {
   carousel.scrollBy(width + gap, 0);
@@ -60,8 +60,6 @@ prev.addEventListener("click", e => {
 
 let width = carousel.offsetWidth;
 window.addEventListener("resize", e => (width = carousel.offsetWidth));
-
-
 
 
 let slideType = 'all';
@@ -102,26 +100,37 @@ window.addEventListener('resize', (e) => {
     autoSlideTimeout = setTimeout(() => {
       clearInterval(autoSlideInterval);
       autoSlideInterval = setInterval(slideFunc, 3000);
-    }, 6000);
+    }, 3000);
   }
   
   carousel.addEventListener('click', delayAutoSliding);
 
 // *****SWITCH VIDEOS*****
 
-// const videos = document.querySelectorAll('.video-item');
-// document.addEventListener("click", (event) => {
-//     console.log(event);
-// });
-// function videoSwitch(elem) {
-//     console.log(elem.target);
-// }
-// videos.forEach(elem => elem.addEventListener('click', videoSwitch));
+const videos = document.querySelectorAll('.video-item');
 
-// window.addEventListener("load", () => {
-//     let iframe = document.getElementById("1");
-//     console.log(iframe);
-// });
+let inactive = document.querySelector('.inactive');
+
+function videoSwitch(elem) {
+  inactive.classList.remove('inactive');
+  elem.currentTarget.classList.add('inactive');
+  inactive = elem.currentTarget;
+    document.querySelector('.youtube-big').classList.add('inactive');
+        prepareFrame();
+    function prepareFrame() {
+      var ifrm = document.createElement("iframe");
+      ifrm.setAttribute("src", `${elem.currentTarget.dataset.video}`);
+      ifrm.classList.add('youtube-big');
+      document.querySelector('.youtube-block-all').insertBefore(ifrm, document.querySelector('.youtube-block-all').children[0]);
+  }
+
+    document.getElementsByTagName('iframe').src = elem.currentTarget.dataset.video;
+    console.log(document.getElementsByTagName('iframe').src, 'big vid' );
+    console.log(elem.currentTarget.dataset.video,'small vid');
+}
+
+videos.forEach(elem => elem.addEventListener('click', videoSwitch));
+
 
 // *****POP UPS*****
 
