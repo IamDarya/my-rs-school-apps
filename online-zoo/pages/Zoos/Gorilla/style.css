@@ -141,6 +141,31 @@ justify-items: center;
 	height: 155px;
 }
 
+#first {
+  background-image: url("https://i.ytimg.com/vi_webp/SNuZ4OE6vCk/sddefault.webp")!important;
+  }
+  #second {
+  background-image: url("https://i.ytimg.com/vi_webp/ODyB9i6bGwQ/maxresdefault.webp")!important;  
+  }
+  #third {
+  background-image: url("https://i.ytimg.com/vi/w5ZXH1VkILY/sddefault.jpg")!important;  
+  }
+  #fourth {
+  background-image: url("https://i.ytimg.com/vi/pYrj-3kMUHw/maxresdefault.jpg")!important;  
+  }
+  #fifth {
+   background-image: url("https://i.ytimg.com/vi_webp/gR6MeFFzqQ8/sddefault.webp")!important; 
+  }
+  #sixth {
+    background-image: url("https://i.ytimg.com/vi_webp/rHhSCO5-3Pg/maxresdefault.webp")!important; 
+  }
+  #seventh {
+    background-image: url("https://i.ytimg.com/vi_webp/iDaHPi8HOGA/maxresdefault.webp")!important;
+  }
+  #eight{
+    background-image: url("https://i.ytimg.com/vi/672cUSe69J0/hqdefault_live.jpg")!important;
+  }
+
 .info-block {
 	display: flex;
 	flex-direction: column;

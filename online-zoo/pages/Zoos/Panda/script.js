@@ -30,7 +30,7 @@ textToClick.forEach(event => event.addEventListener('click', hideOrOpenInfo));
 sliders.forEach(event => event.addEventListener('click', hideOrOpenInfoSlider));
 
 
-// *******CAROUSEL********
+//*******CAROUSEL********
 
 const gap = 20;
 
@@ -88,22 +88,26 @@ window.addEventListener('resize', (e) => {
     }
     carousel.scrollTo((videoWidth + gap) * slideIndex, 0);
   }
-  
+
   let autoSlideInterval = setInterval(slideFunc, 3000);
   let autoSlideTimeout = null;
   
   const delayAutoSliding = () => {
-    clearTimeout(autoSlideTimeout);
-    clearInterval(autoSlideInterval);
-    autoSlideInterval = null;
+  clearTimeout(autoSlideTimeout);
+  clearInterval(autoSlideInterval);
+  autoSlideInterval = null;
   
-    autoSlideTimeout = setTimeout(() => {
-      clearInterval(autoSlideInterval);
-      autoSlideInterval = setInterval(slideFunc, 3000);
-    }, 3000);
+  autoSlideTimeout = setTimeout(() => {
+   clearInterval(autoSlideInterval);
+   autoSlideInterval = setInterval(slideFunc, 3000);
+  }, 3500);
   }
   
-  carousel.addEventListener('click', delayAutoSliding);
+  document.querySelector('.playlist').addEventListener('mouseover', delayAutoSliding)
+  
+  document.getElementById('slider-left-video').addEventListener('mouseover', delayAutoSliding);
+  document.getElementById('slider-right-video').addEventListener('mouseover', delayAutoSliding);
+
 
 // *****SWITCH VIDEOS*****
 
@@ -112,8 +116,8 @@ const videos = document.querySelectorAll('.video-item');
 let inactive = document.querySelector('.inactive');
 
 function videoSwitch(elem) {
-  inactive.classList.remove('inactive');
   elem.currentTarget.classList.add('inactive');
+  inactive.classList.remove('inactive');
   inactive = elem.currentTarget;
     document.querySelector('.youtube-big').classList.add('inactive');
         prepareFrame();
@@ -128,7 +132,6 @@ function videoSwitch(elem) {
 }
 
 videos.forEach(elem => elem.addEventListener('click', videoSwitch));
-
 
 // *****POP UPS*****
 

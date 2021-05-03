@@ -107,7 +107,7 @@ const getPos = function(current, active) {
          let threshold = 150;
          let restraint = 100;
          let allowedTime = 300;
-     
+         console.log(surface);
          surface.addEventListener('mousedown', function(e){
              startX = e.pageX;
              startY = e.pageY;
