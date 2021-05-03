@@ -488,5 +488,6 @@ sendButtonSec.addEventListener('click', (s) => {
   document.body.classList.remove('notScrollable');
   coverElem.classList.add('hidden');
   document.querySelector('.all').classList.remove('blur');
-  setTimeout(function(){ alert("Thank you for your generous donation!"); }, 500);
+  formElemSec.classList.add('hidden');
+  setTimeout(function(){ alert("We are so grateful for your kind words. Thanks for sharing your review with us and the community!"); }, 500);
 });
