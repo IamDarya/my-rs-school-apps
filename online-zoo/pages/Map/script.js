@@ -12,19 +12,19 @@ let leftIndent = 0;
 
 const calculateCoords = (e, elem) => {
   var box = elem.getBoundingClientRect();
-  topIndent = e.pageY - box.top + pageYOffset;
-  leftIndent = e.pageX - box.left + pageXOffset;
+  topIndent = e.pageY - box.top;
+  leftIndent = e.pageX - box.left;
 }
 
 const moveAt = (e) => {
   if (mapImage.style.position !== "absolute") {mapImage.style.position = "absolute";}
-  mapImage.style.left = e.pageX - leftIndent + 0.1 + 'px';
+  mapImage.style.left = e.pageX - leftIndent + 'px';
   if (e.pageX >= wrapper.offsetWidth) {
     stopDrag();
   } else if (e.pageX <= 0) {
     stopDrag();
   }
-  mapImage.style.top = e.pageY - (79.9 - pageYOffset) - topIndent + 'px';
+  mapImage.style.top = e.pageY - (80 - pageYOffset) - topIndent + 'px';
 }
 
 const stopDrag = () => {
@@ -60,8 +60,7 @@ zoomInButton.addEventListener('click', () => {
     mapImage.style.zoom = '120%';
   }
   else {
-    console.log(`${parseInt(mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1), 10) + 10}%`);
-    if (`${parseInt(mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1), 10) + 10}%` === '200%') {
+    if (`${parseInt(mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1), 10) + 10}%` === '250%') {
       return;
     }
     mapImage.style.zoom = `${parseInt(mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1), 10) + 10}%`;
@@ -75,7 +74,7 @@ zoomOutButton.addEventListener('click', () => {
   }
   else {
     console.log(`${mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1) - 10}%`);
-    if (`${mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1) -10}%` === '50%') {
+    if (`${mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1) -10}%` === '70%') {
       return;
     }
     mapImage.style.zoom = `${mapImage.style.zoom.slice(0, mapImage.style.zoom.length-1) -10}%`;
