@@ -30,107 +30,108 @@ textToClick.forEach(event => event.addEventListener('click', hideOrOpenInfo));
 sliders.forEach(event => event.addEventListener('click', hideOrOpenInfoSlider));
 
 
-// *******CAROUSEL********
+//*******CAROUSEL********
 
-// const gap = 20;
+const gap = 20;
 
-// const carousel = document.getElementById("carousel"),
-//   content = document.getElementById("content"),
-//   next = document.getElementById("slider-right-video"),
-//   prev = document.getElementById("slider-left-video");
+const carousel = document.getElementById("carousel"),
+  content = document.getElementById("content"),
+  next = document.getElementById("slider-right-video"),
+  prev = document.getElementById("slider-left-video");
 
-// next.addEventListener("click", e => {
-//   carousel.scrollBy(width + gap, 0);
-//   if (carousel.scrollWidth !== 0) {
-//           prev.style.opacity = "1";
-//   }
-//   if (content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
-//     next.style.opacity = "0";
-//   }
-// });
-// prev.addEventListener("click", e => {
-//   carousel.scrollBy(-(width + gap), 0);
-//   if (carousel.scrollLeft - width - gap <= 0) {
-//     prev.style.opacity = "0";
-//   }
-//   if (!content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
-//           next.style.opacity = "1";
-//   }
-// });
+next.addEventListener("click", e => {
+  carousel.scrollBy(width + gap, 0);
+  if (carousel.scrollWidth !== 0) {
+          prev.style.opacity = "1";
+  }
+  if (content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+    next.style.opacity = "0";
+  }
+});
+prev.addEventListener("click", e => {
+  carousel.scrollBy(-(width + gap), 0);
+  if (carousel.scrollLeft - width - gap <= 0) {
+    prev.style.opacity = "0";
+  }
+  if (!content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+          next.style.opacity = "1";
+  }
+});
 
-// let width = carousel.offsetWidth;
-// window.addEventListener("resize", e => (width = carousel.offsetWidth));
+let width = carousel.offsetWidth;
+window.addEventListener("resize", e => (width = carousel.offsetWidth));
 
 
-// let slideType = 'all';
-// let slideIndex = 0;
-// let slideCoefficient = 4;
-// let videoWidth = document.querySelector('.video-item').offsetWidth;
-// window.addEventListener('resize', (e) => {
-//   width = carousel.offsetWidth;
-//   videoWidth = document.querySelector('img').offsetWidth;
-// });
+let slideType = 'all';
+let slideIndex = 0;
+let slideCoefficient = 4;
+let videoWidth = document.querySelector('.video-item').offsetWidth;
+window.addEventListener('resize', (e) => {
+  width = carousel.offsetWidth;
+  videoWidth = document.querySelector('img').offsetWidth;
+});
 
-//   const slideFunc = () => {
-//     slideIndex += slideType === 'all' ? slideCoefficient : 1;
-//     if (slideIndex > 0) {
-//         prev.style.opacity = "1";
-//     }
-//     if (slideIndex >= 4) {
-//       next.style.opacity = '0';
-//     }
-//     if (slideIndex > 4) {
-//       if (!(slideIndex < 7 && slideType === 'all')) {
-//         slideIndex = 0;
-//       }
-//       prev.style.opacity = "0";
-//       next.style.opacity = '1';
-//     }
-//     carousel.scrollTo((videoWidth + gap) * slideIndex, 0);
-//   }
+  const slideFunc = () => {
+    slideIndex += slideType === 'all' ? slideCoefficient : 1;
+    if (slideIndex > 0) {
+        prev.style.opacity = "1";
+    }
+    if (slideIndex >= 4) {
+      next.style.opacity = '0';
+    }
+    if (slideIndex > 4) {
+      if (!(slideIndex < 7 && slideType === 'all')) {
+        slideIndex = 0;
+      }
+      prev.style.opacity = "0";
+      next.style.opacity = '1';
+    }
+    carousel.scrollTo((videoWidth + gap) * slideIndex, 0);
+  }
+
+  let autoSlideInterval = setInterval(slideFunc, 3000);
+  let autoSlideTimeout = null;
   
-//   let autoSlideInterval = setInterval(slideFunc, 3000);
-//   let autoSlideTimeout = null;
+  const delayAutoSliding = () => {
+  clearTimeout(autoSlideTimeout);
+  clearInterval(autoSlideInterval);
+  autoSlideInterval = null;
   
-//   const delayAutoSliding = () => {
-//     clearTimeout(autoSlideTimeout);
-//     clearInterval(autoSlideInterval);
-//     autoSlideInterval = null;
+  autoSlideTimeout = setTimeout(() => {
+   clearInterval(autoSlideInterval);
+   autoSlideInterval = setInterval(slideFunc, 3000);
+  }, 3500);
+  }
   
-//     autoSlideTimeout = setTimeout(() => {
-//       clearInterval(autoSlideInterval);
-//       autoSlideInterval = setInterval(slideFunc, 3000);
-//     }, 3000);
-//   }
+  document.querySelector('.playlist').addEventListener('mouseover', delayAutoSliding)
   
-//   carousel.addEventListener('click', delayAutoSliding);
+  document.getElementById('slider-left-video').addEventListener('mouseover', delayAutoSliding);
+  document.getElementById('slider-right-video').addEventListener('mouseover', delayAutoSliding);
+
 
 // *****SWITCH VIDEOS*****
 
-// const videos = document.querySelectorAll('.video-item');
+const videos = document.querySelectorAll('.video-item');
 
-// let inactive = document.querySelector('.inactive');
+let inactive = document.querySelector('.inactive');
 
-// function videoSwitch(elem) {
-//   inactive.classList.remove('inactive');
-//   elem.currentTarget.classList.add('inactive');
-//   inactive = elem.currentTarget;
-//     document.querySelector('.youtube-big').classList.add('inactive');
-//         prepareFrame();
-//     function prepareFrame() {
-//       var ifrm = document.createElement("iframe");
-//       ifrm.setAttribute("src", `${elem.currentTarget.dataset.video}`);
-//       ifrm.classList.add('youtube-big');
-//       document.querySelector('.youtube-block-all').insertBefore(ifrm, document.querySelector('.youtube-block-all').children[0]);
-//   }
+function videoSwitch(elem) {
+  elem.currentTarget.classList.add('inactive');
+  inactive.classList.remove('inactive');
+  inactive = elem.currentTarget;
+    document.querySelector('.youtube-big').classList.add('inactive');
+        prepareFrame();
+    function prepareFrame() {
+      var ifrm = document.createElement("iframe");
+      ifrm.setAttribute("src", `${elem.currentTarget.dataset.video}`);
+      ifrm.classList.add('youtube-big');
+      document.querySelector('.youtube-block-all').insertBefore(ifrm, document.querySelector('.youtube-block-all').children[0]);
+  }
 
-//     document.getElementsByTagName('iframe').src = elem.currentTarget.dataset.video;
-//     console.log(document.getElementsByTagName('iframe').src, 'big vid' );
-//     console.log(elem.currentTarget.dataset.video,'small vid');
-// }
+    document.getElementsByTagName('iframe').src = elem.currentTarget.dataset.video;
+}
 
-// videos.forEach(elem => elem.addEventListener('click', videoSwitch));
-
+videos.forEach(elem => elem.addEventListener('click', videoSwitch));
 
 // *****POP UPS*****
 
