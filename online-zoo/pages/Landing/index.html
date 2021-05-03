@@ -184,7 +184,7 @@
                 <button class="sliders-tablet button"><img alt="Sorry, something went wrong" src="../../assets/icons/slide-left.png"></button>
                 <button class="sliders-tablet button"><img alt="Sorry, something went wrong" src="../../assets/icons/slide-right.png"></button>
               </div>
-            <a target="_blank"><button class="button button2 button3">Leave feedback</button></a>
+            <a target="_blank"><button id="button3" class="button button2 button3">Leave feedback</button></a>
         </div>
     </div>
 
@@ -325,6 +325,29 @@
     </form>
    </div>
   </div>
+
+
+  <div class="form-feedback-second hidden" id="form-feedback-second">
+    <button class="button" id="close-second"><img src="../../assets/icons/close.png" alt="close"></button>
+    <div class="all-elements-popup-second">
+    <form action="">
+<div class="amount-and-currency-second">
+      <input type="text" id="name" placeholder="Name" minlength="2" required>
+</div>
+<div class="amount-and-currency">
+    <input type="email" id="email" placeholder="Email" required>
+</div>
+
+      <label for="text-feedback"></label>
+      <textarea id="text-feedback-second" placeholder="Your text here:" maxlength="280" required></textarea>
+
+      <button class="button button2 button5 invalid" id="send-second" type="submit">Submit</button>
+    </form>
+   </div>
+  </div>
+
+
+
 
 <div class="cover hidden" id="cover"></div>
     <script src="script.js"></script>
