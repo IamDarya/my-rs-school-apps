@@ -136,6 +136,31 @@ justify-items: center;
 	justify-content: space-between;
 }
 
+#first {
+  background-image: url("https://i.ytimg.com/vi/hTfbB02IRLQ/sddefault_live.jpg")!important;
+  }
+  #second {
+  background-image: url("https://i.ytimg.com/vi/-CVZT7aOcJs/sddefault_live.jpg")!important;  
+  }
+  #third {
+  background-image: url("https://i.ytimg.com/vi/IKdLizEsdy8/sddefault_live.jpg")!important;  
+  }
+  #fourth {
+  background-image: url("https://i.ytimg.com/vi/kOwT2bkuU4k/sddefault_live.jpg")!important;  
+  }
+  #fifth {
+   background-image: url("https://i.ytimg.com/vi/eTAsANPVqB8/sddefault_live.jpg")!important; 
+  }
+  #sixth {
+    background-image: url("https://i.ytimg.com/vi/eY0dvOvGM1A/sddefault_live.jpg")!important; 
+  }
+  #seventh {
+    background-image: url("https://i.ytimg.com/vi/XfoUF8YkB7A/sddefault_live.jpg")!important;
+  }
+  #eight{
+    background-image: url("https://i.ytimg.com/vi/7utMaDb1W08/maxresdefault_live.jpg")!important;
+  }
+
 .playlist > iframe {
 	width: 275px;
 	height: 155px;
