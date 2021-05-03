@@ -191,7 +191,8 @@ line-height: 21px;
   z-index: 5;
 }
 .carousel__item[data-pos="-1"], .carousel__item[data-pos="1"] {
-  filter: blur(0.9px);
+  filter: contrast(0.8);
+  cursor: zoom-in;
 }
 .carousel__item[data-pos="-1"] {
   height: 400px;
@@ -207,6 +208,7 @@ line-height: 21px;
 }
 .carousel__item[data-pos="-2"], .carousel__item[data-pos="2"] {
   filter: blur(1px) grayscale(15%);
+  cursor: zoom-in;
 }
 .carousel__item[data-pos="-2"] {
   height: 350px;
