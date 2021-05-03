@@ -428,4 +428,65 @@ function closeAllSelect(elmnt) {
 then close all select boxes: */
 document.addEventListener("click", closeAllSelect);
 
-// ****CURRENCY SELECTOR****
+// *****POP UPS FEEDBACK*****
+
+const formElemSec = document.getElementById('form-feedback-second');
+const feedbackBtn = document.getElementById('button3');
+const sendButtonSec = document.getElementById('send-second');
+const textFieldSec = document.getElementById('text-feedback-second');
+const exitButtonSec = document.getElementById('close-second');
+const nameFeald = document.getElementById('name');
+const emailFeald = document.getElementById('email');
+
+
+const validateSec = () => {
+    if (
+        nameFeald.validity.valid &&
+        textFieldSec.validity.valid &&
+        emailFeald.validity.valid
+    ) {
+        sendButtonSec.classList.remove('invalid');
+    } else {
+        sendButtonSec.classList.add('invalid');
+    }
+}
+
+exitButtonSec.addEventListener('click', () => {
+    document.body.classList.remove('notScrollable');
+    document.querySelector('.all').classList.remove('blur');
+    coverElem.classList.add('hidden');
+    formElemSec.classList.add('hidden');
+});
+
+feedbackBtn.addEventListener('click', () => {
+    document.body.classList.add('notScrollable');
+    document.querySelector('.all').classList.add('blur');
+    coverElem.classList.remove('hidden');
+    formElemSec.classList.remove('hidden');
+});
+
+coverElem.addEventListener('click', () => {
+    document.body.classList.remove('notScrollable');
+    document.querySelector('.all').classList.remove('blur');
+    coverElem.classList.add('hidden');
+    formElemSec.classList.add('hidden');
+});
+
+textFieldSec.addEventListener('input', () => {
+    validateSec();
+});
+nameFeald.addEventListener('input', () => {
+    validateSec();
+});
+emailFeald.addEventListener('input', () => {
+    validateSec();
+});
+
+sendButtonSec.addEventListener('click', (s) => {
+  if (sendButtonSec.classList.contains('invalid')) return;
+  s.preventDefault();
+  document.body.classList.remove('notScrollable');
+  coverElem.classList.add('hidden');
+  document.querySelector('.all').classList.remove('blur');
+  setTimeout(function(){ alert("Thank you for your generous donation!"); }, 500);
+});
