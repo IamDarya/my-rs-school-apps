@@ -141,6 +141,32 @@ justify-items: center;
 	height: 155px;
 }
 
+#first {
+  background-image: url("https://i.ytimg.com/vi/rP5csS8xy7Y/default.jpg")!important;
+  }
+  #second {
+  background-image: url("https://i.ytimg.com/vi/WVzBmHDG-5g/default.jpg")!important;  
+  }
+  #third {
+  background-image: url("https://i.ytimg.com/vi/1_yyvTRVoZQ/default.jpg")!important;  
+  }
+  #fourth {
+  background-image: url("https://i.ytimg.com/vi_webp/vjuB7iJHIBI/default.webp")!important;  
+  }
+  #fifth {
+   background-image: url("https://i.ytimg.com/vi_webp/X5Im4mMFK4A/maxresdefault.webp")!important;
+  }
+  #sixth {
+    background-image: url("https://i.ytimg.com/vi_webp/wN1eQ9sfuk4/maxresdefault.webp")!important;
+  }
+  #seventh {
+    background-image: url("https://i.ytimg.com/vi_webp/dEaK0XeYaA4/maxresdefault.webp")!important;
+  }
+  #eight{
+    background-image: url("https://i.ytimg.com/vi/boQgZGj9Umg/maxresdefault.jpg")!important;
+  }
+
+
 .info-block {
 	display: flex;
 	flex-direction: column;
