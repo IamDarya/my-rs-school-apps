@@ -125,8 +125,6 @@ function videoSwitch(elem) {
   }
 
     document.getElementsByTagName('iframe').src = elem.currentTarget.dataset.video;
-    console.log(document.getElementsByTagName('iframe').src, 'big vid' );
-    console.log(elem.currentTarget.dataset.video,'small vid');
 }
 
 videos.forEach(elem => elem.addEventListener('click', videoSwitch));

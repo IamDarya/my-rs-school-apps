@@ -45,44 +45,6 @@ const getPos = function(current, active) {
 
 //*sliders PETS IN ZOO*//
 
-// var slideIndex = 1;
-// showSlides(slideIndex);
-
-// function plusSlides(n) {
-//   showSlides(slideIndex += n);
-// }
-
-// function currentSlide(n) {
-//   showSlides(slideIndex = n);
-// }
-
-// function showSlides(n) {
-//   var i;
-//   var slides = document.getElementsByClassName("mySlides");
-//   var dots = document.getElementsByClassName("dot");
-//   if (n > slides.length) {slideIndex = 1}    
-//   if (n < 1) {slideIndex = slides.length}
-//   for (i = 0; i < slides.length; i++) {
-//       slides[i].style.display = "none";  
-//   }
-//   for (i = 0; i < dots.length; i++) {
-//       dots[i].className = dots[i].className.replace(" active", "");
-//   }
-//   slides[slideIndex-1].style.display = "grid";  
-// }
-
-// const next = document.getElementById("slider-right");
-// const prev = document.getElementById("slider-left");
-
-// next.addEventListener("click", e => {
-// plusSlides(1);
-//      });
-//      prev.addEventListener("click", e => {
-// plusSlides(-1);
-//      });
-
-     //////////////////////////////////////////////
-
      let items = document.querySelectorAll('.carousel-pets-in-zoo .item');
      let currentItem = 0;
      let isEnabled = true;
@@ -221,80 +183,32 @@ const getPos = function(current, active) {
      var el = document.querySelector('.carousel');
      swipedetect(el);
 
-// const gap = 20;
 
-// const carousel = document.getElementById("carousel"),
-//   content = document.getElementById("content"),
-//   next = document.getElementById("slider-right"),
-//   prev = document.getElementById("slider-left");
-
-// next.addEventListener("click", e => {
-//   carousel.scrollBy(width + gap, 0);
-//   if (carousel.scrollWidth !== 0) {
-//           prev.style.opacity = "1";
-//   }
-//   if (content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
-//     next.style.opacity = "0";
-//   }
-// });
-// prev.addEventListener("click", e => {
-//   carousel.scrollBy(-(width + gap), 0);
-//   if (carousel.scrollLeft - width - gap <= 0) {
-//     prev.style.opacity = "0";
-//   }
-//   if (!content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
-//           next.style.opacity = "1";
-//   }
-// });
-
-// let width = carousel.offsetWidth;
-// window.addEventListener("resize", e => (width = carousel.offsetWidth));
+  /////////AUTO-SCROLL/////////////
 
 
-
-
-// let slideType = 'all';
-// let slideIndex = 0;
-// let slideCoefficient = 4;
-// let videoWidth = document.getElementById('content').offsetWidth;
-// window.addEventListener('resize', (e) => {
-//   width = carousel.offsetWidth;
-//   videoWidth = document.querySelector('img').offsetWidth;
-// });
-
-//   const slideFunc = () => {
-//     slideIndex += slideType === 'all' ? slideCoefficient : 1;
-//     if (slideIndex > 0) {
-//         prev.style.opacity = "1";
-//     }
-//     if (slideIndex >= 4) {
-//       next.style.opacity = '0';
-//     }
-//     if (slideIndex > 4) {
-//       if (!(slideIndex < 8 && slideType === 'all')) {
-//         slideIndex = 0;
-//       }
-//       prev.style.opacity = "0";
-//       next.style.opacity = '1';
-//     }
-//     carousel.scrollTo((videoWidth + gap) * slideIndex, 0);
-//   }
+function myFunction() {
+    setInterval(document.getElementById('slider-right').click(), 3000);
+  }
   
-//   let autoSlideInterval = setInterval(slideFunc, 3000);
-//   let autoSlideTimeout = null;
+  let autoSlideInterval = setInterval(myFunction, 3000);
+  let autoSlideTimeout = null;
   
-//   const delayAutoSliding = () => {
-//     clearTimeout(autoSlideTimeout);
-//     clearInterval(autoSlideInterval);
-//     autoSlideInterval = null;
+  const delayAutoSliding = () => {
+    clearTimeout(autoSlideTimeout);
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = null;
   
-//     autoSlideTimeout = setTimeout(() => {
-//       clearInterval(autoSlideInterval);
-//       autoSlideInterval = setInterval(slideFunc, 3000);
-//     }, 6000);
-//   }
-  
-//   carousel.addEventListener('click', delayAutoSliding);
+    autoSlideTimeout = setTimeout(() => {
+      clearInterval(autoSlideInterval);
+      autoSlideInterval = setInterval(myFunction, 3000);
+    }, 3500);
+  }
+
+  document.querySelector('.photos-links-to-map').addEventListener('mouseover', delayAutoSliding)
+
+  document.getElementById('slider-left').addEventListener('mouseover', delayAutoSliding);
+  document.getElementById('slider-right').addEventListener('mouseover', delayAutoSliding);
 
 // *****POP UPS*****
 
