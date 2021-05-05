@@ -36,8 +36,11 @@ const update = function(newActive) {
 const getPos = function(current, active) {
     const diff = current - active;
 
-    if (Math.abs(current - active) > 2) {
-        return -current
+    if (diff < -2) {
+        return 5 + diff;
+    }
+    else if (diff > 2) {
+        return -5 + diff;
     }
 
     return diff;
