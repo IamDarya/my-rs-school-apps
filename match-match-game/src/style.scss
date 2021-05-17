@@ -21,4 +21,7 @@ background: linear-gradient(0deg, rgba(128,227,228,1) 0%, rgba(228,184,133,1) 73
   justify-content: center;
 }
 
-
+.about.hidden,
+.main.hidden {
+  display: none;
+}

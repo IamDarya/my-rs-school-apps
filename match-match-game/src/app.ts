@@ -1,3 +1,4 @@
+import { About } from './components/about/about';
 import { Footer } from './components/footer/footer';
 import { Game } from './components/game/game';
 import { Header } from './components/header/header';
@@ -10,12 +11,17 @@ export class App {
 
   private readonly footer: Footer;
 
+  private readonly about: About;
+
   constructor(private readonly rootElement: HTMLElement) {
     this.header = new Header();
     this.rootElement.appendChild(this.header.element);
 
     this.game = new Game();
     this.rootElement.appendChild(this.game.element);
+
+    this.about = new About();
+    this.rootElement.appendChild(this.about.element);
 
     this.footer = new Footer();
     this.rootElement.appendChild(this.footer.element);

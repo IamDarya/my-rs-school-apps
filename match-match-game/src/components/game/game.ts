@@ -17,6 +17,7 @@ export class Game extends BaseComponent {
     this.cardsField = new CardsField();
     this.element.appendChild(this.cardsField.element);
     this.element.classList.add('app');
+    this.element.classList.add('main');
   }
 
   newGame(images: string[]): void {

@@ -10,14 +10,25 @@ export class Header extends BaseComponent {
     </div>
     <div>
       <ul>
-        <li><button type="button" class="btn">About Game</button></li>
-        <li><button type="button" class="btn">Best Score</button></li>
-        <li><button type="button" class="btn">Game Setting</button></li>
+        <li><button type="button" class="btn about_btn">About Game</button></li>
+        <li><button type="button" id="best_score_btn" class="btn">Best Score</button></li>
+        <li><button type="button" id="setting_btn" class="btn">Game Setting</button></li>
       </ul>
     </div>
     <div>
       <button type="button" class="regictration-btn btn">Register New Player</button>
     </div>
   </header>`;
+
+  const about_btn = this.element.getElementsByClassName("about_btn")[0];
+
+about_btn?.addEventListener('click', newPage);
+
+function newPage() {
+  document.getElementsByClassName("main")[0].classList.toggle("hidden");
+  document.getElementsByClassName("about")[0].classList.toggle("hidden");
+}
   }
 }
+
+
