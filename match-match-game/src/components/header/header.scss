@@ -1,0 +1,64 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 3rem;
+  width: 100%;
+  background-color: #c5282812;
+}
+
+.logo {
+  display: flex;
+  font-family: monospace;
+  line-height: 1rem;
+  line-height: 1rem;
+  background-image: linear-gradient(45deg, #a10404, #9ad5d2);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-pic {
+  background-image: url('../../assets/brain-logo.svg');
+  background-size: cover;
+  width: 3rem;
+  height: 3rem;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  display: inline;
+  margin: 0 1rem 0 1rem;
+}
+
+.btn {
+  border: none;
+  background-color: transparent;
+  color: antiquewhite;
+  font-size: inherit;
+  height: 3em;
+  cursor: pointer;
+}
+
+.btn:hover {
+  text-shadow: -5px 4px 3px rgb(47 79 79 / 87%);
+}
+
+.regictration-btn.btn:hover {
+  text-shadow: -5px 4px 3px rgb(47 79 79 / 87%);
+}
+
+.regictration-btn.btn {
+  color: antiquewhite;
+  font-size: inherit;
+  padding: 0 1rem 0 1rem;
+  height: 3rem;
+  background-image: linear-gradient(45deg, #a1040438, #9ad5d2ad);
+}
+
+.active {
+  text-shadow: -5px 4px 3px rgb(47 79 79 / 87%);
+}

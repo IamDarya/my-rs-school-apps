@@ -16,20 +16,21 @@ export class Game extends BaseComponent {
     super();
     this.cardsField = new CardsField();
     this.element.appendChild(this.cardsField.element);
+    this.element.classList.add('app');
   }
 
-  newGame(images: string[]) {
+  newGame(images: string[]): void {
     this.cardsField.clear();
     const cards = images
       .concat(images)
       .map((url) => new Card(url))
       .sort(() => Math.random() - 0.5);
 
-  cards.forEach((card) => {
+    cards.forEach((card) => {
       card.element.addEventListener('click', () => this.cardHandler(card));
-  });
+    });
 
-  this.cardsField.addCards(cards);
+    this.cardsField.addCards(cards);
   }
 
   private async cardHandler(card: Card) {
