@@ -18,9 +18,19 @@ export class Game extends BaseComponent {
     this.element.appendChild(this.cardsField.element);
     this.element.classList.add('app');
     this.element.classList.add('main');
+    this.element.classList.add('hidden');
   }
 
   newGame(images: string[]): void {
+    this.element.classList.remove('hidden');
+    document.getElementsByClassName('about')[0].classList.add('hidden');
+    document.getElementsByClassName('game-setting')[0].classList.add('hidden');
+    document.getElementsByClassName('best-score')[0].classList.add('hidden');
+    document.getElementById('game-setting')?.classList.remove('active');
+    document.getElementById('best-score')?.classList.remove('active');
+    document.getElementById('about')?.classList.remove('active');
+    document.getElementsByClassName('start-game-btn')[0].classList.add('hidden');
+    document.getElementsByClassName('stop-game-btn')[0].classList.remove('hidden');
     this.cardsField.clear();
     const cards = images
       .concat(images)
@@ -32,6 +42,7 @@ export class Game extends BaseComponent {
     });
 
     this.cardsField.addCards(cards);
+
   }
 
   private async cardHandler(card: Card) {

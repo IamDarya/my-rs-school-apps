@@ -13,7 +13,7 @@ export class Registration extends BaseComponent {
         <label class="contact-form__label" for="lastName" placeholder="Last name">Last name</label>
         <input type="text" class="contact-form__input last-name" maxlength=30 placeholder="Last name" required>
         <label class="contact-form__label" for="email" placeholder="email">email</label>
-        <input type="email" class="contact-form__input email" placeholder="your@email.com" required>
+        <input type="email" class="contact-form__input email" maxlength=30 placeholder="your@email.com" required>
         <button class="btn btn-add-user validate unactive_btn" type="submit">ADD USER</button>
         <button class="btn btn-cansel" type="button">CANCEL</button>
     </div>
@@ -77,6 +77,11 @@ export class Registration extends BaseComponent {
     addUserBtn.addEventListener('click', (s) => {
       if (addUserBtn.classList.contains('unactive_btn')) return;
       s.preventDefault();
+
+      localStorage.setItem('fName', fName.value);
+      localStorage.setItem('lNane', lName.value);
+      localStorage.setItem('email', email.value);
+
       document.getElementsByClassName('cover')[0].classList.toggle('hidden');
       document.getElementsByClassName('registration')[0].classList.toggle('hidden');
       document.getElementsByClassName('regictration-btn')[0].classList.add('hidden');

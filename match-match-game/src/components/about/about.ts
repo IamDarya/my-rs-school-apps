@@ -3,7 +3,7 @@ import { BaseComponent } from '../base-component';
 
 export class About extends BaseComponent {
   constructor() {
-    super('div', ['app', 'about', 'hidden']);
+    super('div', ['app', 'about']);
     this.element.innerHTML = `
     <h2>How to play?</h2>
     <ul>
