@@ -13,8 +13,11 @@ export class CardsField extends BaseComponent {
 
   clear(): void {
     this.cards = [];
-    this.element.innerHTML = '';
+    this.element.innerHTML = `
+    <div class="stopwatch">00:00:00</div>
+    `;
   }
+
 
   addCards(cards: Card[]): void {
     this.cards = cards;
@@ -24,3 +27,4 @@ export class CardsField extends BaseComponent {
     }, SHOW_TIME * 1000);
   }
 }
+

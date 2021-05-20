@@ -26,7 +26,6 @@ export class App {
   private readonly cover:Cover;
 
   constructor(private readonly rootElement: HTMLElement) {
-
     this.game = new Game();
     this.header = new Header(this.game);
     this.about = new About();

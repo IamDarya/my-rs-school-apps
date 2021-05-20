@@ -18,6 +18,23 @@
   }
 }
 
+.same_card > .card > .card__front {
+  box-shadow: 0 0 1rem 4px #42d729;
+  background-color: #42d729a6;
+}
+
+.wrong_card > .card {
+  box-shadow: 0 0 1rem 4px #d72929;
+  background-color: #d72929a6;
+}
+
+.wrong_card > .card > .card__back {
+  box-shadow: inset 0 0 20rem 0px #d729299c;
+  background-color: #d72929a6;
+}
+
+
+
 .card {
   position: relative;
   width: 10rem;

@@ -42,7 +42,6 @@ export class Game extends BaseComponent {
     });
 
     this.cardsField.addCards(cards);
-
   }
 
   private async cardHandler(card: Card) {
@@ -61,9 +60,15 @@ export class Game extends BaseComponent {
     if (this.actiiveCard.image !== card.image) {
       await delay(FLIP_DELAY);
       await Promise.all([this.actiiveCard.flipToBack(), card.flipToBack()]);
-      // make card red
+      this.actiiveCard.element.classList.add('wrong_card');
+      card.element.classList.add('wrong_card');
     }
-
+    else {
+      this.actiiveCard.element.classList.remove('wrong_card');
+      card.element.classList.remove('wrong_card');
+      this.actiiveCard.element.classList.add('same_card');
+      card.element.classList.add('same_card');
+    }
     this.actiiveCard = undefined;
     this.isAnimation = false;
   }
