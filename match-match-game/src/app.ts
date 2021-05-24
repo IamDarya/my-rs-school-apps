@@ -5,6 +5,7 @@ import { Footer } from './components/footer/footer';
 import { Settings } from './components/game-sitting/game-setting';
 import { Game } from './components/game/game';
 import { Header } from './components/header/header';
+import { PopUpWin } from './components/pop-up-win/pop-up-win';
 import { Registration } from './components/registration/registration';
 import { ImageCategoryModel } from './models/image-category-model';
 
@@ -23,6 +24,8 @@ export class App {
 
   private readonly registration: Registration;
 
+  private readonly popUpWin: PopUpWin;
+
   private readonly cover:Cover;
 
   constructor(private readonly rootElement: HTMLElement) {
@@ -32,6 +35,7 @@ export class App {
     this.bestScore = new BestScore();
     this.settings = new Settings();
     this.registration = new Registration();
+    this.popUpWin = new PopUpWin();
     this.cover = new Cover();
     this.footer = new Footer();
   }
@@ -43,6 +47,7 @@ export class App {
     this.rootElement.appendChild(this.bestScore.element);
     this.rootElement.appendChild(this.settings.element);
     this.rootElement.appendChild(this.registration.element);
+    this.rootElement.appendChild(this.popUpWin.element);
     this.rootElement.appendChild(this.cover.element);
     this.rootElement.appendChild(this.footer.element);
   }

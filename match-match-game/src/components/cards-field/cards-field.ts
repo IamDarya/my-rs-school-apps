@@ -18,6 +18,14 @@ export class CardsField extends BaseComponent {
     `;
   }
 
+  checkCards(): boolean {
+    for (let i = 0; i < this.cards.length; i++) {
+      if (this.cards[i].isFlipped) {
+        return false;
+      }
+    }
+    return true;
+  }
 
   addCards(cards: Card[]): void {
     this.cards = cards;
@@ -27,4 +35,3 @@ export class CardsField extends BaseComponent {
     }, SHOW_TIME * 1000);
   }
 }
-

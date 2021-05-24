@@ -62,8 +62,7 @@ export class Game extends BaseComponent {
       await Promise.all([this.actiiveCard.flipToBack(), card.flipToBack()]);
       this.actiiveCard.element.classList.add('wrong_card');
       card.element.classList.add('wrong_card');
-    }
-    else {
+    } else {
       this.actiiveCard.element.classList.remove('wrong_card');
       card.element.classList.remove('wrong_card');
       this.actiiveCard.element.classList.add('same_card');
@@ -71,5 +70,10 @@ export class Game extends BaseComponent {
     }
     this.actiiveCard = undefined;
     this.isAnimation = false;
+
+    if (this.cardsField.checkCards()) {
+      document.getElementsByClassName('cover')[0].classList.remove('hidden');
+      document.getElementsByClassName('pop-up-win')[0].classList.remove('hidden');
+    }
   }
 }

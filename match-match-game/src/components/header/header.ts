@@ -22,7 +22,7 @@ export class Header extends BaseComponent {
     <div>
       <button type="button" class="regictration-btn btn">Register New Player</button>
       <button type="button" class="start-game-btn btn hidden">Start Game</button>
-      <button type="button" class="stop-game-btn btn hidden">Stop Game</button>
+      <button type="button" id="stop-game-btn" class="stop-game-btn btn hidden">Stop Game</button>
     </div>
   </header>`;
 
@@ -34,6 +34,17 @@ export class Header extends BaseComponent {
 
     function newPage(event: Event) {
       const t = event.target as HTMLElement;
+      if (t.id === 'stop-game-btn') {
+        document.getElementsByClassName('main')[0].classList.add('hidden');
+        document.getElementById('about')?.classList.add('active');
+        document.getElementsByClassName('about')[0].classList.remove('hidden');
+        document.getElementById('best-score')?.classList.remove('active');
+        document.getElementsByClassName('best-score')[0].classList.add('hidden');
+        document.getElementById('game-setting')?.classList.remove('active');
+        document.getElementsByClassName('game-setting')[0].classList.add('hidden');
+        stopBtn.classList.add('hidden');
+        startBtn.classList.remove('hidden');
+      }
       if (t.id === 'about') {
         document.getElementsByClassName('main')[0].classList.add('hidden');
         document.getElementById('about')?.classList.add('active');
@@ -79,6 +90,8 @@ export class Header extends BaseComponent {
     headerList?.addEventListener('click', newPage);
     regist.addEventListener('click', registratison);
 
+    stopBtn.addEventListener('click', newPage);
+
     startBtn.addEventListener('click', async () => {
       const res = await fetch('./images.json');
       const categories: ImageCategoryModel[] = await res.json();
@@ -86,22 +99,18 @@ export class Header extends BaseComponent {
       const images = cat.images.map((name) => `${cat.category}/${name}`);
       this.game.newGame(images);
 
-
-
       const watch = document.getElementsByClassName('stopwatch')[0];
       let millisecound = 0;
-      let timer: NodeJS.Timeout;
 
-        timer = setInterval(() => {
-          millisecound += 10;
+      const timer = setInterval(() => {
+        millisecound += 10;
 
-          let dateTimer = new Date(millisecound);
+        const dateTimer = new Date(millisecound);
 
-          watch.innerHTML =
-          ('0'+dateTimer.getUTCHours()).slice(-2) + ':' +
-          ('0'+dateTimer.getUTCMinutes()).slice(-2) + ':' +
-          ('0'+dateTimer.getUTCSeconds()).slice(-2);
-        }, 10);
+        watch.innerHTML = `${(`0${dateTimer.getUTCHours()}`).slice(-2)}:${
+          (`0${dateTimer.getUTCMinutes()}`).slice(-2)}:${
+          (`0${dateTimer.getUTCSeconds()}`).slice(-2)}`;
+      }, 10);
     });
   }
 }
