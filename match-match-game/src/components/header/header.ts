@@ -98,19 +98,6 @@ export class Header extends BaseComponent {
       const cat = categories[0];
       const images = cat.images.map((name) => `${cat.category}/${name}`);
       this.game.newGame(images);
-
-      const watch = document.getElementsByClassName('stopwatch')[0];
-      let millisecound = 0;
-
-      const timer = setInterval(() => {
-        millisecound += 10;
-
-        const dateTimer = new Date(millisecound);
-
-        watch.innerHTML = `${(`0${dateTimer.getUTCHours()}`).slice(-2)}:${
-          (`0${dateTimer.getUTCMinutes()}`).slice(-2)}:${
-          (`0${dateTimer.getUTCSeconds()}`).slice(-2)}`;
-      }, 10);
     });
   }
 }

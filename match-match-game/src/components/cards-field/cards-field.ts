@@ -6,6 +6,7 @@ const SHOW_TIME = 5;
 
 export class CardsField extends BaseComponent {
   private cards: Card[] = [];
+  private timer!: NodeJS.Timeout;
 
   constructor() {
     super('div', ['cards-field']);
@@ -24,6 +25,7 @@ export class CardsField extends BaseComponent {
         return false;
       }
     }
+    clearInterval(this.timer);
     return true;
   }
 
@@ -33,5 +35,18 @@ export class CardsField extends BaseComponent {
     setTimeout(() => {
       this.cards.forEach((card) => card.flipToBack());
     }, SHOW_TIME * 1000);
+
+    const watch = document.getElementsByClassName('stopwatch')[0];
+    let millisecound = 0;
+
+    this.timer = setInterval(() => {
+      millisecound += 10;
+
+      const dateTimer = new Date(millisecound);
+
+      watch.innerHTML = `${(`0${dateTimer.getUTCHours()}`).slice(-2)}:${
+        (`0${dateTimer.getUTCMinutes()}`).slice(-2)}:${
+        (`0${dateTimer.getUTCSeconds()}`).slice(-2)}`;
+    }, 10);
   }
 }
