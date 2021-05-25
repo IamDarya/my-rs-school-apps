@@ -5,7 +5,7 @@ export class PopUpWin extends BaseComponent {
   constructor() {
     super('div', ['pop-up-win', 'hidden']);
     this.element.innerHTML = `
-    <h2>Congratulations! You successfully found all matches in ${'time'} minutes.</h2>
+    <h2 class="pop-up-win-h2"></h2>
     <div class="forms">
         <button class="btn btn-ok" type="button">OK!</button>
     </div>

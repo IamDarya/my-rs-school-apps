@@ -7,9 +7,12 @@ import { Game } from './components/game/game';
 import { Header } from './components/header/header';
 import { PopUpWin } from './components/pop-up-win/pop-up-win';
 import { Registration } from './components/registration/registration';
+import { Router } from './components/routing/routing';
 import { ImageCategoryModel } from './models/image-category-model';
 
 export class App {
+  private readonly router: Router;
+
   private readonly game: Game;
 
   private readonly header: Header;
@@ -30,7 +33,8 @@ export class App {
 
   constructor(private readonly rootElement: HTMLElement) {
     this.game = new Game();
-    this.header = new Header(this.game);
+    this.router = new Router();
+    this.header = new Header(this.game, this.router);
     this.about = new About();
     this.bestScore = new BestScore();
     this.settings = new Settings();
@@ -50,5 +54,6 @@ export class App {
     this.rootElement.appendChild(this.popUpWin.element);
     this.rootElement.appendChild(this.cover.element);
     this.rootElement.appendChild(this.footer.element);
+    this.router.start();
   }
 }

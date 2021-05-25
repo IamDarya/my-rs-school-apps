@@ -2,11 +2,13 @@ import './header.scss';
 import { BaseComponent } from '../base-component';
 import { Game } from '../game/game';
 import { ImageCategoryModel } from '../../models/image-category-model';
+import { Router } from '../routing/routing';
 
 export class Header extends BaseComponent {
   game: Game;
+  router: Router;
 
-  constructor(game: Game) {
+  constructor(game: Game, router: Router) {
     super('header', ['header']);
     this.element.innerHTML = `
   <header id="header">
@@ -25,6 +27,8 @@ export class Header extends BaseComponent {
       <button type="button" id="stop-game-btn" class="stop-game-btn btn hidden">Stop Game</button>
     </div>
   </header>`;
+
+    this.router = router;
 
     this.game = game;
     const headerList = this.element.getElementsByClassName('header-list')[0];
@@ -46,35 +50,20 @@ export class Header extends BaseComponent {
         startBtn.classList.remove('hidden');
       }
       if (t.id === 'about') {
-        document.getElementsByClassName('main')[0].classList.add('hidden');
-        document.getElementById('about')?.classList.add('active');
-        document.getElementsByClassName('about')[0].classList.remove('hidden');
-        document.getElementById('best-score')?.classList.remove('active');
-        document.getElementsByClassName('best-score')[0].classList.add('hidden');
-        document.getElementById('game-setting')?.classList.remove('active');
-        document.getElementsByClassName('game-setting')[0].classList.add('hidden');
+        window.history.pushState(null, 'about-game', 'about-game');
+        router.newPage('/about-game');
         stopBtn.classList.add('hidden');
         startBtn.classList.add('hidden');
       }
       if (t.id === 'best-score') {
-        document.getElementsByClassName('main')[0].classList.add('hidden');
-        document.getElementById('best-score')?.classList.add('active');
-        document.getElementsByClassName('best-score')[0].classList.remove('hidden');
-        document.getElementById('about')?.classList.remove('active');
-        document.getElementsByClassName('about')[0].classList.add('hidden');
-        document.getElementById('game-setting')?.classList.remove('active');
-        document.getElementsByClassName('game-setting')[0].classList.add('hiden');
+        window.history.pushState(null, 'best-score', 'best-score');
+        router.newPage('/best-score');
         stopBtn.classList.add('hidden');
         startBtn.classList.add('hidden');
       }
       if (t.id === 'game-setting') {
-        document.getElementsByClassName('main')[0].classList.add('hidden');
-        document.getElementById('game-setting')?.classList.add('active');
-        document.getElementsByClassName('game-setting')[0].classList.remove('hidden');
-        document.getElementById('best-score')?.classList.remove('active');
-        document.getElementsByClassName('best-score')[0].classList.add('hidden');
-        document.getElementById('about')?.classList.remove('active');
-        document.getElementsByClassName('about')[0].classList.add('hidden');
+        window.history.pushState(null, 'game-setting', 'game-setting');
+        router.newPage('/game-setting');
         stopBtn.classList.add('hidden');
         startBtn.classList.add('hidden');
       }

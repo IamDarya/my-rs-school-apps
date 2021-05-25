@@ -6,6 +6,7 @@ const SHOW_TIME = 5;
 
 export class CardsField extends BaseComponent {
   private cards: Card[] = [];
+
   private timer!: NodeJS.Timeout;
 
   constructor() {

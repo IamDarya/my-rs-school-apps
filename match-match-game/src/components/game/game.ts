@@ -22,6 +22,8 @@ export class Game extends BaseComponent {
   }
 
   newGame(images: string[]): void {
+    window.history.pushState(null, '', '/');
+
     this.element.classList.remove('hidden');
     document.getElementsByClassName('about')[0].classList.add('hidden');
     document.getElementsByClassName('game-setting')[0].classList.add('hidden');
@@ -74,6 +76,7 @@ export class Game extends BaseComponent {
     if (this.cardsField.checkCards()) {
       document.getElementsByClassName('cover')[0].classList.remove('hidden');
       document.getElementsByClassName('pop-up-win')[0].classList.remove('hidden');
+      document.getElementsByClassName('pop-up-win-h2')[0].innerHTML = `Congratulations! You successfully found all matches in ${document.getElementsByClassName('stopwatch')[0].textContent} minutes.`;
     }
   }
 }
