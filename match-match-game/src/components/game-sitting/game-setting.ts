@@ -5,6 +5,7 @@ export class Settings extends BaseComponent {
   constructor() {
     super('div', ['app', 'game-setting', 'hidden']);
     this.element.innerHTML = `
+    <div class="settings">
     <form>
       <span class="title">Game cards</span>
          <div class="select-cards">
@@ -25,6 +26,7 @@ export class Settings extends BaseComponent {
            <option value="normal">Normal</option>
            <option value="nightmare">Nightmare!</option>
          </select>
+       </div>
        </div>
 </form>`;
   }
