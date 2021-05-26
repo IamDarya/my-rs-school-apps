@@ -91,7 +91,7 @@ export class Header extends BaseComponent {
     stopBtn.addEventListener('click', newPage);
 
     startBtn.addEventListener('click', async () => {
-      const res = await fetch('./images.json');
+      const res = await fetch('./food.json');
       const categories: ImageCategoryModel[] = await res.json();
       const cat = categories[0];
       const images = cat.images.map((name) => `${cat.category}/${name}`);

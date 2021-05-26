@@ -34,6 +34,20 @@ export class Game extends BaseComponent {
     document.getElementsByClassName('start-game-btn')[0].classList.add('hidden');
     document.getElementsByClassName('stop-game-btn')[0].classList.remove('hidden');
     this.cardsField.clear();
+
+    var e = document.getElementById("difficulty") as HTMLSelectElement;
+    var result = e.options[e.selectedIndex].value;
+    if(result === 'select' || result === 'piece-of-cake') {
+      images.splice(0,5);
+      document.getElementsByClassName('cards-field')[0].setAttribute("style", "width:57%;");
+    }
+    if(result === 'normal') {
+      images.splice(0,3);
+      document.getElementsByClassName('cards-field')[0].setAttribute("style", "width:57%;");
+    }
+    if(result === 'nightmare') {
+      document.getElementsByClassName('cards-field')[0].setAttribute("style", "width:84%;");
+    }
     const cards = images
       .concat(images)
       .map((url) => new Card(url))
