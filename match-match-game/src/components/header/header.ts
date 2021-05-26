@@ -53,19 +53,28 @@ export class Header extends BaseComponent {
         window.history.pushState(null, 'about-game', 'about-game');
         router.newPage('/about-game');
         stopBtn.classList.add('hidden');
-        startBtn.classList.add('hidden');
+        if(regist.classList.contains('hidden')) {
+          startBtn.classList.remove('hidden');
+        }
+        // startBtn.classList.add('hidden');
       }
       if (t.id === 'best-score') {
         window.history.pushState(null, 'best-score', 'best-score');
         router.newPage('/best-score');
         stopBtn.classList.add('hidden');
-        startBtn.classList.add('hidden');
+        // startBtn.classList.add('hidden');
+        if(regist.classList.contains('hidden')) {
+          startBtn.classList.remove('hidden');
+        }
       }
       if (t.id === 'game-setting') {
         window.history.pushState(null, 'game-setting', 'game-setting');
         router.newPage('/game-setting');
         stopBtn.classList.add('hidden');
-        startBtn.classList.add('hidden');
+        // startBtn.classList.add('hidden');
+        if(regist.classList.contains('hidden')) {
+          startBtn.classList.remove('hidden');
+        }
       }
     }
 
