@@ -12,7 +12,7 @@ export class Settings extends BaseComponent {
               <option selected="selected" value="select">Select game cards type</option>
               <option value="food">Food</option>
               <option value="animals">Animals</option>
-              <option value="other">Other</option>
+              <option value="art">Art</option>
             </select>
           </div>
    </form>

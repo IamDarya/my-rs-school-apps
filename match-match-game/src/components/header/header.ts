@@ -91,7 +91,15 @@ export class Header extends BaseComponent {
     stopBtn.addEventListener('click', newPage);
 
     startBtn.addEventListener('click', async () => {
-      const res = await fetch('./food.json');
+      const cardsSelect = document.getElementById("select-cards") as HTMLSelectElement;
+      const result = cardsSelect.options[cardsSelect.selectedIndex].value;
+      let res = await fetch('./food.json');
+      if(result === 'animals') {
+        res = await fetch('./animals.json');
+      }
+      if(result === 'art') {
+        res = await fetch('./art.json');
+      }
       const categories: ImageCategoryModel[] = await res.json();
       const cat = categories[0];
       const images = cat.images.map((name) => `${cat.category}/${name}`);
