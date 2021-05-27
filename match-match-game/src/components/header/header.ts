@@ -3,13 +3,18 @@ import { BaseComponent } from '../base-component';
 import { Game } from '../game/game';
 import { ImageCategoryModel } from '../../models/image-category-model';
 import { Router } from '../routing/routing';
+import { BestScore } from '../best-score/best-score';
 
 export class Header extends BaseComponent {
   game: Game;
+
   router: Router;
 
-  constructor(game: Game, router: Router) {
+  private bestScore: BestScore
+
+  constructor(game: Game, router: Router, bestScore: BestScore) {
     super('header', ['header']);
+    this.bestScore = bestScore;
     this.element.innerHTML = `
   <header id="header">
     <div class="logo"><div class="logo-pic"></div><p>Match<br>Match<br>Game</p>
@@ -51,28 +56,26 @@ export class Header extends BaseComponent {
       }
       if (t.id === 'about') {
         window.history.pushState(null, 'about-game', 'about-game');
-        router.newPage('/about-game');
+        Router.newPage('/about-game');
         stopBtn.classList.add('hidden');
-        if(regist.classList.contains('hidden')) {
+        if (regist.classList.contains('hidden')) {
           startBtn.classList.remove('hidden');
         }
-        // startBtn.classList.add('hidden');
       }
       if (t.id === 'best-score') {
         window.history.pushState(null, 'best-score', 'best-score');
-        router.newPage('/best-score');
+        Router.newPage('/best-score');
         stopBtn.classList.add('hidden');
-        // startBtn.classList.add('hidden');
-        if(regist.classList.contains('hidden')) {
+        bestScore.bestScoreShow();
+        if (regist.classList.contains('hidden')) {
           startBtn.classList.remove('hidden');
         }
       }
       if (t.id === 'game-setting') {
         window.history.pushState(null, 'game-setting', 'game-setting');
-        router.newPage('/game-setting');
+        Router.newPage('/game-setting');
         stopBtn.classList.add('hidden');
-        // startBtn.classList.add('hidden');
-        if(regist.classList.contains('hidden')) {
+        if (regist.classList.contains('hidden')) {
           startBtn.classList.remove('hidden');
         }
       }
@@ -91,13 +94,13 @@ export class Header extends BaseComponent {
     stopBtn.addEventListener('click', newPage);
 
     startBtn.addEventListener('click', async () => {
-      const cardsSelect = document.getElementById("select-cards") as HTMLSelectElement;
+      const cardsSelect = document.getElementById('select-cards') as HTMLSelectElement;
       const result = cardsSelect.options[cardsSelect.selectedIndex].value;
       let res = await fetch('./food.json');
-      if(result === 'animals') {
+      if (result === 'animals') {
         res = await fetch('./animals.json');
       }
-      if(result === 'art') {
+      if (result === 'art') {
         res = await fetch('./art.json');
       }
       const categories: ImageCategoryModel[] = await res.json();

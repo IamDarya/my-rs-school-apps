@@ -1,9 +1,18 @@
 import './registration.scss';
 import { BaseComponent } from '../base-component';
+import { DatabaseIamDarya } from '../database/database';
+import { User } from '../antities/user';
+import { Game } from '../game/game';
 
 export class Registration extends BaseComponent {
-  constructor() {
+  database: DatabaseIamDarya;
+
+  game: Game;
+
+  constructor(database: DatabaseIamDarya, game: Game) {
     super('div', ['registration', 'hidden']);
+    this.game = game;
+    this.database = database;
     this.element.innerHTML = `
     <h2>Register new player</h2>
     <div class="forms">
@@ -20,12 +29,11 @@ export class Registration extends BaseComponent {
     `;
 
     const closeBtn = this.element.getElementsByClassName('btn-cansel')[0];
-
     const fName = this.element.getElementsByClassName('first-name')[0] as HTMLInputElement;
     const lName = this.element.getElementsByClassName('last-name')[0] as HTMLInputElement;
     const email = this.element.getElementsByClassName('email')[0] as HTMLInputElement;
     const addUserBtn = this.element.getElementsByClassName('validate')[0];
-    const reg = /[a-zA-Zа-я ]$/;
+    const reg = /^(?![0-9]*$)[a-zA-Z0-9]+$/;
 
     function closeRegist() {
       document.getElementById('app')?.classList.toggle('blured');
@@ -54,7 +62,6 @@ export class Registration extends BaseComponent {
       if (fName.value.match(reg)) {
         validateInput();
       } else {
-        fName.value = fName.value.slice(0, -1);
         validateInput();
       }
     });
@@ -63,7 +70,6 @@ export class Registration extends BaseComponent {
       if (lName.value.match(reg)) {
         validateInput();
       } else {
-        lName.value = lName.value.slice(0, -1);
         validateInput();
       }
     });
@@ -74,13 +80,14 @@ export class Registration extends BaseComponent {
 
     closeBtn?.addEventListener('click', closeRegist);
 
-    addUserBtn.addEventListener('click', (s) => {
+    addUserBtn.addEventListener('click', async (s) => {
       if (addUserBtn.classList.contains('unactive_btn')) return;
       s.preventDefault();
-
-      localStorage.setItem('fName', fName.value);
-      localStorage.setItem('lNane', lName.value);
-      localStorage.setItem('email', email.value);
+      const user = new User(email.value, fName.value, lName.value, 0);
+      if (await database.getUser(email.value) === undefined) {
+        await database.transaction(user);
+      }
+      game.activeUser = user;
       setTimeout(() => { alert(`Hello ${fName.value}, let's play a game!`); }, 500);
 
       document.getElementsByClassName('cover')[0].classList.toggle('hidden');

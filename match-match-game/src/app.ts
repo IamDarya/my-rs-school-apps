@@ -1,6 +1,7 @@
 import { About } from './components/about/about';
 import { BestScore } from './components/best-score/best-score';
 import { Cover } from './components/cover/cover';
+import { DatabaseIamDarya } from './components/database/database';
 import { Footer } from './components/footer/footer';
 import { Settings } from './components/game-sitting/game-setting';
 import { Game } from './components/game/game';
@@ -31,15 +32,18 @@ export class App {
 
   private readonly cover:Cover;
 
+  private readonly dataBaseIamDarya: DatabaseIamDarya;
+
   constructor(private readonly rootElement: HTMLElement) {
-    this.game = new Game();
+    this.dataBaseIamDarya = new DatabaseIamDarya();
     this.router = new Router();
-    this.header = new Header(this.game, this.router);
     this.about = new About();
-    this.bestScore = new BestScore();
+    this.bestScore = new BestScore(this.dataBaseIamDarya);
     this.settings = new Settings();
-    this.registration = new Registration();
-    this.popUpWin = new PopUpWin();
+    this.game = new Game(this.dataBaseIamDarya);
+    this.header = new Header(this.game, this.router, this.bestScore);
+    this.registration = new Registration(this.dataBaseIamDarya, this.game);
+    this.popUpWin = new PopUpWin(this.bestScore);
     this.cover = new Cover();
     this.footer = new Footer();
   }
@@ -54,6 +58,6 @@ export class App {
     this.rootElement.appendChild(this.popUpWin.element);
     this.rootElement.appendChild(this.cover.element);
     this.rootElement.appendChild(this.footer.element);
-    this.router.start();
+    Router.start();
   }
 }

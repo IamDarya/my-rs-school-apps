@@ -14,15 +14,14 @@ export class Router {
     ];
   }
 
-  start() {
-    let that = this;
-    this.newPage(window.location.pathname);
-    window.addEventListener('popstate', function (event) {
-          that.newPage(window.location.pathname);
+  static start() {
+    Router.newPage(window.location.pathname);
+    window.addEventListener('popstate', (event) => {
+      Router.newPage(window.location.pathname);
     });
   }
 
-  newPage(str: String) {
+  static newPage(str: string) {
     if (str === '/about-game' || str === '/') {
       document.getElementsByClassName('main')[0].classList.add('hidden');
       document.getElementById('about')?.classList.add('active');
