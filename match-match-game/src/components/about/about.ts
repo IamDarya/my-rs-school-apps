@@ -6,7 +6,7 @@ import game from '../../assets/game.jpg';
 
 export class About extends BaseComponent {
   constructor() {
-    super('div', ['app', 'about']);
+    super('div', ['app', 'about', 'hidden']);
     this.element.innerHTML = `
     <div class="how-to-play">
     <h2>How to play?</h2>
