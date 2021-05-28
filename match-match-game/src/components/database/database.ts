@@ -22,19 +22,19 @@ export class DatabaseIamDarya {
 
   async transaction(user: User): Promise<void> {
     const promise = new Promise<void>((resolve, reject) => {
-    const transaction = this.db!.transaction('users', 'readwrite');
-    const users = transaction.objectStore('users');
-    const request = users.add(user);
+      const transaction = this.db?.transaction('users', 'readwrite');
+      const users = transaction?.objectStore('users');
+      const request = users?.add(user);
 
-    request.onsuccess = function () {
-      resolve();
-      console.log('User added to the store', request.result);
-    };
+      request!.onsuccess = function () {
+        resolve();
+        // console.log('User added to the store', request.result);
+      };
 
-    request.onerror = function () {
-      reject();
-      console.log('Error', request.error);
-    };
+      request!.onerror = function () {
+        reject();
+        // console.log('Error', request.error);
+      };
     });
     return promise;
   }
@@ -47,12 +47,12 @@ export class DatabaseIamDarya {
 
       request.onsuccess = function () {
         resolve(request.result);
-        console.log('User in the store', request.result);
+        // console.log('User in the store', request.result);
       };
 
       request.onerror = function () {
         reject(request.error);
-        console.log('New user', request.error);
+        // console.log('New user', request.error);
       };
     });
     return promise;
@@ -66,12 +66,12 @@ export class DatabaseIamDarya {
 
       request.onsuccess = function () {
         resolve();
-        console.log('User in the store', request.result);
+        // console.log('User in the store', request.result);
       };
 
       request.onerror = function () {
         reject();
-        console.log('New user', request.error);
+        // console.log('New user', request.error);
       };
     });
     return promise;
@@ -85,12 +85,12 @@ export class DatabaseIamDarya {
 
       request.onsuccess = function () {
         resolve(request.result);
-        console.log('ALL USERS', request.result);
+        // console.log('ALL USERS', request.result);
       };
 
       request.onerror = function () {
         reject(request.error);
-        console.log('Error while reading all users', request.error);
+        // console.log('Error while reading all users', request.error);
       };
     });
     return promise;

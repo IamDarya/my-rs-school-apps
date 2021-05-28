@@ -9,7 +9,6 @@ import { Header } from './components/header/header';
 import { PopUpWin } from './components/pop-up-win/pop-up-win';
 import { Registration } from './components/registration/registration';
 import { Router } from './components/routing/routing';
-import { ImageCategoryModel } from './models/image-category-model';
 
 export class App {
   private readonly router: Router;

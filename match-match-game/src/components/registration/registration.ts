@@ -14,7 +14,7 @@ export class Registration extends BaseComponent {
     this.game = game;
     this.database = database;
     this.element.innerHTML = `
-    <h2>Register new player</h2>
+    <h2 class="regist-h2">Register new player</h2>
     <div class="forms">
       <form action class="contact-form">
         <label class="contact-form__label" for="firstName" >First name</label>
@@ -60,21 +60,37 @@ export class Registration extends BaseComponent {
 
     fName.addEventListener('input', () => {
       if (fName.value.match(reg)) {
+        fName.classList.remove('not-validated-input');
+        fName.classList.add('validated-input');
         validateInput();
       } else {
+        fName.classList.add('not-validated-input');
+        fName.classList.remove('validated-input');
         validateInput();
       }
     });
 
     lName.addEventListener('input', () => {
       if (lName.value.match(reg)) {
+        lName.classList.remove('not-validated-input');
+        lName.classList.add('validated-input');
         validateInput();
       } else {
+        lName.classList.add('not-validated-input');
+        lName.classList.remove('validated-input');
         validateInput();
       }
     });
 
     email.addEventListener('input', () => {
+      if(email.validity.valid){
+        email.classList.remove('not-validated-input');
+        email.classList.add('validated-input');
+      }
+      else{
+        email.classList.add('not-validated-input');
+        email.classList.remove('validated-input');
+      }
       validateInput();
     });
 

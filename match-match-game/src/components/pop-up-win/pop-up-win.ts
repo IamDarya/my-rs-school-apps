@@ -4,7 +4,6 @@ import { Router } from '../routing/routing';
 import { BestScore } from '../best-score/best-score';
 
 export class PopUpWin extends BaseComponent {
-
   private bestScore: BestScore;
 
   constructor(bestScore:BestScore) {

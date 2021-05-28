@@ -16,7 +16,7 @@ export class Router {
 
   static start() {
     Router.newPage(window.location.pathname);
-    window.addEventListener('popstate', (event) => {
+    window.addEventListener('popstate', () => {
       Router.newPage(window.location.pathname);
     });
   }

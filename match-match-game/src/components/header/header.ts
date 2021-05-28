@@ -10,7 +10,7 @@ export class Header extends BaseComponent {
 
   router: Router;
 
-  private bestScore: BestScore
+  private bestScore: BestScore;
 
   constructor(game: Game, router: Router, bestScore: BestScore) {
     super('header', ['header']);

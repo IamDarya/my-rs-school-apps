@@ -103,7 +103,7 @@ export class Game extends BaseComponent {
       const userTime = document.getElementsByClassName('stopwatch')[0].textContent;
       const userTimeForFormula = userTime!.split(':');
       const sec = 60;
-      const reducer = (accumulator: any, currentValue: any) => accumulator + currentValue;
+      const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue;
       const arrWithTime = userTimeForFormula.map((el) => parseInt(el, 10));
       arrWithTime[1] *= sec;
       arrWithTime[0] = arrWithTime[0] * sec * sec;
@@ -116,7 +116,8 @@ export class Game extends BaseComponent {
 
       document.getElementsByClassName('cover')[0].classList.remove('hidden');
       document.getElementsByClassName('pop-up-win')[0].classList.remove('hidden');
-      document.getElementsByClassName('pop-up-win-h2')[0].innerHTML = `Congratulations! You successfully found all matches in ${userTime} minutes. Your score is ${userScore}, WOW! Great result.`;
+      document.getElementsByClassName('pop-up-win-h2')[0].innerHTML = `
+      Congratulations! You successfully found all matches in ${userTime} minutes. Your score is ${userScore}! Great result.`;
     }
   }
 }

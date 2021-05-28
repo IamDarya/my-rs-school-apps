@@ -13,7 +13,8 @@ export class About extends BaseComponent {
     <ul class="how-to-play-ul">
       <li class="how-to-play-li">1.Register new player in game. <img src="${jpg}" alt=""></li>
       <li class="how-to-play-li">2.Configure your game settings.<img src="${png}" alt=""></li>
-      <li class="how-to-play-li">3.Start you new game! Remember card positions and match it before times up.<img src="${game}" alt=""></li>
+      <li class="how-to-play-li">3.Start you new game! Remember card positions and match it before times up.
+      <img src="${game}" alt=""></li>
     </ul>`;
   }
 }

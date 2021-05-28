@@ -1,5 +1,3 @@
-import { BaseComponent } from '../base-component';
-
 export class User {
   email: string | undefined;
 

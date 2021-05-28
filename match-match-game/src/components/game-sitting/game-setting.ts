@@ -5,6 +5,7 @@ export class Settings extends BaseComponent {
   constructor() {
     super('div', ['app', 'game-setting', 'hidden']);
     this.element.innerHTML = `
+    <h2>Game settings</h2>
     <div class="settings">
     <form>
       <span class="title">Game cards</span>

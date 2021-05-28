@@ -1,3 +1,7 @@
+.regist-h2 {
+  margin: 0!important;
+}
+
 .btn-add-user.btn,
 .btn-cansel.btn {
   color: antiquewhite;
@@ -18,6 +22,14 @@
 
 .btn-add-user.validate {
   background-image: linear-gradient(45deg, #0af11f9e, #fff7003d);
+}
+
+.validated-input {
+  background-image: linear-gradient( 45deg, #0af11f45, #fff70014);
+}
+
+.not-validated-input {
+  background-image: linear-gradient(45deg, #f10a0a33, #fff70021);
 }
 
 .registration {

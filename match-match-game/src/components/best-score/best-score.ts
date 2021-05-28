@@ -3,7 +3,6 @@ import { BaseComponent } from '../base-component';
 import { DatabaseIamDarya } from '../database/database';
 
 export class BestScore extends BaseComponent {
-
   private databaseIamDarya: DatabaseIamDarya;
 
   constructor(databaseIamDarya: DatabaseIamDarya) {
@@ -12,14 +11,35 @@ export class BestScore extends BaseComponent {
   }
 
   async bestScoreShow() {
-    let allUsers = await this.databaseIamDarya.getAllUsers();
+    const allUsers = await this.databaseIamDarya.getAllUsers();
+    const sortedUsers = allUsers.sort((a, b) => b.score! - a.score!);
 
     this.element.innerHTML = `
     <h2>Best players</h2>
-    <ul>
-      <li class="best-score-li">${allUsers[0].fName}<br>${allUsers[0].sName}</li>
-      <li class="best-score-li">${allUsers[1].fName}<br>${allUsers[1].sName}</li>
-      <li class="best-score-li">Nina Ivanova</li>
+    <ul class="list-of-users">
+
     </ul>`;
+    for (let i = 0; i < sortedUsers.length; i++) {
+      const li = document.createElement('li');
+      document.getElementsByClassName('list-of-users')[0].appendChild(li);
+
+      const firstAndSecondNamePtag = document.createElement('p');
+      firstAndSecondNamePtag.innerHTML = `${sortedUsers[i].fName} ${sortedUsers[i].sName}`;
+      li.appendChild(firstAndSecondNamePtag);
+
+      const scorePtag = document.createElement('p');
+      scorePtag.innerHTML = `${sortedUsers[i].score}`;
+      li.appendChild(scorePtag).setAttribute('style', 'justify-self: right;');
+
+      const emailPtag = document.createElement('p');
+      emailPtag.innerHTML = `${sortedUsers[i].email}`;
+      li.appendChild(emailPtag);
+      // li.appendChild(document.createTextNode(`
+      // ${sortedUsers[i].fName}
+      // ${sortedUsers[i].sName}
+      // ${sortedUsers[i].email}
+      // ${sortedUsers[i].score}`));
+      // li.appendChild(document.createElement("br"));
+    }
   }
 }
