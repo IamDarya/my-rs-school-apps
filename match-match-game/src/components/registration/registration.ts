@@ -18,9 +18,11 @@ export class Registration extends BaseComponent {
     <div class="forms">
       <form action class="contact-form">
         <label class="contact-form__label" for="firstName" >First name</label>
-        <input type="text" class="contact-form__input first-name" maxlength=30 placeholder="First name" required>
+        <input type="text" pattern="^(?![0-9]*$)[a-zA-Zа-яА-Я0-9&bsol;s]+$" class="contact-form__input first-name"
+        maxlength=30 placeholder="First name" required>
         <label class="contact-form__label" for="lastName" placeholder="Last name">Last name</label>
-        <input type="text" class="contact-form__input last-name" maxlength=30 placeholder="Last name" required>
+        <input type="text" pattern="^(?![0-9]*$)[a-zA-Zа-яА-Я0-9&bsol;s]+$" class="contact-form__input last-name"
+        maxlength=30 placeholder="Last name" required>
         <label class="contact-form__label" for="email" placeholder="email">email</label>
         <input type="email" class="contact-form__input email" maxlength=30 placeholder="your@email.com" required>
         <button class="btn btn-add-user validate unactive_btn" type="submit">ADD USER</button>
@@ -30,16 +32,16 @@ export class Registration extends BaseComponent {
 
     const closeBtn = this.element.getElementsByClassName('btn-cansel')[0];
     const fName = this.element.getElementsByClassName(
-      'first-name'
+      'first-name',
     )[0] as HTMLInputElement;
     const lName = this.element.getElementsByClassName(
-      'last-name'
+      'last-name',
     )[0] as HTMLInputElement;
     const email = this.element.getElementsByClassName(
-      'email'
+      'email',
     )[0] as HTMLInputElement;
     const addUserBtn = this.element.getElementsByClassName('validate')[0];
-    const reg = /^(?![0-9]*$)[a-zA-Z0-9]+$/;
+    // const reg = /^(?![0-9]*$)[a-zA-Zа-яА-Я0-9\s]+$/;
 
     function closeRegist() {
       document.getElementById('app')?.classList.toggle('blured');
@@ -50,7 +52,12 @@ export class Registration extends BaseComponent {
       document
         .getElementsByClassName('regictration-btn')[0]
         .classList.toggle('active');
-
+      fName.classList.remove('not-validated-input');
+      fName.classList.remove('validated-input');
+      lName.classList.remove('not-validated-input');
+      lName.classList.remove('validated-input');
+      email.classList.remove('not-validated-input');
+      email.classList.remove('validated-input');
       fName.value = '';
       lName.value = '';
       email.value = '';
@@ -58,9 +65,9 @@ export class Registration extends BaseComponent {
 
     const validateInput = () => {
       if (
-        fName.validity.valid &&
-        lName.validity.valid &&
-        email.validity.valid
+        fName.validity.valid
+        && lName.validity.valid
+        && email.validity.valid
       ) {
         addUserBtn?.classList.remove('unactive_btn');
       } else {
@@ -68,37 +75,39 @@ export class Registration extends BaseComponent {
       }
     };
 
+    function validatedStyles(input: HTMLInputElement) {
+      input.classList.remove('not-validated-input');
+      input.classList.add('validated-input');
+    }
+
+    function notValidatedStyles(input: HTMLInputElement) {
+      input.classList.add('not-validated-input');
+      input.classList.remove('validated-input');
+    }
+
     fName.addEventListener('input', () => {
-      if (fName.value.match(reg)) {
-        fName.classList.remove('not-validated-input');
-        fName.classList.add('validated-input');
-        validateInput();
+      if (fName.validity.valid) {
+        validatedStyles(fName);
       } else {
-        fName.classList.add('not-validated-input');
-        fName.classList.remove('validated-input');
-        validateInput();
+        notValidatedStyles(fName);
       }
+      validateInput();
     });
 
     lName.addEventListener('input', () => {
-      if (lName.value.match(reg)) {
-        lName.classList.remove('not-validated-input');
-        lName.classList.add('validated-input');
-        validateInput();
+      if (lName.validity.valid) {
+        validatedStyles(lName);
       } else {
-        lName.classList.add('not-validated-input');
-        lName.classList.remove('validated-input');
-        validateInput();
+        notValidatedStyles(lName);
       }
+      validateInput();
     });
 
     email.addEventListener('input', () => {
       if (email.validity.valid) {
-        email.classList.remove('not-validated-input');
-        email.classList.add('validated-input');
+        validatedStyles(email);
       } else {
-        email.classList.add('not-validated-input');
-        email.classList.remove('validated-input');
+        notValidatedStyles(email);
       }
       validateInput();
     });

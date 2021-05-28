@@ -101,7 +101,7 @@ export class Header extends BaseComponent {
 
     startBtn.addEventListener('click', async () => {
       const cardsSelect = document.getElementById(
-        'select-cards'
+        'select-cards',
       ) as HTMLSelectElement;
       const result = cardsSelect.options[cardsSelect.selectedIndex].value;
       let res = await fetch('./food.json');

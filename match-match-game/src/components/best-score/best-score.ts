@@ -1,6 +1,7 @@
 import './best-score.scss';
 import { BaseComponent } from '../base-component';
 import { DatabaseIamDarya } from '../database/database';
+import { User } from '../antities/user';
 
 export class BestScore extends BaseComponent {
   private databaseIamDarya: DatabaseIamDarya;
@@ -10,7 +11,7 @@ export class BestScore extends BaseComponent {
     this.databaseIamDarya = databaseIamDarya;
   }
 
-  async bestScoreShow() {
+  async bestScoreShow(): Promise<void> {
     const allUsers = await this.databaseIamDarya.getAllUsers();
     const sortedUsers = allUsers.sort((a, b) => b.score! - a.score!);
 
@@ -19,12 +20,15 @@ export class BestScore extends BaseComponent {
     <ul class="list-of-users">
 
     </ul>`;
-    for (let i = 0; i < sortedUsers.length; i++) {
+    const limitUSersDisplOnPage = 10;
+    for (let i = 0; i < sortedUsers.length && i < limitUSersDisplOnPage; i++) {
       const li = document.createElement('li');
       document.getElementsByClassName('list-of-users')[0].appendChild(li);
 
       const firstAndSecondNamePtag = document.createElement('p');
-      firstAndSecondNamePtag.innerHTML = `${sortedUsers[i].fName} ${sortedUsers[i].sName}`;
+      firstAndSecondNamePtag.innerHTML = `${i + 1}. ${sortedUsers[i].fName} ${
+        sortedUsers[i].sName
+      }`;
       li.appendChild(firstAndSecondNamePtag);
 
       const scorePtag = document.createElement('p');

@@ -46,9 +46,9 @@ export class CardsField extends BaseComponent {
       const dateTimer = new Date(millisecound);
 
       watch.innerHTML = `${`0${dateTimer.getUTCHours()}`.slice(
-        -2
+        -2,
       )}:${`0${dateTimer.getUTCMinutes()}`.slice(
-        -2
+        -2,
       )}:${`0${dateTimer.getUTCSeconds()}`.slice(-2)}`;
     }, 10);
   }

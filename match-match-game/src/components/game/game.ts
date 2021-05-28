@@ -49,11 +49,8 @@ export class Game extends BaseComponent {
       .classList.remove('hidden');
     this.cardsField.clear();
 
-    const difficultySelect = document.getElementById(
-      'difficulty'
-    ) as HTMLSelectElement;
-    const result =
-      difficultySelect.options[difficultySelect.selectedIndex].value;
+    const difficultySelect = document.getElementById('difficulty') as HTMLSelectElement;
+    const result = difficultySelect.options[difficultySelect.selectedIndex].value;
     if (result === 'select' || result === 'piece-of-cake') {
       images.splice(0, 5);
       document
@@ -99,10 +96,10 @@ export class Game extends BaseComponent {
 
     if (this.actiiveCard.image !== card.image) {
       flippedWrong++;
-      await delay(FLIP_DELAY);
-      await Promise.all([this.actiiveCard.flipToBack(), card.flipToBack()]);
       this.actiiveCard.element.classList.add('wrong_card');
       card.element.classList.add('wrong_card');
+      await delay(FLIP_DELAY);
+      await Promise.all([this.actiiveCard.flipToBack(), card.flipToBack()]);
     } else {
       this.actiiveCard.element.classList.remove('wrong_card');
       card.element.classList.remove('wrong_card');
@@ -114,18 +111,19 @@ export class Game extends BaseComponent {
 
     if (this.cardsField.checkCards()) {
       // END OF THE GAME
-      const userTime =
-        document.getElementsByClassName('stopwatch')[0].textContent;
+      const userTime = document.getElementsByClassName('stopwatch')[0].textContent;
       const userTimeForFormula = userTime!.split(':');
       const sec = 60;
-      const reducer = (accumulator: number, currentValue: number) =>
-        accumulator + currentValue;
+      const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue;
       const arrWithTime = userTimeForFormula.map((el) => parseInt(el, 10));
       arrWithTime[1] *= sec;
       arrWithTime[0] = arrWithTime[0] * sec * sec;
 
       const userTimeinSec = arrWithTime.reduce(reducer);
       userScore = (flipped - flippedWrong) * 100 - userTimeinSec * 10;
+      if (userScore < 0) {
+        userScore = 1;
+      }
 
       this.activeUser.score = userScore;
       await this.dataBaseIamDarya.update(this.activeUser);
@@ -135,7 +133,11 @@ export class Game extends BaseComponent {
         .getElementsByClassName('pop-up-win')[0]
         .classList.remove('hidden');
       document.getElementsByClassName('pop-up-win-h2')[0].innerHTML = `
-      Congratulations! You successfully found all matches in ${userTime} minutes. Your score is ${userScore}! Great result.`;
+      Congratulations! You successfully found all matches in ${userTime} minutes.
+      Your score is ${userScore}! Great result.`;
+      flipped = 0;
+      flippedWrong = 0;
+      userScore = 0;
     }
   }
 }

@@ -26,12 +26,12 @@ export class DatabaseIamDarya {
       const users = transaction?.objectStore('users');
       const request = users?.add(user);
 
-      request!.onsuccess = function () {
+      request!.onsuccess = function adduser() {
         resolve();
         // console.log('User added to the store', request.result);
       };
 
-      request!.onerror = function () {
+      request!.onerror = function adduserError() {
         reject();
         // console.log('Error', request.error);
       };
@@ -45,12 +45,12 @@ export class DatabaseIamDarya {
       const users = transaction.objectStore('users');
       const request = users.get(email);
 
-      request.onsuccess = function () {
+      request.onsuccess = function existUser() {
         resolve(request.result);
         // console.log('User in the store', request.result);
       };
 
-      request.onerror = function () {
+      request.onerror = function newUser() {
         reject(request.error);
         // console.log('New user', request.error);
       };
@@ -64,12 +64,12 @@ export class DatabaseIamDarya {
       const users = transaction.objectStore('users');
       const request = users.put(user);
 
-      request.onsuccess = function () {
+      request.onsuccess = function updateUser() {
         resolve();
         // console.log('User in the store', request.result);
       };
 
-      request.onerror = function () {
+      request.onerror = function updateUserError() {
         reject();
         // console.log('New user', request.error);
       };
@@ -83,12 +83,12 @@ export class DatabaseIamDarya {
       const users = transaction.objectStore('users');
       const request = users.getAll();
 
-      request.onsuccess = function () {
+      request.onsuccess = function allUsersget() {
         resolve(request.result);
         // console.log('ALL USERS', request.result);
       };
 
-      request.onerror = function () {
+      request.onerror = function allUsersGetError() {
         reject(request.error);
         // console.log('Error while reading all users', request.error);
       };
