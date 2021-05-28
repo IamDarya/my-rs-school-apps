@@ -7,20 +7,49 @@ const SHOW_TIME = 5;
 export class CardsField extends BaseComponent {
   private cards: Card[] = [];
 
+  private timer!: NodeJS.Timeout;
+
   constructor() {
     super('div', ['cards-field']);
   }
 
-  clear() {
+  clear(): void {
     this.cards = [];
-    this.element.innerHTML = '';
+    this.element.innerHTML = `
+    <div class="stopwatch">00:00:00</div>
+    `;
   }
 
-  addCards(cards: Card[]) {
+  checkCards(): boolean {
+    for (let i = 0; i < this.cards.length; i++) {
+      if (this.cards[i].isFlipped) {
+        return false;
+      }
+    }
+    clearInterval(this.timer);
+    return true;
+  }
+
+  addCards(cards: Card[]): void {
     this.cards = cards;
     this.cards.forEach((card) => this.element.appendChild(card.element));
     setTimeout(() => {
       this.cards.forEach((card) => card.flipToBack());
     }, SHOW_TIME * 1000);
+
+    const watch = document.getElementsByClassName('stopwatch')[0];
+    let millisecound = 0;
+
+    this.timer = setInterval(() => {
+      millisecound += 10;
+
+      const dateTimer = new Date(millisecound);
+
+      watch.innerHTML = `${`0${dateTimer.getUTCHours()}`.slice(
+        -2,
+      )}:${`0${dateTimer.getUTCMinutes()}`.slice(
+        -2,
+      )}:${`0${dateTimer.getUTCSeconds()}`.slice(-2)}`;
+    }, 10);
   }
 }

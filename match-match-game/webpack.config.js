@@ -12,6 +12,7 @@ const devSever = (isDev) => !isDev ? {} : {
     hot: true,
     port: 8080,
     contentBase: path.join(__dirname, 'public'),
+        historyApiFallback: true,
   }
 };
 

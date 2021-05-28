@@ -1,0 +1,97 @@
+.regist-h2 {
+  margin: 0 !important;
+}
+
+.btn-add-user.btn,
+.btn-cansel.btn {
+  color: antiquewhite;
+  font-size: inherit;
+  padding: 0 1rem 0 1rem;
+  height: 3rem;
+  background-image: linear-gradient(45deg, #a1040438, #9ad5d2ad);
+}
+
+.unactive_btn.btn-add-user.btn {
+  background-image: linear-gradient(45deg, #f10a0a8f, #fff7003d);
+}
+
+.unactive_btn.btn-add-user.btn:hover {
+  text-shadow: none;
+  cursor: default;
+}
+
+.btn-add-user.validate {
+  background-image: linear-gradient(45deg, #0af11f9e, #fff7003d);
+}
+
+.validated-input {
+  background-image: linear-gradient(45deg, #0af11f45, #fff70014);
+}
+
+.not-validated-input {
+  background-image: linear-gradient(45deg, #f10a0a33, #fff70021);
+}
+
+.registration {
+  background-image: linear-gradient(to bottom right, #e4b885, #84e1e0);
+  border-radius: 10px;
+  padding: 30px;
+  width: 800px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  height: 400px;
+  z-index: 20;
+}
+
+.contact-form {
+  &__input,
+  &__text {
+    background-color: rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    display: block;
+    margin: 15px 0;
+    padding: 15px;
+    transition: background-color 0.5s ease-out;
+    width: 90%;
+
+    &:focus {
+      background-color: rgba(
+        0,
+        0,
+        0,
+        0.2
+      ); // Provide obvious focus styling for accessibility
+      outline: none;
+    }
+
+    &::placeholder {
+      color: rgba(250, 250, 250, 0.5);
+    }
+  }
+
+  &__label {
+    color: #fff;
+    font-size: 12px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  &__text {
+    height: 120px;
+    resize: none;
+  }
+
+  &__submit {
+    background-color: #3154ff;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px 30px;
+  }
+}

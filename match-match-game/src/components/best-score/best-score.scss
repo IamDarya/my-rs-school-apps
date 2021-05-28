@@ -1,0 +1,20 @@
+.best-score {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.list-of-users {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-of-users > li {
+  display: grid;
+  grid-template-columns: 20rem 20rem;
+  grid-template-rows: 1rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin: 0 0 1rem 0;
+  border-radius: 10px;
+  padding: 0.3rem;
+}
