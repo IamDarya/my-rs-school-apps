@@ -19,13 +19,17 @@
 }
 
 .same_card > .card > .card__front {
-  box-shadow: 0 0 1rem 4px #42d729;
+  box-shadow: 0 0 1rem 4px #42d729, inset 0 0 2rem 0px #42d729;
   background-color: #42d729a6;
 }
 
 .wrong_card > .card {
   box-shadow: 0 0 1rem 4px #d72929;
   background-color: #d72929a6;
+}
+
+.wrong_card > .card > .card__front {
+  box-shadow: 0 0 1rem 4px #d72929, inset 0 0 2rem 0px #d72929;
 }
 
 .wrong_card > .card > .card__back {
