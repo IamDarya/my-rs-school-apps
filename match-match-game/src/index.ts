@@ -7,5 +7,3 @@ window.onload = () => {
   if (!appElement) throw Error('App root element not found');
   new App(appElement).start();
 };
-// document.getElementById('about')?.classList.remove('active');
-// document.getElementsByClassName('about')[0].classList.add('hidden');

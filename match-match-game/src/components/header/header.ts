@@ -48,9 +48,13 @@ export class Header extends BaseComponent {
         document.getElementById('about')?.classList.add('active');
         document.getElementsByClassName('about')[0].classList.remove('hidden');
         document.getElementById('best-score')?.classList.remove('active');
-        document.getElementsByClassName('best-score')[0].classList.add('hidden');
+        document
+          .getElementsByClassName('best-score')[0]
+          .classList.add('hidden');
         document.getElementById('game-setting')?.classList.remove('active');
-        document.getElementsByClassName('game-setting')[0].classList.add('hidden');
+        document
+          .getElementsByClassName('game-setting')[0]
+          .classList.add('hidden');
         stopBtn.classList.add('hidden');
         startBtn.classList.remove('hidden');
       }
@@ -84,7 +88,9 @@ export class Header extends BaseComponent {
     function registratison() {
       document.getElementById('app')?.classList.toggle('blured');
       regist.classList.toggle('active');
-      document.getElementsByClassName('registration')[0].classList.toggle('hidden');
+      document
+        .getElementsByClassName('registration')[0]
+        .classList.toggle('hidden');
       document.getElementsByClassName('cover')[0].classList.toggle('hidden');
     }
 
@@ -94,7 +100,9 @@ export class Header extends BaseComponent {
     stopBtn.addEventListener('click', newPage);
 
     startBtn.addEventListener('click', async () => {
-      const cardsSelect = document.getElementById('select-cards') as HTMLSelectElement;
+      const cardsSelect = document.getElementById(
+        'select-cards'
+      ) as HTMLSelectElement;
       const result = cardsSelect.options[cardsSelect.selectedIndex].value;
       let res = await fetch('./food.json');
       if (result === 'animals') {

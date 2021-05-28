@@ -8,9 +8,13 @@ html {
 }
 
 body {
-color: antiquewhite;
-background: rgb(128,227,228);
-background: linear-gradient(0deg, rgba(128,227,228,1) 0%, rgba(228,184,133,1) 73%);
+  color: antiquewhite;
+  background: rgb(128, 227, 228);
+  background: linear-gradient(
+    0deg,
+    rgba(128, 227, 228, 1) 0%,
+    rgba(228, 184, 133, 1) 73%
+  );
 }
 
 .app {
@@ -43,5 +47,3 @@ p {
 .main.hidden {
   display: none;
 }
-
-

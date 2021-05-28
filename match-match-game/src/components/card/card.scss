@@ -9,7 +9,7 @@
 
   &:hover > .card {
     transform: translateZ(2rem);
-    box-shadow: 0 .5rem 1rem rgba(47, 79, 79, 0.871);
+    box-shadow: 0 0.5rem 1rem rgba(47, 79, 79, 0.871);
   }
 
   &.flipped > .card {
@@ -39,10 +39,9 @@
   height: 12rem;
   transform-style: preserve-3d;
   transform-origin: right;
-  transition: all .5s;
-  box-shadow: 0 0 .25rem darkslategray;
-  border-radius: .5rem;
-
+  transition: all 0.5s;
+  box-shadow: 0 0 0.25rem darkslategray;
+  border-radius: 0.5rem;
 
   &__front,
   &__back {
@@ -63,7 +62,7 @@
 
   &__back {
     background-color: darkorange;
-    background-image: url('../../assets/image_back.png');
+    background-image: url("../../assets/image_back.png");
     transform: rotateY(180deg);
   }
 }

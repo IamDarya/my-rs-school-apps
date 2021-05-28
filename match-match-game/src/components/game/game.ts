@@ -41,22 +41,35 @@ export class Game extends BaseComponent {
     document.getElementById('game-setting')?.classList.remove('active');
     document.getElementById('best-score')?.classList.remove('active');
     document.getElementById('about')?.classList.remove('active');
-    document.getElementsByClassName('start-game-btn')[0].classList.add('hidden');
-    document.getElementsByClassName('stop-game-btn')[0].classList.remove('hidden');
+    document
+      .getElementsByClassName('start-game-btn')[0]
+      .classList.add('hidden');
+    document
+      .getElementsByClassName('stop-game-btn')[0]
+      .classList.remove('hidden');
     this.cardsField.clear();
 
-    const difficultySelect = document.getElementById('difficulty') as HTMLSelectElement;
-    const result = difficultySelect.options[difficultySelect.selectedIndex].value;
+    const difficultySelect = document.getElementById(
+      'difficulty'
+    ) as HTMLSelectElement;
+    const result =
+      difficultySelect.options[difficultySelect.selectedIndex].value;
     if (result === 'select' || result === 'piece-of-cake') {
       images.splice(0, 5);
-      document.getElementsByClassName('cards-field')[0].setAttribute('style', 'width:57%;');
+      document
+        .getElementsByClassName('cards-field')[0]
+        .setAttribute('style', 'width:57%;');
     }
     if (result === 'normal') {
       images.splice(0, 3);
-      document.getElementsByClassName('cards-field')[0].setAttribute('style', 'width:57%;');
+      document
+        .getElementsByClassName('cards-field')[0]
+        .setAttribute('style', 'width:57%;');
     }
     if (result === 'nightmare') {
-      document.getElementsByClassName('cards-field')[0].setAttribute('style', 'width:84%;');
+      document
+        .getElementsByClassName('cards-field')[0]
+        .setAttribute('style', 'width:84%;');
     }
     const cards = images
       .concat(images)
@@ -99,23 +112,28 @@ export class Game extends BaseComponent {
     this.actiiveCard = undefined;
     this.isAnimation = false;
 
-    if (this.cardsField.checkCards()) { // END OF THE GAME
-      const userTime = document.getElementsByClassName('stopwatch')[0].textContent;
+    if (this.cardsField.checkCards()) {
+      // END OF THE GAME
+      const userTime =
+        document.getElementsByClassName('stopwatch')[0].textContent;
       const userTimeForFormula = userTime!.split(':');
       const sec = 60;
-      const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue;
+      const reducer = (accumulator: number, currentValue: number) =>
+        accumulator + currentValue;
       const arrWithTime = userTimeForFormula.map((el) => parseInt(el, 10));
       arrWithTime[1] *= sec;
       arrWithTime[0] = arrWithTime[0] * sec * sec;
 
       const userTimeinSec = arrWithTime.reduce(reducer);
-      userScore = (flipped - flippedWrong) * 100 - (userTimeinSec * 10);
+      userScore = (flipped - flippedWrong) * 100 - userTimeinSec * 10;
 
       this.activeUser.score = userScore;
       await this.dataBaseIamDarya.update(this.activeUser);
 
       document.getElementsByClassName('cover')[0].classList.remove('hidden');
-      document.getElementsByClassName('pop-up-win')[0].classList.remove('hidden');
+      document
+        .getElementsByClassName('pop-up-win')[0]
+        .classList.remove('hidden');
       document.getElementsByClassName('pop-up-win-h2')[0].innerHTML = `
       Congratulations! You successfully found all matches in ${userTime} minutes. Your score is ${userScore}! Great result.`;
     }

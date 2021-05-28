@@ -19,7 +19,7 @@ header {
 }
 
 .logo-pic {
-  background-image: url('../../assets/brain-logo.svg');
+  background-image: url("../../assets/brain-logo.svg");
   background-size: cover;
   width: 3rem;
   height: 3rem;
@@ -60,11 +60,11 @@ li {
 }
 
 .start-game-btn.btn {
-background-image: linear-gradient(45deg, #04a1097d, #ded240d1);
-color: antiquewhite;
-font-size: inherit;
-padding: 0 2rem 0 2rem;
-height: 3rem;
+  background-image: linear-gradient(45deg, #04a1097d, #ded240d1);
+  color: antiquewhite;
+  font-size: inherit;
+  padding: 0 2rem 0 2rem;
+  height: 3rem;
 }
 
 .stop-game-btn.btn {

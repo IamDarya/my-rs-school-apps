@@ -29,17 +29,27 @@ export class Registration extends BaseComponent {
     `;
 
     const closeBtn = this.element.getElementsByClassName('btn-cansel')[0];
-    const fName = this.element.getElementsByClassName('first-name')[0] as HTMLInputElement;
-    const lName = this.element.getElementsByClassName('last-name')[0] as HTMLInputElement;
-    const email = this.element.getElementsByClassName('email')[0] as HTMLInputElement;
+    const fName = this.element.getElementsByClassName(
+      'first-name'
+    )[0] as HTMLInputElement;
+    const lName = this.element.getElementsByClassName(
+      'last-name'
+    )[0] as HTMLInputElement;
+    const email = this.element.getElementsByClassName(
+      'email'
+    )[0] as HTMLInputElement;
     const addUserBtn = this.element.getElementsByClassName('validate')[0];
     const reg = /^(?![0-9]*$)[a-zA-Z0-9]+$/;
 
     function closeRegist() {
       document.getElementById('app')?.classList.toggle('blured');
-      document.getElementsByClassName('registration')[0].classList.toggle('hidden');
+      document
+        .getElementsByClassName('registration')[0]
+        .classList.toggle('hidden');
       document.getElementsByClassName('cover')[0].classList.toggle('hidden');
-      document.getElementsByClassName('regictration-btn')[0].classList.toggle('active');
+      document
+        .getElementsByClassName('regictration-btn')[0]
+        .classList.toggle('active');
 
       fName.value = '';
       lName.value = '';
@@ -48,9 +58,9 @@ export class Registration extends BaseComponent {
 
     const validateInput = () => {
       if (
-        fName.validity.valid
-      && lName.validity.valid
-      && email.validity.valid
+        fName.validity.valid &&
+        lName.validity.valid &&
+        email.validity.valid
       ) {
         addUserBtn?.classList.remove('unactive_btn');
       } else {
@@ -83,11 +93,10 @@ export class Registration extends BaseComponent {
     });
 
     email.addEventListener('input', () => {
-      if(email.validity.valid){
+      if (email.validity.valid) {
         email.classList.remove('not-validated-input');
         email.classList.add('validated-input');
-      }
-      else{
+      } else {
         email.classList.add('not-validated-input');
         email.classList.remove('validated-input');
       }
@@ -100,16 +109,24 @@ export class Registration extends BaseComponent {
       if (addUserBtn.classList.contains('unactive_btn')) return;
       s.preventDefault();
       const user = new User(email.value, fName.value, lName.value, 0);
-      if (await database.getUser(email.value) === undefined) {
+      if ((await database.getUser(email.value)) === undefined) {
         await database.transaction(user);
       }
       game.activeUser = user;
-      setTimeout(() => { alert(`Hello ${fName.value}, let's play a game!`); }, 500);
+      setTimeout(() => {
+        alert(`Hello ${fName.value}, let's play a game!`);
+      }, 500);
 
       document.getElementsByClassName('cover')[0].classList.toggle('hidden');
-      document.getElementsByClassName('registration')[0].classList.toggle('hidden');
-      document.getElementsByClassName('regictration-btn')[0].classList.add('hidden');
-      document.getElementsByClassName('start-game-btn')[0].classList.remove('hidden');
+      document
+        .getElementsByClassName('registration')[0]
+        .classList.toggle('hidden');
+      document
+        .getElementsByClassName('regictration-btn')[0]
+        .classList.add('hidden');
+      document
+        .getElementsByClassName('start-game-btn')[0]
+        .classList.remove('hidden');
     });
   }
 }

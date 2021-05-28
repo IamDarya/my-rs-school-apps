@@ -29,7 +29,7 @@ export class App {
 
   private readonly popUpWin: PopUpWin;
 
-  private readonly cover:Cover;
+  private readonly cover: Cover;
 
   private readonly dataBaseIamDarya: DatabaseIamDarya;
 
@@ -47,7 +47,7 @@ export class App {
     this.footer = new Footer();
   }
 
-  async start():Promise<void> {
+  async start(): Promise<void> {
     this.rootElement.appendChild(this.header.element);
     this.rootElement.appendChild(this.game.element);
     this.rootElement.appendChild(this.about.element);

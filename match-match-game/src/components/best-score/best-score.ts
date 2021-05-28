@@ -34,12 +34,6 @@ export class BestScore extends BaseComponent {
       const emailPtag = document.createElement('p');
       emailPtag.innerHTML = `${sortedUsers[i].email}`;
       li.appendChild(emailPtag);
-      // li.appendChild(document.createTextNode(`
-      // ${sortedUsers[i].fName}
-      // ${sortedUsers[i].sName}
-      // ${sortedUsers[i].email}
-      // ${sortedUsers[i].score}`));
-      // li.appendChild(document.createElement("br"));
     }
   }
 }

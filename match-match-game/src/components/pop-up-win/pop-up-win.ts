@@ -6,7 +6,7 @@ import { BestScore } from '../best-score/best-score';
 export class PopUpWin extends BaseComponent {
   private bestScore: BestScore;
 
-  constructor(bestScore:BestScore) {
+  constructor(bestScore: BestScore) {
     super('div', ['pop-up-win', 'hidden']);
     this.bestScore = bestScore;
     this.element.innerHTML = `
@@ -25,8 +25,12 @@ export class PopUpWin extends BaseComponent {
 
       document.getElementsByClassName('cover')[0].classList.add('hidden');
       document.getElementsByClassName('pop-up-win')[0].classList.add('hidden');
-      document.getElementsByClassName('start-game-btn')[0].classList.remove('hidden');
-      document.getElementsByClassName('stop-game-btn')[0].classList.add('hidden');
+      document
+        .getElementsByClassName('start-game-btn')[0]
+        .classList.remove('hidden');
+      document
+        .getElementsByClassName('stop-game-btn')[0]
+        .classList.add('hidden');
     }
 
     btnOk.addEventListener('click', closeWinPopUp);
