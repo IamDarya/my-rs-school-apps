@@ -38,6 +38,7 @@ export class Game extends BaseComponent {
   newGame(images: string[]): void {
     this.actiiveCard = undefined;
     this.newRout.cleanHref();
+    this.isAnimation = false;
 
     this.element.classList.remove('hidden');
     document.getElementsByClassName('about')[0].classList.add('hidden');

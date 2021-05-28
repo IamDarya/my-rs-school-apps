@@ -9,6 +9,8 @@ export class CardsField extends BaseComponent {
 
   private timer!: NodeJS.Timeout;
 
+  private showTime!: NodeJS.Timeout;
+
   constructor() {
     super('div', ['cards-field']);
   }
@@ -33,13 +35,15 @@ export class CardsField extends BaseComponent {
   addCards(cards: Card[]): void {
     this.cards = cards;
     this.cards.forEach((card) => this.element.appendChild(card.element));
-    setTimeout(() => {
+    clearTimeout(this.showTime);
+    this.showTime = setTimeout(() => {
       this.cards.forEach((card) => card.flipToBack());
     }, SHOW_TIME * 1000);
 
     const watch = document.getElementsByClassName('stopwatch')[0];
     let millisecound = 0;
 
+    clearInterval(this.timer);
     this.timer = setInterval(() => {
       millisecound += 10;
 
