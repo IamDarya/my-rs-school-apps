@@ -4,6 +4,7 @@ import { Game } from '../game/game';
 import { ImageCategoryModel } from '../../models/image-category-model';
 import { Router } from '../routing/routing';
 import { BestScore } from '../best-score/best-score';
+import { NewRout } from '../routing/newRouting';
 
 export class Header extends BaseComponent {
   game: Game;
@@ -12,8 +13,11 @@ export class Header extends BaseComponent {
 
   private bestScore: BestScore;
 
-  constructor(game: Game, router: Router, bestScore: BestScore) {
+  newRout: NewRout;
+
+  constructor(game: Game, router: Router, bestScore: BestScore, newRout: NewRout) {
     super('header', ['header']);
+    this.newRout = newRout;
     this.bestScore = bestScore;
     this.element.innerHTML = `
   <header id="header">
@@ -59,16 +63,14 @@ export class Header extends BaseComponent {
         startBtn.classList.remove('hidden');
       }
       if (t.id === 'about') {
-        window.history.pushState(null, 'about-game', 'about-game');
-        Router.newPage('/about-game');
+        newRout.navigate('about-game');
         stopBtn.classList.add('hidden');
         if (regist.classList.contains('hidden')) {
           startBtn.classList.remove('hidden');
         }
       }
       if (t.id === 'best-score') {
-        window.history.pushState(null, 'best-score', 'best-score');
-        Router.newPage('/best-score');
+        newRout.navigate('best-score');
         stopBtn.classList.add('hidden');
         bestScore.bestScoreShow();
         if (regist.classList.contains('hidden')) {
@@ -76,8 +78,7 @@ export class Header extends BaseComponent {
         }
       }
       if (t.id === 'game-setting') {
-        window.history.pushState(null, 'game-setting', 'game-setting');
-        Router.newPage('/game-setting');
+        newRout.navigate('game-setting');
         stopBtn.classList.add('hidden');
         if (regist.classList.contains('hidden')) {
           startBtn.classList.remove('hidden');

@@ -1,23 +1,28 @@
 import { User } from '../antities/user';
 
 export class DatabaseIamDarya {
-  request: IDBOpenDBRequest;
+  request: IDBOpenDBRequest | undefined;
 
   db: IDBDatabase | undefined;
 
-  constructor() {
-    this.request = window.indexedDB.open('IamDarya', 2);
+  async load(): Promise<void> {
+    const promise = new Promise<void>((resolve) => {
+      this.request = window.indexedDB.open('IamDarya', 2);
 
-    this.request.onsuccess = (event) => {
-      const e = event.target as unknown as { result: IDBDatabase };
-      this.db = e.result as IDBDatabase;
-    };
+      this.request.onsuccess = (event) => {
+        const e = event.target as unknown as { result: IDBDatabase };
+        this.db = e.result as IDBDatabase;
+        resolve();
+      };
 
-    this.request.onupgradeneeded = (event) => {
-      const e = event.target as unknown as { result: IDBDatabase };
-      this.db = e.result as IDBDatabase;
-      this.db.createObjectStore('users', { keyPath: 'email' });
-    };
+      this.request.onupgradeneeded = (event) => {
+        const e = event.target as unknown as { result: IDBDatabase };
+        this.db = e.result as IDBDatabase;
+        this.db.createObjectStore('users', { keyPath: 'email' });
+        resolve();
+      };
+    });
+    return promise;
   }
 
   async transaction(user: User): Promise<void> {
