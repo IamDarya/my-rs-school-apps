@@ -1,13 +1,16 @@
 import './pop-up-win.scss';
 import { BaseComponent } from '../base-component';
-import { Router } from '../routing/routing';
 import { BestScore } from '../best-score/best-score';
+import { NewRout } from '../routing/newRouting';
 
 export class PopUpWin extends BaseComponent {
   private bestScore: BestScore;
 
-  constructor(bestScore: BestScore) {
+  newRout: NewRout;
+
+  constructor(bestScore: BestScore, newRout: NewRout) {
     super('div', ['pop-up-win', 'hidden']);
+    this.newRout = newRout;
     this.bestScore = bestScore;
     this.element.innerHTML = `
     <h2 class="pop-up-win-h2"></h2>
@@ -19,8 +22,7 @@ export class PopUpWin extends BaseComponent {
     const btnOk = this.element.getElementsByClassName('btn-ok')[0];
 
     function closeWinPopUp() {
-      window.history.pushState(null, 'best-score', 'best-score');
-      Router.newPage('/best-score');
+      newRout.navigate('best-score');
       bestScore.bestScoreShow();
 
       document.getElementsByClassName('cover')[0].classList.add('hidden');

@@ -4,6 +4,7 @@ import { BaseComponent } from '../base-component';
 import { Card } from '../card/card';
 import { CardsField } from '../cards-field/cards-field';
 import { DatabaseIamDarya } from '../database/database';
+import { NewRout } from '../routing/newRouting';
 
 const FLIP_DELAY = 3000;
 let flipped = 0;
@@ -21,8 +22,11 @@ export class Game extends BaseComponent {
 
   private dataBaseIamDarya: DatabaseIamDarya;
 
-  constructor(dataBaseIamDarya: DatabaseIamDarya) {
+  private newRout: NewRout;
+
+  constructor(dataBaseIamDarya: DatabaseIamDarya, newRout: NewRout) {
     super();
+    this.newRout = newRout;
     this.cardsField = new CardsField();
     this.dataBaseIamDarya = dataBaseIamDarya;
     this.element.appendChild(this.cardsField.element);
@@ -32,7 +36,7 @@ export class Game extends BaseComponent {
   }
 
   newGame(images: string[]): void {
-    window.history.pushState(null, '', '/');
+    this.newRout.cleanHref();
 
     this.element.classList.remove('hidden');
     document.getElementsByClassName('about')[0].classList.add('hidden');

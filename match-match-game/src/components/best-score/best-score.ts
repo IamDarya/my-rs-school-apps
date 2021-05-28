@@ -1,7 +1,6 @@
 import './best-score.scss';
 import { BaseComponent } from '../base-component';
 import { DatabaseIamDarya } from '../database/database';
-import { User } from '../antities/user';
 
 export class BestScore extends BaseComponent {
   private databaseIamDarya: DatabaseIamDarya;
@@ -23,7 +22,7 @@ export class BestScore extends BaseComponent {
     const limitUSersDisplOnPage = 10;
     for (let i = 0; i < sortedUsers.length && i < limitUSersDisplOnPage; i++) {
       const li = document.createElement('li');
-      document.getElementsByClassName('list-of-users')[0].appendChild(li);
+      this.element.getElementsByClassName('list-of-users')[0].appendChild(li);
 
       const firstAndSecondNamePtag = document.createElement('p');
       firstAndSecondNamePtag.innerHTML = `${i + 1}. ${sortedUsers[i].fName} ${
