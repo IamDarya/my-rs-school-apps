@@ -41,7 +41,8 @@ export class Registration extends BaseComponent {
       'email',
     )[0] as HTMLInputElement;
     const addUserBtn = this.element.getElementsByClassName('validate')[0];
-    // const reg = /^(?![0-9]*$)[a-zA-Zа-яА-Я0-9\s]+$/;
+    let validEmail = false;
+    const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     function closeRegist() {
       document.getElementById('app')?.classList.toggle('blured');
@@ -67,7 +68,7 @@ export class Registration extends BaseComponent {
       if (
         fName.validity.valid
         && lName.validity.valid
-        && email.validity.valid
+        && validEmail
       ) {
         addUserBtn?.classList.remove('unactive_btn');
       } else {
@@ -104,12 +105,15 @@ export class Registration extends BaseComponent {
     });
 
     email.addEventListener('input', () => {
-      if (email.validity.valid) {
+      if (email.value.match(reg)) {
         validatedStyles(email);
+        validEmail = true;
+        validateInput();
       } else {
+        validEmail = false;
         notValidatedStyles(email);
+        validateInput();
       }
-      validateInput();
     });
 
     closeBtn?.addEventListener('click', closeRegist);
