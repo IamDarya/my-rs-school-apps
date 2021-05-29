@@ -27,11 +27,10 @@ export class BestScore extends BaseComponent {
       this.element.getElementsByClassName('list-of-users')[0].appendChild(li);
 
       const scoreImgTag = document.createElement('img');
-      if(sortedUsers[i].image !== undefined){
+      if (sortedUsers[i].image !== undefined) {
         scoreImgTag.setAttribute('src', `${sortedUsers[i].image}`);
         li.appendChild(scoreImgTag);
-      }
-      else{
+      } else {
         scoreImgTag.setAttribute('src', `${ninja}`);
         li.appendChild(scoreImgTag);
       }

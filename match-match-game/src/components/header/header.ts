@@ -20,7 +20,7 @@ export class Header extends BaseComponent {
     game: Game,
     router: Router,
     bestScore: BestScore,
-    newRout: NewRout
+    newRout: NewRout,
   ) {
     super('header', ['header']);
     this.newRout = newRout;
@@ -109,7 +109,7 @@ export class Header extends BaseComponent {
 
     startBtn.addEventListener('click', async () => {
       const cardsSelect = document.getElementById(
-        'select-cards'
+        'select-cards',
       ) as HTMLSelectElement;
       const result = cardsSelect.options[cardsSelect.selectedIndex].value;
       let res = await fetch('./food.json');
@@ -126,16 +126,15 @@ export class Header extends BaseComponent {
     });
   }
 
-  addProfPic() {
+  addProfPic(): void {
     if (this.game.activeUser && this.game.activeUser.image) {
       document
         .getElementsByClassName('pic-user')[0]
         .setAttribute('src', `${this.game.activeUser.image}`);
-    }
-    else {
+    } else {
       document
-      .getElementsByClassName('pic-user')[0]
-      .setAttribute('src', `${ninja}`);
+        .getElementsByClassName('pic-user')[0]
+        .setAttribute('src', `${ninja}`);
     }
   }
 }
