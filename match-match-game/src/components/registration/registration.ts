@@ -52,18 +52,17 @@ export class Registration extends BaseComponent {
 
     const closeBtn = this.element.getElementsByClassName('btn-cansel')[0];
     const fName = this.element.getElementsByClassName(
-      'first-name'
+      'first-name',
     )[0] as HTMLInputElement;
     const lName = this.element.getElementsByClassName(
-      'last-name'
+      'last-name',
     )[0] as HTMLInputElement;
     const email = this.element.getElementsByClassName(
-      'email'
+      'email',
     )[0] as HTMLInputElement;
     const addUserBtn = this.element.getElementsByClassName('validate')[0];
     let validEmail = false;
-    const reg =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     function closeRegist() {
       document.getElementById('app')?.classList.toggle('blured');
@@ -83,9 +82,7 @@ export class Registration extends BaseComponent {
       fName.value = '';
       lName.value = '';
       email.value = '';
-      document
-      .getElementsByClassName('thumb')[0]
-      .removeAttribute('src');
+      document.getElementsByClassName('thumb')[0].removeAttribute('src');
     }
 
     const validateInput = () => {
@@ -146,7 +143,7 @@ export class Registration extends BaseComponent {
         fName.value,
         lName.value,
         0,
-        this.avatar
+        this.avatar,
       );
       if ((await database.getUser(email.value)) === undefined) {
         await database.transaction(user);
@@ -166,15 +163,16 @@ export class Registration extends BaseComponent {
       document
         .getElementsByClassName('start-game-btn')[0]
         .classList.remove('hidden');
-        header.addProfPic();
+      header.addProfPic();
     });
   }
 
   static displayImgData(
-    imgData: string | ArrayBuffer | null | undefined
+    imgData: string | ArrayBuffer | null | undefined,
   ): void {
-    let profPic = document
-    .getElementsByClassName('thumb')[0] as HTMLImageElement;
+    const profPic = document.getElementsByClassName(
+      'thumb',
+    )[0] as HTMLImageElement;
     profPic.src = `${imgData}`;
     document
       .getElementById('list')!
@@ -187,7 +185,7 @@ export class Registration extends BaseComponent {
 
     // Only process image files.
     if (!files![0].type.match('image.*')) {
-      alert('Please choose an image file!');
+      alert('Please select an image file!');
       return;
     }
 
