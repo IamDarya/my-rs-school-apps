@@ -45,7 +45,7 @@ export class App {
     this.settings = new Settings();
     this.game = new Game(this.dataBaseIamDarya, this.newRout);
     this.header = new Header(this.game, this.router, this.bestScore, this.newRout);
-    this.registration = new Registration(this.dataBaseIamDarya, this.game);
+    this.registration = new Registration(this.dataBaseIamDarya, this.game, this.header);
     this.popUpWin = new PopUpWin(this.bestScore, this.newRout);
     this.cover = new Cover();
     this.footer = new Footer();
