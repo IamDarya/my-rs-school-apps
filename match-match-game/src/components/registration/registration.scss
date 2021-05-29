@@ -43,8 +43,11 @@
   bottom: 0;
   right: 0;
   margin: auto;
-  height: 400px;
+  height: 550px;
   z-index: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .contact-form {
@@ -95,3 +98,11 @@
     padding: 10px 30px;
   }
 }
+
+
+#list img {
+  max-width: 150px;
+  max-height: 150px;
+}
+
+
