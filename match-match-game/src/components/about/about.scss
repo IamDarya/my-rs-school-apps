@@ -11,6 +11,8 @@
 .how-to-play-ul {
   display: flex;
   text-align: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .how-to-play-li {

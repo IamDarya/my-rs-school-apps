@@ -5,6 +5,7 @@ import { ImageCategoryModel } from '../../models/image-category-model';
 import { Router } from '../routing/routing';
 import { BestScore } from '../best-score/best-score';
 import { NewRout } from '../routing/newRouting';
+import ninja from '../../assets/ninja.png';
 
 export class Header extends BaseComponent {
   game: Game;
@@ -15,7 +16,12 @@ export class Header extends BaseComponent {
 
   newRout: NewRout;
 
-  constructor(game: Game, router: Router, bestScore: BestScore, newRout: NewRout) {
+  constructor(
+    game: Game,
+    router: Router,
+    bestScore: BestScore,
+    newRout: NewRout
+  ) {
     super('header', ['header']);
     this.newRout = newRout;
     this.bestScore = bestScore;
@@ -30,7 +36,8 @@ export class Header extends BaseComponent {
         <li><button type="button" id="game-setting" class="btn game-setting-btn">Game Setting</button></li>
       </ul>
     </div>
-    <div>
+    <div class="btn-and-prof-pic">
+    <img class="pic-user">
       <button type="button" class="regictration-btn btn">Register New Player</button>
       <button type="button" class="start-game-btn btn hidden">Start Game</button>
       <button type="button" id="stop-game-btn" class="stop-game-btn btn hidden">Stop Game</button>
@@ -102,7 +109,7 @@ export class Header extends BaseComponent {
 
     startBtn.addEventListener('click', async () => {
       const cardsSelect = document.getElementById(
-        'select-cards',
+        'select-cards'
       ) as HTMLSelectElement;
       const result = cardsSelect.options[cardsSelect.selectedIndex].value;
       let res = await fetch('./food.json');
@@ -117,5 +124,18 @@ export class Header extends BaseComponent {
       const images = cat.images.map((name) => `${cat.category}/${name}`);
       this.game.newGame(images);
     });
+  }
+
+  addProfPic() {
+    if (this.game.activeUser && this.game.activeUser.image) {
+      document
+        .getElementsByClassName('pic-user')[0]
+        .setAttribute('src', `${this.game.activeUser.image}`);
+    }
+    else {
+      document
+      .getElementsByClassName('pic-user')[0]
+      .setAttribute('src', `${ninja}`);
+    }
   }
 }

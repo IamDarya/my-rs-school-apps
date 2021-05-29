@@ -3,6 +3,8 @@ import { BaseComponent } from '../base-component';
 import { DatabaseIamDarya } from '../database/database';
 import { User } from '../antities/user';
 import { Game } from '../game/game';
+import { Header } from '../header/header';
+import ninja from '../../assets/ninja.png';
 
 export class Registration extends BaseComponent {
   database: DatabaseIamDarya;
@@ -11,17 +13,20 @@ export class Registration extends BaseComponent {
 
   avatar: string | ArrayBuffer | null | undefined;
 
-  constructor(database: DatabaseIamDarya, game: Game) {
+  header: Header;
+
+  constructor(database: DatabaseIamDarya, game: Game, header: Header) {
     super('div', ['registration', 'hidden']);
     this.game = game;
     this.database = database;
+    this.header = header;
     this.element.innerHTML = `
     <h2 class="regist-h2">Register new player</h2>
     <div class="forms">
     <div class="profile-pic">
         <div id="list">
         <span class="pic-box">
-        <img class="thumb">
+        <img class="thumb" src="${ninja}">
         </span>
         </div>
         <input type="file" class="files" id="files">
@@ -78,6 +83,9 @@ export class Registration extends BaseComponent {
       fName.value = '';
       lName.value = '';
       email.value = '';
+      document
+      .getElementsByClassName('thumb')[0]
+      .removeAttribute('src');
     }
 
     const validateInput = () => {
@@ -158,15 +166,16 @@ export class Registration extends BaseComponent {
       document
         .getElementsByClassName('start-game-btn')[0]
         .classList.remove('hidden');
+        header.addProfPic();
     });
   }
 
   static displayImgData(
     imgData: string | ArrayBuffer | null | undefined
   ): void {
-    document
-      .getElementsByClassName('thumb')[0]
-      .setAttribute('src', `${imgData}`);
+    let profPic = document
+    .getElementsByClassName('thumb')[0] as HTMLImageElement;
+    profPic.src = `${imgData}`;
     document
       .getElementById('list')!
       .insertBefore(document.getElementsByClassName('pic-box')[0], null);

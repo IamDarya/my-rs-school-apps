@@ -78,3 +78,14 @@ li {
 .active {
   text-shadow: -5px 4px 3px rgb(47 79 79 / 87%);
 }
+
+.btn-and-prof-pic {
+  display: flex;
+}
+
+.pic-user {
+  height: 3rem;
+  max-width: 6rem;
+  object-fit: cover;
+  margin-right: 0.3rem;
+}
