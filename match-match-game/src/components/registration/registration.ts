@@ -34,10 +34,10 @@ export class Registration extends BaseComponent {
     </div>
       <form action class="contact-form">
       <label class="contact-form__label" for="firstName" >First name</label>
-      <input type="text" pattern="^(?![0-9]*$)[a-zA-Zа-яА-Я0-9&bsol;s]+$" class="contact-form__input first-name"
+      <input type="text" pattern="^(?![0-9]*$)[&bsol;p{L}0-9&bsol;s]+$" class="contact-form__input first-name"
       maxlength=30 placeholder="First name" required>
       <label class="contact-form__label" for="lastName" placeholder="Last name">Last name</label>
-      <input type="text" pattern="^(?![0-9]*$)[a-zA-Zа-яА-Я0-9&bsol;s]+$" class="contact-form__input last-name"
+      <input type="text" pattern="^(?![0-9]*$)[&bsol;p{L}0-9&bsol;s]+$" class="contact-form__input last-name"
       maxlength=30 placeholder="Last name" required>
       <label class="contact-form__label" for="email" placeholder="email">email</label>
       <input type="email" class="contact-form__input email" maxlength=30 placeholder="your@email.com" required>

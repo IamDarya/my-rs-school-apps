@@ -11,9 +11,9 @@ export class About extends BaseComponent {
     <div class="how-to-play">
     <h2>How to play?</h2>
     <ul class="how-to-play-ul">
-      <li class="how-to-play-li">1.Register new player in game. <img src="${jpg}" alt=""></li>
-      <li class="how-to-play-li">2.Configure your game settings.<img src="${png}" alt=""></li>
-      <li class="how-to-play-li">3.Start you new game! Remember card positions and match it before times up.
+      <li class="how-to-play-li">1.Register a new player in the game. <img src="${jpg}" alt=""></li>
+      <li class="how-to-play-li">2.Select your game settings.<img src="${png}" alt=""></li>
+      <li class="how-to-play-li">3.Start your new game! You have 10 seconds to memorize the positions of cards before they turn over and match them as quickly as possible.
       <img src="${game}" alt=""></li>
     </ul>`;
   }
