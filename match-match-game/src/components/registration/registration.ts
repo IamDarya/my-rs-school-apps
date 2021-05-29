@@ -82,7 +82,10 @@ export class Registration extends BaseComponent {
       fName.value = '';
       lName.value = '';
       email.value = '';
-      document.getElementsByClassName('thumb')[0].removeAttribute('src');
+      const profPic = document.getElementsByClassName(
+        'thumb',
+      )[0] as HTMLImageElement;
+      profPic.src = `${ninja}`;
     }
 
     const validateInput = () => {
