@@ -52,18 +52,17 @@ export class Registration extends BaseComponent {
 
     const closeBtn = this.element.getElementsByClassName('btn-cansel')[0];
     const fName = this.element.getElementsByClassName(
-      'first-name'
+      'first-name',
     )[0] as HTMLInputElement;
     const lName = this.element.getElementsByClassName(
-      'last-name'
+      'last-name',
     )[0] as HTMLInputElement;
     const email = this.element.getElementsByClassName(
-      'email'
+      'email',
     )[0] as HTMLInputElement;
     const addUserBtn = this.element.getElementsByClassName('validate')[0];
     let validEmail = false;
-    const reg =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     function resetInputs() {
       document.getElementById('app')?.classList.toggle('blured');
@@ -82,7 +81,7 @@ export class Registration extends BaseComponent {
       lName.value = '';
       email.value = '';
       const profPic = document.getElementsByClassName(
-        'thumb'
+        'thumb',
       )[0] as HTMLImageElement;
       profPic.src = `${ninja}`;
     }
@@ -153,13 +152,12 @@ export class Registration extends BaseComponent {
         lName.value,
         0,
         email.value + fName.value + lName.value,
-        this.avatar
+        this.avatar,
       );
       if ((await database.getUser(email.value + fName.value + lName.value)) === undefined) {
         await database.transaction(user);
         game.activeUser = user;
-      }
-      else {
+      } else {
         game.activeUser = user;
         await database.update(game.activeUser);
       }
@@ -181,10 +179,10 @@ export class Registration extends BaseComponent {
   }
 
   static displayImgData(
-    imgData: string | ArrayBuffer | null | undefined
+    imgData: string | ArrayBuffer | null | undefined,
   ): void {
     const profPic = document.getElementsByClassName(
-      'thumb'
+      'thumb',
     )[0] as HTMLImageElement;
     profPic.src = `${imgData}`;
     document
