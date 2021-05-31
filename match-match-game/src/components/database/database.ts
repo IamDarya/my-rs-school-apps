@@ -18,7 +18,7 @@ export class DatabaseIamDarya {
       this.request.onupgradeneeded = (event) => {
         const e = event.target as unknown as { result: IDBDatabase };
         this.db = e.result as IDBDatabase;
-        this.db.createObjectStore('users', { keyPath: 'email' });
+        this.db.createObjectStore('users', { keyPath: 'id' });
         resolve();
       };
     });
@@ -44,11 +44,11 @@ export class DatabaseIamDarya {
     return promise;
   }
 
-  async getUser(email: string): Promise<User> {
+  async getUser(id: string): Promise<User> {
     const promise = new Promise<User>((resolve, reject) => {
       const transaction = this.db!.transaction('users', 'readwrite');
       const users = transaction.objectStore('users');
-      const request = users.get(email);
+      const request = users.get(id);
 
       request.onsuccess = function existUser() {
         resolve(request.result);

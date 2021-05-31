@@ -64,21 +64,19 @@ export class Registration extends BaseComponent {
     let validEmail = false;
     const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    function closeRegist() {
+    function resetInputs() {
       document.getElementById('app')?.classList.toggle('blured');
-      document
-        .getElementsByClassName('registration')[0]
-        .classList.toggle('hidden');
       document.getElementsByClassName('cover')[0].classList.toggle('hidden');
-      document
-        .getElementsByClassName('regictration-btn')[0]
-        .classList.toggle('active');
       fName.classList.remove('not-validated-input');
       fName.classList.remove('validated-input');
       lName.classList.remove('not-validated-input');
       lName.classList.remove('validated-input');
       email.classList.remove('not-validated-input');
       email.classList.remove('validated-input');
+      addUserBtn.classList.add('unactive_btn');
+      document
+        .getElementsByClassName('regictration-btn')[0]
+        .classList.remove('active');
       fName.value = '';
       lName.value = '';
       email.value = '';
@@ -86,6 +84,13 @@ export class Registration extends BaseComponent {
         'thumb',
       )[0] as HTMLImageElement;
       profPic.src = `${ninja}`;
+    }
+
+    function closeRegist() {
+      document
+        .getElementsByClassName('registration')[0]
+        .classList.toggle('hidden');
+      resetInputs();
     }
 
     const validateInput = () => {
@@ -146,17 +151,16 @@ export class Registration extends BaseComponent {
         fName.value,
         lName.value,
         0,
+        email.value + fName.value + lName.value,
         this.avatar,
       );
-      if ((await database.getUser(email.value)) === undefined) {
+      if ((await database.getUser(email.value + fName.value + lName.value)) === undefined) {
         await database.transaction(user);
+        game.activeUser = user;
+      } else {
+        game.activeUser = user;
+        await database.update(game.activeUser);
       }
-      game.activeUser = user;
-      setTimeout(() => {
-        alert(`Hello ${fName.value}, let's play a game!`);
-      }, 500);
-
-      document.getElementsByClassName('cover')[0].classList.toggle('hidden');
       document
         .getElementsByClassName('registration')[0]
         .classList.toggle('hidden');
@@ -167,6 +171,10 @@ export class Registration extends BaseComponent {
         .getElementsByClassName('start-game-btn')[0]
         .classList.remove('hidden');
       header.addProfPic();
+      document
+        .getElementsByClassName('log-out_btn')[0]
+        .classList.remove('hidden');
+      resetInputs();
     });
   }
 

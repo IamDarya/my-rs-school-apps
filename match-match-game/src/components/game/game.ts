@@ -18,7 +18,7 @@ export class Game extends BaseComponent {
 
   private isAnimation = false;
 
-  public activeUser!: User;
+  public activeUser!: User | undefined;
 
   private dataBaseIamDarya: DatabaseIamDarya;
 
@@ -131,8 +131,8 @@ export class Game extends BaseComponent {
         userScore = 1;
       }
 
-      this.activeUser.score = userScore;
-      await this.dataBaseIamDarya.update(this.activeUser);
+      this.activeUser!.score = userScore;
+      await this.dataBaseIamDarya.update(this.activeUser!);
 
       document.getElementsByClassName('cover')[0].classList.remove('hidden');
       document

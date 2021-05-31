@@ -41,6 +41,7 @@ export class Header extends BaseComponent {
       <button type="button" class="regictration-btn btn">Register New Player</button>
       <button type="button" class="start-game-btn btn hidden">Start Game</button>
       <button type="button" id="stop-game-btn" class="stop-game-btn btn hidden">Stop Game</button>
+      <button type="button" class="log-out_btn btn hidden">Log out</button>
     </div>
   </header>`;
 
@@ -51,6 +52,7 @@ export class Header extends BaseComponent {
     const regist = this.element.getElementsByClassName('regictration-btn')[0];
     const startBtn = this.element.getElementsByClassName('start-game-btn')[0];
     const stopBtn = this.element.getElementsByClassName('stop-game-btn')[0];
+    const logOutBtn = this.element.getElementsByClassName('log-out_btn')[0];
 
     function newPage(event: Event) {
       const t = event.target as HTMLElement;
@@ -103,9 +105,20 @@ export class Header extends BaseComponent {
     }
 
     headerList?.addEventListener('click', newPage);
+
     regist.addEventListener('click', registratison);
 
     stopBtn.addEventListener('click', newPage);
+
+    logOutBtn.addEventListener('click', () => {
+      stopBtn.classList.add('hidden');
+      startBtn.classList.add('hidden');
+      logOutBtn.classList.add('hidden');
+      regist.classList.remove('hidden');
+      this.game.activeUser = undefined;
+      newRout.navigate('about-game');
+      document.getElementsByClassName('pic-user')[0].removeAttribute('src');
+    });
 
     startBtn.addEventListener('click', async () => {
       const cardsSelect = document.getElementById(
