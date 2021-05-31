@@ -152,12 +152,17 @@ export class Registration extends BaseComponent {
         fName.value,
         lName.value,
         0,
+        email.value + fName.value + lName.value,
         this.avatar
       );
-      if ((await database.getUser(email.value)) === undefined) {
+      if ((await database.getUser(email.value + fName.value + lName.value)) === undefined) {
         await database.transaction(user);
+        game.activeUser = user;
       }
-      game.activeUser = user;
+      else {
+        game.activeUser = user;
+        await database.update(game.activeUser);
+      }
       document
         .getElementsByClassName('registration')[0]
         .classList.toggle('hidden');
