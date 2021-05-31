@@ -230,6 +230,6 @@ export class Registration extends BaseComponent {
       'file',
     )[0] as HTMLFormElement;
     formProfPic.reset();
-    this.avatar = null;
+    this.avatar = ninja;
   }
 }
