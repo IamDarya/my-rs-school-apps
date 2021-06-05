@@ -6,3 +6,20 @@
 html {
   font-size: 20px;
 }
+
+h2,
+.amount-of-cars-in-garage,
+.page,
+.num-of-page {
+  display: inline-block;
+}
+
+.car-section-wrapper {
+  border-bottom: dashed;
+}
+
+.select-remove-btns-name,
+.car-block {
+  display: flex;
+}
+
