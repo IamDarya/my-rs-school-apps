@@ -3,23 +3,17 @@
   padding: 0;
 }
 
+#app {
+  background-color: #636a73;
+  background-image: url("assets/back.png");
+  background-size: cover;
+}
+
 html {
   font-size: 20px;
 }
 
-h2,
-.amount-of-cars-in-garage,
-.page,
-.num-of-page {
-  display: inline-block;
+.hidden.to-hide-when-best-res-shows,
+.hidden.best-result-wrapper {
+  display: none;
 }
-
-.car-section-wrapper {
-  border-bottom: dashed;
-}
-
-.select-remove-btns-name,
-.car-block {
-  display: flex;
-}
-

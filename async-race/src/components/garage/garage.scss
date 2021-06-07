@@ -1,0 +1,35 @@
+h2,
+.amount-of-cars-in-garage,
+.page,
+.num-of-page,
+.amount-of-winners-on-page {
+  display: inline-block;
+}
+
+.car-section-wrapper {
+  border-bottom: dashed;
+  margin-top: 20px;
+}
+
+.select-remove-btns-name,
+.car-block {
+  display: flex;
+}
+
+main {
+  margin-top: 50px;
+}
+
+.finish {
+  background-image: url("../../assets/race-flag.png");
+  width: 60px;
+  height: 60px;
+  background-size: cover;
+  position: absolute;
+  right: 10%;
+  top: 23%;
+}
+
+.prev-next-btns {
+  margin-top: 20px;
+}
