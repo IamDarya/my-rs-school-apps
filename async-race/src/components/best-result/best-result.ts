@@ -11,7 +11,7 @@ export class BestResult extends BaseComponent {
     this.element.innerHTML = `
         <div>
           <h2>Winners</h2>
-          <div class="amount-of-winners-on-page">(3)</div>
+          <div class="amount-of-winners-on-page">(0)</div>
           <ul>
             <li>
               <p>Position</p>

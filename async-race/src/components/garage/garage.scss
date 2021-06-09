@@ -6,7 +6,7 @@ h2,
   display: inline-block;
 }
 
-.car-section-wrapper {
+.car-section {
   border-bottom: dashed;
   margin-top: 20px;
 }
@@ -17,17 +17,21 @@ h2,
 }
 
 main {
-  margin-top: 50px;
+  margin-top: 9px;
+}
+
+.car {
+  height: 50px;
+  width: 72px;
 }
 
 .finish {
-  background-image: url("../../assets/race-flag.png");
-  width: 60px;
-  height: 60px;
+  background-image: url("../../assets/finish-flag.png");
+  width: 50px;
+  height: 50px;
   background-size: cover;
   position: absolute;
-  right: 10%;
-  top: 23%;
+  right: 9%;
 }
 
 .prev-next-btns {
