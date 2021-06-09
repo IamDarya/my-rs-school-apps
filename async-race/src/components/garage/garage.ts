@@ -3,38 +3,23 @@ import { Router } from '../router/router';
 import { BaseComponent } from '../base-component';
 import { BestResult } from '../best-result/best-result';
 import { API } from '../api';
+import { CarManipulation } from '../car-manipulations/car-manipulations';
 
 export class Garage extends BaseComponent {
   router: Router;
   api: API;
+  carManipulation: CarManipulation;
 
   constructor(router: Router, bestResult: BestResult, api: API) {
     super('div', ['wrapper']);
-    this.router = router;
     this.api = api;
+    this.router = router;
+    this.carManipulation = new CarManipulation(this.api);
     this.element.innerHTML = `
-      <div class="to-garage-winners-btns">
-        <button class="to-garage-btn">TO GARAGE</button>
-        <button class="to-winners-btn">TO WINNERS</button>
-      </div>
-      <div class="to-hide-when-best-res-shows">
-      <div class="create-update">
-        <div class="create">
-          <input type="text" />
-          <input type="color" />
-          <button class="create-btn">CREATE</button>
-        </div>
-        <div class="update">
-          <input type="text" />
-          <input type="color" />
-          <button class="update-btn">UPDATE</button>
-        </div>
-      </div>
-      <div class="race-reset-generate-cars-btns">
-        <button class="race-btn">RACE</button>
-        <button class="reset-btn">RESET</button>
-        <button class="generate-cars-btn">GENERATE CARS</button>
-      </div>
+    <div class="to-garage-winners-btns">
+    <button class="to-garage-btn">TO GARAGE</button>
+    <button class="to-winners-btn">TO WINNERS</button>
+    </div>
       <main class="whole-garage-part">
         <div>
           <h2>Garage</h2>
@@ -45,13 +30,17 @@ export class Garage extends BaseComponent {
           <div class="num-of-page"></div>
         </div>
         <div class="car-section-wrapper">
-
       </main>
       </div>
       <div class="prev-next-btns">
       <button class="prev">PREV</button>
       <button class="next">NEXT</button>
     </div>`;
+
+    this.element.insertBefore(
+      this.carManipulation.element,
+      this.element.getElementsByTagName('main')[0]
+    );
 
     const bestResultBtn =
       this.element.getElementsByClassName('to-winners-btn')[0];
@@ -82,8 +71,12 @@ export class Garage extends BaseComponent {
   async getAllCArs() {
     let arrcars = await this.api.getCars();
 
-    document.getElementsByClassName('amount-of-cars-in-garage')[0].innerHTML = `(${arrcars.length})`;
-    document.getElementsByClassName('num-of-page')[0].innerHTML = `(${Math.ceil(arrcars.length/7)})`;
+    document.getElementsByClassName(
+      'amount-of-cars-in-garage'
+    )[0].innerHTML = `(${arrcars.length})`;
+    document.getElementsByClassName('num-of-page')[0].innerHTML = `(1 of ${Math.ceil(
+      arrcars.length / 7
+    )})`;
 
     const limitCarsDisplOnPage = 7;
     let numOfCarsect = 0;

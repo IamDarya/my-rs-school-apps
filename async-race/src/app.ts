@@ -2,6 +2,7 @@ import { Router } from './components/router/router';
 import { BestResult } from './components/best-result/best-result';
 import { Garage } from './components/garage/garage';
 import { API } from './components/api';
+import { CarManipulation } from './components/car-manipulations/car-manipulations';
 
 export class App {
   private readonly router = new Router();
