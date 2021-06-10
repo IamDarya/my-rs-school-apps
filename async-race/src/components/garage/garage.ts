@@ -53,7 +53,7 @@ export class Garage extends BaseComponent {
       bestResult.show();
 
       document
-        .getElementsByClassName('to-hide-when-best-res-shows')[0]
+        .getElementsByClassName('whole-garage-part')[0]
         .classList.add('hidden');
     });
 
@@ -62,7 +62,7 @@ export class Garage extends BaseComponent {
 
       bestResult.hide();
       document
-        .getElementsByClassName('to-hide-when-best-res-shows')[0]
+        .getElementsByClassName('whole-garage-part')[0]
         .classList.remove('hidden');
     });
 
@@ -84,10 +84,6 @@ export class Garage extends BaseComponent {
     const limitCarsDisplOnPage = 7;
     let numOfCarsect = 0;
     for (let i = 0; i < limitCarsDisplOnPage && i < arrcars.length; i++) {
-      // if(this.element.getElementsByClassName(`car-section-${numOfCarsect}`)) {
-      //   numOfCarsect++;
-      //   continue;
-      // }
       const div = document.createElement('div');
       this.element
         .getElementsByClassName('car-section-wrapper')[0]
@@ -101,8 +97,8 @@ export class Garage extends BaseComponent {
       this.element.getElementsByClassName(
         `car-section-${numOfCarsect}`,
       )[0].innerHTML = `<div class="select-remove-btns-name">
-      <button class="select">SELECT</button>
-      <button class="remove">REMOVE</button>
+      <button class="select-${arrcars[i].id} data-id="${arrcars[i].id}">SELECT</button>
+      <button class="remove-${arrcars[i].id}" data-id="${arrcars[i].id}">REMOVE</button>
       <div class="car-name">${arrcars[i].name}</div>
     </div>
     <div class="car-block">
@@ -123,6 +119,13 @@ export class Garage extends BaseComponent {
     <div class="finish"></div>
     </div>
   </div>`;
+
+  this.element.getElementsByClassName(`remove-${arrcars[i].id}`)[0].addEventListener('click', async (e: Event) => {
+    let getID = e.target as HTMLElement;
+    await this.api.deleteCar(parseInt(getID.getAttribute('data-id')!, 10));
+    this.getAllCArs();
+  })
+
       numOfCarsect++;
     }
   }
