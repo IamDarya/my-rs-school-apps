@@ -41,10 +41,11 @@ export class Garage extends BaseComponent {
 
     this.element.insertBefore(
       this.carManipulation.element,
-      this.element.getElementsByTagName('main')[0],
+      this.element.getElementsByTagName('main')[0]
     );
 
-    const bestResultBtn = this.element.getElementsByClassName('to-winners-btn')[0];
+    const bestResultBtn =
+      this.element.getElementsByClassName('to-winners-btn')[0];
     const garageBtn = this.element.getElementsByClassName('to-garage-btn')[0];
 
     bestResultBtn.addEventListener('click', () => {
@@ -70,15 +71,16 @@ export class Garage extends BaseComponent {
   }
 
   async getAllCArs() {
-    this.element
-        .getElementsByClassName('car-section-wrapper')[0].innerHTML = ``;
+    this.element.getElementsByClassName(
+      'car-section-wrapper'
+    )[0].innerHTML = ``;
     const arrcars = await this.api.getCars();
 
     document.getElementsByClassName(
-      'amount-of-cars-in-garage',
+      'amount-of-cars-in-garage'
     )[0].innerHTML = `(${arrcars.length})`;
     document.getElementsByClassName(
-      'num-of-page',
+      'num-of-page'
     )[0].innerHTML = `(1 of ${Math.ceil(arrcars.length / 7)})`;
 
     const limitCarsDisplOnPage = 7;
@@ -95,7 +97,7 @@ export class Garage extends BaseComponent {
         .setAttribute('style', `fill:${arrcars[i].color}`);
 
       this.element.getElementsByClassName(
-        `car-section-${numOfCarsect}`,
+        `car-section-${numOfCarsect}`
       )[0].innerHTML = `<div class="select-remove-btns-name">
       <button class="select-${arrcars[i].id}" data-id="${arrcars[i].id}">SELECT</button>
       <button class="remove-${arrcars[i].id}" data-id="${arrcars[i].id}">REMOVE</button>
@@ -120,17 +122,25 @@ export class Garage extends BaseComponent {
     </div>
   </div>`;
 
-  this.element.getElementsByClassName(`remove-${arrcars[i].id}`)[0].addEventListener('click', async (e: Event) => {
-    let getID = e.target as HTMLElement;
-    await this.api.deleteCar(parseInt(getID.getAttribute('data-id')!, 10));
-    this.getAllCArs();
-  })
+      this.element
+        .getElementsByClassName(`remove-${arrcars[i].id}`)[0]
+        .addEventListener('click', async (e: Event) => {
+          let getID = e.target as HTMLElement;
+          await this.api.deleteCar(
+            parseInt(getID.getAttribute('data-id')!, 10)
+          );
+          this.getAllCArs();
+        });
 
-  this.element.getElementsByClassName(`select-${arrcars[i].id}`)[0].addEventListener('click', async (e: Event) => {
-    let getID = e.target as HTMLElement;
-    let selectedCar = await this.api.getCar(parseInt(getID.getAttribute('data-id')!, 10));
-    this.carManipulation.getCarForUpdate(selectedCar);
-  })
+      this.element
+        .getElementsByClassName(`select-${arrcars[i].id}`)[0]
+        .addEventListener('click', async (e: Event) => {
+          let getID = e.target as HTMLElement;
+          let selectedCar = await this.api.getCar(
+            parseInt(getID.getAttribute('data-id')!, 10)
+          );
+          this.carManipulation.getCarForUpdate(selectedCar);
+        });
 
       numOfCarsect++;
     }

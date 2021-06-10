@@ -42,21 +42,24 @@ export class CarManipulation extends BaseComponent {
       </div>`;
 
     this.inputColor = this.element.getElementsByClassName(
-      'input-newcar-color',
+      'input-newcar-color'
     )[0] as HTMLInputElement;
 
     this.inputColorUpdate = this.element.getElementsByClassName(
-      'input-updatecar-color',
+      'input-updatecar-color'
     )[0] as HTMLInputElement;
 
     this.inputColor.addEventListener('input', () => this.inputColor?.value);
-    this.inputColorUpdate.addEventListener('input', () => this.inputColorUpdate?.value);
+    this.inputColorUpdate.addEventListener(
+      'input',
+      () => this.inputColorUpdate?.value
+    );
 
     this.element
       .getElementsByClassName('create-btn')[0]
       .addEventListener('click', async () => {
         this.inputName = this.element.getElementsByClassName(
-          'input-newcar-name',
+          'input-newcar-name'
         )[0] as HTMLInputElement;
 
         await this.api.createCar(this.inputName.value, this.inputColor!.value);
@@ -64,27 +67,80 @@ export class CarManipulation extends BaseComponent {
 
         await this.garage.getAllCArs();
       });
+
+    this.element
+      .getElementsByClassName('generate-cars-btn')[0]
+      .addEventListener('click', async () => {
+        const arrOfRandomCarName = [
+          'Volvo',
+          'Volkswagen',
+          'Toyota',
+          'Ford',
+          'Mercedes',
+          'BMW',
+          'Audi',
+          'Porsche',
+          'Cadillac',
+          'Maybach',
+          'Tesla',
+        ];
+        const arrOfRandomCarNameModeles = [
+          'Compact',
+          'Crossover',
+          'x7',
+          '8 Series',
+          'S4',
+          '904',
+          'RS Spyder',
+          'XT6',
+          'Escalade',
+          'S-class',
+        ];
+        const letters = '0123456789ABCDEF';
+        let randomCarName = '';
+        let randomColor = '#';
+        for (let i = 0; i < 100; i++) {
+          randomCarName =
+            arrOfRandomCarName[Math.floor(Math.random() * 10)] +
+            ' ' +
+            arrOfRandomCarNameModeles[Math.floor(Math.random() * 10)];
+          for (var j = 0; j < 6; j++) {
+            randomColor += letters[Math.floor(Math.random() * 16)];
+          }
+          console.log(randomCarName, randomColor);
+          await this.api.createCar(randomCarName, randomColor);
+          this.garage.getAllCArs();
+          randomColor = '#';
+        }
+      });
   }
 
   getCarForUpdate(carForUpdate: Car) {
-    if(carForUpdate) {
+    if (carForUpdate) {
       this.element
-      .getElementsByClassName('update-btn')[0]
-      .addEventListener('click', async () => {
-        this.inputNameUpdate = this.element.getElementsByClassName(
-          'input-updatecar-name',
-        )[0] as HTMLInputElement;
+        .getElementsByClassName('update-btn')[0]
+        .addEventListener('click', async () => {
+          this.inputNameUpdate = this.element.getElementsByClassName(
+            'input-updatecar-name'
+          )[0] as HTMLInputElement;
 
-        if(this.inputNameUpdate.value !== '') {
-          await this.api.updateCar(carForUpdate.id ,this.inputNameUpdate.value, this.inputColorUpdate!.value);
-        }
-        else {
-          await this.api.updateCar(carForUpdate.id ,carForUpdate.name, this.inputColorUpdate!.value);
-        }
-        this.resetInputs(this.inputNameUpdate, this.inputColorUpdate!);
+          if (this.inputNameUpdate.value !== '') {
+            await this.api.updateCar(
+              carForUpdate.id,
+              this.inputNameUpdate.value,
+              this.inputColorUpdate!.value
+            );
+          } else {
+            await this.api.updateCar(
+              carForUpdate.id,
+              carForUpdate.name,
+              this.inputColorUpdate!.value
+            );
+          }
+          this.resetInputs(this.inputNameUpdate, this.inputColorUpdate!);
 
-        await this.garage.getAllCArs();
-      });
+          await this.garage.getAllCArs();
+        });
     }
   }
 
