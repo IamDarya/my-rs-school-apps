@@ -1,15 +1,21 @@
 import { BaseComponent } from '../base-component';
 import { API } from '../api';
+import { Garage } from '../garage/garage';
 import './car-manipulations.scss';
 
 export class CarManipulation extends BaseComponent {
   api: API;
+
   inputName: HTMLInputElement | undefined;
+
   inputColor: HTMLInputElement | undefined;
 
-  constructor(api: API) {
+  garage: Garage;
+
+  constructor(api: API, garage: Garage) {
     super('div');
     this.api = api;
+    this.garage = garage;
     this.element.innerHTML = `
       <div class="to-hide-when-best-res-shows">
       <div class="create-update">
@@ -31,22 +37,21 @@ export class CarManipulation extends BaseComponent {
       </div>`;
 
     this.inputColor = this.element.getElementsByClassName(
-      'input-newcar-color'
+      'input-newcar-color',
     )[0] as HTMLInputElement;
 
-    this.inputColor.addEventListener('input', () => {
-      return this.inputColor?.value;
-    });
+    this.inputColor.addEventListener('input', () => this.inputColor?.value);
 
     this.element
       .getElementsByClassName('create-btn')[0]
       .addEventListener('click', async () => {
         this.inputName = this.element.getElementsByClassName(
-          'input-newcar-name'
+          'input-newcar-name',
         )[0] as HTMLInputElement;
 
-        console.log(this.inputName.value, this.inputColor?.value);
-        this.api.createCar(this.inputName.value, this.inputColor!.value);
+        await this.api.createCar(this.inputName.value, this.inputColor!.value);
+
+        await this.garage.getAllCArs();
       });
   }
 }

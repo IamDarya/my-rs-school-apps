@@ -7,14 +7,16 @@ import { CarManipulation } from '../car-manipulations/car-manipulations';
 
 export class Garage extends BaseComponent {
   router: Router;
+
   api: API;
+
   carManipulation: CarManipulation;
 
   constructor(router: Router, bestResult: BestResult, api: API) {
     super('div', ['wrapper']);
     this.api = api;
     this.router = router;
-    this.carManipulation = new CarManipulation(this.api);
+    this.carManipulation = new CarManipulation(this.api, this);
     this.element.innerHTML = `
     <div class="to-garage-winners-btns">
     <button class="to-garage-btn">TO GARAGE</button>
@@ -39,11 +41,10 @@ export class Garage extends BaseComponent {
 
     this.element.insertBefore(
       this.carManipulation.element,
-      this.element.getElementsByTagName('main')[0]
+      this.element.getElementsByTagName('main')[0],
     );
 
-    const bestResultBtn =
-      this.element.getElementsByClassName('to-winners-btn')[0];
+    const bestResultBtn = this.element.getElementsByClassName('to-winners-btn')[0];
     const garageBtn = this.element.getElementsByClassName('to-garage-btn')[0];
 
     bestResultBtn.addEventListener('click', () => {
@@ -69,18 +70,24 @@ export class Garage extends BaseComponent {
   }
 
   async getAllCArs() {
-    let arrcars = await this.api.getCars();
+    this.element
+        .getElementsByClassName('car-section-wrapper')[0].innerHTML = ``;
+    const arrcars = await this.api.getCars();
 
     document.getElementsByClassName(
-      'amount-of-cars-in-garage'
+      'amount-of-cars-in-garage',
     )[0].innerHTML = `(${arrcars.length})`;
-    document.getElementsByClassName('num-of-page')[0].innerHTML = `(1 of ${Math.ceil(
-      arrcars.length / 7
-    )})`;
+    document.getElementsByClassName(
+      'num-of-page',
+    )[0].innerHTML = `(1 of ${Math.ceil(arrcars.length / 7)})`;
 
     const limitCarsDisplOnPage = 7;
     let numOfCarsect = 0;
-    for (let i = 0; i <= limitCarsDisplOnPage && i < arrcars.length; i++) {
+    for (let i = 0; i < limitCarsDisplOnPage && i < arrcars.length; i++) {
+      // if(this.element.getElementsByClassName(`car-section-${numOfCarsect}`)) {
+      //   numOfCarsect++;
+      //   continue;
+      // }
       const div = document.createElement('div');
       this.element
         .getElementsByClassName('car-section-wrapper')[0]
@@ -92,7 +99,7 @@ export class Garage extends BaseComponent {
         .setAttribute('style', `fill:${arrcars[i].color}`);
 
       this.element.getElementsByClassName(
-        `car-section-${numOfCarsect}`
+        `car-section-${numOfCarsect}`,
       )[0].innerHTML = `<div class="select-remove-btns-name">
       <button class="select">SELECT</button>
       <button class="remove">REMOVE</button>

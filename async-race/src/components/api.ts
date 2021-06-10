@@ -1,5 +1,7 @@
+import { Car } from "./car/car";
+
 export class API {
-  async getCars() {
+  async getCars(): Promise<Car[]>{
     const responce = await fetch('http://127.0.0.1:3000/garage', {
       method: 'get',
     });
@@ -7,7 +9,7 @@ export class API {
     return arrOfCars;
   }
 
-  async getCar(id: number) {
+  async getCar(id: number): Promise<Car> {
     const responce = await fetch(`http://127.0.0.1:3000/garage/${id}`, {
       method: 'get',
     });
@@ -15,7 +17,7 @@ export class API {
     return car;
   }
 
-  async createCar(name: string| null, color: string | null) {
+  async createCar(name: string | null, color: string | null) {
     await fetch('http://127.0.0.1:3000/garage', {
       method: 'post',
       body: JSON.stringify({
