@@ -2,6 +2,7 @@ import { BaseComponent } from '../base-component';
 import { API } from '../api';
 import { Garage } from '../garage/garage';
 import './car-manipulations.scss';
+import { Car } from '../car/car';
 
 export class CarManipulation extends BaseComponent {
   api: API;
@@ -9,6 +10,10 @@ export class CarManipulation extends BaseComponent {
   inputName: HTMLInputElement | undefined;
 
   inputColor: HTMLInputElement | undefined;
+
+  inputNameUpdate: HTMLInputElement | undefined;
+
+  inputColorUpdate: HTMLInputElement | undefined;
 
   garage: Garage;
 
@@ -40,7 +45,12 @@ export class CarManipulation extends BaseComponent {
       'input-newcar-color',
     )[0] as HTMLInputElement;
 
+    this.inputColorUpdate = this.element.getElementsByClassName(
+      'input-updatecar-color',
+    )[0] as HTMLInputElement;
+
     this.inputColor.addEventListener('input', () => this.inputColor?.value);
+    this.inputColorUpdate.addEventListener('input', () => this.inputColorUpdate?.value);
 
     this.element
       .getElementsByClassName('create-btn')[0]
@@ -50,8 +60,36 @@ export class CarManipulation extends BaseComponent {
         )[0] as HTMLInputElement;
 
         await this.api.createCar(this.inputName.value, this.inputColor!.value);
+        this.resetInputs(this.inputName, this.inputColor!);
 
         await this.garage.getAllCArs();
       });
+  }
+
+  getCarForUpdate(carForUpdate: Car) {
+    if(carForUpdate) {
+      this.element
+      .getElementsByClassName('update-btn')[0]
+      .addEventListener('click', async () => {
+        this.inputNameUpdate = this.element.getElementsByClassName(
+          'input-updatecar-name',
+        )[0] as HTMLInputElement;
+
+        if(this.inputNameUpdate.value !== '') {
+          await this.api.updateCar(carForUpdate.id ,this.inputNameUpdate.value, this.inputColorUpdate!.value);
+        }
+        else {
+          await this.api.updateCar(carForUpdate.id ,carForUpdate.name, this.inputColorUpdate!.value);
+        }
+        this.resetInputs(this.inputNameUpdate, this.inputColorUpdate!);
+
+        await this.garage.getAllCArs();
+      });
+    }
+  }
+
+  resetInputs(input: HTMLInputElement, color: HTMLInputElement) {
+    input.value = '';
+    color.value = '#000000';
   }
 }

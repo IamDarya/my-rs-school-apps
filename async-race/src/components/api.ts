@@ -35,4 +35,21 @@ export class API {
       method: 'delete',
     });
   }
+
+  async updateCar(
+    id: number | null,
+    name: string | null,
+    color: string | null
+  ) {
+    await fetch(`http://127.0.0.1:3000/garage/${id}`, {
+      method: 'put',
+      body: JSON.stringify({
+        name: `${name}`,
+        color: `${color}`,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
 }

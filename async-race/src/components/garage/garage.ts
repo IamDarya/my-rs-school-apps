@@ -97,7 +97,7 @@ export class Garage extends BaseComponent {
       this.element.getElementsByClassName(
         `car-section-${numOfCarsect}`,
       )[0].innerHTML = `<div class="select-remove-btns-name">
-      <button class="select-${arrcars[i].id} data-id="${arrcars[i].id}">SELECT</button>
+      <button class="select-${arrcars[i].id}" data-id="${arrcars[i].id}">SELECT</button>
       <button class="remove-${arrcars[i].id}" data-id="${arrcars[i].id}">REMOVE</button>
       <div class="car-name">${arrcars[i].name}</div>
     </div>
@@ -124,6 +124,12 @@ export class Garage extends BaseComponent {
     let getID = e.target as HTMLElement;
     await this.api.deleteCar(parseInt(getID.getAttribute('data-id')!, 10));
     this.getAllCArs();
+  })
+
+  this.element.getElementsByClassName(`select-${arrcars[i].id}`)[0].addEventListener('click', async (e: Event) => {
+    let getID = e.target as HTMLElement;
+    let selectedCar = await this.api.getCar(parseInt(getID.getAttribute('data-id')!, 10));
+    this.carManipulation.getCarForUpdate(selectedCar);
   })
 
       numOfCarsect++;
