@@ -107,7 +107,6 @@ export class CarManipulation extends BaseComponent {
           for (var j = 0; j < 6; j++) {
             randomColor += letters[Math.floor(Math.random() * 16)];
           }
-          console.log(randomCarName, randomColor);
           await this.api.createCar(randomCarName, randomColor);
           this.garage.getAllCArs();
           randomColor = '#';

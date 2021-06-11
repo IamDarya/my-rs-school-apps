@@ -12,10 +12,13 @@ export class Garage extends BaseComponent {
 
   carManipulation: CarManipulation;
 
+  numOfPage: number;
+
   constructor(router: Router, bestResult: BestResult, api: API) {
     super('div', ['wrapper']);
     this.api = api;
     this.router = router;
+    this.numOfPage = 1;
     this.carManipulation = new CarManipulation(this.api, this);
     this.element.innerHTML = `
     <div class="to-garage-winners-btns">
@@ -29,7 +32,7 @@ export class Garage extends BaseComponent {
         </div>
         <div>
           <p class="page">Page #</p>
-          <div class="num-of-page"></div>
+          <div class="num-of-page">${this.numOfPage}</div>
         </div>
         <div class="car-section-wrapper">
       </main>
@@ -66,26 +69,50 @@ export class Garage extends BaseComponent {
         .getElementsByClassName('whole-garage-part')[0]
         .classList.remove('hidden');
     });
-
     this.getAllCArs();
+
+    const nextPageBtn = this.element.getElementsByClassName('next')[0];
+    const prevPAgeBtn = this.element.getElementsByClassName('prev')[0];
+
+    const changePageNext = () => {
+      this.numOfPage++;
+      document.getElementsByClassName(
+        'num-of-page'
+      )[0].innerHTML = `(${this.numOfPage})`;
+      this.getAllCArs();
+    };
+
+    const changePagePrev = () => {
+      if (this.numOfPage > 1) {
+        this.numOfPage--;
+        document.getElementsByClassName(
+          'num-of-page'
+        )[0].innerHTML = `(${this.numOfPage})`;
+        this.getAllCArs();
+      }
+    };
+    nextPageBtn.addEventListener('click', changePageNext);
+    prevPAgeBtn.addEventListener('click', changePagePrev);
   }
 
   async getAllCArs() {
     this.element.getElementsByClassName(
       'car-section-wrapper'
     )[0].innerHTML = ``;
-    const arrcars = await this.api.getCars();
+
+    const arrcars = await this.api.getCars(this.numOfPage, 7);
 
     document.getElementsByClassName(
       'amount-of-cars-in-garage'
-    )[0].innerHTML = `(${arrcars.length})`;
+    )[0].innerHTML = `(${arrcars.amount})`;
     document.getElementsByClassName(
       'num-of-page'
-    )[0].innerHTML = `(1 of ${Math.ceil(arrcars.length / 7)})`;
+    )[0].innerHTML = `(${this.numOfPage})`;
+    //of ${Math.ceil(arrcars.length / 6)}
 
     const limitCarsDisplOnPage = 7;
     let numOfCarsect = 0;
-    for (let i = 0; i < limitCarsDisplOnPage && i < arrcars.length; i++) {
+    for (let i = 0; i < limitCarsDisplOnPage && i < arrcars.cars.length; i++) {
       const div = document.createElement('div');
       this.element
         .getElementsByClassName('car-section-wrapper')[0]
@@ -94,14 +121,14 @@ export class Garage extends BaseComponent {
 
       this.element
         .getElementsByClassName(`car-section-${numOfCarsect}`)[0]
-        .setAttribute('style', `fill:${arrcars[i].color}`);
+        .setAttribute('style', `fill:${arrcars.cars[i].color}`);
 
       this.element.getElementsByClassName(
         `car-section-${numOfCarsect}`
       )[0].innerHTML = `<div class="select-remove-btns-name">
-      <button class="select-${arrcars[i].id}" data-id="${arrcars[i].id}">SELECT</button>
-      <button class="remove-${arrcars[i].id}" data-id="${arrcars[i].id}">REMOVE</button>
-      <div class="car-name">${arrcars[i].name}</div>
+      <button class="select-${arrcars.cars[i].id}" data-id="${arrcars.cars[i].id}">SELECT</button>
+      <button class="remove-${arrcars.cars[i].id}" data-id="${arrcars.cars[i].id}">REMOVE</button>
+      <div class="car-name">${arrcars.cars[i].name}</div>
     </div>
     <div class="car-block">
     <div class="start-back-btns">
@@ -123,7 +150,7 @@ export class Garage extends BaseComponent {
   </div>`;
 
       this.element
-        .getElementsByClassName(`remove-${arrcars[i].id}`)[0]
+        .getElementsByClassName(`remove-${arrcars.cars[i].id}`)[0]
         .addEventListener('click', async (e: Event) => {
           let getID = e.target as HTMLElement;
           await this.api.deleteCar(
@@ -133,7 +160,7 @@ export class Garage extends BaseComponent {
         });
 
       this.element
-        .getElementsByClassName(`select-${arrcars[i].id}`)[0]
+        .getElementsByClassName(`select-${arrcars.cars[i].id}`)[0]
         .addEventListener('click', async (e: Event) => {
           let getID = e.target as HTMLElement;
           let selectedCar = await this.api.getCar(
