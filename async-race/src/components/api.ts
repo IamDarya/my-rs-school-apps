@@ -1,4 +1,5 @@
 import { Car } from './car/car';
+import { CarSpeed } from './car/car-speed';
 import { GetCarsAmountAndCars } from './get-cars-amount-and-cars';
 
 export class API {
@@ -59,5 +60,19 @@ export class API {
         'Content-Type': 'application/json',
       },
     });
+  }
+
+  async startStopCarEngine(id: number, statusStartedOrStopped: string): Promise<CarSpeed> {
+    const responce =  await fetch(`http://127.0.0.1:3000/engine?id=${id}&status=${statusStartedOrStopped}`, {
+      method: 'get',
+    });
+    const speed = await responce.json();
+    return speed;
+  }
+
+  async SwitchCarEngineToDriveMode(id: number, statusDrive: string) {
+    await fetch(`http://127.0.0.1:3000/engine?id=${id}&status=${statusDrive}`), {
+      method: 'get',
+    }
   }
 }

@@ -1,7 +1,7 @@
 import { BaseComponent } from '../base-component';
 import { API } from '../api';
 import { Garage } from '../garage/garage';
-import './car-manipulations.scss';
+// import './car-manipulations.scss';
 import { Car } from '../car/car';
 
 export class CarManipulation extends BaseComponent {

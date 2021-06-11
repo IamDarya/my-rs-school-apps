@@ -15,6 +15,14 @@ h2,
 .car-block {
   display: flex;
 }
+.select-remove-btns-name {
+  height: 21px;
+}
+
+.car-block {
+  left: 10px;
+  height: 50px;
+}
 
 main {
   margin-top: 9px;
@@ -23,6 +31,8 @@ main {
 .car {
   height: 50px;
   width: 72px;
+  position: absolute;
+  left: 30px;
 }
 
 .finish {
@@ -31,7 +41,7 @@ main {
   height: 50px;
   background-size: cover;
   position: absolute;
-  right: 9%;
+  right: 15%;
 }
 
 .prev-next-btns {

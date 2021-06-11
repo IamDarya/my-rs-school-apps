@@ -4,6 +4,7 @@ import { BaseComponent } from '../base-component';
 import { BestResult } from '../best-result/best-result';
 import { API } from '../api';
 import { CarManipulation } from '../car-manipulations/car-manipulations';
+import { Car } from '../car/car';
 
 export class Garage extends BaseComponent {
   router: Router;
@@ -132,10 +133,10 @@ export class Garage extends BaseComponent {
     </div>
     <div class="car-block">
     <div class="start-back-btns">
-      <button class="start">A</button>
-      <button class="back">B</button>
+      <button class="back-${arrcars.cars[i].id}" data-id="${arrcars.cars[i].id}">A</button>
+      <button class="start-${arrcars.cars[i].id}" data-id="${arrcars.cars[i].id}">B</button>
     </div>
-    <div class="car">
+    <div class="car car-${arrcars.cars[i].id}">
     <svg viewBox="0 0 512 512"><g id="_13-car" data-name="13-car">
     <g id="glyph"><path d="M120,236a52,52,0,1,0,52,52A52.059,52.059,0,0,0,120,236Zm0,76a24,24,0,1,1,24-24A24,24,0,0,1,120,312Z"/>
     <path d="M408,236a52,52,0,1,0,52,52A52.059,52.059,0,0,0,408,236Zm0,76a24,24,0,1,1,24-24A24,24,0,0,1,408,312Z"/><path d="M477.4,
@@ -169,7 +170,38 @@ export class Garage extends BaseComponent {
           this.carManipulation.getCarForUpdate(selectedCar);
         });
 
+        this.element.getElementsByClassName(`start-${arrcars.cars[i].id}`)[0].addEventListener('click', async (e: Event) => {
+          let getID = e.target as HTMLElement;
+
+          await this.api.startStopCarEngine(parseInt(getID.getAttribute('data-id')!, 10), 'started');
+
+          this.moveCar(arrcars.cars[i].id);
+
+          await this.api.SwitchCarEngineToDriveMode(parseInt(getID.getAttribute('data-id')!, 10), 'drive');
+
+        })
       numOfCarsect++;
+    }
+  }
+
+  async moveCar(carID: number) {
+    let id: any = null;
+    const elem = document.getElementsByClassName(`car-${carID}`)[0];
+    let pos = 7;
+    clearInterval(id);
+    let speed = await this.api.startStopCarEngine(carID, 'started');
+    let timeOfCarToFinish = speed.distance/speed.velocity;
+    let updateInterval = 10;
+    id = setInterval(frame, updateInterval);
+    function frame() {
+      let finishPosition = 85;
+      if (pos >= finishPosition) {
+        clearInterval(id);
+      } else {
+        let distanceToRideInPercetages = 78;
+        pos =  pos + distanceToRideInPercetages/timeOfCarToFinish*updateInterval;
+        elem.setAttribute('style', `left:${pos}%`);
+      }
     }
   }
 }
