@@ -4,7 +4,7 @@ import { BaseComponent } from '../base-component';
 import { BestResult } from '../best-result/best-result';
 import { API } from '../api';
 import { CarManipulation } from '../car-manipulations/car-manipulations';
-import { Car } from '../car/car';
+import { CarSpeed } from '../car/car-speed';
 
 export class Garage extends BaseComponent {
   router: Router;
@@ -109,7 +109,6 @@ export class Garage extends BaseComponent {
     document.getElementsByClassName(
       'num-of-page'
     )[0].innerHTML = `(${this.numOfPage})`;
-    //of ${Math.ceil(arrcars.length / 6)}
 
     const limitCarsDisplOnPage = 7;
     let numOfCarsect = 0;
@@ -193,7 +192,9 @@ export class Garage extends BaseComponent {
 
         let getID = e.target as HTMLElement;
 
-        let intervalId = await this.moveCar(arrcars.cars[i].id);
+        let speed = await this.api.startStopCarEngine(arrcars.cars[i].id, 'started');
+
+        let intervalId = await this.moveCar(arrcars.cars[i].id, speed);
 
         hashtableOfCarsIntervalId.set(arrcars.cars[i].id, intervalId);
 
@@ -221,12 +222,12 @@ export class Garage extends BaseComponent {
     }
   }
 
-  async moveCar(carID: number) {
+  async moveCar(carID: number, speed: CarSpeed) {
     let id: any = null;
     const elem = document.getElementsByClassName(`car-${carID}`)[0];
     let pos = 5;
     clearInterval(id);
-    let speed = await this.api.startStopCarEngine(carID, 'started');
+    // let speed = await this.api.startStopCarEngine(carID, 'started');
     let timeOfCarToFinish = speed.distance / speed.velocity;
     let updateInterval = 10;
     id = setInterval(frame, updateInterval);

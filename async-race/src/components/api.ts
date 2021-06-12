@@ -22,7 +22,7 @@ export class API {
     const responce = await fetch(`http://127.0.0.1:3000/garage/${id}`, {
       method: 'get',
     });
-    const car = await responce.json();
+    const car = await responce.json(); //delete await
     return car;
   }
 

@@ -1,11 +1,13 @@
 import { BaseComponent } from '../base-component';
 import { API } from '../api';
 import { Garage } from '../garage/garage';
-// import './car-manipulations.scss';
 import { Car } from '../car/car';
+import { CarsRace } from '../cars-race/cars-race';
 
 export class CarManipulation extends BaseComponent {
   api: API;
+
+  carsRace: CarsRace;
 
   inputName: HTMLInputElement | undefined;
 
@@ -19,6 +21,7 @@ export class CarManipulation extends BaseComponent {
 
   constructor(api: API, garage: Garage) {
     super('div');
+    this.carsRace = new CarsRace(api, garage);
     this.api = api;
     this.garage = garage;
     this.element.innerHTML = `
@@ -48,6 +51,20 @@ export class CarManipulation extends BaseComponent {
     this.inputColorUpdate = this.element.getElementsByClassName(
       'input-updatecar-color'
     )[0] as HTMLInputElement;
+
+    let startCarsRaceBtn =  this.element.getElementsByClassName('race-btn')[0] as HTMLButtonElement;
+    let resetCarsRaceBtn = this.element.getElementsByClassName('reset-btn')[0] as HTMLButtonElement;
+
+      startCarsRaceBtn.addEventListener('click',async ()=>{
+      startCarsRaceBtn.disabled = true;
+      await this.carsRace.startRace();
+    })
+
+    resetCarsRaceBtn.addEventListener('click',async ()=>{
+      startCarsRaceBtn.disabled = false;
+      await this.carsRace.stopRace();
+    })
+
 
     this.inputColor.addEventListener('input', () => this.inputColor?.value);
     this.inputColorUpdate.addEventListener(
@@ -108,7 +125,7 @@ export class CarManipulation extends BaseComponent {
             randomColor += letters[Math.floor(Math.random() * 16)];
           }
           await this.api.createCar(randomCarName, randomColor);
-          this.garage.getAllCArs();
+          await this.garage.getAllCArs();
           randomColor = '#';
         }
       });
