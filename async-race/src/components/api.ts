@@ -71,8 +71,14 @@ export class API {
   }
 
   async SwitchCarEngineToDriveMode(id: number, statusDrive: string) {
-    await fetch(`http://127.0.0.1:3000/engine?id=${id}&status=${statusDrive}`), {
+     let responce = await fetch(`http://127.0.0.1:3000/engine?id=${id}&status=${statusDrive}`, {
       method: 'get',
-    }
+    });
+   if(responce.status === 400) {
+    throw new Error(`Wrong parameters: "id" should be any positive number, "status" should be "started", "stopped" or "drive"`);
+   }
+   if(responce.status === 500) {
+    throw new Error(`Car has been stopped suddenly. It's engine was broken down.`);
+   }
   }
 }

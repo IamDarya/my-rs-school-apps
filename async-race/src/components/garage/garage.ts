@@ -173,11 +173,19 @@ export class Garage extends BaseComponent {
         this.element.getElementsByClassName(`start-${arrcars.cars[i].id}`)[0].addEventListener('click', async (e: Event) => {
           let getID = e.target as HTMLElement;
 
-          await this.api.startStopCarEngine(parseInt(getID.getAttribute('data-id')!, 10), 'started');
+          let intervalId = await this.moveCar(arrcars.cars[i].id);
 
-          this.moveCar(arrcars.cars[i].id);
-
-          await this.api.SwitchCarEngineToDriveMode(parseInt(getID.getAttribute('data-id')!, 10), 'drive');
+          try{
+            await this.api.SwitchCarEngineToDriveMode(parseInt(getID.getAttribute('data-id')!, 10), 'drive');
+          }
+          catch(err){
+            if(err instanceof Error){
+              if(err.message === `Car has been stopped suddenly. It's engine was broken down.`) {
+                clearInterval(intervalId);
+                await this.api.startStopCarEngine(parseInt(getID.getAttribute('data-id')!, 10), 'stopped');
+              }
+            }
+          }
 
         })
       numOfCarsect++;
@@ -203,5 +211,6 @@ export class Garage extends BaseComponent {
         elem.setAttribute('style', `left:${pos}%`);
       }
     }
+    return id;
   }
 }
