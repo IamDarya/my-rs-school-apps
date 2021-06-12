@@ -133,8 +133,8 @@ export class Garage extends BaseComponent {
     </div>
     <div class="car-block">
     <div class="start-back-btns">
-      <button class="back-${arrcars.cars[i].id}" data-id="${arrcars.cars[i].id}">A</button>
-      <button class="start-${arrcars.cars[i].id}" data-id="${arrcars.cars[i].id}">B</button>
+      <button class="back-${arrcars.cars[i].id}" data-id="${arrcars.cars[i].id}">back</button>
+      <button class="start-${arrcars.cars[i].id}" data-id="${arrcars.cars[i].id}">start</button>
     </div>
     <div class="car car-${arrcars.cars[i].id}">
     <svg viewBox="0 0 512 512"><g id="_13-car" data-name="13-car">
@@ -170,24 +170,53 @@ export class Garage extends BaseComponent {
           this.carManipulation.getCarForUpdate(selectedCar);
         });
 
-        this.element.getElementsByClassName(`start-${arrcars.cars[i].id}`)[0].addEventListener('click', async (e: Event) => {
-          let getID = e.target as HTMLElement;
+      let btnToStartCar = this.element.getElementsByClassName(
+        `start-${arrcars.cars[i].id}`
+      )[0] as HTMLButtonElement;
+      let btnToReturntCar = this.element.getElementsByClassName(
+        `back-${arrcars.cars[i].id}`
+      )[0] as HTMLButtonElement;
 
-          let intervalId = await this.moveCar(arrcars.cars[i].id);
+      let hashtableOfCarsIntervalId: Map<number, number> = new Map();
 
-          try{
-            await this.api.SwitchCarEngineToDriveMode(parseInt(getID.getAttribute('data-id')!, 10), 'drive');
-          }
-          catch(err){
-            if(err instanceof Error){
-              if(err.message === `Car has been stopped suddenly. It's engine was broken down.`) {
-                clearInterval(intervalId);
-                await this.api.startStopCarEngine(parseInt(getID.getAttribute('data-id')!, 10), 'stopped');
-              }
+      btnToReturntCar.addEventListener('click', async (e: Event) => {
+        let getID = e.target as HTMLElement;
+        clearInterval(hashtableOfCarsIntervalId.get(arrcars.cars[i].id));
+        document
+          .getElementsByClassName(`car-${getID.getAttribute('data-id')}`)[0]
+          .setAttribute('style', `left:${5}%`);
+        btnToStartCar.disabled = false;
+      });
+
+      btnToStartCar.addEventListener('click', async (e: Event) => {
+        btnToStartCar.disabled = true;
+
+        let getID = e.target as HTMLElement;
+
+        let intervalId = await this.moveCar(arrcars.cars[i].id);
+
+        hashtableOfCarsIntervalId.set(arrcars.cars[i].id, intervalId);
+
+        try {
+          await this.api.SwitchCarEngineToDriveMode(
+            parseInt(getID.getAttribute('data-id')!, 10),
+            'drive'
+          );
+        } catch (err) {
+          if (err instanceof Error) {
+            if (
+              err.message ===
+              `Car has been stopped suddenly. It's engine was broken down.`
+            ) {
+              clearInterval(intervalId);
+              await this.api.startStopCarEngine(
+                parseInt(getID.getAttribute('data-id')!, 10),
+                'stopped'
+              );
             }
           }
-
-        })
+        }
+      });
       numOfCarsect++;
     }
   }
@@ -195,10 +224,10 @@ export class Garage extends BaseComponent {
   async moveCar(carID: number) {
     let id: any = null;
     const elem = document.getElementsByClassName(`car-${carID}`)[0];
-    let pos = 7;
+    let pos = 5;
     clearInterval(id);
     let speed = await this.api.startStopCarEngine(carID, 'started');
-    let timeOfCarToFinish = speed.distance/speed.velocity;
+    let timeOfCarToFinish = speed.distance / speed.velocity;
     let updateInterval = 10;
     id = setInterval(frame, updateInterval);
     function frame() {
@@ -207,7 +236,9 @@ export class Garage extends BaseComponent {
         clearInterval(id);
       } else {
         let distanceToRideInPercetages = 78;
-        pos =  pos + distanceToRideInPercetages/timeOfCarToFinish*updateInterval;
+        pos =
+          pos +
+          (distanceToRideInPercetages / timeOfCarToFinish) * updateInterval;
         elem.setAttribute('style', `left:${pos}%`);
       }
     }
