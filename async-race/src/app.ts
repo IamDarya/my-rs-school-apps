@@ -7,9 +7,9 @@ import { CarsRace } from './components/cars-race/cars-race';
 export class App {
   private readonly router = new Router();
 
-  private readonly bestResult = new BestResult(this.router);
-
   private readonly api = new API();
+
+  private readonly bestResult = new BestResult(this.router);
 
   private readonly garage = new Garage(this.router, this.bestResult, this.api);
 

@@ -4,6 +4,7 @@ import { BaseComponent } from '../base-component';
 
 export class BestResult extends BaseComponent {
   router: Router;
+
   numOfPageWinners: number;
 
   constructor(router: Router) {

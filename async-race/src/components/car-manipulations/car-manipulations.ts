@@ -45,38 +45,37 @@ export class CarManipulation extends BaseComponent {
       </div>`;
 
     this.inputColor = this.element.getElementsByClassName(
-      'input-newcar-color'
+      'input-newcar-color',
     )[0] as HTMLInputElement;
 
     this.inputColorUpdate = this.element.getElementsByClassName(
-      'input-updatecar-color'
+      'input-updatecar-color',
     )[0] as HTMLInputElement;
 
-    let startCarsRaceBtn =  this.element.getElementsByClassName('race-btn')[0] as HTMLButtonElement;
-    let resetCarsRaceBtn = this.element.getElementsByClassName('reset-btn')[0] as HTMLButtonElement;
+    const startCarsRaceBtn = this.element.getElementsByClassName('race-btn')[0] as HTMLButtonElement;
+    const resetCarsRaceBtn = this.element.getElementsByClassName('reset-btn')[0] as HTMLButtonElement;
 
-      startCarsRaceBtn.addEventListener('click',async ()=>{
+    startCarsRaceBtn.addEventListener('click', async () => {
       startCarsRaceBtn.disabled = true;
       await this.carsRace.startRace();
-    })
+    });
 
-    resetCarsRaceBtn.addEventListener('click',async ()=>{
+    resetCarsRaceBtn.addEventListener('click', async () => {
       startCarsRaceBtn.disabled = false;
       await this.carsRace.stopRace();
-    })
-
+    });
 
     this.inputColor.addEventListener('input', () => this.inputColor?.value);
     this.inputColorUpdate.addEventListener(
       'input',
-      () => this.inputColorUpdate?.value
+      () => this.inputColorUpdate?.value,
     );
 
     this.element
       .getElementsByClassName('create-btn')[0]
       .addEventListener('click', async () => {
         this.inputName = this.element.getElementsByClassName(
-          'input-newcar-name'
+          'input-newcar-name',
         )[0] as HTMLInputElement;
 
         await this.api.createCar(this.inputName.value, this.inputColor!.value);
@@ -117,11 +116,10 @@ export class CarManipulation extends BaseComponent {
         let randomCarName = '';
         let randomColor = '#';
         for (let i = 0; i < 100; i++) {
-          randomCarName =
-            arrOfRandomCarName[Math.floor(Math.random() * 10)] +
-            ' ' +
-            arrOfRandomCarNameModeles[Math.floor(Math.random() * 10)];
-          for (var j = 0; j < 6; j++) {
+          randomCarName = `${arrOfRandomCarName[Math.floor(Math.random() * 10)]
+          } ${
+            arrOfRandomCarNameModeles[Math.floor(Math.random() * 10)]}`;
+          for (let j = 0; j < 6; j++) {
             randomColor += letters[Math.floor(Math.random() * 16)];
           }
           await this.api.createCar(randomCarName, randomColor);
@@ -137,20 +135,20 @@ export class CarManipulation extends BaseComponent {
         .getElementsByClassName('update-btn')[0]
         .addEventListener('click', async () => {
           this.inputNameUpdate = this.element.getElementsByClassName(
-            'input-updatecar-name'
+            'input-updatecar-name',
           )[0] as HTMLInputElement;
 
           if (this.inputNameUpdate.value !== '') {
             await this.api.updateCar(
               carForUpdate.id,
               this.inputNameUpdate.value,
-              this.inputColorUpdate!.value
+              this.inputColorUpdate!.value,
             );
           } else {
             await this.api.updateCar(
               carForUpdate.id,
               carForUpdate.name,
-              this.inputColorUpdate!.value
+              this.inputColorUpdate!.value,
             );
           }
           this.resetInputs(this.inputNameUpdate, this.inputColorUpdate!);

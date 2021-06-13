@@ -45,11 +45,10 @@ export class Garage extends BaseComponent {
 
     this.element.insertBefore(
       this.carManipulation.element,
-      this.element.getElementsByTagName('main')[0]
+      this.element.getElementsByTagName('main')[0],
     );
 
-    const bestResultBtn =
-      this.element.getElementsByClassName('to-winners-btn')[0];
+    const bestResultBtn = this.element.getElementsByClassName('to-winners-btn')[0];
     const garageBtn = this.element.getElementsByClassName('to-garage-btn')[0];
 
     bestResultBtn.addEventListener('click', () => {
@@ -78,7 +77,7 @@ export class Garage extends BaseComponent {
     const changePageNext = () => {
       this.numOfPage++;
       document.getElementsByClassName(
-        'num-of-page'
+        'num-of-page',
       )[0].innerHTML = `(${this.numOfPage})`;
       this.getAllCArs();
     };
@@ -87,7 +86,7 @@ export class Garage extends BaseComponent {
       if (this.numOfPage > 1) {
         this.numOfPage--;
         document.getElementsByClassName(
-          'num-of-page'
+          'num-of-page',
         )[0].innerHTML = `(${this.numOfPage})`;
         this.getAllCArs();
       }
@@ -98,16 +97,16 @@ export class Garage extends BaseComponent {
 
   async getAllCArs() {
     this.element.getElementsByClassName(
-      'car-section-wrapper'
-    )[0].innerHTML = ``;
+      'car-section-wrapper',
+    )[0].innerHTML = '';
 
     const arrcars = await this.api.getCars(this.numOfPage, 7);
 
     document.getElementsByClassName(
-      'amount-of-cars-in-garage'
+      'amount-of-cars-in-garage',
     )[0].innerHTML = `(${arrcars.amount})`;
     document.getElementsByClassName(
-      'num-of-page'
+      'num-of-page',
     )[0].innerHTML = `(${this.numOfPage})`;
 
     const limitCarsDisplOnPage = 7;
@@ -124,7 +123,7 @@ export class Garage extends BaseComponent {
         .setAttribute('style', `fill:${arrcars.cars[i].color}`);
 
       this.element.getElementsByClassName(
-        `car-section-${numOfCarsect}`
+        `car-section-${numOfCarsect}`,
       )[0].innerHTML = `<div class="select-remove-btns-name">
       <button class="select-${arrcars.cars[i].id}" data-id="${arrcars.cars[i].id}">SELECT</button>
       <button class="remove-${arrcars.cars[i].id}" data-id="${arrcars.cars[i].id}">REMOVE</button>
@@ -152,9 +151,9 @@ export class Garage extends BaseComponent {
       this.element
         .getElementsByClassName(`remove-${arrcars.cars[i].id}`)[0]
         .addEventListener('click', async (e: Event) => {
-          let getID = e.target as HTMLElement;
+          const getID = e.target as HTMLElement;
           await this.api.deleteCar(
-            parseInt(getID.getAttribute('data-id')!, 10)
+            parseInt(getID.getAttribute('data-id')!, 10),
           );
           this.getAllCArs();
         });
@@ -162,24 +161,24 @@ export class Garage extends BaseComponent {
       this.element
         .getElementsByClassName(`select-${arrcars.cars[i].id}`)[0]
         .addEventListener('click', async (e: Event) => {
-          let getID = e.target as HTMLElement;
-          let selectedCar = await this.api.getCar(
-            parseInt(getID.getAttribute('data-id')!, 10)
+          const getID = e.target as HTMLElement;
+          const selectedCar = await this.api.getCar(
+            parseInt(getID.getAttribute('data-id')!, 10),
           );
           this.carManipulation.getCarForUpdate(selectedCar);
         });
 
-      let btnToStartCar = this.element.getElementsByClassName(
-        `start-${arrcars.cars[i].id}`
+      const btnToStartCar = this.element.getElementsByClassName(
+        `start-${arrcars.cars[i].id}`,
       )[0] as HTMLButtonElement;
-      let btnToReturntCar = this.element.getElementsByClassName(
-        `back-${arrcars.cars[i].id}`
+      const btnToReturntCar = this.element.getElementsByClassName(
+        `back-${arrcars.cars[i].id}`,
       )[0] as HTMLButtonElement;
 
-      let hashtableOfCarsIntervalId: Map<number, number> = new Map();
+      const hashtableOfCarsIntervalId: Map<number, number> = new Map();
 
       btnToReturntCar.addEventListener('click', async (e: Event) => {
-        let getID = e.target as HTMLElement;
+        const getID = e.target as HTMLElement;
         clearInterval(hashtableOfCarsIntervalId.get(arrcars.cars[i].id));
         document
           .getElementsByClassName(`car-${getID.getAttribute('data-id')}`)[0]
@@ -190,29 +189,29 @@ export class Garage extends BaseComponent {
       btnToStartCar.addEventListener('click', async (e: Event) => {
         btnToStartCar.disabled = true;
 
-        let getID = e.target as HTMLElement;
+        const getID = e.target as HTMLElement;
 
-        let speed = await this.api.startStopCarEngine(arrcars.cars[i].id, 'started');
+        const speed = await this.api.startStopCarEngine(arrcars.cars[i].id, 'started');
 
-        let intervalId = await this.moveCar(arrcars.cars[i].id, speed);
+        const intervalId = await this.moveCar(arrcars.cars[i].id, speed);
 
         hashtableOfCarsIntervalId.set(arrcars.cars[i].id, intervalId);
 
         try {
           await this.api.SwitchCarEngineToDriveMode(
             parseInt(getID.getAttribute('data-id')!, 10),
-            'drive'
+            'drive',
           );
         } catch (err) {
           if (err instanceof Error) {
             if (
-              err.message ===
-              `Car has been stopped suddenly. It's engine was broken down.`
+              err.message
+              === 'Car has been stopped suddenly. It\'s engine was broken down.'
             ) {
               clearInterval(intervalId);
               await this.api.startStopCarEngine(
                 parseInt(getID.getAttribute('data-id')!, 10),
-                'stopped'
+                'stopped',
               );
             }
           }
@@ -222,24 +221,23 @@ export class Garage extends BaseComponent {
     }
   }
 
-  async moveCar(carID: number, speed: CarSpeed) {
+  moveCar(carID: number, speed: CarSpeed) {
     let id: any = null;
     const elem = document.getElementsByClassName(`car-${carID}`)[0];
     let pos = 5;
     clearInterval(id);
     // let speed = await this.api.startStopCarEngine(carID, 'started');
-    let timeOfCarToFinish = speed.distance / speed.velocity;
-    let updateInterval = 10;
+    const timeOfCarToFinish = speed.distance / speed.velocity;
+    const updateInterval = 10;
     id = setInterval(frame, updateInterval);
     function frame() {
-      let finishPosition = 85;
+      const finishPosition = 85;
       if (pos >= finishPosition) {
         clearInterval(id);
       } else {
-        let distanceToRideInPercetages = 78;
-        pos =
-          pos +
-          (distanceToRideInPercetages / timeOfCarToFinish) * updateInterval;
+        const distanceToRideInPercetages = 78;
+        pos
+          += (distanceToRideInPercetages / timeOfCarToFinish) * updateInterval;
         elem.setAttribute('style', `left:${pos}%`);
       }
     }
