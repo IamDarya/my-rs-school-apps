@@ -3,7 +3,7 @@ import { CarSpeed } from './car/car-speed';
 import { GetCarsAmountAndCars } from './get-cars-amount-and-cars';
 
 export class API {
-   async getCars(page: number, limit: number): Promise<GetCarsAmountAndCars> {
+  static async getCars(page: number, limit: number): Promise<GetCarsAmountAndCars> {
     const responce = await fetch(
       `http://127.0.0.1:3000/garage?_page=${page}&_limit=${limit}`,
       {
@@ -18,7 +18,7 @@ export class API {
     return objWithAmountOfCarsAndArrayOfCars;
   }
 
-  async getCar(id: number): Promise<Car> {
+  static async getCar(id: number): Promise<Car> {
     const responce = await fetch(`http://127.0.0.1:3000/garage/${id}`, {
       method: 'get',
     });
@@ -26,7 +26,7 @@ export class API {
     return car;
   }
 
-  async createCar(name: string | null, color: string | null):Promise<void> {
+  static async createCar(name: string | null, color: string | null):Promise<void> {
     await fetch('http://127.0.0.1:3000/garage', {
       method: 'post',
       body: JSON.stringify({
@@ -39,13 +39,13 @@ export class API {
     });
   }
 
-  async deleteCar(id: number | null):Promise<void> {
+  static async deleteCar(id: number | null):Promise<void> {
     await fetch(`http://127.0.0.1:3000/garage/${id}`, {
       method: 'delete',
     });
   }
 
-  async updateCar(
+  static async updateCar(
     id: number | null,
     name: string | null,
     color: string | null,
@@ -62,7 +62,7 @@ export class API {
     });
   }
 
-  async startStopCarEngine(id: number, statusStartedOrStopped: string): Promise<CarSpeed> {
+  static async startStopCarEngine(id: number, statusStartedOrStopped: string): Promise<CarSpeed> {
     const responce = await fetch(`http://127.0.0.1:3000/engine?id=${id}&status=${statusStartedOrStopped}`, {
       method: 'get',
     });
@@ -70,19 +70,20 @@ export class API {
     return speed;
   }
 
-  async SwitchCarEngineToDriveMode(id: number, statusDrive: string):Promise<void> {
+  static async SwitchCarEngineToDriveMode(id: number, statusDrive: string):Promise<void> {
     const responce = await fetch(`http://127.0.0.1:3000/engine?id=${id}&status=${statusDrive}`, {
       method: 'get',
     });
     if (responce.status === 400) {
-      throw new Error('Wrong parameters: "id" should be any positive number, "status" should be "started", "stopped" or "drive"');
+      throw new Error(`Wrong parameters:
+       "id" should be any positive number, "status" should be "started", "stopped" or "drive"`);
     }
     if (responce.status === 500) {
       throw new Error('Car has been stopped suddenly. It\'s engine was broken down.');
     }
   }
 
-  async createWinner(id: number | null, wins: number | null, time: number):Promise<void> {
+  static async createWinner(id: number | null, wins: number | null, time: number):Promise<void> {
     await fetch('http://127.0.0.1:3000/winners', {
       method: 'post',
       body: JSON.stringify({

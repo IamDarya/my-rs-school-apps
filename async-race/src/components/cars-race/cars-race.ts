@@ -8,7 +8,7 @@ export class CarsRace extends BaseComponent {
 
   garage: Garage;
 
-  hashtableOfCarsIntervalId: Map<number, number>;
+  hashtableOfCarsIntervalId: Map<number, NodeJS.Timeout>;
 
   constructor(api: API, garage: Garage) {
     super();
@@ -17,14 +17,14 @@ export class CarsRace extends BaseComponent {
     this.hashtableOfCarsIntervalId = new Map();
   }
 
-  async startRace() {
-    const arrOfCars = (await this.api.getCars(this.garage.numOfPage, 7)).cars;
+  async startRace(): Promise<CarSpeed[]> {
+    const arrOfCars = (await API.getCars(this.garage.numOfPage, 7)).cars;
     let speedsArray: Array<CarSpeed> = [];
 
     const arrOfPromices: Array<Promise<CarSpeed>> = [];
     for (let i = 0; i < arrOfCars.length; i++) {
       const getID = arrOfCars[i].id;
-      const promiceOfSpeed = this.api.startStopCarEngine(getID, 'started');
+      const promiceOfSpeed = API.startStopCarEngine(getID, 'started');
       arrOfPromices.push(promiceOfSpeed);
     }
     speedsArray = await Promise.all(arrOfPromices);
@@ -36,36 +36,28 @@ export class CarsRace extends BaseComponent {
 
       this.hashtableOfCarsIntervalId.set(arrOfCars[i].id, intervalId);
 
-      try {
-        await this.api.SwitchCarEngineToDriveMode(
-          parseInt(getID.getAttribute('data-id')!, 10),
-          'drive',
-        );
-      } catch (err) {
+      API.SwitchCarEngineToDriveMode(getID, 'drive').catch(async (err) => {
         if (err instanceof Error) {
           if (
             err.message
-            === 'Car has been stopped suddenly. It\'s engine was broken down.'
+            === "Car has been stopped suddenly. It's engine was broken down."
           ) {
             clearInterval(intervalId);
-            await this.api.startStopCarEngine(
-              parseInt(getID.getAttribute('data-id')!, 10),
-              'stopped',
-            );
+            await API.startStopCarEngine(getID, 'stopped');
           }
         }
-      }
+      });
     }
     return speedsArray;
   }
 
-  async stopRace() {
+  async stopRace(): Promise<void> {
     const arrOfCars = await (
-      await this.api.getCars(this.garage.numOfPage, 7)
+      await API.getCars(this.garage.numOfPage, 7)
     ).cars;
     for (let i = 0; i < arrOfCars.length; i++) {
       const getID = arrOfCars[i].id;
-      clearInterval(this.hashtableOfCarsIntervalId.get(getID));
+      clearInterval(this.hashtableOfCarsIntervalId.get(getID)!);
       document
         .getElementsByClassName(`car-${getID}`)[0]
         .setAttribute('style', `left:${5}%`);

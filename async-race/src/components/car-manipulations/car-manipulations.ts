@@ -1,8 +1,8 @@
 import { BaseComponent } from '../base-component';
 import { API } from '../api';
-import { Garage } from '../garage/garage';
-import { Car } from '../car/car';
 import { CarsRace } from '../cars-race/cars-race';
+import { Router } from '../router/router';
+import { Garage } from '../garage/garage';
 
 export class CarManipulation extends BaseComponent {
   api: API;
@@ -17,13 +17,16 @@ export class CarManipulation extends BaseComponent {
 
   inputColorUpdate: HTMLInputElement | undefined;
 
+  router: Router;
+
   garage: Garage;
 
-  constructor(api: API, garage: Garage) {
+  constructor(api: API, router: Router, carsRace: CarsRace, garage: Garage) {
     super('div');
-    this.carsRace = new CarsRace(api, garage);
+    this.carsRace = carsRace;
     this.api = api;
     this.garage = garage;
+    this.router = router;
     this.element.innerHTML = `
       <div class="to-hide-when-best-res-shows">
       <div class="create-update">
@@ -78,8 +81,9 @@ export class CarManipulation extends BaseComponent {
           'input-newcar-name',
         )[0] as HTMLInputElement;
 
-        await this.api.createCar(this.inputName.value, this.inputColor!.value);
-        this.resetInputs(this.inputName, this.inputColor!);
+        await API.createCar(this.inputName.value, this.inputColor!.value);
+        this.inputName.value = '';
+        this.inputColor!.value = '#000000';
 
         await this.garage.getAllCArs();
       });
@@ -122,44 +126,38 @@ export class CarManipulation extends BaseComponent {
           for (let j = 0; j < 6; j++) {
             randomColor += letters[Math.floor(Math.random() * 16)];
           }
-          await this.api.createCar(randomCarName, randomColor);
-          await this.garage.getAllCArs();
+          API.createCar(randomCarName, randomColor);
           randomColor = '#';
         }
+        await this.garage.getAllCArs();
       });
-  }
 
-  getCarForUpdate(carForUpdate: Car) {
-    if (carForUpdate) {
-      this.element
-        .getElementsByClassName('update-btn')[0]
-        .addEventListener('click', async () => {
+    this.element
+      .getElementsByClassName('update-btn')[0]
+      .addEventListener('click', async () => {
+        if (this.garage.selectedCar) {
           this.inputNameUpdate = this.element.getElementsByClassName(
             'input-updatecar-name',
           )[0] as HTMLInputElement;
 
           if (this.inputNameUpdate.value !== '') {
-            await this.api.updateCar(
-              carForUpdate.id,
+            await API.updateCar(
+              this.garage.selectedCar!.id,
               this.inputNameUpdate.value,
               this.inputColorUpdate!.value,
             );
           } else {
-            await this.api.updateCar(
-              carForUpdate.id,
-              carForUpdate.name,
+            await API.updateCar(
+              this.garage.selectedCar!.id,
+              this.garage.selectedCar!.name,
               this.inputColorUpdate!.value,
             );
           }
-          this.resetInputs(this.inputNameUpdate, this.inputColorUpdate!);
-
+          this.inputNameUpdate.value = '';
+          this.inputColorUpdate!.value = '#000000';
           await this.garage.getAllCArs();
-        });
-    }
-  }
-
-  resetInputs(input: HTMLInputElement, color: HTMLInputElement) {
-    input.value = '';
-    color.value = '#000000';
+        }
+        this.garage.selectedCar = undefined;
+      });
   }
 }
