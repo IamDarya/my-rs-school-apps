@@ -125,7 +125,7 @@ export class API {
   static async getWinners(): Promise<Array<Winner>> {
     const responce = await fetch('http://127.0.0.1:3000/winners', {
       method: 'get',
-    })
+    });
     const arrOfWinners = await responce.json();
     return arrOfWinners;
   }
@@ -133,7 +133,7 @@ export class API {
   static async getWinner(id: number): Promise<Winner> {
     const responce = await fetch(`http://127.0.0.1:3000/winners?id=${id}`, {
       method: 'get',
-    })
+    });
     const winner = responce.json();
     return winner;
   }
@@ -154,5 +154,4 @@ export class API {
       },
     });
   }
-
 }

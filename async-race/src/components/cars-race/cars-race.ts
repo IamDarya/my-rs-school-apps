@@ -45,13 +45,16 @@ export class CarsRace extends BaseComponent {
       const intervalId = this.garage.moveCar(getID, speedsArray[i]);
 
       this.winner = {
-        id: parseInt(`${getID}`,10),
+        id: parseInt(`${getID}`, 10),
         wins: 1,
-        time: parseInt(`${speedsArray[i].distance/speedsArray[i].velocity}`,10)
+        time: parseInt(
+          `${speedsArray[i].distance / speedsArray[i].velocity}`,
+          10
+        ),
       };
 
       fastesCar.push(this.winner);
-      fastesCar.sort((a, b) => (a.time < b.time) ? 1 : -1);
+      fastesCar.sort((a, b) => (a.time < b.time ? 1 : -1));
 
       this.hashtableOfCarsIntervalId.set(arrOfCars[i].id, intervalId);
 
@@ -63,21 +66,31 @@ export class CarsRace extends BaseComponent {
           ) {
             clearInterval(intervalId);
             await API.startStopCarEngine(getID, 'stopped');
-            fastesCar = fastesCar.filter(el => el.id !== getID)
+            fastesCar = fastesCar.filter((el) => el.id !== getID);
           }
         }
       });
     }
 
-    setTimeout(async ()=>{
-      if(API.getCar(fastesCar[fastesCar.length-1].id)) {
-        API.updateWinner(fastesCar[fastesCar.length-1].id, (await API.getWinner(fastesCar[fastesCar.length - 1].id)).wins + 1, fastesCar[fastesCar.length-1].time);
+    setTimeout(async () => {
+      if (API.getCar(fastesCar[fastesCar.length - 1].id)) {
+        API.updateWinner(
+          fastesCar[fastesCar.length - 1].id,
+          (await API.getWinner(fastesCar[fastesCar.length - 1].id)).wins + 1,
+          fastesCar[fastesCar.length - 1].time
+        );
+      } else {
+        await API.createWinner(
+          fastesCar[fastesCar.length - 1].id,
+          fastesCar[fastesCar.length - 1].wins,
+          fastesCar[fastesCar.length - 1].time
+        );
       }
-      else{
-        await API.createWinner(fastesCar[fastesCar.length-1].id,fastesCar[fastesCar.length-1].wins, fastesCar[fastesCar.length-1].time);
-      }
-      await this.popUp.getWinnerForPopUp(fastesCar[fastesCar.length-1].id, fastesCar[fastesCar.length-1].time);
-    }, fastesCar[fastesCar.length-1].time)
+      await this.popUp.getWinnerForPopUp(
+        fastesCar[fastesCar.length - 1].id,
+        fastesCar[fastesCar.length - 1].time
+      );
+    }, fastesCar[fastesCar.length - 1].time);
 
     return speedsArray;
   }

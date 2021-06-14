@@ -16,7 +16,6 @@ export class App {
 
   private readonly popUp = new PopUp(this.api);
 
-
   private readonly garage = new Garage(this.router, this.api);
 
   private readonly carsRace = new CarsRace(this.api, this.garage, this.popUp);
