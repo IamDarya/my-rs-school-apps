@@ -38,6 +38,8 @@ export class CarsRace extends BaseComponent {
 
     let fastesCar: Array<Winner> = [];
 
+    let arrOfCarsInRace: Array<Promise<void>> = [];
+
     for (let i = 0; i < arrOfCars.length; i++) {
       const getID = arrOfCars[i].id;
 
@@ -46,18 +48,16 @@ export class CarsRace extends BaseComponent {
       this.winner = {
         id: parseInt(`${getID}`, 10),
         wins: 1,
-        time: parseInt(
-          `${speedsArray[i].distance / speedsArray[i].velocity}`,
-          10
-        ),
+        time:
+          speedsArray[i].distance / speedsArray[i].velocity/1000,
+
       };
 
       fastesCar.push(this.winner);
-      fastesCar.sort((a, b) => (a.time < b.time ? 1 : -1));
 
       this.hashtableOfCarsIntervalId.set(arrOfCars[i].id, intervalId);
 
-      API.SwitchCarEngineToDriveMode(getID, 'drive').catch(async (err) => {
+      arrOfCarsInRace.push(API.SwitchCarEngineToDriveMode(getID, 'drive').catch(async (err) => {
         if (err instanceof Error) {
           if (
             err.message ===
@@ -68,17 +68,20 @@ export class CarsRace extends BaseComponent {
             fastesCar = fastesCar.filter((el) => el.id !== getID);
           }
         }
-      });
+      }));
     }
+    fastesCar.sort((a, b) => (a.time < b.time ? 1 : -1));
 
-    setTimeout(async () => {
-      if (API.getCar(fastesCar[fastesCar.length - 1].id)) {
+    Promise.race(arrOfCarsInRace).then(async()=>{
+      let currentWinner = await API.getWinner(fastesCar[fastesCar.length - 1].id);
+      if(currentWinner !== null && currentWinner.time > fastesCar[fastesCar.length - 1].time) {
         API.updateWinner(
           fastesCar[fastesCar.length - 1].id,
-          (await API.getWinner(fastesCar[fastesCar.length - 1].id)).wins + 1,
+          parseInt(currentWinner.wins.toString(), 10) + 1,
           fastesCar[fastesCar.length - 1].time
         );
-      } else {
+      }
+        else {
         await API.createWinner(
           fastesCar[fastesCar.length - 1].id,
           fastesCar[fastesCar.length - 1].wins,
@@ -89,8 +92,7 @@ export class CarsRace extends BaseComponent {
         fastesCar[fastesCar.length - 1].id,
         fastesCar[fastesCar.length - 1].time
       );
-    }, fastesCar[fastesCar.length - 1].time);
-
+    })
     return speedsArray;
   }
 
@@ -102,6 +104,7 @@ export class CarsRace extends BaseComponent {
       document
         .getElementsByClassName(`car-${getID}`)[0]
         .setAttribute('style', `left:${5}%`);
+         API.startStopCarEngine(getID, 'stopped');
     }
   }
 }

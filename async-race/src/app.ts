@@ -53,6 +53,7 @@ export class App {
     this.router.add('best-result', () => {
       this.bestResult.show();
       this.garage.hide();
+      this.bestResult.drawWinners();
     });
   }
 }

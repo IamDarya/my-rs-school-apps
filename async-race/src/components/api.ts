@@ -122,20 +122,28 @@ export class API {
     });
   }
 
-  static async getWinners(): Promise<Array<Winner>> {
-    const responce = await fetch('http://127.0.0.1:3000/winners', {
+  static async getWinners(
+    page: number,
+    limit: number,
+    idWinsTime: string,
+    ASCorDESC: string
+  ): Promise<Array<Winner>> {
+    const responce = await fetch(`http://127.0.0.1:3000/winners?_page=${page}&_limit=${limit}&_sort=${idWinsTime}&_order=${ASCorDESC}`, {
       method: 'get',
     });
     const arrOfWinners = await responce.json();
     return arrOfWinners;
   }
 
-  static async getWinner(id: number): Promise<Winner> {
+  static async getWinner(id: number): Promise<Winner | null> {
     const responce = await fetch(`http://127.0.0.1:3000/winners?id=${id}`, {
       method: 'get',
     });
-    const winner = responce.json();
-    return winner;
+    const winner = await responce.json();
+    if(winner.length === 0){
+      return null;
+    }
+    return winner[0];
   }
 
   static async updateWinner(
@@ -152,6 +160,12 @@ export class API {
       headers: {
         'Content-Type': 'application/json',
       },
+    });
+  }
+
+  static async deleteWinner(id: number | null): Promise<void> {
+    await fetch(`http://127.0.0.1:3000/winners/${id}`, {
+      method: 'delete',
     });
   }
 }
