@@ -1,5 +1,6 @@
 import { Car } from './car/car';
 import { CarSpeed } from './car/car-speed';
+import { Winner } from './cars-race/winner';
 import { GetCarsAmountAndCars } from './get-cars-amount-and-cars';
 
 export class API {
@@ -25,7 +26,7 @@ export class API {
     const responce = await fetch(`http://127.0.0.1:3000/garage/${id}`, {
       method: 'get',
     });
-    const car = await responce.json(); // delete await
+    const car = responce.json(); // delete await
     return car;
   }
 
@@ -120,4 +121,21 @@ export class API {
       },
     });
   }
+
+  static async getWinners(): Promise<Array<Winner>> {
+    const responce = await fetch('http://127.0.0.1:3000/winners', {
+      method: 'get',
+    })
+    const arrOfWinners = await responce.json();
+    return arrOfWinners;
+  }
+
+  static async getWinner(id: number): Promise<Winner> {
+    const responce = await fetch(`http://127.0.0.1:3000/winners?id=${id}`, {
+      method: 'get',
+    })
+    const car = responce.json();
+    return car;
+  }
+
 }

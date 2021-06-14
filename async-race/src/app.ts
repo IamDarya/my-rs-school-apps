@@ -5,6 +5,7 @@ import { API } from './components/api';
 import { CarsRace } from './components/cars-race/cars-race';
 import { Header } from './components/header/header';
 import { CarManipulation } from './components/car-manipulations/car-manipulations';
+import { PopUp } from './components/pop-up/pop-up';
 
 export class App {
   private readonly router = new Router();
@@ -13,9 +14,12 @@ export class App {
 
   private readonly api = new API();
 
+  private readonly popUp = new PopUp(this.api);
+
+
   private readonly garage = new Garage(this.router, this.api);
 
-  private readonly carsRace = new CarsRace(this.api, this.garage);
+  private readonly carsRace = new CarsRace(this.api, this.garage, this.popUp);
 
   private readonly carManipulation = new CarManipulation(
     this.api,
@@ -33,6 +37,7 @@ export class App {
     this.rootElement.appendChild(this.carManipulation.element);
     this.rootElement.appendChild(this.garage.element);
     this.rootElement.appendChild(this.bestResult.element);
+    this.rootElement.appendChild(this.popUp.element);
 
     this.router.add('garage', async () => {
       this.bestResult.hide();

@@ -2,6 +2,9 @@ import { BaseComponent } from '../base-component';
 import { API } from '../api';
 import { Garage } from '../garage/garage';
 import { CarSpeed } from '../car/car-speed';
+import { Winner } from './winner';
+import { PopUp } from '../pop-up/pop-up';
+import { App } from '../../app';
 
 export class CarsRace extends BaseComponent {
   api: API;
@@ -10,10 +13,15 @@ export class CarsRace extends BaseComponent {
 
   hashtableOfCarsIntervalId: Map<number, NodeJS.Timeout>;
 
-  constructor(api: API, garage: Garage) {
+  winner: Winner | undefined;
+
+  popUp: PopUp;
+
+  constructor(api: API, garage: Garage, popUp: PopUp) {
     super();
     this.api = api;
     this.garage = garage;
+    this.popUp = popUp;
     this.hashtableOfCarsIntervalId = new Map();
   }
 
@@ -29,10 +37,21 @@ export class CarsRace extends BaseComponent {
     }
     speedsArray = await Promise.all(arrOfPromices);
 
+    let fastesCar: Array<Winner> = [];
+
     for (let i = 0; i < arrOfCars.length; i++) {
       const getID = arrOfCars[i].id;
 
       const intervalId = this.garage.moveCar(getID, speedsArray[i]);
+
+      this.winner = {
+        id: parseInt(`${getID}`,10),
+        wins: 1,
+        time: parseInt(`${speedsArray[i].distance/speedsArray[i].velocity}`,10)
+      };
+
+      fastesCar.push(this.winner);
+      fastesCar.sort((a, b) => (a.time < b.time) ? 1 : -1);
 
       this.hashtableOfCarsIntervalId.set(arrOfCars[i].id, intervalId);
 
@@ -44,10 +63,24 @@ export class CarsRace extends BaseComponent {
           ) {
             clearInterval(intervalId);
             await API.startStopCarEngine(getID, 'stopped');
+            fastesCar = fastesCar.filter((el)=>{
+              if(el.id === getID) {
+                return false;
+              }
+              else {
+                return true;
+              }
+            })
           }
         }
       });
     }
+    API.createWinner(fastesCar[fastesCar.length-1].id,fastesCar[fastesCar.length-1].wins, fastesCar[fastesCar.length-1].time);
+
+    setTimeout(async ()=>{
+      await this.popUp.getWinnerForPopUp(fastesCar[fastesCar.length-1].id, fastesCar[fastesCar.length-1].time);
+    }, fastesCar[fastesCar.length-1].time)
+
     return speedsArray;
   }
 
