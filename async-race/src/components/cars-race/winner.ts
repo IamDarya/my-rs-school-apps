@@ -1,6 +1,9 @@
 export class Winner {
+
   id: number;
+
   wins: number;
+
   time: number;
 
   constructor(id: number, wins: number, time: number) {

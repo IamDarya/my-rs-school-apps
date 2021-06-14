@@ -4,7 +4,6 @@ import { Garage } from '../garage/garage';
 import { CarSpeed } from '../car/car-speed';
 import { Winner } from './winner';
 import { PopUp } from '../pop-up/pop-up';
-import { App } from '../../app';
 
 export class CarsRace extends BaseComponent {
   api: API;
