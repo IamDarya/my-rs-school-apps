@@ -134,8 +134,25 @@ export class API {
     const responce = await fetch(`http://127.0.0.1:3000/winners?id=${id}`, {
       method: 'get',
     })
-    const car = responce.json();
-    return car;
+    const winner = responce.json();
+    return winner;
+  }
+
+  static async updateWinner(
+    id: number | null,
+    wins: number | null,
+    time: number | null
+  ): Promise<void> {
+    await fetch(`http://127.0.0.1:3000/winners/${id}`, {
+      method: 'put',
+      body: JSON.stringify({
+        wins: `${wins}`,
+        time: `${time}`,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
 
 }

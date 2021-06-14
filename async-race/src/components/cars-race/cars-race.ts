@@ -63,21 +63,19 @@ export class CarsRace extends BaseComponent {
           ) {
             clearInterval(intervalId);
             await API.startStopCarEngine(getID, 'stopped');
-            fastesCar = fastesCar.filter((el)=>{
-              if(el.id === getID) {
-                return false;
-              }
-              else {
-                return true;
-              }
-            })
+            fastesCar = fastesCar.filter(el => el.id !== getID)
           }
         }
       });
     }
-    API.createWinner(fastesCar[fastesCar.length-1].id,fastesCar[fastesCar.length-1].wins, fastesCar[fastesCar.length-1].time);
 
     setTimeout(async ()=>{
+      if(API.getCar(fastesCar[fastesCar.length-1].id)) {
+        API.updateWinner(fastesCar[fastesCar.length-1].id, (await API.getWinner(fastesCar[fastesCar.length - 1].id)).wins + 1, fastesCar[fastesCar.length-1].time);
+      }
+      else{
+        await API.createWinner(fastesCar[fastesCar.length-1].id,fastesCar[fastesCar.length-1].wins, fastesCar[fastesCar.length-1].time);
+      }
       await this.popUp.getWinnerForPopUp(fastesCar[fastesCar.length-1].id, fastesCar[fastesCar.length-1].time);
     }, fastesCar[fastesCar.length-1].time)
 

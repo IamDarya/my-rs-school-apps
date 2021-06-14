@@ -11,7 +11,7 @@ export class PopUp extends BaseComponent {
  async getWinnerForPopUp(id: number, time: number){
   const text = document.createElement('h2');
   let winnerName = (await API.getCar(id)).name;
-  text.innerText = `${winnerName} went first (${time})s)!`;
+  text.innerText = `${winnerName} went first (${time}s)!`;
 
   this.element.appendChild(text);
   }
