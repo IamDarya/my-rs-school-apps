@@ -69,6 +69,7 @@ export class CarManipulation extends BaseComponent {
 
     resetCarsRaceBtn.addEventListener('click', async () => {
       startCarsRaceBtn.disabled = false;
+      document.getElementsByClassName('pop-up')[0].classList.add('hidden');
       await this.carsRace.stopRace();
     });
 

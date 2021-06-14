@@ -36,7 +36,6 @@ export class BestResult extends BaseComponent {
     <p>Best time(sec)</p>
   </li>`;
     let arrOfWinners = await API.getWinners(1, 10, 'time', 'ASC');
-    console.log(arrOfWinners)
     let carPosit = 1;
       for(let i = 0; i < arrOfWinners.length; i++) {
         let li = document.createElement('li');
