@@ -17,12 +17,16 @@ export class App {
 
   private readonly carsRace = new CarsRace(this.api, this.garage);
 
-  private readonly carManipulation = new CarManipulation(this.api, this.router, this.carsRace, this.garage);
+  private readonly carManipulation = new CarManipulation(
+    this.api,
+    this.router,
+    this.carsRace,
+    this.garage
+  );
 
   private readonly bestResult = new BestResult(this.router);
 
-  constructor(private readonly rootElement: HTMLElement) {
-  }
+  constructor(private readonly rootElement: HTMLElement) {}
 
   async start(): Promise<void> {
     this.rootElement.appendChild(this.header.element);

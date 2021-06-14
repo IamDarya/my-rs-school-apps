@@ -39,8 +39,8 @@ export class CarsRace extends BaseComponent {
       API.SwitchCarEngineToDriveMode(getID, 'drive').catch(async (err) => {
         if (err instanceof Error) {
           if (
-            err.message
-            === "Car has been stopped suddenly. It's engine was broken down."
+            err.message ===
+            "Car has been stopped suddenly. It's engine was broken down."
           ) {
             clearInterval(intervalId);
             await API.startStopCarEngine(getID, 'stopped');
@@ -52,9 +52,7 @@ export class CarsRace extends BaseComponent {
   }
 
   async stopRace(): Promise<void> {
-    const arrOfCars = await (
-      await API.getCars(this.garage.numOfPage, 7)
-    ).cars;
+    const arrOfCars = await (await API.getCars(this.garage.numOfPage, 7)).cars;
     for (let i = 0; i < arrOfCars.length; i++) {
       const getID = arrOfCars[i].id;
       clearInterval(this.hashtableOfCarsIntervalId.get(getID)!);

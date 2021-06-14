@@ -45,7 +45,7 @@ export class Garage extends BaseComponent {
     const changePageNext = () => {
       this.numOfPage++;
       document.getElementsByClassName(
-        'num-of-page',
+        'num-of-page'
       )[0].innerHTML = `(${this.numOfPage})`;
       this.getAllCArs();
     };
@@ -54,7 +54,7 @@ export class Garage extends BaseComponent {
       if (this.numOfPage > 1) {
         this.numOfPage--;
         document.getElementsByClassName(
-          'num-of-page',
+          'num-of-page'
         )[0].innerHTML = `(${this.numOfPage})`;
         this.getAllCArs();
       }
@@ -64,17 +64,16 @@ export class Garage extends BaseComponent {
   }
 
   async getAllCArs(): Promise<void> {
-    this.element.getElementsByClassName(
-      'car-section-wrapper',
-    )[0].innerHTML = '';
+    this.element.getElementsByClassName('car-section-wrapper')[0].innerHTML =
+      '';
 
     const arrcars = await API.getCars(this.numOfPage, 7);
 
     document.getElementsByClassName(
-      'amount-of-cars-in-garage',
+      'amount-of-cars-in-garage'
     )[0].innerHTML = `(${arrcars.amount})`;
     document.getElementsByClassName(
-      'num-of-page',
+      'num-of-page'
     )[0].innerHTML = `(${this.numOfPage})`;
 
     const limitCarsDisplOnPage = 7;
@@ -91,7 +90,7 @@ export class Garage extends BaseComponent {
         .setAttribute('style', `fill:${arrcars.cars[i].color}`);
 
       this.element.getElementsByClassName(
-        `car-section-${numOfCarsect}`,
+        `car-section-${numOfCarsect}`
       )[0].innerHTML = `<div class="select-remove-btns-name">
       <button class="select-${arrcars.cars[i].id}" data-id="${arrcars.cars[i].id}">SELECT</button>
       <button class="remove-${arrcars.cars[i].id}" data-id="${arrcars.cars[i].id}">REMOVE</button>
@@ -121,9 +120,7 @@ export class Garage extends BaseComponent {
         .getElementsByClassName(`remove-${arrcars.cars[i].id}`)[0]
         .addEventListener('click', async (e: Event) => {
           const getID = e.target as HTMLElement;
-          await API.deleteCar(
-            parseInt(getID.getAttribute('data-id')!, 10),
-          );
+          await API.deleteCar(parseInt(getID.getAttribute('data-id')!, 10));
           this.getAllCArs();
         });
 
@@ -132,15 +129,15 @@ export class Garage extends BaseComponent {
         .addEventListener('click', async (e: Event) => {
           const getID = e.target as HTMLElement;
           this.selectedCar = await API.getCar(
-            parseInt(getID.getAttribute('data-id')!, 10),
+            parseInt(getID.getAttribute('data-id')!, 10)
           );
         });
 
       const btnToStartCar = this.element.getElementsByClassName(
-        `start-${arrcars.cars[i].id}`,
+        `start-${arrcars.cars[i].id}`
       )[0] as HTMLButtonElement;
       const btnToReturntCar = this.element.getElementsByClassName(
-        `back-${arrcars.cars[i].id}`,
+        `back-${arrcars.cars[i].id}`
       )[0] as HTMLButtonElement;
 
       const hashtableOfCarsIntervalId: Map<number, NodeJS.Timeout> = new Map();
@@ -159,7 +156,10 @@ export class Garage extends BaseComponent {
 
         const getID = e.target as HTMLElement;
 
-        const speed = await API.startStopCarEngine(arrcars.cars[i].id, 'started');
+        const speed = await API.startStopCarEngine(
+          arrcars.cars[i].id,
+          'started'
+        );
 
         const intervalId = await this.moveCar(arrcars.cars[i].id, speed);
 
@@ -168,18 +168,18 @@ export class Garage extends BaseComponent {
         try {
           await API.SwitchCarEngineToDriveMode(
             parseInt(getID.getAttribute('data-id')!, 10),
-            'drive',
+            'drive'
           );
         } catch (err) {
           if (err instanceof Error) {
             if (
-              err.message
-              === 'Car has been stopped suddenly. It\'s engine was broken down.'
+              err.message ===
+              "Car has been stopped suddenly. It's engine was broken down."
             ) {
               clearInterval(intervalId);
               await API.startStopCarEngine(
                 parseInt(getID.getAttribute('data-id')!, 10),
-                'stopped',
+                'stopped'
               );
             }
           }
@@ -200,8 +200,8 @@ export class Garage extends BaseComponent {
         clearInterval(id);
       } else {
         const distanceToRideInPercetages = 78;
-        pos
-          += (distanceToRideInPercetages / timeOfCarToFinish) * updateInterval;
+        pos +=
+          (distanceToRideInPercetages / timeOfCarToFinish) * updateInterval;
         elem.setAttribute('style', `left:${pos}%`);
       }
     }, updateInterval);

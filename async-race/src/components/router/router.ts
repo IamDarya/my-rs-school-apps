@@ -29,7 +29,7 @@ export class Router {
   navigate(path = ''): Router {
     window.location.href = `${window.location.href.replace(
       /#(.*)$/,
-      '',
+      ''
     )}#${path}`;
     return this;
   }
