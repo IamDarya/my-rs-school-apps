@@ -3,6 +3,20 @@
   padding: 0;
 }
 
+#app {
+  background-color: #636a73;
+  background-image: url("assets/back.png");
+  background-size: cover;
+  position: relative;
+}
+
 html {
   font-size: 20px;
+}
+
+.hidden.whole-garage-part,
+.hidden.best-result-wrapper,
+.hidden.wrapper,
+.hidden.pop-up {
+  display: none;
 }

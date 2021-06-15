@@ -1,0 +1,14 @@
+li {
+  display: grid;
+  grid-template-columns: 80px 80px 120px 80px 120px;
+  column-gap: 25px;
+  align-items: center;
+  width: fit-content;
+}
+
+h2,
+.page-winners,
+.num-of-page-winners,
+.amount-of-winners-on-page {
+  display: inline-block;
+}
