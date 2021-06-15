@@ -1,6 +1,9 @@
 li {
   display: grid;
-  grid-template-columns: 80px 80px 80px 80px 120px;
+  grid-template-columns: 80px 80px 120px 80px 120px;
+  column-gap: 25px;
+  align-items: center;
+  width: fit-content;
 }
 
 h2,

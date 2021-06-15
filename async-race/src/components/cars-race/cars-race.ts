@@ -22,10 +22,27 @@ export class CarsRace extends BaseComponent {
     this.garage = garage;
     this.popUp = popUp;
     this.hashtableOfCarsIntervalId = new Map();
+
+
+    // this.resetBtn = document.getElementsByClassName('reset-btn')[0] as HTMLButtonElement;
+    // this.nextBtn=document.getElementsByClassName('prev')[0] as HTMLButtonElement;
+    // this.prevBtn=document.getElementsByClassName('next')[0] as HTMLButtonElement;
+    // this.createBtn = document.getElementsByClassName('create-btn')[0] as HTMLButtonElement;
+    // this.updBtn = document.getElementsByClassName('update-btn')[0] as HTMLButtonElement;
+    // this.startBtns =  document.getElementsByClassName('start-btn') as unknown as HTMLButtonElement[];
+    // this.backBtns = document.getElementsByClassName('back-btn') as unknown as HTMLButtonElement[];
+    // this.generateBtn = document.getElementsByClassName('generate-cars-btn')[0] as HTMLButtonElement;
+    // this.btnWinners = document.getElementsByClassName('to-winners-btn')[0] as HTMLButtonElement;
+    // this.btnGarage = document.getElementsByClassName('to-garage-btn')[0] as HTMLButtonElement;
+    // this.btnSelect = document.getElementsByClassName('select') as unknown as HTMLButtonElement[];
+    // this.btnRemove = document.getElementsByClassName('remove') as unknown as HTMLButtonElement[];
   }
 
   async startRace(): Promise<CarSpeed[]> {
-    const arrOfCars = (await API.getCars(this.garage.numOfPage, 7)).cars;
+    let allBtns = document.getElementsByTagName('button') as unknown as HTMLButtonElement[];
+    this.disableBtnsARr(allBtns);
+
+  const arrOfCars = (await API.getCars(this.garage.numOfPage, 7)).cars;
     let speedsArray: Array<CarSpeed> = [];
 
     const arrOfPromices: Array<Promise<CarSpeed>> = [];
@@ -49,7 +66,7 @@ export class CarsRace extends BaseComponent {
         id: parseInt(`${getID}`, 10),
         wins: 1,
         time:
-          speedsArray[i].distance / speedsArray[i].velocity/1000,
+          speedsArray[i].distance / speedsArray[i].velocity,
 
       };
 
@@ -73,25 +90,27 @@ export class CarsRace extends BaseComponent {
     fastesCar.sort((a, b) => (a.time < b.time ? 1 : -1));
 
     Promise.race(arrOfCarsInRace).then(async()=>{
-      let currentWinner = await API.getWinner(fastesCar[fastesCar.length - 1].id);
-      if(currentWinner !== null && currentWinner.time > fastesCar[fastesCar.length - 1].time) {
-        API.updateWinner(
-          fastesCar[fastesCar.length - 1].id,
-          parseInt(currentWinner.wins.toString(), 10) + 1,
-          fastesCar[fastesCar.length - 1].time
-        );
-      }
-        else {
-        await API.createWinner(
-          fastesCar[fastesCar.length - 1].id,
-          fastesCar[fastesCar.length - 1].wins,
-          fastesCar[fastesCar.length - 1].time
-        );
-      }
-      await this.popUp.getWinnerForPopUp(
+      await this.popUp.showPopUp(
         fastesCar[fastesCar.length - 1].id,
         fastesCar[fastesCar.length - 1].time
       );
+      let allBtns = document.getElementsByTagName('button') as unknown as HTMLButtonElement[];
+      this.inableBtnsARr(allBtns);
+      let currentWinner = await API.getWinner(fastesCar[fastesCar.length - 1].id);
+        if(currentWinner !== null && currentWinner.time < fastesCar[fastesCar.length - 1].time) {
+          API.updateWinner(
+            fastesCar[fastesCar.length - 1].id,
+            parseInt(currentWinner.wins.toString(), 10) + 1,
+            fastesCar[fastesCar.length - 1].time
+          );
+        }
+          if(currentWinner === null) {
+          await API.createWinner(
+            fastesCar[fastesCar.length - 1].id,
+            fastesCar[fastesCar.length - 1].wins,
+            fastesCar[fastesCar.length - 1].time
+          );
+        }
     })
     return speedsArray;
   }
@@ -103,8 +122,24 @@ export class CarsRace extends BaseComponent {
       clearInterval(this.hashtableOfCarsIntervalId.get(getID)!);
       document
         .getElementsByClassName(`car-${getID}`)[0]
-        .setAttribute('style', `left:${5}%`);
+        .setAttribute('style', `left:${11}vw`);
          API.startStopCarEngine(getID, 'stopped');
+    }
+    let allBtns = document.getElementsByTagName('button') as unknown as HTMLButtonElement[];
+    this.inableBtnsARr(allBtns);
+    await this.popUp.hidePopUp(
+    );
+  }
+
+  disableBtnsARr (btns: HTMLButtonElement[]) {
+    for(let i = 0; i<btns.length;i++){
+      btns[i].disabled = true;
+    }
+  }
+
+  inableBtnsARr (btns: HTMLButtonElement[]) {
+    for(let i = 0; i<btns.length;i++){
+      btns[i].disabled = false;
     }
   }
 }

@@ -46,7 +46,7 @@ export class Garage extends BaseComponent {
       this.numOfPage++;
       document.getElementsByClassName(
         'num-of-page'
-      )[0].innerHTML = `(${this.numOfPage})`;
+      )[0].innerHTML = `${this.numOfPage}`;
       this.getAllCArs();
     };
 
@@ -74,7 +74,7 @@ export class Garage extends BaseComponent {
     )[0].innerHTML = `(${arrcars.amount})`;
     document.getElementsByClassName(
       'num-of-page'
-    )[0].innerHTML = `(${this.numOfPage})`;
+    )[0].innerHTML = `${this.numOfPage}`;
 
     const limitCarsDisplOnPage = 7;
     let numOfCarsect = 0;
@@ -92,14 +92,14 @@ export class Garage extends BaseComponent {
       this.element.getElementsByClassName(
         `car-section-${numOfCarsect}`
       )[0].innerHTML = `<div class="select-remove-btns-name">
-      <button class="select-${arrcars.cars[i].id}" data-id="${arrcars.cars[i].id}">SELECT</button>
-      <button class="remove-${arrcars.cars[i].id}" data-id="${arrcars.cars[i].id}">REMOVE</button>
+      <button class="select-${arrcars.cars[i].id} select" data-id="${arrcars.cars[i].id}">SELECT</button>
+      <button class="remove-${arrcars.cars[i].id} remove" data-id="${arrcars.cars[i].id}">REMOVE</button>
       <div class="car-name">${arrcars.cars[i].name}</div>
     </div>
     <div class="car-block">
     <div class="start-back-btns">
-      <button class="back-${arrcars.cars[i].id}" data-id="${arrcars.cars[i].id}">back</button>
-      <button class="start-${arrcars.cars[i].id}" data-id="${arrcars.cars[i].id}">start</button>
+      <button class="back-${arrcars.cars[i].id} back-btn" data-id="${arrcars.cars[i].id}">back</button>
+      <button class="start-${arrcars.cars[i].id} start-btn" data-id="${arrcars.cars[i].id}">start</button>
     </div>
     <div class="car car-${arrcars.cars[i].id}">
     <svg viewBox="0 0 512 512"><g id="_13-car" data-name="13-car"><g id="glyph">
@@ -121,6 +121,9 @@ export class Garage extends BaseComponent {
         .addEventListener('click', async (e: Event) => {
           const getID = e.target as HTMLElement;
           await API.deleteCar(parseInt(getID.getAttribute('data-id')!, 10));
+          if(await API.getWinner(parseInt(getID.getAttribute('data-id')!, 10)) !== undefined){
+            await API.deleteWinner(parseInt(getID.getAttribute('data-id')!, 10));
+          }
           this.getAllCArs();
         });
 
@@ -147,7 +150,7 @@ export class Garage extends BaseComponent {
         clearInterval(hashtableOfCarsIntervalId.get(arrcars.cars[i].id)!);
         document
           .getElementsByClassName(`car-${getID.getAttribute('data-id')}`)[0]
-          .setAttribute('style', `left:${5}%`);
+          .setAttribute('style', `left:${11}vw`);
         btnToStartCar.disabled = false;
       });
 
@@ -191,18 +194,18 @@ export class Garage extends BaseComponent {
 
   moveCar(carID: number, speed: CarSpeed): NodeJS.Timeout {
     const elem = this.element.getElementsByClassName(`car-${carID}`)[0];
-    let pos = 5;
+    let pos = 11;
     const timeOfCarToFinish = speed.distance / speed.velocity;
     const updateInterval = 10;
     const id = setInterval(() => {
-      const finishPosition = 85;
+      const finishPosition = 85.5;
       if (pos >= finishPosition) {
         clearInterval(id);
       } else {
-        const distanceToRideInPercetages = 78;
+        const distanceToRideInPercetages = 74.5;
         pos +=
           (distanceToRideInPercetages / timeOfCarToFinish) * updateInterval;
-        elem.setAttribute('style', `left:${pos}%`);
+        elem.setAttribute('style', `left:${pos}vw`);
       }
     }, updateInterval);
     return id;

@@ -63,14 +63,11 @@ export class CarManipulation extends BaseComponent {
     )[0] as HTMLButtonElement;
 
     startCarsRaceBtn.addEventListener('click', async () => {
-      startCarsRaceBtn.disabled = true;
       await this.carsRace.startRace();
     });
 
     resetCarsRaceBtn.addEventListener('click', async () => {
-      startCarsRaceBtn.disabled = false;
-      document.getElementsByClassName('pop-up')[0].classList.add('hidden');
-      await this.carsRace.stopRace();
+      this.carsRace.stopRace()
     });
 
     this.inputColor.addEventListener('input', () => this.inputColor?.value);
