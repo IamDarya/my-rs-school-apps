@@ -74,7 +74,7 @@ export class CarsRace extends BaseComponent {
       this.hashtableOfCarsIntervalId.set(arrOfCars[i].id, intervalId);
 
       arrOfCarsInRace.push(
-        API.SwitchCarEngineToDriveMode(getID, 'drive').catch(async (err) => {
+        API.SwitchCarEngineToDriveMode(getID, 'drive').catch(async (err) => { // eslint-disable-line @typescript-eslint/no-loop-func
           if (err instanceof Error) {
             if (
               err.message ===
@@ -133,7 +133,7 @@ export class CarsRace extends BaseComponent {
   }
 
   async stopRace(): Promise<void> {
-    const arrOfCars = await (await API.getCars(this.garage.numOfPage, 7)).cars;
+    const arrOfCars = (await API.getCars(this.garage.numOfPage, 7)).cars;
     for (let i = 0; i < arrOfCars.length; i++) {
       const getID = arrOfCars[i].id;
       clearInterval(this.hashtableOfCarsIntervalId.get(getID)!);
@@ -153,11 +153,13 @@ export class CarsRace extends BaseComponent {
     for (let i = 0; i < btns.length; i++) {
       btns[i].disabled = true;
     }
+    this.element.getElementsByTagName('body');
   }
 
   inableBtnsARr(btns: HTMLButtonElement[]): void {
     for (let i = 0; i < btns.length; i++) {
       btns[i].disabled = false;
-    }
+    };
+    this.element.getElementsByTagName('body');
   }
 }
