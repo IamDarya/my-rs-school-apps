@@ -3,6 +3,7 @@ import { Router } from '../router/router';
 import { BaseComponent } from '../base-component';
 import { API } from '../api';
 import { PopUp } from '../pop-up/pop-up';
+import { Winner } from '../cars-race/winner';
 
 export class BestResult extends BaseComponent {
   router: Router;
@@ -24,6 +25,15 @@ export class BestResult extends BaseComponent {
             <p class="page-winners">Page #</p>
             <div class="num-of-page-winners">${this.numOfPageWinners}</div>
             </div>
+            <ul class='headWinn'>
+            <li>
+            <p>Position</p>
+            <p>Car</p>
+            <p>Name</p>
+            <div class="column-with-btn"><p>Wins</p><button class="sort-by-wins"></button></div>
+            <div class="column-with-btn"><p>Best time(sec)</p><button class="sort-by-time"></button></div>
+          </li>
+            </ul>
           <ul class='winn'>
           </ul>
           <div class="prev-next-btns-winners">
@@ -54,24 +64,48 @@ export class BestResult extends BaseComponent {
     };
     nextPageBtn.addEventListener('click', changePageNext);
     prevPAgeBtn.addEventListener('click', changePagePrev);
+
+    let sortbywins = this.element.getElementsByClassName('sort-by-wins')[0];
+
+    sortbywins.addEventListener('click', async () => {
+      sortbywins.classList.toggle('resort');
+      this.drawWinners();
+    })
+  }
+
+   async checkArrow(): Promise<Winner[]> {
+    let sortbywins = this.element.getElementsByClassName('sort-by-wins')[0];
+    if(sortbywins.classList.contains('resort')){
+      return await API.getWinners(
+        this.numOfPageWinners,
+        10,
+        'wins',
+        'DESC'
+      );
+    }
+    else{
+      return await API.getWinners(
+        this.numOfPageWinners,
+        10,
+        'wins',
+        'ASC'
+      );
+    }
   }
 
   async drawWinners(): Promise<void> {
+
     const elem = this.element.getElementsByClassName('winn')[0];
-    elem.innerHTML = `
-    <li>
-    <p>Position</p>
-    <p>Car</p>
-    <p>Name</p>
-    <p>Wins</p>
-    <p>Best time(sec)</p>
-  </li>`;
-    const arrOfWinners = await API.getWinners(
-      this.numOfPageWinners,
-      10,
-      'time',
-      'ASC'
-    );
+    elem.innerHTML = ``;
+
+    let arrOfWinners: Winner[] = await this.checkArrow();
+
+    // let sortbywins = document.getElementsByClassName('sort-by-wins')[0];
+
+    // sortbywins.addEventListener('click', async () => {
+    //   sortbywins.classList.toggle('resort');
+    // })
+
     let carPosit = 1 + (this.numOfPageWinners - 1) * 10;
     const arrOfCars = await Promise.all(
       arrOfWinners.map((el) =>  API.getCar(el.id)));
