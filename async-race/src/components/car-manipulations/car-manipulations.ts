@@ -67,7 +67,7 @@ export class CarManipulation extends BaseComponent {
     });
 
     resetCarsRaceBtn.addEventListener('click', async () => {
-      this.carsRace.stopRace()
+      this.carsRace.stopRace();
     });
 
     this.inputColor.addEventListener('input', () => this.inputColor?.value);

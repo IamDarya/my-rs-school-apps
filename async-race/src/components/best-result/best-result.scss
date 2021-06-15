@@ -1,7 +1,8 @@
 li {
   display: grid;
-  grid-template-columns: 80px 80px 120px 80px 120px;
+  grid-template-columns: 66px 80px 120px 44px 120px;
   column-gap: 25px;
+  height: 72px;
   align-items: center;
   width: fit-content;
 }

@@ -128,9 +128,12 @@ export class API {
     idWinsTime: string,
     ASCorDESC: string
   ): Promise<Array<Winner>> {
-    const responce = await fetch(`http://127.0.0.1:3000/winners?_page=${page}&_limit=${limit}&_sort=${idWinsTime}&_order=${ASCorDESC}`, {
-      method: 'get',
-    });
+    const responce = await fetch(
+      `http://127.0.0.1:3000/winners?_page=${page}&_limit=${limit}&_sort=${idWinsTime}&_order=${ASCorDESC}`,
+      {
+        method: 'get',
+      }
+    );
     const arrOfWinners = await responce.json();
     return arrOfWinners;
   }
@@ -140,7 +143,7 @@ export class API {
       method: 'get',
     });
     const winner = await responce.json();
-    if(winner.length === 0){
+    if (winner.length === 0) {
       return null;
     }
     return winner[0];

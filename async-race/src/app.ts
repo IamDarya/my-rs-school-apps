@@ -27,7 +27,7 @@ export class App {
     this.garage
   );
 
-  private readonly bestResult = new BestResult(this.router);
+  private readonly bestResult = new BestResult(this.router, this.popUp);
 
   constructor(private readonly rootElement: HTMLElement) {}
 

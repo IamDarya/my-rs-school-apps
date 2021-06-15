@@ -1,5 +1,4 @@
 export class Winner {
-
   id: number;
 
   wins: number;
