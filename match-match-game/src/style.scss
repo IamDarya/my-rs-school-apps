@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 20px;
+}
+
+body {
+  color: antiquewhite;
+  background: rgb(128, 227, 228);
+  background: linear-gradient(
+    0deg,
+    rgba(128, 227, 228, 1) 0%,
+    rgba(228, 184, 133, 1) 73%
+  );
+}
+
+.app {
+  min-height: calc(100vh - 5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h2 {
+  font-family: Arial;
+  margin: 1.5rem;
+}
+
+p {
+  font-size: 1rem;
+  font-family: Arial;
+}
+
+.about.hidden,
+.best-score.hidden,
+.game-setting.hidden,
+.registration.hidden,
+.regictration-btn.hidden,
+.pop-up-win.hidden,
+.cover.hidden,
+.start-game-btn.hidden,
+.stop-game-btn.hidden,
+.log-out_btn.hidden,
+.main.hidden {
+  display: none;
+}
