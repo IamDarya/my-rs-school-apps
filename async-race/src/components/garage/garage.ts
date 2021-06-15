@@ -121,8 +121,14 @@ export class Garage extends BaseComponent {
         .addEventListener('click', async (e: Event) => {
           const getID = e.target as HTMLElement;
           await API.deleteCar(parseInt(getID.getAttribute('data-id')!, 10));
-          if(await API.getWinner(parseInt(getID.getAttribute('data-id')!, 10)) !== undefined){
-            await API.deleteWinner(parseInt(getID.getAttribute('data-id')!, 10));
+          if (
+            (await API.getWinner(
+              parseInt(getID.getAttribute('data-id')!, 10)
+            )) !== undefined
+          ) {
+            await API.deleteWinner(
+              parseInt(getID.getAttribute('data-id')!, 10)
+            );
           }
           this.getAllCArs();
         });
