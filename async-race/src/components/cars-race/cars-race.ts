@@ -90,7 +90,7 @@ export class CarsRace extends BaseComponent {
     }
     fastesCar.sort((a, b) => (a.time < b.time ? 1 : -1));
 
-    Promise.race(arrOfCarsInRace).then(async () => {
+    Promise.any(arrOfCarsInRace).then(async () => {
       await this.popUp.showPopUp(
         fastesCar[fastesCar.length - 1].id,
         fastesCar[fastesCar.length - 1].time
@@ -128,9 +128,9 @@ export class CarsRace extends BaseComponent {
           fastesCar[fastesCar.length - 1].time
         );
       }
+      let resetBtn = document.getElementsByClassName('reset-btn')[0] as HTMLButtonElement;
+      resetBtn.disabled = false;
     });
-    let resetBtn = document.getElementsByClassName('reset-btn')[0] as HTMLButtonElement;
-    resetBtn.disabled = false;
     return speedsArray;
   }
 

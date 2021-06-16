@@ -154,11 +154,9 @@ export class Garage extends BaseComponent {
 
       btnToReturntCar.addEventListener('click', async (e: Event) => {
         const getID = e.target as HTMLElement;
-        clearInterval(hashtableOfCarsIntervalId.get(arrcars.cars[i].id)!);
-        document
-          .getElementsByClassName(`car-${getID.getAttribute('data-id')}`)[0]
-          .setAttribute('style', `left:${11}vw`);
-          await API.startStopCarEngine(arrcars.cars[i].id, 'stopped');
+
+        this.stopOneCar(getID, hashtableOfCarsIntervalId);
+
         btnToStartCar.disabled = false;
       });
 
@@ -167,39 +165,54 @@ export class Garage extends BaseComponent {
 
         const getID = e.target as HTMLElement;
 
-        const speed = await API.startStopCarEngine(
-          arrcars.cars[i].id,
-          'started'
-        );
-
-        const intervalId = await this.moveCar(arrcars.cars[i].id, speed);
-
-        hashtableOfCarsIntervalId.set(arrcars.cars[i].id, intervalId);
-
-        try {
-          await API.SwitchCarEngineToDriveMode(
-            parseInt(getID.getAttribute('data-id')!, 10),
-            'drive'
-          );
-        } catch (err) {
-          if (err instanceof Error) {
-            if (
-              err.message ===
-              "Car has been stopped suddenly. It's engine was broken down."
-            ) {
-              clearInterval(intervalId);
-              await API.startStopCarEngine(
-                parseInt(getID.getAttribute('data-id')!, 10),
-                'stopped'
-              );
-            }
-          }
-        }
+        this.startOneCar(getID, hashtableOfCarsIntervalId);
       });
       numOfCarsect++;
     } //enfOfLoop
 
   } //getAllcarsend
+
+  async startOneCar(getID: HTMLElement, hashtableOfCarsIntervalId: Map<number, NodeJS.Timeout>){
+    const speed = await API.startStopCarEngine(
+      parseInt(getID.getAttribute('data-id')!, 10),
+      'started'
+    );
+
+    const intervalId = this.moveCar(
+      parseInt(getID.getAttribute('data-id')!, 10), speed);
+
+    hashtableOfCarsIntervalId.set(
+      parseInt(getID.getAttribute('data-id')!, 10), intervalId);
+
+    try {
+      await API.SwitchCarEngineToDriveMode(
+        parseInt(getID.getAttribute('data-id')!, 10),
+        'drive'
+      );
+    } catch (err) {
+      if (err instanceof Error) {
+        if (
+          err.message ===
+          "Car has been stopped suddenly. It's engine was broken down."
+        ) {
+          clearInterval(intervalId);
+          await API.startStopCarEngine(
+            parseInt(getID.getAttribute('data-id')!, 10),
+            'stopped'
+          );
+        }
+      }
+    }
+  }
+
+  async stopOneCar(getID: HTMLElement, hashtableOfCarsIntervalId: Map<number, NodeJS.Timeout>){
+    let id = parseInt(getID.getAttribute('data-id')!.toString(),10);
+        clearInterval(hashtableOfCarsIntervalId.get(id)!);
+        document
+          .getElementsByClassName(`car-${getID.getAttribute('data-id')}`)[0]
+          .setAttribute('style', `left:${11}vw`);
+          await API.startStopCarEngine(id, 'stopped');
+  }
 
   moveCar(carID: number, speed: CarSpeed): NodeJS.Timeout {
     const elem = this.element.getElementsByClassName(`car-${carID}`)[0];
