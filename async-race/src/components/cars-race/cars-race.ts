@@ -129,6 +129,8 @@ export class CarsRace extends BaseComponent {
         );
       }
     });
+    let resetBtn = document.getElementsByClassName('reset-btn')[0] as HTMLButtonElement;
+    resetBtn.disabled = false;
     return speedsArray;
   }
 
@@ -146,7 +148,6 @@ export class CarsRace extends BaseComponent {
       'button'
     ) as unknown as HTMLButtonElement[];
     this.inableBtnsARr(allBtns);
-    await this.popUp.hidePopUp();
   }
 
   disableBtnsARr(btns: HTMLButtonElement[]): void {

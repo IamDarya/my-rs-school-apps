@@ -62,6 +62,8 @@ export class CarManipulation extends BaseComponent {
       'reset-btn'
     )[0] as HTMLButtonElement;
 
+    resetCarsRaceBtn.disabled = true;
+
     startCarsRaceBtn.addEventListener('click', async () => {
       await this.carsRace.startRace();
     });

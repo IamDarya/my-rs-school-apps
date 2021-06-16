@@ -78,6 +78,7 @@ export class Garage extends BaseComponent {
 
     const limitCarsDisplOnPage = 7;
     let numOfCarsect = 0;
+
     for (let i = 0; i < limitCarsDisplOnPage && i < arrcars.cars.length; i++) {
       const div = document.createElement('div');
       this.element
@@ -157,6 +158,7 @@ export class Garage extends BaseComponent {
         document
           .getElementsByClassName(`car-${getID.getAttribute('data-id')}`)[0]
           .setAttribute('style', `left:${11}vw`);
+          await API.startStopCarEngine(arrcars.cars[i].id, 'stopped');
         btnToStartCar.disabled = false;
       });
 
@@ -195,8 +197,9 @@ export class Garage extends BaseComponent {
         }
       });
       numOfCarsect++;
-    }
-  }
+    } //enfOfLoop
+
+  } //getAllcarsend
 
   moveCar(carID: number, speed: CarSpeed): NodeJS.Timeout {
     const elem = this.element.getElementsByClassName(`car-${carID}`)[0];
