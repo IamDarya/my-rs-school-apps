@@ -8,6 +8,7 @@
   background-image: url("assets/back.png");
   background-size: cover;
   position: relative;
+  font-family: arial,sans-serif;
 }
 
 html {
@@ -19,4 +20,9 @@ html {
 .hidden.wrapper,
 .hidden.pop-up {
   display: none;
+}
+
+button:hover {
+  cursor: pointer;
+  background-image: linear-gradient(#00fdff36, #bf35bba6);
 }

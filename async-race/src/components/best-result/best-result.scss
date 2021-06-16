@@ -1,6 +1,6 @@
 li {
   display: grid;
-  grid-template-columns: 66px 80px 120px 60px 135px;
+  grid-template-columns: 66px 80px 120px 65px 150px;
   column-gap: 25px;
   height: 72px;
   align-items: center;
@@ -14,6 +14,10 @@ h2,
 .num-of-page-winners,
 .amount-of-winners-on-page {
   display: inline-block;
+}
+
+.best-result-wrapper {
+  margin-left: 15px;
 }
 
 .column-with-btn {

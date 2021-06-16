@@ -64,7 +64,7 @@ export class Garage extends BaseComponent {
   }
 
   async getAllCArs(): Promise<void> {
-    let resetBtn = document.getElementsByClassName('reset-btn')[0] as HTMLButtonElement;
+    const resetBtn = document.getElementsByClassName('reset-btn')[0] as HTMLButtonElement;
     resetBtn.disabled = false;
     this.element.getElementsByClassName('car-section-wrapper')[0].innerHTML =
       '';

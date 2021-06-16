@@ -22,6 +22,6 @@ export class PopUp extends BaseComponent {
     this.element.classList.remove('hidden');
     setTimeout(() => {
       this.element.classList.add('hidden');
-    }, 4000);
+    }, 5000);
   }
 }

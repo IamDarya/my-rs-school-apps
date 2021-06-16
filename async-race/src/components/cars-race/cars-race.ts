@@ -62,7 +62,7 @@ export class CarsRace extends BaseComponent {
 
       this.hashtableOfCarsIntervalId.set(arrOfCars[i].id, intervalId);
 
-      let drivePromise = API.SwitchCarEngineToDriveMode(getID, 'drive');
+      const drivePromise = API.SwitchCarEngineToDriveMode(getID, 'drive');
       this.arrOfCarsInRace.push(drivePromise);
       drivePromise.catch(async (err) => {  // eslint-disable-line @typescript-eslint/no-loop-func
         if (err instanceof Error) {
@@ -85,7 +85,7 @@ export class CarsRace extends BaseComponent {
           fastesCar[fastesCar.length - 1].time
         );
         this.inableBtnsARr(allBtns);
-        let raceBtn = document.getElementsByClassName('race-btn')[0] as HTMLButtonElement;
+        const raceBtn = document.getElementsByClassName('race-btn')[0] as HTMLButtonElement;
         raceBtn.disabled = true;
         const currentWinner = await API.getWinner(
           fastesCar[fastesCar.length - 1].id
@@ -130,8 +130,8 @@ export class CarsRace extends BaseComponent {
 
   async stopRace(): Promise<void> {
 
-   await Promise.allSettled(this.arrOfCarsInRace);
-   const arrOfCars = (await API.getCars(this.garage.numOfPage, 7)).cars;
+    await Promise.allSettled(this.arrOfCarsInRace);
+    const arrOfCars = (await API.getCars(this.garage.numOfPage, 7)).cars;
     for (let i = 0; i < arrOfCars.length; i++) {
       const getID = arrOfCars[i].id;
       clearInterval(this.hashtableOfCarsIntervalId.get(getID)!);

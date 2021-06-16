@@ -100,14 +100,14 @@ export class BestResult extends BaseComponent {
     if (sortbyTime.classList.contains('resort') && this.sortbywin === false) {
       return API.getWinners(this.numOfPageWinners, 10, 'time', 'DESC');
     }
-      return API.getWinners(this.numOfPageWinners, 10, 'time', 'ASC');
+    return API.getWinners(this.numOfPageWinners, 10, 'time', 'ASC');
   }
 
   async drawWinners(): Promise<void> {
     const elem = this.element.getElementsByClassName('winn')[0];
     elem.innerHTML = ``;
 
-    let raceBtn = document.getElementsByClassName('race-btn')[0] as HTMLButtonElement;
+    const raceBtn = document.getElementsByClassName('race-btn')[0] as HTMLButtonElement;
     if(this.router.current === 'best-result'){
       raceBtn.disabled = true;
     }
