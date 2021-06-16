@@ -64,6 +64,8 @@ export class Garage extends BaseComponent {
   }
 
   async getAllCArs(): Promise<void> {
+    const resetBtn = document.getElementsByClassName('reset-btn')[0] as HTMLButtonElement;
+    resetBtn.disabled = false;
     this.element.getElementsByClassName('car-section-wrapper')[0].innerHTML =
       '';
 
@@ -78,6 +80,7 @@ export class Garage extends BaseComponent {
 
     const limitCarsDisplOnPage = 7;
     let numOfCarsect = 0;
+
     for (let i = 0; i < limitCarsDisplOnPage && i < arrcars.cars.length; i++) {
       const div = document.createElement('div');
       this.element
@@ -136,6 +139,7 @@ export class Garage extends BaseComponent {
       this.element
         .getElementsByClassName(`select-${arrcars.cars[i].id}`)[0]
         .addEventListener('click', async (e: Event) => {
+
           const getID = e.target as HTMLElement;
           this.selectedCar = await API.getCar(
             parseInt(getID.getAttribute('data-id')!, 10)
@@ -153,49 +157,76 @@ export class Garage extends BaseComponent {
 
       btnToReturntCar.addEventListener('click', async (e: Event) => {
         const getID = e.target as HTMLElement;
-        clearInterval(hashtableOfCarsIntervalId.get(arrcars.cars[i].id)!);
-        document
-          .getElementsByClassName(`car-${getID.getAttribute('data-id')}`)[0]
-          .setAttribute('style', `left:${11}vw`);
+
+        this.stopOneCar(getID, hashtableOfCarsIntervalId);
+
+        resetBtn.disabled = false;
         btnToStartCar.disabled = false;
       });
 
       btnToStartCar.addEventListener('click', async (e: Event) => {
         btnToStartCar.disabled = true;
+        resetBtn.disabled = true;
 
         const getID = e.target as HTMLElement;
 
-        const speed = await API.startStopCarEngine(
-          arrcars.cars[i].id,
-          'started'
-        );
-
-        const intervalId = await this.moveCar(arrcars.cars[i].id, speed);
-
-        hashtableOfCarsIntervalId.set(arrcars.cars[i].id, intervalId);
-
-        try {
-          await API.SwitchCarEngineToDriveMode(
-            parseInt(getID.getAttribute('data-id')!, 10),
-            'drive'
-          );
-        } catch (err) {
-          if (err instanceof Error) {
-            if (
-              err.message ===
-              "Car has been stopped suddenly. It's engine was broken down."
-            ) {
-              clearInterval(intervalId);
-              await API.startStopCarEngine(
-                parseInt(getID.getAttribute('data-id')!, 10),
-                'stopped'
-              );
-            }
-          }
-        }
+        this.startOneCar(getID, hashtableOfCarsIntervalId);
       });
       numOfCarsect++;
+    } //  enfOfLoop
+  } //  getAllcarsend
+
+  async startOneCar(
+    getID: HTMLElement,
+    hashtableOfCarsIntervalId: Map<number, NodeJS.Timeout>
+  ): Promise<void> {
+    const speed = await API.startStopCarEngine(
+      parseInt(getID.getAttribute('data-id')!, 10),
+      'started'
+    );
+
+    const intervalId = this.moveCar(
+      parseInt(getID.getAttribute('data-id')!, 10),
+      speed
+    );
+
+    hashtableOfCarsIntervalId.set(
+      parseInt(getID.getAttribute('data-id')!, 10),
+      intervalId
+    );
+
+    try {
+      await API.SwitchCarEngineToDriveMode(
+        parseInt(getID.getAttribute('data-id')!, 10),
+        'drive'
+      );
+    } catch (err) {
+      if (err instanceof Error) {
+        if (
+          err.message ===
+          "Car has been stopped suddenly. It's engine was broken down."
+        ) {
+          clearInterval(intervalId);
+          await API.startStopCarEngine(
+            parseInt(getID.getAttribute('data-id')!, 10),
+            'stopped'
+          );
+        }
+      }
     }
+  }
+
+  async stopOneCar(
+    getID: HTMLElement,
+    hashtableOfCarsIntervalId: Map<number, NodeJS.Timeout>
+  ): Promise<void> {
+    const id = parseInt(getID.getAttribute('data-id')!.toString(), 10);
+    clearInterval(hashtableOfCarsIntervalId.get(id)!);
+    document
+      .getElementsByClassName(`car-${getID.getAttribute('data-id')}`)[0]
+      .setAttribute('style', `left:${11}vw`);
+    await API.startStopCarEngine(id, 'stopped');
+    this.element.getElementsByTagName('body');
   }
 
   moveCar(carID: number, speed: CarSpeed): NodeJS.Timeout {

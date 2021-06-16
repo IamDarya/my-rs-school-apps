@@ -1,6 +1,6 @@
 li {
   display: grid;
-  grid-template-columns: 66px 80px 120px 60px 135px;
+  grid-template-columns: 66px 80px 120px 65px 150px;
   column-gap: 25px;
   height: 72px;
   align-items: center;
@@ -16,21 +16,24 @@ h2,
   display: inline-block;
 }
 
-.column-with-btn{
+.best-result-wrapper {
+  margin-left: 15px;
+}
+
+.column-with-btn {
   display: flex;
 }
 
 .sort-by-wins,
-.sort-by-time{
-    background-image: url('../../assets/arrow.png');
-    filter: brightness(1.5);
-    background-size: cover;
-    width: 20px;
-    background-color: transparent;
-    border: none;
+.sort-by-time {
+  background-image: url("../../assets/arrow.png");
+  filter: brightness(1.5);
+  background-size: cover;
+  width: 20px;
+  background-color: transparent;
+  border: none;
 }
 
 .resort {
   transform: rotate(180deg);
 }
-

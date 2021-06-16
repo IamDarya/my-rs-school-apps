@@ -51,6 +51,7 @@ export class CarManipulation extends BaseComponent {
       'input-newcar-color'
     )[0] as HTMLInputElement;
 
+
     this.inputColorUpdate = this.element.getElementsByClassName(
       'input-updatecar-color'
     )[0] as HTMLInputElement;
@@ -61,6 +62,8 @@ export class CarManipulation extends BaseComponent {
     const resetCarsRaceBtn = this.element.getElementsByClassName(
       'reset-btn'
     )[0] as HTMLButtonElement;
+
+    resetCarsRaceBtn.disabled = true;
 
     startCarsRaceBtn.addEventListener('click', async () => {
       await this.carsRace.startRace();
