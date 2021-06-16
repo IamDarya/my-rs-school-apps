@@ -74,7 +74,7 @@ export class CarsRace extends BaseComponent {
       this.hashtableOfCarsIntervalId.set(arrOfCars[i].id, intervalId);
 
       arrOfCarsInRace.push(
-        API.SwitchCarEngineToDriveMode(getID, 'drive').catch(async (err) => { // eslint-disable-line @typescript-eslint/no-loop-func
+        API.SwitchCarEngineToDriveMode(getID, 'drive').catch(async (err) => {  // eslint-disable-line @typescript-eslint/no-loop-func
           if (err instanceof Error) {
             if (
               err.message ===
@@ -128,7 +128,9 @@ export class CarsRace extends BaseComponent {
           fastesCar[fastesCar.length - 1].time
         );
       }
-      let resetBtn = document.getElementsByClassName('reset-btn')[0] as HTMLButtonElement;
+      const resetBtn = document.getElementsByClassName(
+        'reset-btn'
+      )[0] as HTMLButtonElement;
       resetBtn.disabled = false;
     });
     return speedsArray;
@@ -160,7 +162,7 @@ export class CarsRace extends BaseComponent {
   inableBtnsARr(btns: HTMLButtonElement[]): void {
     for (let i = 0; i < btns.length; i++) {
       btns[i].disabled = false;
-    };
+    }
     this.element.getElementsByTagName('body');
   }
 }

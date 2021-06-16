@@ -21,7 +21,7 @@ export class BestResult extends BaseComponent {
     this.numOfPageWinners = 1;
     this.popUp = popUp;
     this.router = router;
-    this.sortbytime =true;
+    this.sortbytime = true;
     this.sortbywin = false;
     this.element.innerHTML = `
         <div>
@@ -71,75 +71,48 @@ export class BestResult extends BaseComponent {
     nextPageBtn.addEventListener('click', changePageNext);
     prevPAgeBtn.addEventListener('click', changePagePrev);
 
-    let sortbywins = this.element.getElementsByClassName('sort-by-wins')[0];
-    let sortByTime = this.element.getElementsByClassName('sort-by-time')[0];
+    const sortbywins = this.element.getElementsByClassName('sort-by-wins')[0];
+    const sortByTime = this.element.getElementsByClassName('sort-by-time')[0];
 
     sortbywins.addEventListener('click', async () => {
       sortbywins.classList.toggle('resort');
       this.sortbywin = true;
       this.sortbytime = false;
       this.drawWinners();
-    })
+    });
     sortByTime.addEventListener('click', async () => {
       sortByTime.classList.toggle('resort');
       this.sortbywin = false;
       this.sortbytime = true;
       this.drawWinners();
-    })
+    });
   }
 
-   async checkArrow(): Promise<Winner[]> {
-    let sortbywins = this.element.getElementsByClassName('sort-by-wins')[0];
-    let sortbyTime = this.element.getElementsByClassName('sort-by-time')[0];
-    if(this.sortbywin) {
-      if(sortbywins.classList.contains('resort')){
-        return await API.getWinners(
-          this.numOfPageWinners,
-          10,
-          'wins',
-          'DESC'
-        );
-      }
-      else{
-        return await API.getWinners(
-          this.numOfPageWinners,
-          10,
-          'wins',
-          'ASC'
-        );
-      }
+  async checkArrow(): Promise<Winner[]> {
+    const sortbywins = this.element.getElementsByClassName('sort-by-wins')[0];
+    const sortbyTime = this.element.getElementsByClassName('sort-by-time')[0];
+    if (this.sortbywin && sortbywins.classList.contains('resort')) {
+      return API.getWinners(this.numOfPageWinners, 10, 'wins', 'DESC');
     }
-    else {
-      if(sortbyTime.classList.contains('resort')){
-        return await API.getWinners(
-          this.numOfPageWinners,
-          10,
-          'time',
-          'DESC'
-        );
-      }
-      else{
-        return await API.getWinners(
-          this.numOfPageWinners,
-          10,
-          'time',
-          'ASC'
-        );
-      }
+    if (this.sortbywin && !sortbywins.classList.contains('resort')) {
+      return API.getWinners(this.numOfPageWinners, 10, 'wins', 'ASC');
     }
-
+    if (sortbyTime.classList.contains('resort') && this.sortbywin === false) {
+      return API.getWinners(this.numOfPageWinners, 10, 'time', 'DESC');
+    }
+      return API.getWinners(this.numOfPageWinners, 10, 'time', 'ASC');
   }
 
   async drawWinners(): Promise<void> {
-
     const elem = this.element.getElementsByClassName('winn')[0];
     elem.innerHTML = ``;
 
-    let arrOfWinners: Winner[] = await this.checkArrow();
+    const arrOfWinners: Winner[] = await this.checkArrow();
 
     let carPosit = 1 + (this.numOfPageWinners - 1) * 10;
     const arrOfCars = await Promise.all(
-      arrOfWinners.map((el) =>  API.getCar(el.id)));
+      arrOfWinners.map((el) => API.getCar(el.id))
+    );
     for (let i = 0; i < arrOfWinners.length; i++) {
       const li = document.createElement('li');
       elem.appendChild(li);

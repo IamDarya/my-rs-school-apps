@@ -20,8 +20,8 @@ export class PopUp extends BaseComponent {
     this.element.appendChild(text);
     document.getElementsByClassName('wrapper')[0].appendChild(this.element);
     this.element.classList.remove('hidden');
-    setTimeout(() =>{
-      this.element.classList.add('hidden')
-  }, 3000);
+    setTimeout(() => {
+      this.element.classList.add('hidden');
+    }, 3000);
   }
 }

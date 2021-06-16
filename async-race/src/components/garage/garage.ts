@@ -168,21 +168,27 @@ export class Garage extends BaseComponent {
         this.startOneCar(getID, hashtableOfCarsIntervalId);
       });
       numOfCarsect++;
-    } //enfOfLoop
+    } //  enfOfLoop
+  } //  getAllcarsend
 
-  } //getAllcarsend
-
-  async startOneCar(getID: HTMLElement, hashtableOfCarsIntervalId: Map<number, NodeJS.Timeout>){
+  async startOneCar(
+    getID: HTMLElement,
+    hashtableOfCarsIntervalId: Map<number, NodeJS.Timeout>
+  ): Promise<void> {
     const speed = await API.startStopCarEngine(
       parseInt(getID.getAttribute('data-id')!, 10),
       'started'
     );
 
     const intervalId = this.moveCar(
-      parseInt(getID.getAttribute('data-id')!, 10), speed);
+      parseInt(getID.getAttribute('data-id')!, 10),
+      speed
+    );
 
     hashtableOfCarsIntervalId.set(
-      parseInt(getID.getAttribute('data-id')!, 10), intervalId);
+      parseInt(getID.getAttribute('data-id')!, 10),
+      intervalId
+    );
 
     try {
       await API.SwitchCarEngineToDriveMode(
@@ -205,13 +211,17 @@ export class Garage extends BaseComponent {
     }
   }
 
-  async stopOneCar(getID: HTMLElement, hashtableOfCarsIntervalId: Map<number, NodeJS.Timeout>){
-    let id = parseInt(getID.getAttribute('data-id')!.toString(),10);
-        clearInterval(hashtableOfCarsIntervalId.get(id)!);
-        document
-          .getElementsByClassName(`car-${getID.getAttribute('data-id')}`)[0]
-          .setAttribute('style', `left:${11}vw`);
-          await API.startStopCarEngine(id, 'stopped');
+  async stopOneCar(
+    getID: HTMLElement,
+    hashtableOfCarsIntervalId: Map<number, NodeJS.Timeout>
+  ): Promise<void> {
+    const id = parseInt(getID.getAttribute('data-id')!.toString(), 10);
+    clearInterval(hashtableOfCarsIntervalId.get(id)!);
+    document
+      .getElementsByClassName(`car-${getID.getAttribute('data-id')}`)[0]
+      .setAttribute('style', `left:${11}vw`);
+    await API.startStopCarEngine(id, 'stopped');
+    this.element.getElementsByTagName('body');
   }
 
   moveCar(carID: number, speed: CarSpeed): NodeJS.Timeout {
