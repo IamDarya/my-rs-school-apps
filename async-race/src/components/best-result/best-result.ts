@@ -107,6 +107,11 @@ export class BestResult extends BaseComponent {
     const elem = this.element.getElementsByClassName('winn')[0];
     elem.innerHTML = ``;
 
+    let raceBtn = document.getElementsByClassName('race-btn')[0] as HTMLButtonElement;
+    if(this.router.current === 'best-result'){
+      raceBtn.disabled = true;
+    }
+
     const arrOfWinners: Winner[] = await this.checkArrow();
 
     let carPosit = 1 + (this.numOfPageWinners - 1) * 10;

@@ -51,6 +51,7 @@ export class CarManipulation extends BaseComponent {
       'input-newcar-color'
     )[0] as HTMLInputElement;
 
+
     this.inputColorUpdate = this.element.getElementsByClassName(
       'input-updatecar-color'
     )[0] as HTMLInputElement;

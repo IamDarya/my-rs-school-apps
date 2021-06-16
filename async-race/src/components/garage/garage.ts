@@ -64,6 +64,8 @@ export class Garage extends BaseComponent {
   }
 
   async getAllCArs(): Promise<void> {
+    let resetBtn = document.getElementsByClassName('reset-btn')[0] as HTMLButtonElement;
+    resetBtn.disabled = false;
     this.element.getElementsByClassName('car-section-wrapper')[0].innerHTML =
       '';
 
@@ -137,6 +139,7 @@ export class Garage extends BaseComponent {
       this.element
         .getElementsByClassName(`select-${arrcars.cars[i].id}`)[0]
         .addEventListener('click', async (e: Event) => {
+
           const getID = e.target as HTMLElement;
           this.selectedCar = await API.getCar(
             parseInt(getID.getAttribute('data-id')!, 10)
@@ -157,11 +160,13 @@ export class Garage extends BaseComponent {
 
         this.stopOneCar(getID, hashtableOfCarsIntervalId);
 
+        resetBtn.disabled = false;
         btnToStartCar.disabled = false;
       });
 
       btnToStartCar.addEventListener('click', async (e: Event) => {
         btnToStartCar.disabled = true;
+        resetBtn.disabled = true;
 
         const getID = e.target as HTMLElement;
 

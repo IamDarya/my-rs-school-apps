@@ -14,6 +14,8 @@ export class CarsRace extends BaseComponent {
 
   winner: Winner | undefined;
 
+  arrOfCarsInRace: Array<Promise<void>>;
+
   popUp: PopUp;
 
   constructor(api: API, garage: Garage, popUp: PopUp) {
@@ -21,23 +23,12 @@ export class CarsRace extends BaseComponent {
     this.api = api;
     this.garage = garage;
     this.popUp = popUp;
+    this.arrOfCarsInRace = [];
     this.hashtableOfCarsIntervalId = new Map();
-
-    // this.resetBtn = document.getElementsByClassName('reset-btn')[0] as HTMLButtonElement;
-    // this.nextBtn=document.getElementsByClassName('prev')[0] as HTMLButtonElement;
-    // this.prevBtn=document.getElementsByClassName('next')[0] as HTMLButtonElement;
-    // this.createBtn = document.getElementsByClassName('create-btn')[0] as HTMLButtonElement;
-    // this.updBtn = document.getElementsByClassName('update-btn')[0] as HTMLButtonElement;
-    // this.startBtns =  document.getElementsByClassName('start-btn') as unknown as HTMLButtonElement[];
-    // this.backBtns = document.getElementsByClassName('back-btn') as unknown as HTMLButtonElement[];
-    // this.generateBtn = document.getElementsByClassName('generate-cars-btn')[0] as HTMLButtonElement;
-    // this.btnWinners = document.getElementsByClassName('to-winners-btn')[0] as HTMLButtonElement;
-    // this.btnGarage = document.getElementsByClassName('to-garage-btn')[0] as HTMLButtonElement;
-    // this.btnSelect = document.getElementsByClassName('select') as unknown as HTMLButtonElement[];
-    // this.btnRemove = document.getElementsByClassName('remove') as unknown as HTMLButtonElement[];
   }
 
   async startRace(): Promise<CarSpeed[]> {
+    this.arrOfCarsInRace = [];
     const allBtns = document.getElementsByTagName(
       'button'
     ) as unknown as HTMLButtonElement[];
@@ -56,8 +47,6 @@ export class CarsRace extends BaseComponent {
 
     let fastesCar: Array<Winner> = [];
 
-    const arrOfCarsInRace: Array<Promise<void>> = [];
-
     for (let i = 0; i < arrOfCars.length; i++) {
       const getID = arrOfCars[i].id;
 
@@ -73,71 +62,76 @@ export class CarsRace extends BaseComponent {
 
       this.hashtableOfCarsIntervalId.set(arrOfCars[i].id, intervalId);
 
-      arrOfCarsInRace.push(
-        API.SwitchCarEngineToDriveMode(getID, 'drive').catch(async (err) => {  // eslint-disable-line @typescript-eslint/no-loop-func
-          if (err instanceof Error) {
-            if (
-              err.message ===
-              "Car has been stopped suddenly. It's engine was broken down."
-            ) {
-              clearInterval(intervalId);
-              await API.startStopCarEngine(getID, 'stopped');
-              fastesCar = fastesCar.filter((el) => el.id !== getID);
-            }
+      let drivePromise = API.SwitchCarEngineToDriveMode(getID, 'drive');
+      this.arrOfCarsInRace.push(drivePromise);
+      drivePromise.catch(async (err) => {  // eslint-disable-line @typescript-eslint/no-loop-func
+        if (err instanceof Error) {
+          if (
+            err.message ===
+            "Car has been stopped suddenly. It's engine was broken down."
+          ) {
+            clearInterval(intervalId);
+            await API.startStopCarEngine(getID, 'stopped');
+            fastesCar = fastesCar.filter((el) => el.id !== getID);
           }
-        })
-      );
+        }
+      });
     }
     fastesCar.sort((a, b) => (a.time < b.time ? 1 : -1));
-
-    Promise.any(arrOfCarsInRace).then(async () => {
-      await this.popUp.showPopUp(
-        fastesCar[fastesCar.length - 1].id,
-        fastesCar[fastesCar.length - 1].time
-      );
-      this.inableBtnsARr(allBtns);
-      const currentWinner = await API.getWinner(
-        fastesCar[fastesCar.length - 1].id
-      );
-      if (
-        currentWinner !== null &&
-        parseInt(currentWinner.time.toString(), 10) >
-          parseInt(fastesCar[fastesCar.length - 1].time.toString(), 10)
-      ) {
-        API.updateWinner(
+    Promise.any(this.arrOfCarsInRace).then(async () => {
+      setTimeout(async () => {
+        await this.popUp.showPopUp(
           fastesCar[fastesCar.length - 1].id,
-          parseInt(currentWinner.wins.toString(), 10) + 1,
           fastesCar[fastesCar.length - 1].time
         );
-      }
-      if (
-        currentWinner !== null &&
-        parseInt(currentWinner.time.toString(), 10) <=
-          parseInt(fastesCar[fastesCar.length - 1].time.toString(), 10)
-      ) {
-        API.updateWinner(
-          fastesCar[fastesCar.length - 1].id,
-          parseInt(currentWinner.wins.toString(), 10) + 1,
-          currentWinner.time
+        this.inableBtnsARr(allBtns);
+        let raceBtn = document.getElementsByClassName('race-btn')[0] as HTMLButtonElement;
+        raceBtn.disabled = true;
+        const currentWinner = await API.getWinner(
+          fastesCar[fastesCar.length - 1].id
         );
-      }
-      if (currentWinner === null) {
-        await API.createWinner(
-          fastesCar[fastesCar.length - 1].id,
-          fastesCar[fastesCar.length - 1].wins,
-          fastesCar[fastesCar.length - 1].time
-        );
-      }
-      const resetBtn = document.getElementsByClassName(
-        'reset-btn'
-      )[0] as HTMLButtonElement;
-      resetBtn.disabled = false;
+        if (
+          currentWinner !== null &&
+          parseInt(currentWinner.time.toString(), 10) >
+            parseInt(fastesCar[fastesCar.length - 1].time.toString(), 10)
+        ) {
+          API.updateWinner(
+            fastesCar[fastesCar.length - 1].id,
+            parseInt(currentWinner.wins.toString(), 10) + 1,
+            fastesCar[fastesCar.length - 1].time
+          );
+        }
+        if (
+          currentWinner !== null &&
+          parseInt(currentWinner.time.toString(), 10) <=
+            parseInt(fastesCar[fastesCar.length - 1].time.toString(), 10)
+        ) {
+          API.updateWinner(
+            fastesCar[fastesCar.length - 1].id,
+            parseInt(currentWinner.wins.toString(), 10) + 1,
+            currentWinner.time
+          );
+        }
+        if (currentWinner === null) {
+          await API.createWinner(
+            fastesCar[fastesCar.length - 1].id,
+            fastesCar[fastesCar.length - 1].wins,
+            fastesCar[fastesCar.length - 1].time
+          );
+        }
+        const resetBtn = document.getElementsByClassName(
+          'reset-btn'
+        )[0] as HTMLButtonElement;
+        resetBtn.disabled = false;
+      }, 250);
     });
     return speedsArray;
   }
 
   async stopRace(): Promise<void> {
-    const arrOfCars = (await API.getCars(this.garage.numOfPage, 7)).cars;
+
+   await Promise.allSettled(this.arrOfCarsInRace);
+   const arrOfCars = (await API.getCars(this.garage.numOfPage, 7)).cars;
     for (let i = 0; i < arrOfCars.length; i++) {
       const getID = arrOfCars[i].id;
       clearInterval(this.hashtableOfCarsIntervalId.get(getID)!);
