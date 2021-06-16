@@ -64,10 +64,13 @@ export class Garage extends BaseComponent {
   }
 
   async getAllCArs(): Promise<void> {
-    const resetBtn = document.getElementsByClassName('reset-btn')[0] as HTMLButtonElement;
-    resetBtn.disabled = false;
     this.element.getElementsByClassName('car-section-wrapper')[0].innerHTML =
       '';
+
+    const raceBtn = document.getElementsByClassName('race-btn')[0] as HTMLButtonElement;
+    if(this.router.current === 'garage'){
+      raceBtn.disabled = false;
+    }
 
     const arrcars = await API.getCars(this.numOfPage, 7);
 
@@ -160,13 +163,11 @@ export class Garage extends BaseComponent {
 
         this.stopOneCar(getID, hashtableOfCarsIntervalId);
 
-        resetBtn.disabled = false;
         btnToStartCar.disabled = false;
       });
 
       btnToStartCar.addEventListener('click', async (e: Event) => {
         btnToStartCar.disabled = true;
-        resetBtn.disabled = true;
 
         const getID = e.target as HTMLElement;
 
@@ -180,6 +181,9 @@ export class Garage extends BaseComponent {
     getID: HTMLElement,
     hashtableOfCarsIntervalId: Map<number, NodeJS.Timeout>
   ): Promise<void> {
+
+    this.btnsDisable('start');
+
     const speed = await API.startStopCarEngine(
       parseInt(getID.getAttribute('data-id')!, 10),
       'started'
@@ -217,6 +221,7 @@ export class Garage extends BaseComponent {
   }
 
   async stopOneCar(
+
     getID: HTMLElement,
     hashtableOfCarsIntervalId: Map<number, NodeJS.Timeout>
   ): Promise<void> {
@@ -226,7 +231,7 @@ export class Garage extends BaseComponent {
       .getElementsByClassName(`car-${getID.getAttribute('data-id')}`)[0]
       .setAttribute('style', `left:${11}vw`);
     await API.startStopCarEngine(id, 'stopped');
-    this.element.getElementsByTagName('body');
+    this.btnsDisable('stop');
   }
 
   moveCar(carID: number, speed: CarSpeed): NodeJS.Timeout {
@@ -246,5 +251,20 @@ export class Garage extends BaseComponent {
       }
     }, updateInterval);
     return id;
+  }
+
+  btnsDisable(whatToDo: string): void {
+    const raceCarsBtn =  document.getElementsByClassName('race-btn')[0] as HTMLButtonElement;
+    const stopraceCarsBtn =  document.getElementsByClassName('reset-btn')[0] as HTMLButtonElement;
+
+    if(whatToDo === 'start') {
+      raceCarsBtn.disabled = true;
+      stopraceCarsBtn.disabled = true;
+    }
+    else {
+      raceCarsBtn.disabled = false;
+      stopraceCarsBtn.disabled = false;
+    }
+    this.element.getElementsByTagName('body');
   }
 }
