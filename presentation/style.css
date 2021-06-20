@@ -1,0 +1,55 @@
+.img {
+    border-radius: 5%;
+}
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+  }
+
+.linux-logo {
+    width: 20%;
+}
+
+.img-text {
+    font-size: small;
+    color: #707678;
+    margin: 0%!important;
+}
+
+.date-highlight {
+    text-decoration: underline;
+    text-decoration-color: #91bed1;
+}
+
+.container-office,
+.container-refund-day-img {
+    display: flex;
+    width: 95%;
+    gap: 15px;
+    justify-self: center;
+    justify-content: center;
+}
+
+img-git,
+.office-pic,
+.refund-day-pic {
+    width: 37%;
+    height: fit-content;
+}
+
+.space-img {
+    width:  37%;
+}
+
+.outro {
+    display: flex;
+    flex-direction: column;
+    row-gap: 100px;
+}
+
+.links {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+}
