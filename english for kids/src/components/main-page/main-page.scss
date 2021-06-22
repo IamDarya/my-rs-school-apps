@@ -1,0 +1,201 @@
+.nav-burger {
+  width: 80%;
+}
+
+#menuToggle
+{
+  display: block;
+  position: relative;
+  top: 10px;
+  left: 10px;
+  width: 80%;
+  z-index: 1;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#menuToggle a
+{
+  text-decoration: none;
+  color: #232323;
+  transition: color 0.3s ease;
+}
+
+#menuToggle a:hover
+{
+  color: tomato;
+}
+#menuToggle input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 2;
+  -webkit-touch-callout: none;
+}
+
+#menuToggle span
+{
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  background: #cdcdcd;
+  border-radius: 3px;
+  z-index: 1;
+  transform-origin: 4px 0px;
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+#menuToggle span:first-child
+{
+  transform-origin: 0% 0%;
+}
+#menuToggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+#menuToggle input:checked ~ span
+{
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: #232323;
+}
+
+#menuToggle input:checked ~ span:nth-last-child(3)
+{
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+#menuToggle input:checked ~ span:nth-last-child(2)
+{
+  transform: rotate(-45deg) translate(0, -1px);
+}
+#menu
+{
+  position: absolute;
+  width: fit-content;
+  margin: -100px 0 0 -50px;
+  padding: 18% 18% 18% 25%;
+  padding-top: 125px;
+  background: #ededed;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  transform-origin: 0% 0%;
+  transform: translate(-100%, 0);
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+#menu li
+{
+  padding: 10px 0;
+  font-size: 22px;
+}
+
+#menuToggle input:checked ~ ul
+{
+  transform: none;
+}
+
+
+
+
+
+
+
+$width: 120px;
+$height: $width * .4;
+$neutral: #b2b2ad;
+$on: #2cb4b2;
+$off: #d74141;
+
+@mixin raise {
+  box-shadow: -4px -4px 8px rgba(#fff, .5), 4px 4px 8px rgba(#000, .3);
+}
+
+@mixin sink {
+  box-shadow: 2px 2px 4px rgba(#fff, .5), -2px -2px 4px rgba(#000, .3);
+}
+
+@mixin flat {
+  box-shadow: none;
+}
+
+@mixin cover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.toggle {
+  $tickWidth: ($width - 25) / 2;
+  $tickHeight: $height - 20;
+  appearance: none;
+  position: absolute;
+  top: 3%;
+  right: 3%;
+  cursor: pointer;
+  width: $width;
+  height: $height;
+  @include raise;
+  border-radius: $height;
+  &::before, &::after {
+    font-family: 'Nunito', sans-serif;
+    font-size: $tickHeight * .5;
+    text-align: center;
+    line-height: $tickHeight;
+    position: absolute;
+    width: $tickWidth;
+    height: $tickHeight;
+    border-radius: $tickHeight;
+    top: 10px;
+    transition: all .15s;
+  }
+  &::before {
+    content: 'TRAIN';
+    left: 10px;
+    color: $off;
+    @include sink;
+  }
+  &::after {
+    content: 'PLAY';
+    left: $tickWidth + 15;
+    color: $neutral;
+    @include flat;
+  }
+  &:checked {
+    &::before {
+      color: $neutral;
+      @include flat;
+    }
+    &::after {
+      color: $on;
+      @include sink;
+    }
+  }
+}
+
+
+.themes-block {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 80px 5% 5% 5%;
+}
+
+.one-theme-block {
+  width: 250px;
+  height: 250px;
+  background-size: cover;
+  margin: 2%;
+}
