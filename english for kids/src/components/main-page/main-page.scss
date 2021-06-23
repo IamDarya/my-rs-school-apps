@@ -84,7 +84,7 @@
   position: absolute;
   width: fit-content;
   margin: -100px 0 0 -50px;
-  padding: 18% 18% 18% 25%;
+  padding: 100px 18% 300px 25%;
   padding-top: 125px;
   background: #ededed;
   list-style-type: none;
@@ -190,7 +190,7 @@ $off: #d74141;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 80px 5% 5% 5%;
+  margin: 80px 10% 6% 10%;
 }
 
 .one-theme-block {
@@ -198,4 +198,11 @@ $off: #d74141;
   height: 250px;
   background-size: cover;
   margin: 2%;
+  border: solid;
+  border-color: red;
+}
+
+.themes-block.play-mode > * {
+  border: solid;
+  border-color: greenyellow;
 }

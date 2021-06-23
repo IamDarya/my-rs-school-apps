@@ -5,8 +5,15 @@ import { Card } from '../image-category-models/card';
 import { ImageCategoryModel } from '../image-category-models/image-category-models';
 
 export class MainPage extends BaseComponent {
+
+  train: boolean;
+  activeTheme: string| null;
+
   constructor() {
     super('div', ['wrapper']);
+
+    this.train = true;
+    this.activeTheme = '';
 
     const navMenu = document.createElement('nav');
     navMenu.classList.add('nav-burger');
@@ -16,6 +23,16 @@ export class MainPage extends BaseComponent {
     playTrainSwitch.classList.add('toggle');
     playTrainSwitch.type = 'checkbox';
     this.element.appendChild(playTrainSwitch);
+
+    playTrainSwitch.addEventListener('click', () => {
+      if(this.train === true) {
+        this.train = false;
+      }
+      else {
+        this.train = true;
+      }
+      document.getElementsByClassName('themes-block')[0].classList.toggle('play-mode');
+    })
 
     navMenu.innerHTML = `
     <div id="menuToggle">
@@ -31,30 +48,18 @@ export class MainPage extends BaseComponent {
          <a href='#'><li>Animal (set B)</li></a>
          <a href='#'><li>Clothes</li></a>
          <a href='#'><li>Emotions</li></a>
-         <a href='#'><li>Smth else</li></a>
-         <a href='#'><li>Smth else</li></a>
+         <a href='#'><li>Smth else A</li></a>
+         <a href='#'><li>Smth else B</li></a>
      </ul>
     </div>
     `;
 
-    this.drawThemes();
+    navMenu.addEventListener('click', (e: Event)=>{
+     let selectedThemeHTML = e.target as HTMLElement;
+     this.activeTheme = selectedThemeHTML.textContent;
+    })
   }
-
-  async drawThemes() {
-    const allThemesJson = await fetch('./cards.json');
-    const gridOfthemes = document.createElement('div');
-    gridOfthemes.classList.add('themes-block')
-    const amountOfThemes = 7;
-    const categories: ImageCategoryModel[] = await allThemesJson.json();
-    for(let i = 0; i <= amountOfThemes; i++) {
-      const divWithTheme = document.createElement('div');
-      divWithTheme.classList.add('one-theme-block')
-      divWithTheme.innerText = `${categories[i].category}`;
-      divWithTheme.setAttribute("style", `background-image:url('${categories[i].cardsContent[0].image}');`);
-      gridOfthemes.appendChild(divWithTheme);
-    }
-    this.element.appendChild(gridOfthemes);
-  }
+}
 
   // page: number;
   // currentCard: number;
@@ -72,5 +77,3 @@ export class MainPage extends BaseComponent {
   //   this.randomArr = [];
   //   this.errors = 0;
   //   this.endGame = false;
-  // }
-}

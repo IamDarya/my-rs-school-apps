@@ -1,0 +1,22 @@
+.flip-pic {
+  height: 40px;
+}
+
+.flipp {
+  transform: rotatey(180deg);
+}
+
+.back {
+  z-index: 1;
+  transform: rotatey(180deg);
+  background-size: cover;
+  height: 250px;
+  margin-top: -45px;
+}
+
+.one-theme-block {
+  transform-style: preserve-3d;
+  position: relative;
+  transition: all 0.8s ease-in-out;
+  transform-origin: 50% 50%;
+}
