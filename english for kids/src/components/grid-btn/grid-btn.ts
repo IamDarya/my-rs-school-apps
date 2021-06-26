@@ -4,6 +4,8 @@ import { CardView } from "../card-view/card-view";
 import { ImageCategoryModel } from '../image-category-models/image-category-models';
 import { Game } from '../game/game';
 import { Card } from '../image-category-models/card';
+import correctPic from "../../assets/star-win.svg"
+import failPic from "../../assets/star.svg"
 
 export class GridBtn extends BaseComponent {
 
@@ -21,6 +23,8 @@ export class GridBtn extends BaseComponent {
 
   btnToStartPlay: HTMLButtonElement;
 
+  divWithFailCorrectSigns: HTMLElement;
+
   game: Game;
 
   arrayOfCardDivs: CardView[];
@@ -29,6 +33,7 @@ export class GridBtn extends BaseComponent {
     super('div', ['grid-of-img-and-switch-btn-wrapper']);
     this.train = "Train";
     this.themesBlock = document.createElement('div');
+    this.divWithFailCorrectSigns = document.createElement('div');
     this.divWithBtnToStartPlay = document.createElement('div');
     this.btnToStartPlay = document.createElement('button');
     this.categories = [];
@@ -41,6 +46,9 @@ export class GridBtn extends BaseComponent {
     playTrainSwitch.classList.add('toggle');
     playTrainSwitch.type = 'checkbox';
     this.element.appendChild(playTrainSwitch);
+
+    this.divWithFailCorrectSigns.classList.add('div-with-fail-correct-signs');
+    this.element.appendChild(this.divWithFailCorrectSigns);
 
     playTrainSwitch.addEventListener('click', () => {
       if(this.train === "Train") {
@@ -71,6 +79,7 @@ export class GridBtn extends BaseComponent {
     this.btnToStartPlay.addEventListener('click', ()=>{
       if(this.activeCategoryObj !== undefined) {
         this.game.startGame(this.activeCategoryObj, this.arrayOfCardDivs);
+        this.game.onUserAnswer((str)=>{this.addCorrectFailsign(str)});
       };
     })
   }
@@ -107,4 +116,24 @@ export class GridBtn extends BaseComponent {
       this.divWithBtnToStartPlay.setAttribute('style', 'display: none;');
     }
   }
+
+
+  addCorrectFailsign(sign: String){
+    if(sign === 'Correct'){
+      let picCorrect = document.createElement('div');
+      picCorrect.classList.add('picFailCorrect', 'correct');
+      picCorrect.setAttribute('style', `background-image:url('${correctPic}');`);
+      this.divWithFailCorrectSigns.appendChild(picCorrect);
+
+      console.log('corr')
+    }
+    if(sign === 'Fail'){
+      let picFail = document.createElement('div');
+      picFail.classList.add('picFailCorrect', 'fail');
+      picFail.setAttribute('style', `background-image:url('${failPic}');`);
+      this.divWithFailCorrectSigns.appendChild(picFail);
+
+      console.log('fail')
+    }
+}
 }
