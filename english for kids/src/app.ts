@@ -1,26 +1,32 @@
 import { NewRout } from './components/routing/newRouting';
-import { MainPage } from './components/main-page/main-page';
-import { ThemeCards } from './components/theme-cards/theme-cards';
+import { Header } from './components/header/header';
+import { GridBtn } from './components/grid-btn/grid-btn';
 
 export class App {
   private readonly newRout: NewRout;
 
-  private readonly mainPage: MainPage;
+  private readonly header: Header;
 
-  private readonly themeCards: ThemeCards;
+  private readonly gridBtn: GridBtn;
 
   constructor(private readonly rootElement: HTMLElement) {
     this.newRout = new NewRout();
 
-    this.mainPage = new MainPage();
+    this.gridBtn = new GridBtn();
 
-    this.themeCards = new ThemeCards(this.mainPage);
+    this.header = new Header(this.gridBtn);
 
   }
 
   async start(): Promise<void> {
-    this.rootElement.appendChild(this.mainPage.element);
-    this.rootElement.appendChild(this.themeCards.element);
+    const allThemesJson = await fetch('./cards.json');
+    const categories = await allThemesJson.json();
+    this.header.drawHeader(categories);
+    this.gridBtn.categories = categories;
+    this.rootElement.appendChild(this.header.element);
+    this.rootElement.appendChild(this.gridBtn.element);
+    // this.rootElement.appendChild(this.mainPage.element);
+    this.gridBtn.drawAllCategories();
 
     // Router.start();
     // this.newRout.add('about-game', () => {
