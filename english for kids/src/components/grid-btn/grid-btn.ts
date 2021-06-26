@@ -2,6 +2,8 @@ import '../header/main-page.scss';
 import { BaseComponent } from '../base-component';
 import { CardView } from "../card-view/card-view";
 import { ImageCategoryModel } from '../image-category-models/image-category-models';
+import { Game } from '../game/game';
+import { Card } from '../image-category-models/card';
 
 export class GridBtn extends BaseComponent {
 
@@ -13,12 +15,27 @@ export class GridBtn extends BaseComponent {
 
   activeCategory: String|undefined;
 
-  constructor(){
+  activeCategoryObj: ImageCategoryModel | undefined;
+
+  divWithBtnToStartPlay: HTMLDivElement;
+
+  btnToStartPlay: HTMLButtonElement;
+
+  game: Game;
+
+  arrayOfCardDivs: CardView[];
+
+  constructor(game: Game){
     super('div', ['grid-of-img-and-switch-btn-wrapper']);
     this.train = "Train";
     this.themesBlock = document.createElement('div');
+    this.divWithBtnToStartPlay = document.createElement('div');
+    this.btnToStartPlay = document.createElement('button');
     this.categories = [];
+    this.activeCategoryObj = undefined;
     this.activeCategory;
+    this.game = game;
+    this.arrayOfCardDivs = [];
 
     const playTrainSwitch = document.createElement('input');
     playTrainSwitch.classList.add('toggle');
@@ -43,11 +60,25 @@ export class GridBtn extends BaseComponent {
 
     this.themesBlock.classList.add('themes-block');
     this.element.appendChild(this.themesBlock);
+
+    this.divWithBtnToStartPlay.classList.add('div-with-btn-to-start-play');
+    this.element.appendChild(this.divWithBtnToStartPlay);
+    this.btnToStartPlay.innerText = 'Start Game';
+    this.btnToStartPlay.classList.add('btn-to-start-play');
+    this.divWithBtnToStartPlay.setAttribute('style', 'display: none;');
+    this.divWithBtnToStartPlay.appendChild(this.btnToStartPlay);
+
+    this.btnToStartPlay.addEventListener('click', ()=>{
+      if(this.activeCategoryObj !== undefined) {
+        this.game.startGame(this.activeCategoryObj, this.arrayOfCardDivs);
+      };
+    })
   }
 
   drawAllCategories(){
     this.themesBlock.innerHTML = ``;
     this.activeCategory = undefined;
+    this.activeCategoryObj = undefined;
     for(let i = 0; i < this.categories.length; i++) {
       const divWithTheme = new CardView('Themes', this.categories[i].cardsContent[1], this.categories[i].category);
       this.themesBlock.appendChild(divWithTheme.element);
@@ -55,17 +86,25 @@ export class GridBtn extends BaseComponent {
         this.drawCategory(this.categories[i].category);
       });
     }
+    this.divWithBtnToStartPlay.setAttribute('style', 'display: none;');
   }
 
   drawCategory(category: String){
     this.themesBlock.innerHTML = ``;
-    let activeCategory = this.categories.find(el => el.category === category);
-    this.activeCategory = activeCategory?.category;
-    if(activeCategory !== undefined) {
-      for(let i = 0; i < activeCategory?.cardsContent.length; i++) {
-        const divWithWord = new CardView(this.train, activeCategory.cardsContent[i], activeCategory.category);
+    this.activeCategoryObj = this.categories.find(el => el.category === category);
+    this.activeCategory = this.activeCategoryObj?.category;
+    if(this.activeCategoryObj !== undefined) {
+      for(let i = 0; i < this.activeCategoryObj?.cardsContent.length; i++) {
+        const divWithWord = new CardView(this.train, this.activeCategoryObj.cardsContent[i], this.activeCategoryObj.category);
+        this.arrayOfCardDivs.push(divWithWord);
         this.themesBlock.appendChild(divWithWord.element);
       }
+    }
+    if(this.train === 'Play') {
+      this.divWithBtnToStartPlay.removeAttribute('style');
+    }
+    else{
+      this.divWithBtnToStartPlay.setAttribute('style', 'display: none;');
     }
   }
 }

@@ -1,6 +1,7 @@
 import { NewRout } from './components/routing/newRouting';
 import { Header } from './components/header/header';
 import { GridBtn } from './components/grid-btn/grid-btn';
+import { Game } from './components/game/game';
 
 export class App {
   private readonly newRout: NewRout;
@@ -8,11 +9,14 @@ export class App {
   private readonly header: Header;
 
   private readonly gridBtn: GridBtn;
+  game: Game;
 
   constructor(private readonly rootElement: HTMLElement) {
     this.newRout = new NewRout();
 
-    this.gridBtn = new GridBtn();
+    this.game = new Game();
+
+    this.gridBtn = new GridBtn(this.game);
 
     this.header = new Header(this.gridBtn);
 

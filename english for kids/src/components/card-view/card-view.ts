@@ -2,6 +2,7 @@ import '../header/main-page.scss';
 import picForFlip from '../../assets/rotate.svg';
 import { BaseComponent } from '../base-component';
 import { Card } from '../image-category-models/card';
+import { Game } from '../game/game';
 
 export class CardView extends BaseComponent {
 
@@ -10,7 +11,8 @@ export class CardView extends BaseComponent {
   cardObj: Card;
 
   category: String;
-    callBacks: Function[];
+
+  callBacks: Function[];
 
   constructor(cardState: String,  cardObj: Card, category: String){
     super('div', ['one-theme-block', 'front']);
@@ -44,9 +46,9 @@ export class CardView extends BaseComponent {
     this.element.setAttribute("style", `background-image:url('${this.cardObj.image}');`);
     this.element.appendChild(audio);
 
-    this.element.addEventListener('click', (e: Event)=>{
-      let clickOnCard = e.target as HTMLElement;
-    })
+    // this.element.addEventListener('click', (e: Event)=>{
+    //   let clickOnCard = e.target as HTMLElement;
+    // })
   }
 
   drawTrain(){
@@ -100,7 +102,6 @@ export class CardView extends BaseComponent {
 
   playAudio(clickOnCard: HTMLElement){
     let audio = clickOnCard.nextElementSibling as HTMLAudioElement;
-   console.log(audio);
      audio.play();
  }
 

@@ -1,23 +1,21 @@
 import './main-page.scss';
-import '../grid-btn/theme-cards.scss'
+import '../grid-btn/theme-cards.scss';
 import { BaseComponent } from '../base-component';
-import { GridBtn } from "../grid-btn/grid-btn";
+import { GridBtn } from '../grid-btn/grid-btn';
 import { ImageCategoryModel } from '../image-category-models/image-category-models';
 
 export class Header extends BaseComponent {
-
   categories: ImageCategoryModel[];
 
   gridBtn: GridBtn;
 
-  constructor(gridBtn: GridBtn){
+  constructor(gridBtn: GridBtn) {
     super('nav', ['nav-burger']);
     this.categories = [];
     this.gridBtn = gridBtn;
   }
 
-  drawHeader(categories: ImageCategoryModel[]){
-
+  drawHeader(categories: ImageCategoryModel[]) {
     let menuToggle = document.createElement('div');
     menuToggle.id = 'menuToggle';
 
@@ -25,7 +23,7 @@ export class Header extends BaseComponent {
     inputCheckBox.setAttribute('type', 'checkbox');
     menuToggle.appendChild(inputCheckBox);
 
-    for(let i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
       let span = document.createElement('span');
       menuToggle.appendChild(span);
     }
@@ -41,11 +39,11 @@ export class Header extends BaseComponent {
     liTopicMainPage.innerText = `Main Page`;
     ulOfTopics.appendChild(linkTopcMainPage);
     linkTopcMainPage.appendChild(liTopicMainPage);
-    liTopicMainPage.addEventListener('click', ()=>{
+    liTopicMainPage.addEventListener('click', () => {
       this.gridBtn.drawAllCategories();
-    })
+    });
 
-    for(let i = 0; i < categories.length; i++) {
+    for (let i = 0; i < categories.length; i++) {
       let linkTopc = document.createElement('a');
       let liTopic = document.createElement('li');
       linkTopc.setAttribute('href', '#');
@@ -54,18 +52,30 @@ export class Header extends BaseComponent {
       ulOfTopics.appendChild(linkTopc);
       linkTopc.appendChild(liTopic);
 
-      liTopic.addEventListener('click', (e:Event)=>{
+      liTopic.addEventListener('click', (e: Event) => {
         let activeTheme = (e.target as HTMLElement).getAttribute('data-topic');
-        if(activeTheme !== null && activeTheme !== 'Main Page') {
+        if (activeTheme !== null && activeTheme !== 'Main Page') {
           this.gridBtn.drawCategory(activeTheme);
         }
-        if(activeTheme === 'Main Page') {
+        if (activeTheme === 'Main Page') {
           this.gridBtn.drawAllCategories();
         }
       });
     }
 
     this.element.appendChild(menuToggle);
-  }
 
+    if (inputCheckBox.checked === true) {
+      debugger;
+      window.addEventListener('click', (e: Event) => {
+        let event = e.target as HTMLElement;
+        if (
+          event.tagName === 'LI' ||
+          event.parentElement?.id !== 'menuToggle'
+        ) {
+          inputCheckBox.checked === true;
+        }
+      });
+    }
+  }
 }
