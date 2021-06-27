@@ -19,13 +19,19 @@ export class Game extends BaseComponent {
 
   callBacks: ((str: string) => void)[];
 
+  callBacksForEndGame: (() => void)[];
+
+  amountOfErrors: number;
+
   constructor() {
     super();
     this.callBacks = [];
+    this.callBacksForEndGame = [];
     this.allAudios = [];
     this.currentAuodio = new Audio();
     this.errorAudio = new Audio(errorAud);
     this.correctAudio = new Audio(correctAudio);
+    this.amountOfErrors = 0;
 
   }
 
@@ -62,17 +68,31 @@ export class Game extends BaseComponent {
               this.callBacks.forEach(el=> el('Fail'));
 
               this.playAudio(this.errorAudio);
+
+              this.amountOfErrors++;
             }
+          }
+          console.log(cardView.length,'_____', cardView)
+          if(cardView.length <= 0){
+             this.endGame();
           }
         })
       })
   }
 
+   endGame() {
+    this.callBacksForEndGame.forEach(el=> el());
+    }
+
   playAudio(audio: HTMLAudioElement){
-      setTimeout(()=>audio.play(), 500);
+    setTimeout(()=>audio.play(), 1000);
   }
 
   onUserAnswer(callBack: ((str: string) => void)){
     this.callBacks.push(callBack);
+  }
+
+  onEndGame(callBacksForEndGame: (() => void)){
+    this.callBacksForEndGame.push(callBacksForEndGame);
   }
 }

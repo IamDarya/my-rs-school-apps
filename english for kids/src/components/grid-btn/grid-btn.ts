@@ -6,7 +6,11 @@ import { Game } from '../game/game';
 import { Card } from '../image-category-models/card';
 import correctPic from "../../assets/star-win.svg"
 import failPic from "../../assets/star.svg"
-import repeatPic from "../../assets/repeat.svg"
+import repeatPic from "../../assets/repeat.svg";
+import endGameNoErrors from "../../assets/success.jpg";
+import endGameWithErrors from "../../assets/failure.jpg";
+import endGameNoErrorsAudio from "../../assets/success.mp3";
+import endGameWithErrorsAudio from "../../assets/failure.mp3";
 
 export class GridBtn extends BaseComponent {
 
@@ -26,6 +30,10 @@ export class GridBtn extends BaseComponent {
 
   divWithFailCorrectSigns: HTMLElement;
 
+  overlayForEndGame: HTMLElement;
+
+  overlayContent: HTMLElement;
+
   game: Game;
 
   arrayOfCardDivs: CardView[];
@@ -37,6 +45,8 @@ export class GridBtn extends BaseComponent {
     this.divWithFailCorrectSigns = document.createElement('div');
     this.divWithBtnToStartPlay = document.createElement('div');
     this.btnToStartPlay = document.createElement('button');
+    this.overlayForEndGame = document.createElement('div');
+    this.overlayContent = document.createElement('div');
     this.categories = [];
     this.activeCategoryObj = undefined;
     this.activeCategory;
@@ -91,8 +101,35 @@ export class GridBtn extends BaseComponent {
 
         this.game.startGame(this.activeCategoryObj, this.arrayOfCardDivs);
         this.game.onUserAnswer((str)=>{this.addCorrectFailsign(str)});
+        this.game.onEndGame(()=>{this.ShowPopUpEndGame()});
       };
     })
+
+    this.overlayForEndGame.classList.add('overlay','hidden');
+    this.overlayContent.classList.add('content');
+    this.overlayForEndGame.appendChild(this.overlayContent);
+    this.element.appendChild(this.overlayForEndGame);
+  }
+
+  ShowPopUpEndGame(){
+    let endGameNoErrorsAudioConvert = new Audio(endGameNoErrorsAudio);
+    let endGameWithErrorsAudioConvert = new Audio(endGameWithErrorsAudio);
+    if(this.game.amountOfErrors > 0){
+      this.overlayContent.setAttribute('style', `background-image:url('${endGameWithErrors}');`);
+      this.overlayContent.innerText = `You made ${this.game.amountOfErrors} mistake(s). Train more.`;
+      this.game.playAudio(endGameWithErrorsAudioConvert);
+    }
+    else{
+      this.overlayContent.setAttribute('style', `background-image:url('${endGameNoErrors}');`);
+      this.game.playAudio(endGameNoErrorsAudioConvert);
+    }
+    this.overlayForEndGame.classList.add('is-on');
+    this.overlayForEndGame.classList.remove('hidden');
+    setTimeout(() => {
+      this.overlayForEndGame.classList.remove('is-on');
+      this.overlayForEndGame.classList.add('hidden');
+    }, 5000);
+    this.drawAllCategories();
   }
 
   drawAllCategories(){
@@ -111,6 +148,7 @@ export class GridBtn extends BaseComponent {
 
   drawCategory(category: String){
     this.themesBlock.innerHTML = ``;
+    this.arrayOfCardDivs = [];
     this.activeCategoryObj = this.categories.find(el => el.category === category);
     this.activeCategory = this.activeCategoryObj?.category;
     if(this.activeCategoryObj !== undefined) {
