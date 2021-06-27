@@ -89,9 +89,11 @@ export class GridBtn extends BaseComponent {
 
     this.btnToStartPlay.addEventListener('click', ()=>{
       if(this.activeCategoryObj !== undefined) {
-        this.btnToStartPlay.classList.add('hidden');
-
         let btnToRepeatAudio = document.createElement('button');
+        this.btnToStartPlay.classList.add('hidden');
+        btnToRepeatAudio.classList.remove('hidden');
+
+
         btnToRepeatAudio.classList.add('btn-to-repeat-audio', 'btn-to-start-play');
         btnToRepeatAudio.setAttribute('style', `background-image: url('${repeatPic}');`);
         this.divWithBtnToStartPlay.appendChild(btnToRepeatAudio);
@@ -101,7 +103,11 @@ export class GridBtn extends BaseComponent {
 
         this.game.startGame(this.activeCategoryObj, this.arrayOfCardDivs);
         this.game.onUserAnswer((str)=>{this.addCorrectFailsign(str)});
-        this.game.onEndGame(()=>{this.ShowPopUpEndGame()});
+        this.game.onEndGame(()=>{
+          btnToRepeatAudio.classList.add('hidden');
+          this.btnToStartPlay.classList.remove('hidden');
+          this.divWithFailCorrectSigns.innerHTML = ``;
+          this.ShowPopUpEndGame()});
       };
     })
 
@@ -134,6 +140,7 @@ export class GridBtn extends BaseComponent {
 
   drawAllCategories(){
     this.themesBlock.innerHTML = ``;
+    this.divWithFailCorrectSigns.innerHTML = ``;
     this.activeCategory = undefined;
     this.activeCategoryObj = undefined;
     for(let i = 0; i < this.categories.length; i++) {

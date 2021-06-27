@@ -36,6 +36,9 @@ export class Game extends BaseComponent {
   }
 
   startGame(category: ImageCategoryModel, cardView: CardView[]){
+    this.callBacks = [];
+    this.callBacksForEndGame = [];
+    this.amountOfErrors = 0;
     category.cardsContent.forEach((el) => {
       this.allAudios.push(el.audioSrc);
     })
