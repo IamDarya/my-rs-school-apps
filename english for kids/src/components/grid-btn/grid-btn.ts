@@ -6,6 +6,7 @@ import { Game } from '../game/game';
 import { Card } from '../image-category-models/card';
 import correctPic from "../../assets/star-win.svg"
 import failPic from "../../assets/star.svg"
+import repeatPic from "../../assets/repeat.svg"
 
 export class GridBtn extends BaseComponent {
 
@@ -78,6 +79,16 @@ export class GridBtn extends BaseComponent {
 
     this.btnToStartPlay.addEventListener('click', ()=>{
       if(this.activeCategoryObj !== undefined) {
+        this.btnToStartPlay.classList.add('hidden');
+
+        let btnToRepeatAudio = document.createElement('button');
+        btnToRepeatAudio.classList.add('btn-to-repeat-audio', 'btn-to-start-play');
+        btnToRepeatAudio.setAttribute('style', `background-image: url('${repeatPic}');`);
+        this.divWithBtnToStartPlay.appendChild(btnToRepeatAudio);
+        btnToRepeatAudio.addEventListener('click', ()=>{
+          this.game.playAudio(this.game.currentAuodio);
+        });
+
         this.game.startGame(this.activeCategoryObj, this.arrayOfCardDivs);
         this.game.onUserAnswer((str)=>{this.addCorrectFailsign(str)});
       };
@@ -119,21 +130,16 @@ export class GridBtn extends BaseComponent {
 
 
   addCorrectFailsign(sign: String){
+    let picCorrectFail = document.createElement('div');
     if(sign === 'Correct'){
-      let picCorrect = document.createElement('div');
-      picCorrect.classList.add('picFailCorrect', 'correct');
-      picCorrect.setAttribute('style', `background-image:url('${correctPic}');`);
-      this.divWithFailCorrectSigns.appendChild(picCorrect);
-
-      console.log('corr')
+      picCorrectFail.classList.add('picFailCorrect', 'correct');
+      picCorrectFail.setAttribute('style', `background-image:url('${correctPic}');`);
+      this.divWithFailCorrectSigns.appendChild(picCorrectFail);
     }
     if(sign === 'Fail'){
-      let picFail = document.createElement('div');
-      picFail.classList.add('picFailCorrect', 'fail');
-      picFail.setAttribute('style', `background-image:url('${failPic}');`);
-      this.divWithFailCorrectSigns.appendChild(picFail);
-
-      console.log('fail')
+      picCorrectFail.classList.add('picFailCorrect', 'fail');
+      picCorrectFail.setAttribute('style', `background-image:url('${failPic}');`);
+      this.divWithFailCorrectSigns.appendChild(picCorrectFail);
     }
 }
 }

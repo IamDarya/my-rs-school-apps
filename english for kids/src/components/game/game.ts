@@ -3,6 +3,7 @@ import './game.scss';
 import { CardView } from "../card-view/card-view";
 import { ImageCategoryModel } from "../image-category-models/image-category-models";
 import errorAud from "../../assets/error.mp3";
+import correctAudio from "../../assets/correct.mp3";
 
 export class Game extends BaseComponent {
 
@@ -10,9 +11,11 @@ export class Game extends BaseComponent {
 
   allAudios: String[];
 
-  currentAuodio: String;
+  currentAuodio: HTMLAudioElement;
 
   errorAudio: HTMLAudioElement;
+
+  correctAudio: HTMLAudioElement;
 
   callBacks: ((str: string) => void)[];
 
@@ -20,8 +23,10 @@ export class Game extends BaseComponent {
     super();
     this.callBacks = [];
     this.allAudios = [];
-    this.currentAuodio = '';
+    this.currentAuodio = new Audio();
     this.errorAudio = new Audio(errorAud);
+    this.correctAudio = new Audio(correctAudio);
+
   }
 
   startGame(category: ImageCategoryModel, cardView: CardView[]){
@@ -30,7 +35,9 @@ export class Game extends BaseComponent {
     })
 
       let randomAudio = new Audio(`${this.allAudios[Math.floor(Math.random()*this.allAudios.length)]}`);
-      randomAudio.play();
+       this.playAudio(randomAudio);
+
+       this.currentAuodio = randomAudio;
 
       cardView.forEach((el)=>{
         el.element.addEventListener('click', ()=>{
@@ -42,9 +49,11 @@ export class Game extends BaseComponent {
              cardView = cardView.filter(card=>card !== el);
 
              this.callBacks.forEach(el=> el('Correct'));
+             this.playAudio(this.correctAudio);
 
               randomAudio = new Audio(`${this.allAudios[Math.floor(Math.random()*this.allAudios.length)]}`);
-              randomAudio.play();
+              this.currentAuodio = randomAudio;
+               this.playAudio(randomAudio);
             }
           }
           else{
@@ -52,11 +61,15 @@ export class Game extends BaseComponent {
 
               this.callBacks.forEach(el=> el('Fail'));
 
-              this.errorAudio.play();
+              this.playAudio(this.errorAudio);
             }
           }
         })
       })
+  }
+
+  playAudio(audio: HTMLAudioElement){
+      setTimeout(()=>audio.play(), 500);
   }
 
   onUserAnswer(callBack: ((str: string) => void)){

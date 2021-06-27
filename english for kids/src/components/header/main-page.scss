@@ -223,11 +223,25 @@ $off: #d74141;
 
 .btn-to-start-play:hover{
   transform: translateY(5px);
-  box-shadow: 0 0 0 #e67409;
   text-shadow: 2px 2px 0 #42964c;
-  background-color: #69c160;
-  border: 2px solid #42964c;}
+}
+
+  .btn-to-start-play:target,
+  .btn-to-start-play:active{
+    transform: translateY(5px);
+    box-shadow: 0 0 0 #e67409;
+    text-shadow: 2px 2px 0 #42964c;
+    background-color: #69c160;
+    border: 2px solid #42964c;}
 
   .div-with-btn-to-start-play {
     text-align: center;
+  }
+
+  .btn-to-repeat-audio.btn-to-start-play {
+    padding: 30px;
+  }
+
+  .hidden {
+    display: none;
   }
