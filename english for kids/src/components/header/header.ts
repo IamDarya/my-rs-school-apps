@@ -3,15 +3,19 @@ import '../grid-btn/theme-cards.scss';
 import { BaseComponent } from '../base-component';
 import { GridBtn } from '../grid-btn/grid-btn';
 import { ImageCategoryModel } from '../image-category-models/image-category-models';
+import { NewRout } from '../routing/newRouting';
 
 export class Header extends BaseComponent {
   categories: ImageCategoryModel[];
 
   gridBtn: GridBtn;
 
-  constructor(gridBtn: GridBtn) {
+  newRout: NewRout;
+
+  constructor(gridBtn: GridBtn, newRout: NewRout) {
     super('nav', ['nav-burger']);
     this.categories = [];
+    this.newRout = newRout;
     this.gridBtn = gridBtn;
   }
 
@@ -68,18 +72,14 @@ export class Header extends BaseComponent {
 
     let linkToStatistics = document.createElement('a');
     let liToStatistics = document.createElement('li');
-    linkToStatistics.setAttribute('href', '#');
+    linkToStatistics.setAttribute('href', '#statistics');
     liToStatistics.setAttribute('data-topic', `Statistics`);
     liToStatistics.innerText = `Statistics`;
     ulOfTopics.appendChild(linkToStatistics);
     linkToStatistics.appendChild(liToStatistics);
-    liToStatistics.addEventListener('click', () => {
-      // this.statistics.drawStatistics();
-    });
 
       window.addEventListener('click', (e)=>{
         let eventWindow = e.target as HTMLElement;
-        console.log(eventWindow.parentElement);
         if(eventWindow.parentElement?.id !== 'menuToggle' || eventWindow.parentElement.id === null){
           inputCheckBox.checked = false;
         }

@@ -4,6 +4,7 @@ import { GridBtn } from './components/grid-btn/grid-btn';
 import { Game } from './components/game/game';
 import { DatabaseIamDarya } from './components/database/database';
 import { WordStatistic } from './components/database/word-statist';
+import { Statistics } from './components/statistics/statistics';
 
 export class App {
   private readonly newRout: NewRout;
@@ -16,6 +17,8 @@ export class App {
 
   dataBaseIamDarya: DatabaseIamDarya;
 
+  private readonly statistics: Statistics;
+
   constructor(private readonly rootElement: HTMLElement) {
     this.newRout = new NewRout();
 
@@ -23,9 +26,11 @@ export class App {
 
     this.gridBtn = new GridBtn(this.game);
 
-    this.header = new Header(this.gridBtn);
+    this.header = new Header(this.gridBtn, this.newRout);
 
     this.dataBaseIamDarya = new DatabaseIamDarya();
+
+    this.statistics = new Statistics(this.dataBaseIamDarya);
 
   }
 
@@ -37,6 +42,7 @@ export class App {
     this.gridBtn.categories = categories;
     this.rootElement.appendChild(this.header.element);
     this.rootElement.appendChild(this.gridBtn.element);
+    this.rootElement.appendChild(this.statistics.element);
     // this.rootElement.appendChild(this.mainPage.element);
     this.gridBtn.drawAllCategories();
 
@@ -58,46 +64,15 @@ export class App {
       }
     }
 
-    // Router.start();
-    // this.newRout.add('about-game', () => {
-    //   this.game.hide();
-    //   document.getElementById('about')?.classList.add('active');
-    //   this.about.show();
-    //   document.getElementById('best-score')?.classList.remove('active');
-    //   this.bestScore.hide();
-    //   document.getElementById('game-setting')?.classList.remove('active');
-    //   this.settings.hide();
-    // });
-
-    // this.newRout.add('', () => {
-    //   this.game.hide();
-    //   document.getElementById('about')?.classList.add('active');
-    //   this.about.show();
-    //   document.getElementById('best-score')?.classList.remove('active');
-    //   this.bestScore.hide();
-    //   document.getElementById('game-setting')?.classList.remove('active');
-    //   this.settings.hide();
-    // });
-
-    this.newRout.add('', () => {
-    //  this.mainPage.show();
-    //   document.getElementById('best-score')?.classList.add('active');
-    //   this.bestScore.show();
-    //   this.bestScore.bestScoreShow();
-    //   document.getElementById('about')?.classList.remove('active');
-    //   this.about.hide();
-    //   document.getElementById('game-setting')?.classList.remove('active');
-    //   this.settings.hide();
+    this.newRout.add('statistics', () => {
+      this.statistics.show();
+      this.gridBtn.hide();
+      this.statistics.statisticShow();
     });
 
-    this.newRout.add('cards', () => {
-    //    this.mainPage.hide();
-    //   document.getElementById('game-setting')?.classList.add('active');
-    //   this.settings.show();
-    //   document.getElementById('best-score')?.classList.remove('active');
-    //   this.bestScore.hide();
-    //   document.getElementById('about')?.classList.remove('active');
-    //   this.about.hide();
+    this.newRout.add('', () => {
+      this.statistics.hide();
+      this.gridBtn.show();
     });
   }
 }
