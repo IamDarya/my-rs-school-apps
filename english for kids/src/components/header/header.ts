@@ -66,6 +66,17 @@ export class Header extends BaseComponent {
 
     this.element.appendChild(menuToggle);
 
+    let linkToStatistics = document.createElement('a');
+    let liToStatistics = document.createElement('li');
+    linkToStatistics.setAttribute('href', '#');
+    liToStatistics.setAttribute('data-topic', `Statistics`);
+    liToStatistics.innerText = `Statistics`;
+    ulOfTopics.appendChild(linkToStatistics);
+    linkToStatistics.appendChild(liToStatistics);
+    liToStatistics.addEventListener('click', () => {
+      // this.statistics.drawStatistics();
+    });
+
       window.addEventListener('click', (e)=>{
         let eventWindow = e.target as HTMLElement;
         console.log(eventWindow.parentElement);
