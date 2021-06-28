@@ -56,6 +56,7 @@ export class Header extends BaseComponent {
         let activeTheme = (e.target as HTMLElement).getAttribute('data-topic');
         if (activeTheme !== null && activeTheme !== 'Main Page') {
           this.gridBtn.drawCategory(activeTheme);
+          inputCheckBox.checked = false;
         }
         if (activeTheme === 'Main Page') {
           this.gridBtn.drawAllCategories();
@@ -65,17 +66,12 @@ export class Header extends BaseComponent {
 
     this.element.appendChild(menuToggle);
 
-    if (inputCheckBox.checked === true) {
-      debugger;
-      window.addEventListener('click', (e: Event) => {
-        let event = e.target as HTMLElement;
-        if (
-          event.tagName === 'LI' ||
-          event.parentElement?.id !== 'menuToggle'
-        ) {
-          inputCheckBox.checked === true;
+      window.addEventListener('click', (e)=>{
+        let eventWindow = e.target as HTMLElement;
+        console.log(eventWindow.parentElement);
+        if(eventWindow.parentElement?.id !== 'menuToggle' || eventWindow.parentElement.id === null){
+          inputCheckBox.checked = false;
         }
-      });
-    }
+        })
   }
 }
