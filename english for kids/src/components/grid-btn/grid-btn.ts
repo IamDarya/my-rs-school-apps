@@ -144,7 +144,7 @@ export class GridBtn extends BaseComponent {
     this.activeCategory = undefined;
     this.activeCategoryObj = undefined;
     for(let i = 0; i < this.categories.length; i++) {
-      const divWithTheme = new CardView('Themes', this.categories[i].cardsContent[1], this.categories[i].category);
+      const divWithTheme = new CardView('Themes', this.categories[i].cardsContent[3], this.categories[i].category);
       this.themesBlock.appendChild(divWithTheme.element);
       divWithTheme.onClickTheme(()=>{
         this.drawCategory(this.categories[i].category);

@@ -337,55 +337,55 @@
 
 
   {
-    "category": "Smth else A",
+    "category": "Food",
     "cardsContent":   [
       {
-        "word": "sad",
-        "translation": "грустный",
-        "image": "img/Emotions/sad.jpg",
-        "audioSrc": "audio/Emotions/sad.mp3"
+        "word": "cake",
+        "translation": "пирожное",
+        "image": "img/Food/cake.jpg",
+        "audioSrc": "audio/Food/cake.mp3"
       },
       {
-        "word": "angry",
-        "translation": "сердитый",
-        "image": "img/Emotions/angry.jpg",
-        "audioSrc": "audio/Emotions/angry.mp3"
+        "word": "juice",
+        "translation": "сок",
+        "image": "img/Food/juice.jpg",
+        "audioSrc": "audio/Food/juice.mp3"
       },
       {
-        "word": "happy",
-        "translation": "счастливый",
-        "image": "img/Emotions/happy.jpg",
-        "audioSrc": "audio/Emotions/happy.mp3"
+        "word": "nuts",
+        "translation": "орехи",
+        "image": "img/Food/nuts.jpg",
+        "audioSrc": "audio/Food/nuts.mp3"
       },
       {
-        "word": "tired",
-        "translation": "уставший",
-        "image": "img/Emotions/tired.jpg",
-        "audioSrc": "audio/Emotions/tired.mp3"
+        "word": "pasta",
+        "translation": "паста",
+        "image": "img/Food/pasta.jpg",
+        "audioSrc": "audio/Food/pasta.mp3"
       },
       {
-        "word": "surprised",
-        "translation": "удивлённый",
-        "image": "img/Emotions/surprised.jpg",
-        "audioSrc": "audio/Emotions/surprised.mp3"
+        "word": "pizza",
+        "translation": "пицца",
+        "image": "img/Food/pizza.jpg",
+        "audioSrc": "audio/Food/pizza.mp3"
       },
       {
-        "word": "scared",
+        "word": "fruit",
         "translation": "испуганный",
-        "image": "img/Emotions/scared.jpg",
-        "audioSrc": "audio/Emotions/scared.mp3"
+        "image": "img/Food/fruit.jpg",
+        "audioSrc": "audio/Food/fruit.mp3"
       },
       {
-        "word": "smile",
-        "translation": "улыбка",
-        "image": "img/Emotions/smile.jpg",
-        "audioSrc": "audio/Emotions/smile.mp3"
+        "word": "soup",
+        "translation": "суп",
+        "image": "img/Food/soup.jpg",
+        "audioSrc": "audio/Food/soup.mp3"
       },
       {
-        "word": "laugh",
-        "translation": "смех",
-        "image": "img/Emotions/laugh.jpg",
-        "audioSrc": "audio/Emotions/laugh.mp3"
+        "word": "water",
+        "translation": "вода",
+        "image": "img/Food/water.jpg",
+        "audioSrc": "audio/Food/water.mp3"
       }
     ]
   },
@@ -393,55 +393,55 @@
 
 
   {
-    "category": "Smth else B",
+    "category": "Seasons",
     "cardsContent":   [
       {
-        "word": "sad",
-        "translation": "грустный",
-        "image": "img/Emotions/sad.jpg",
-        "audioSrc": "audio/Emotions/sad.mp3"
+        "word": "autumn",
+        "translation": "осень",
+        "image": "img/Seasons/autumn.jpg",
+        "audioSrc": "audio/Seasons/autumn.mp3"
       },
       {
-        "word": "angry",
-        "translation": "сердитый",
-        "image": "img/Emotions/angry.jpg",
-        "audioSrc": "audio/Emotions/angry.mp3"
+        "word": "rain",
+        "translation": "дождь",
+        "image": "img/Seasons/rain.jpg",
+        "audioSrc": "audio/Seasons/rain.mp3"
       },
       {
-        "word": "happy",
-        "translation": "счастливый",
-        "image": "img/Emotions/happy.jpg",
-        "audioSrc": "audio/Emotions/happy.mp3"
+        "word": "snow",
+        "translation": "снег",
+        "image": "img/Seasons/snow.jpg",
+        "audioSrc": "audio/Seasons/snow.mp3"
       },
       {
-        "word": "tired",
-        "translation": "уставший",
-        "image": "img/Emotions/tired.jpg",
-        "audioSrc": "audio/Emotions/tired.mp3"
+        "word": "spring",
+        "translation": "весна",
+        "image": "img/Seasons/spring.jpg",
+        "audioSrc": "audio/Seasons/spring.mp3"
       },
       {
-        "word": "surprised",
-        "translation": "удивлённый",
-        "image": "img/Emotions/surprised.jpg",
-        "audioSrc": "audio/Emotions/surprised.mp3"
+        "word": "summer",
+        "translation": "лето",
+        "image": "img/Seasons/summer.jpg",
+        "audioSrc": "audio/Seasons/summer.mp3"
       },
       {
-        "word": "scared",
-        "translation": "испуганный",
-        "image": "img/Emotions/scared.jpg",
-        "audioSrc": "audio/Emotions/scared.mp3"
+        "word": "sun",
+        "translation": "солнце",
+        "image": "img/Seasons/sun.jpg",
+        "audioSrc": "audio/Seasons/sun.mp3"
       },
       {
-        "word": "smile",
-        "translation": "улыбка",
-        "image": "img/Emotions/smile.jpg",
-        "audioSrc": "audio/Emotions/smile.mp3"
+        "word": "thunderstorm",
+        "translation": "гром",
+        "image": "img/Seasons/thunderstorm.jpg",
+        "audioSrc": "audio/Seasons/thunderstorm.mp3"
       },
       {
-        "word": "laugh",
-        "translation": "смех",
-        "image": "img/Emotions/laugh.jpg",
-        "audioSrc": "audio/Emotions/laugh.mp3"
+        "word": "winter",
+        "translation": "снег",
+        "image": "img/Seasons/winter.jpg",
+        "audioSrc": "audio/Seasons/winter.mp3"
       }
     ]
   }
