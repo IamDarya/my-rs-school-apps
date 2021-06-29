@@ -22,13 +22,14 @@ export class App {
   constructor(private readonly rootElement: HTMLElement) {
     this.newRout = new NewRout();
 
-    this.game = new Game();
+
+    this.dataBaseIamDarya = new DatabaseIamDarya();
+
+    this.game = new Game(this.dataBaseIamDarya);
 
     this.gridBtn = new GridBtn(this.game);
 
     this.header = new Header(this.gridBtn, this.newRout);
-
-    this.dataBaseIamDarya = new DatabaseIamDarya();
 
     this.statistics = new Statistics(this.dataBaseIamDarya);
 

@@ -4,8 +4,12 @@ import { CardView } from "../card-view/card-view";
 import { ImageCategoryModel } from "../image-category-models/image-category-models";
 import errorAud from "../../assets/error.mp3";
 import correctAudio from "../../assets/correct.mp3";
+import { DatabaseIamDarya } from "../database/database";
+import { WordStatistic } from "../database/word-statist";
 
 export class Game extends BaseComponent {
+
+  databaseIamDarya: DatabaseIamDarya;
 
   cardView: CardView | undefined;
 
@@ -23,7 +27,7 @@ export class Game extends BaseComponent {
 
   amountOfErrors: number;
 
-  constructor() {
+  constructor(databaseIamDarya: DatabaseIamDarya) {
     super();
     this.callBacks = [];
     this.callBacksForEndGame = [];
@@ -32,6 +36,7 @@ export class Game extends BaseComponent {
     this.errorAudio = new Audio(errorAud);
     this.correctAudio = new Audio(correctAudio);
     this.amountOfErrors = 0;
+    this.databaseIamDarya = databaseIamDarya;
 
   }
 
@@ -50,6 +55,10 @@ export class Game extends BaseComponent {
 
       cardView.forEach((el)=>{
         el.element.addEventListener('click', ()=>{
+          let keyToWordInDB = category.category + el.cardObj.word + el.cardObj.translation;
+           let currentCard = this.databaseIamDarya.getWord(keyToWordInDB);
+           console.log(currentCard);
+
           if(el.element.firstElementChild?.getAttribute('src') === randomAudio.getAttribute('src')){
             if(randomAudio.getAttribute('src') !== null){
              this.allAudios =  this.allAudios.filter(aud => aud !== randomAudio.getAttribute('src'))
