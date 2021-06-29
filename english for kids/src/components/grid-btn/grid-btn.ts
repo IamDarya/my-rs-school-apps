@@ -11,8 +11,11 @@ import endGameNoErrors from "../../assets/success.jpg";
 import endGameWithErrors from "../../assets/failure.jpg";
 import endGameNoErrorsAudio from "../../assets/success.mp3";
 import endGameWithErrorsAudio from "../../assets/failure.mp3";
+import { DatabaseIamDarya } from '../database/database';
 
 export class GridBtn extends BaseComponent {
+
+  dataBaseIamDarya: DatabaseIamDarya;
 
   train: String;
 
@@ -38,7 +41,7 @@ export class GridBtn extends BaseComponent {
 
   arrayOfCardDivs: CardView[];
 
-  constructor(game: Game){
+  constructor(game: Game, dataBaseIamDarya: DatabaseIamDarya){
     super('div', ['grid-of-img-and-switch-btn-wrapper']);
     this.train = "Train";
     this.themesBlock = document.createElement('div');
@@ -52,6 +55,7 @@ export class GridBtn extends BaseComponent {
     this.activeCategory;
     this.game = game;
     this.arrayOfCardDivs = [];
+    this.dataBaseIamDarya = dataBaseIamDarya;
 
     const playTrainSwitch = document.createElement('input');
     playTrainSwitch.classList.add('toggle');
@@ -144,7 +148,7 @@ export class GridBtn extends BaseComponent {
     this.activeCategory = undefined;
     this.activeCategoryObj = undefined;
     for(let i = 0; i < this.categories.length; i++) {
-      const divWithTheme = new CardView('Themes', this.categories[i].cardsContent[3], this.categories[i].category);
+      const divWithTheme = new CardView('Themes', this.categories[i].cardsContent[3], this.categories[i].category, this.dataBaseIamDarya);
       this.themesBlock.appendChild(divWithTheme.element);
       divWithTheme.onClickTheme(()=>{
         this.drawCategory(this.categories[i].category);
@@ -160,7 +164,7 @@ export class GridBtn extends BaseComponent {
     this.activeCategory = this.activeCategoryObj?.category;
     if(this.activeCategoryObj !== undefined) {
       for(let i = 0; i < this.activeCategoryObj?.cardsContent.length; i++) {
-        const divWithWord = new CardView(this.train, this.activeCategoryObj.cardsContent[i], this.activeCategoryObj.category);
+        const divWithWord = new CardView(this.train, this.activeCategoryObj.cardsContent[i], this.activeCategoryObj.category, this.dataBaseIamDarya);
         this.arrayOfCardDivs.push(divWithWord);
         this.themesBlock.appendChild(divWithWord.element);
       }

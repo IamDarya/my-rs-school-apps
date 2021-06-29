@@ -3,8 +3,10 @@ import picForFlip from '../../assets/rotate.svg';
 import { BaseComponent } from '../base-component';
 import { Card } from '../image-category-models/card';
 import { Game } from '../game/game';
+import { DatabaseIamDarya } from '../database/database';
 
 export class CardView extends BaseComponent {
+  databaseIamDarya: DatabaseIamDarya;
 
   cardState: String;
 
@@ -14,12 +16,13 @@ export class CardView extends BaseComponent {
 
   callBacks: Function[];
 
-  constructor(cardState: String,  cardObj: Card, category: String){
+  constructor(cardState: String,  cardObj: Card, category: String, databaseIamDarya: DatabaseIamDarya){
     super('div', ['one-theme-block', 'front']);
       this.callBacks = [];
     this.cardState = cardState;
     this.cardObj = cardObj;
     this.category = category;
+    this.databaseIamDarya = databaseIamDarya;
 
 
     if(this.cardState === 'Train'){
@@ -75,9 +78,15 @@ export class CardView extends BaseComponent {
         this.element.appendChild(back);
         this.element.appendChild(audio);
 
-        this.element.addEventListener('click', (e: Event)=>{
+        this.element.addEventListener('click', async (e: Event)=>{
+          let keyToWordInDB = this.category + this.cardObj.word + this.cardObj.translation;
+          let currentCard = await this.databaseIamDarya.getWord(keyToWordInDB);
+          if(currentCard.click !== undefined){
+           currentCard.click++;
+           this.databaseIamDarya.update(currentCard);
+          }
+
           let clickOnCard = e.target as HTMLElement;
-          console.log(clickOnCard);
           if(clickOnCard.classList.contains('back')){
             this.playAudio(clickOnCard);
           }

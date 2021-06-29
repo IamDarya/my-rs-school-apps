@@ -77,7 +77,12 @@ export class Statistics extends BaseComponent {
       let wrong = document.createElement('p');
       wrong.innerText = `${allWords[i].wrong}`;
       let errorsPers  = document.createElement('p');
-      errorsPers.innerText = `${allWords[i].persOfErrors}`;
+      if(allWords[i].correct! > 0 || allWords[i].wrong! > 0){
+        errorsPers.innerText = `${(allWords[i].correct! / (allWords[i].correct! + allWords[i].wrong!) * 100).toFixed(1)}%`;
+      }
+      else{
+        errorsPers.innerText = `${allWords[i].persOfErrors}%`
+      }
 
       wordLi.appendChild(category);
       wordLi.appendChild(word);

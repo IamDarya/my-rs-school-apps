@@ -27,7 +27,7 @@ export class App {
 
     this.game = new Game(this.dataBaseIamDarya);
 
-    this.gridBtn = new GridBtn(this.game);
+    this.gridBtn = new GridBtn(this.game, this.dataBaseIamDarya);
 
     this.header = new Header(this.gridBtn, this.newRout);
 
@@ -36,6 +36,18 @@ export class App {
   }
 
   async start(): Promise<void> {
+
+    this.newRout.add('statistics', () => {
+      this.statistics.show();
+      this.gridBtn.hide();
+      this.statistics.statisticShow();
+    });
+
+    this.newRout.add('', () => {
+      this.statistics.hide();
+      this.gridBtn.show();
+    });
+
     await this.dataBaseIamDarya.load();
     const allThemesJson = await fetch('./cards.json');
     const categories = await allThemesJson.json();
@@ -49,7 +61,7 @@ export class App {
 
     for(let i=0;i<categories.length;i++){
       for(let j=0;j<categories[i].cardsContent.length;j++){
-        if(this.dataBaseIamDarya.getWord(categories[i].category+categories[i].cardsContent[j].word+categories[i].cardsContent[j].translation) === undefined){
+        if(await this.dataBaseIamDarya.getWord(categories[i].category+categories[i].cardsContent[j].word+categories[i].cardsContent[j].translation) === undefined){
           const wordStatistic = new WordStatistic(
             categories[i].category,
             categories[i].cardsContent[j].word,
@@ -64,16 +76,5 @@ export class App {
         }
       }
     }
-
-    this.newRout.add('statistics', () => {
-      this.statistics.show();
-      this.gridBtn.hide();
-      this.statistics.statisticShow();
-    });
-
-    this.newRout.add('', () => {
-      this.statistics.hide();
-      this.gridBtn.show();
-    });
   }
 }

@@ -40,38 +40,50 @@ export class Game extends BaseComponent {
 
   }
 
-  startGame(category: ImageCategoryModel, cardView: CardView[]){
+  async startGame(category: ImageCategoryModel, cardView: CardView[]){
     this.callBacks = [];
     this.callBacksForEndGame = [];
     this.amountOfErrors = 0;
-    category.cardsContent.forEach((el) => {
-      this.allAudios.push(el.audioSrc);
-    })
+    let categoryToFilter = [...category.cardsContent];
 
-      let randomAudio = new Audio(`${this.allAudios[Math.floor(Math.random()*this.allAudios.length)]}`);
+      let randomAudio = new Audio(`${(categoryToFilter[Math.floor(Math.random() * categoryToFilter.length)].audioSrc)}`);
        this.playAudio(randomAudio);
+       let currentRandomObj =  categoryToFilter.filter(x => x.audioSrc === randomAudio.getAttribute('src'));
+       console.log(currentRandomObj)
+       let keyToWordInDB = category.category + currentRandomObj[0].word + currentRandomObj[0].translation;
+       let currentCard = await this.databaseIamDarya.getWord(keyToWordInDB);
 
        this.currentAuodio = randomAudio;
 
       cardView.forEach((el)=>{
-        el.element.addEventListener('click', ()=>{
-          let keyToWordInDB = category.category + el.cardObj.word + el.cardObj.translation;
-           let currentCard = this.databaseIamDarya.getWord(keyToWordInDB);
-           console.log(currentCard);
+        el.element.addEventListener('click', async()=>{
 
           if(el.element.firstElementChild?.getAttribute('src') === randomAudio.getAttribute('src')){
             if(randomAudio.getAttribute('src') !== null){
-             this.allAudios =  this.allAudios.filter(aud => aud !== randomAudio.getAttribute('src'))
+             categoryToFilter = categoryToFilter.filter(aud => aud.audioSrc !== randomAudio.getAttribute('src'));
+             console.log(categoryToFilter)
 
               el.element.classList.add('inactive-card');
              cardView = cardView.filter(card=>card !== el);
+             console.log(cardView);
 
              this.callBacks.forEach(el=> el('Correct'));
              this.playAudio(this.correctAudio);
 
-              randomAudio = new Audio(`${this.allAudios[Math.floor(Math.random()*this.allAudios.length)]}`);
+             if(categoryToFilter[Math.floor(Math.random() * categoryToFilter.length)] !== undefined){
+              randomAudio = new Audio(`${(categoryToFilter[Math.floor(Math.random() * categoryToFilter.length)].audioSrc)}`);
               this.currentAuodio = randomAudio;
                this.playAudio(randomAudio);
+
+                currentRandomObj =  categoryToFilter.filter(x => x.audioSrc === randomAudio.getAttribute('src'));
+                keyToWordInDB = category.category + currentRandomObj[0].word + currentRandomObj[0].translation;
+                currentCard = await this.databaseIamDarya.getWord(keyToWordInDB);
+
+               if(currentCard.correct !== undefined){
+                currentCard.correct++;
+                this.databaseIamDarya.update(currentCard);
+               }
+             }
             }
           }
           else{
@@ -82,10 +94,14 @@ export class Game extends BaseComponent {
               this.playAudio(this.errorAudio);
 
               this.amountOfErrors++;
+
+              if(currentCard.wrong !== undefined){
+                currentCard.wrong++;
+                this.databaseIamDarya.update(currentCard);
+               }
             }
           }
-          console.log(cardView.length,'_____', cardView)
-          if(cardView.length <= 0){
+          if(cardView.length === 0){
              this.endGame();
           }
         })
