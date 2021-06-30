@@ -5,11 +5,35 @@ h2 {
 .statistic-grid-wrapper {
   margin: 10px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .word-li,
 .topPart-li {
   display: grid;
   grid-template-columns: 230px 230px 230px 200px 200px 200px 200px;
+}
+
+.word-li {
+  margin-bottom: 5px;
+  border: solid rgba(50, 73, 205, 0.123);
+  border-radius: 5px;
+}
+
+.topPart-li {
+  margin-bottom: 15px;
+}
+
+.one-category {
+  display: flex;
+  flex-direction: row-reverse;
+  height: min-content;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.transform {
+  transform: scaleY(-1);
+  transition-duration: 0.5s;
 }

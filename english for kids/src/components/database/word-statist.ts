@@ -1,19 +1,19 @@
 export class WordStatistic {
-  category: string | undefined;
+  category: string;
 
-  word: string | undefined;
+  word: string;
 
-  translation: string | undefined;
+  translation: string;
 
-  click: number | undefined;
+  click: number;
 
-  id: string | undefined;
+  id: string;
 
-  correct: number | undefined;
+  correct: number;
 
-  wrong: number | undefined;
+  wrong: number;
 
-  persOfErrors: number | undefined;
+  persOfErrors: number;
 
   constructor(
     category: string,
