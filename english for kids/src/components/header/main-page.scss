@@ -2,8 +2,7 @@
   width: 80%;
 }
 
-#menuToggle
-{
+#menuToggle {
   display: block;
   position: relative;
   top: 10px;
@@ -14,19 +13,16 @@
   user-select: none;
 }
 
-#menuToggle a
-{
+#menuToggle a {
   text-decoration: none;
   color: #232323;
   transition: color 0.3s ease;
 }
 
-#menuToggle a:hover
-{
+#menuToggle a:hover {
   color: tomato;
 }
-#menuToggle input
-{
+#menuToggle input {
   display: block;
   width: 40px;
   height: 32px;
@@ -39,8 +35,7 @@
   -webkit-touch-callout: none;
 }
 
-#menuToggle span
-{
+#menuToggle span {
   display: block;
   width: 33px;
   height: 4px;
@@ -50,37 +45,30 @@
   border-radius: 3px;
   z-index: 1;
   transform-origin: 4px 0px;
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              opacity 0.55s ease;
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+    background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
 }
-#menuToggle span:first-child
-{
+#menuToggle span:first-child {
   transform-origin: 0% 0%;
 }
-#menuToggle span:nth-last-child(2)
-{
+#menuToggle span:nth-last-child(2) {
   transform-origin: 0% 100%;
 }
-#menuToggle input:checked ~ span
-{
+#menuToggle input:checked ~ span {
   opacity: 1;
   transform: rotate(45deg) translate(-2px, -1px);
   background: #232323;
 }
 
-#menuToggle input:checked ~ span:nth-last-child(3)
-{
+#menuToggle input:checked ~ span:nth-last-child(3) {
   opacity: 0;
   transform: rotate(0deg) scale(0.2, 0.2);
 }
 
-#menuToggle input:checked ~ span:nth-last-child(2)
-{
+#menuToggle input:checked ~ span:nth-last-child(2) {
   transform: rotate(-45deg) translate(0, -1px);
 }
-#menu
-{
+#menu {
   position: absolute;
   width: fit-content;
   margin: -100px 0 0 -50px;
@@ -91,38 +79,30 @@
   -webkit-font-smoothing: antialiased;
   transform-origin: 0% 0%;
   transform: translate(-100%, 0);
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
 }
 
-#menu li
-{
+#menu li {
   padding: 10px 0;
   font-size: 22px;
 }
 
-#menuToggle input:checked ~ ul
-{
+#menuToggle input:checked ~ ul {
   transform: none;
 }
 
-
-
-
-
-
-
 $width: 120px;
-$height: $width * .4;
+$height: $width * 0.4;
 $neutral: #b2b2ad;
 $on: #2cb4b2;
 $off: #d74141;
 
 @mixin raise {
-  box-shadow: -4px -4px 8px rgba(#fff, .5), 4px 4px 8px rgba(#000, .3);
+  box-shadow: -4px -4px 8px rgba(#fff, 0.5), 4px 4px 8px rgba(#000, 0.3);
 }
 
 @mixin sink {
-  box-shadow: 2px 2px 4px rgba(#fff, .5), -2px -2px 4px rgba(#000, .3);
+  box-shadow: 2px 2px 4px rgba(#fff, 0.5), -2px -2px 4px rgba(#000, 0.3);
 }
 
 @mixin flat {
@@ -149,9 +129,10 @@ $off: #d74141;
   height: $height;
   @include raise;
   border-radius: $height;
-  &::before, &::after {
-    font-family: 'Nunito', sans-serif;
-    font-size: $tickHeight * .5;
+  &::before,
+  &::after {
+    font-family: "Nunito", sans-serif;
+    font-size: $tickHeight * 0.5;
     text-align: center;
     line-height: $tickHeight;
     position: absolute;
@@ -159,16 +140,16 @@ $off: #d74141;
     height: $tickHeight;
     border-radius: $tickHeight;
     top: 10px;
-    transition: all .15s;
+    transition: all 0.15s;
   }
   &::before {
-    content: 'TRAIN';
+    content: "TRAIN";
     left: 10px;
     color: $off;
     @include sink;
   }
   &::after {
-    content: 'PLAY';
+    content: "PLAY";
     left: $tickWidth + 15;
     color: $neutral;
     @include flat;
@@ -184,7 +165,6 @@ $off: #d74141;
     }
   }
 }
-
 
 .themes-block {
   display: flex;
@@ -207,8 +187,7 @@ $off: #d74141;
   border-color: greenyellow;
 }
 
-
-.btn-to-start-play{
+.btn-to-start-play {
   border: 2px solid #ffa812;
   background-color: #ff9900;
   color: white;
@@ -221,36 +200,33 @@ $off: #d74141;
   text-shadow: 2px 2px 0 #e67409;
 }
 
-.btn-to-start-play:hover{
+.btn-to-start-play:hover {
   transform: translateY(5px);
   text-shadow: 2px 2px 0 #42964c;
 }
 
-  .btn-to-start-play:target,
-  .btn-to-start-play:active{
-    transform: translateY(5px);
-    box-shadow: 0 0 0 #e67409;
-    text-shadow: 2px 2px 0 #42964c;
-    background-color: #69c160;
-    border: 2px solid #42964c;}
+.btn-to-start-play:target,
+.btn-to-start-play:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 #e67409;
+  text-shadow: 2px 2px 0 #42964c;
+  background-color: #69c160;
+  border: 2px solid #42964c;
+}
 
-  .div-with-btn-to-start-play {
-    text-align: center;
-  }
+.div-with-btn-to-start-play {
+  text-align: center;
+}
 
-  .btn-to-repeat-audio.btn-to-start-play {
-    padding: 30px;
-  }
+.btn-to-repeat-audio.btn-to-start-play {
+  padding: 30px;
+}
 
-  .hidden {
-    display: none;
-  }
+.hidden {
+  display: none;
+}
 
-
-
-
-
-  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500");
 .buttons {
   text-align: center;
   a {
@@ -307,7 +283,7 @@ $off: #d74141;
     opacity: 0;
     visibility: hidden;
     -webkit-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
   }
 }

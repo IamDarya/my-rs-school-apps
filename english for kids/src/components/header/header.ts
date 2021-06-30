@@ -19,28 +19,28 @@ export class Header extends BaseComponent {
     this.gridBtn = gridBtn;
   }
 
-  drawHeader(categories: ImageCategoryModel[]) {
-    let menuToggle = document.createElement('div');
+  drawHeader(categories: ImageCategoryModel[]): void {
+    const menuToggle = document.createElement('div');
     menuToggle.id = 'menuToggle';
 
-    let inputCheckBox = document.createElement('input');
+    const inputCheckBox = document.createElement('input');
     inputCheckBox.setAttribute('type', 'checkbox');
     menuToggle.appendChild(inputCheckBox);
 
     for (let i = 0; i < 3; i++) {
-      let span = document.createElement('span');
+      const span = document.createElement('span');
       menuToggle.appendChild(span);
     }
 
-    let ulOfTopics = document.createElement('ul');
+    const ulOfTopics = document.createElement('ul');
     ulOfTopics.id = 'menu';
     menuToggle.appendChild(ulOfTopics);
 
-    let linkTopcMainPage = document.createElement('a');
-    let liTopicMainPage = document.createElement('li');
+    const linkTopcMainPage = document.createElement('a');
+    const liTopicMainPage = document.createElement('li');
     linkTopcMainPage.setAttribute('href', '#');
-    liTopicMainPage.setAttribute('data-topic', `Main Page`);
-    liTopicMainPage.innerText = `Main Page`;
+    liTopicMainPage.setAttribute('data-topic', 'Main Page');
+    liTopicMainPage.innerText = 'Main Page';
     ulOfTopics.appendChild(linkTopcMainPage);
     linkTopcMainPage.appendChild(liTopicMainPage);
     liTopicMainPage.addEventListener('click', () => {
@@ -48,8 +48,8 @@ export class Header extends BaseComponent {
     });
 
     for (let i = 0; i < categories.length; i++) {
-      let linkTopc = document.createElement('a');
-      let liTopic = document.createElement('li');
+      const linkTopc = document.createElement('a');
+      const liTopic = document.createElement('li');
       linkTopc.setAttribute('href', '#');
       liTopic.setAttribute('data-topic', categories[i].category);
       liTopic.innerText = categories[i].category;
@@ -57,7 +57,9 @@ export class Header extends BaseComponent {
       linkTopc.appendChild(liTopic);
 
       liTopic.addEventListener('click', (e: Event) => {
-        let activeTheme = (e.target as HTMLElement).getAttribute('data-topic');
+        const activeTheme = (e.target as HTMLElement).getAttribute(
+          'data-topic',
+        );
         if (activeTheme !== null && activeTheme !== 'Main Page') {
           this.gridBtn.drawCategory(activeTheme);
           inputCheckBox.checked = false;
@@ -70,19 +72,22 @@ export class Header extends BaseComponent {
 
     this.element.appendChild(menuToggle);
 
-    let linkToStatistics = document.createElement('a');
-    let liToStatistics = document.createElement('li');
+    const linkToStatistics = document.createElement('a');
+    const liToStatistics = document.createElement('li');
     linkToStatistics.setAttribute('href', '#statistics');
-    liToStatistics.setAttribute('data-topic', `Statistics`);
-    liToStatistics.innerText = `Statistics`;
+    liToStatistics.setAttribute('data-topic', 'Statistics');
+    liToStatistics.innerText = 'Statistics';
     ulOfTopics.appendChild(linkToStatistics);
     linkToStatistics.appendChild(liToStatistics);
 
-      window.addEventListener('click', (e)=>{
-        let eventWindow = e.target as HTMLElement;
-        if(eventWindow.parentElement?.id !== 'menuToggle' || eventWindow.parentElement.id === null){
-          inputCheckBox.checked = false;
-        }
-        })
+    window.addEventListener('click', (e) => {
+      const eventWindow = e.target as HTMLElement;
+      if (
+        eventWindow.parentElement?.id !== 'menuToggle'
+        || eventWindow.parentElement.id === null
+      ) {
+        inputCheckBox.checked = false;
+      }
+    });
   }
 }

@@ -1,19 +1,17 @@
-import { BaseComponent } from "../base-component";
+import { BaseComponent } from '../base-component';
 import './game.scss';
-import { CardView } from "../card-view/card-view";
-import { ImageCategoryModel } from "../image-category-models/image-category-models";
-import errorAud from "../../assets/error.mp3";
-import correctAudio from "../../assets/correct.mp3";
-import { DatabaseIamDarya } from "../database/database";
-import { WordStatistic } from "../database/word-statist";
+import { CardView } from '../card-view/card-view';
+import { ImageCategoryModel } from '../image-category-models/image-category-models';
+import errorAud from '../../assets/error.mp3';
+import correctAudio from '../../assets/correct.mp3';
+import { DatabaseIamDarya } from '../database/database';
 
 export class Game extends BaseComponent {
-
   databaseIamDarya: DatabaseIamDarya;
 
   cardView: CardView | undefined;
 
-  allAudios: String[];
+  allAudios: string[];
 
   currentAuodio: HTMLAudioElement;
 
@@ -37,90 +35,110 @@ export class Game extends BaseComponent {
     this.correctAudio = new Audio(correctAudio);
     this.amountOfErrors = 0;
     this.databaseIamDarya = databaseIamDarya;
-
   }
 
-  async startGame(category: ImageCategoryModel, cardView: CardView[]){
+  async startGame(category: ImageCategoryModel, cardView: CardView[]): Promise<void> {
     this.callBacks = [];
     this.callBacksForEndGame = [];
     this.amountOfErrors = 0;
     let categoryToFilter = [...category.cardsContent];
 
-      let randomAudio = new Audio(`${(categoryToFilter[Math.floor(Math.random() * categoryToFilter.length)].audioSrc)}`);
-       this.playAudio(randomAudio);
-       let currentRandomObj =  categoryToFilter.filter(x => x.audioSrc === randomAudio.getAttribute('src'));
-       console.log(currentRandomObj)
-       let keyToWordInDB = category.category + currentRandomObj[0].word + currentRandomObj[0].translation;
-       let currentCard = await this.databaseIamDarya.getWord(keyToWordInDB);
+    let randomAudio = new Audio(
+      `${
+        categoryToFilter[Math.floor(Math.random() * categoryToFilter.length)]
+          .audioSrc
+      }`,
+    );
+    this.playAudio(randomAudio);
+    let currentRandomObj = categoryToFilter.filter(
+      (x) => x.audioSrc === randomAudio.getAttribute('src'),
+    );
 
-       this.currentAuodio = randomAudio;
+    let keyToWordInDB = category.category
+      + currentRandomObj[0].word
+      + currentRandomObj[0].translation;
+    let currentCard = await this.databaseIamDarya.getWord(keyToWordInDB);
 
-      cardView.forEach((el)=>{
-        el.element.addEventListener('click', async()=>{
+    this.currentAuodio = randomAudio;
 
-          if(el.element.firstElementChild?.getAttribute('src') === randomAudio.getAttribute('src')){
-            if(randomAudio.getAttribute('src') !== null){
-             categoryToFilter = categoryToFilter.filter(aud => aud.audioSrc !== randomAudio.getAttribute('src'));
-             console.log(categoryToFilter)
+    cardView.forEach((el) => {
+      el.element.addEventListener('click', async () => {
+        if (
+          el.element.firstElementChild?.getAttribute('src')
+          === randomAudio.getAttribute('src')
+        ) {
+          if (randomAudio.getAttribute('src') !== null) {
+            categoryToFilter = categoryToFilter.filter(
+              (aud) => aud.audioSrc !== randomAudio.getAttribute('src'),
+            );
 
-              el.element.classList.add('inactive-card');
-             cardView = cardView.filter(card=>card !== el);
-             console.log(cardView);
+            el.element.classList.add('inactive-card');
+            cardView = cardView.filter((card) => card !== el);
 
-             this.callBacks.forEach(el=> el('Correct'));
-             this.playAudio(this.correctAudio);
+            this.callBacks.forEach((el) => el('Correct'));
+            this.playAudio(this.correctAudio);
 
-             if(categoryToFilter[Math.floor(Math.random() * categoryToFilter.length)] !== undefined){
-              randomAudio = new Audio(`${(categoryToFilter[Math.floor(Math.random() * categoryToFilter.length)].audioSrc)}`);
+            if (
+              categoryToFilter[
+                Math.floor(Math.random() * categoryToFilter.length)
+              ] !== undefined
+            ) {
+              randomAudio = new Audio(
+                `${
+                  categoryToFilter[
+                    Math.floor(Math.random() * categoryToFilter.length)
+                  ].audioSrc
+                }`,
+              );
               this.currentAuodio = randomAudio;
-               this.playAudio(randomAudio);
+              this.playAudio(randomAudio);
 
-                currentRandomObj =  categoryToFilter.filter(x => x.audioSrc === randomAudio.getAttribute('src'));
-                keyToWordInDB = category.category + currentRandomObj[0].word + currentRandomObj[0].translation;
-                currentCard = await this.databaseIamDarya.getWord(keyToWordInDB);
+              currentRandomObj = categoryToFilter.filter(
+                (x) => x.audioSrc === randomAudio.getAttribute('src'),
+              );
+              keyToWordInDB = category.category
+                + currentRandomObj[0].word
+                + currentRandomObj[0].translation;
+              currentCard = await this.databaseIamDarya.getWord(keyToWordInDB);
 
-               if(currentCard.correct !== undefined){
+              if (currentCard.correct !== undefined) {
                 currentCard.correct++;
                 this.databaseIamDarya.update(currentCard);
-               }
-             }
+              }
             }
           }
-          else{
-            if(cardView.indexOf(el)>=0){
+        } else if (cardView.indexOf(el) >= 0) {
+          this.callBacks.forEach((elm) => elm('Fail'));
 
-              this.callBacks.forEach(el=> el('Fail'));
+          this.playAudio(this.errorAudio);
 
-              this.playAudio(this.errorAudio);
+          this.amountOfErrors++;
 
-              this.amountOfErrors++;
-
-              if(currentCard.wrong !== undefined){
-                currentCard.wrong++;
-                this.databaseIamDarya.update(currentCard);
-               }
-            }
+          if (currentCard.wrong !== undefined) {
+            currentCard.wrong++;
+            this.databaseIamDarya.update(currentCard);
           }
-          if(cardView.length === 0){
-             this.endGame();
-          }
-        })
-      })
+        }
+        if (cardView.length === 0) {
+          this.endGame();
+        }
+      });
+    });
   }
 
-   endGame() {
-    this.callBacksForEndGame.forEach(el=> el());
-    }
-
-  playAudio(audio: HTMLAudioElement){
-    setTimeout(()=>audio.play(), 1000);
+  endGame(): void {
+    this.callBacksForEndGame.forEach((el) => el());
   }
 
-  onUserAnswer(callBack: ((str: string) => void)){
+  playAudio(audio: HTMLAudioElement): void {
+    setTimeout(() => audio.play(), 1000);
+  }
+
+  onUserAnswer(callBack: (str: string) => void): void {
     this.callBacks.push(callBack);
   }
 
-  onEndGame(callBacksForEndGame: (() => void)){
+  onEndGame(callBacksForEndGame: () => void): void {
     this.callBacksForEndGame.push(callBacksForEndGame);
   }
 }

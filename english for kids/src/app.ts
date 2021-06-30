@@ -22,7 +22,6 @@ export class App {
   constructor(private readonly rootElement: HTMLElement) {
     this.newRout = new NewRout();
 
-
     this.dataBaseIamDarya = new DatabaseIamDarya();
 
     this.game = new Game(this.dataBaseIamDarya);
@@ -32,11 +31,9 @@ export class App {
     this.header = new Header(this.gridBtn, this.newRout);
 
     this.statistics = new Statistics(this.dataBaseIamDarya);
-
   }
 
   async start(): Promise<void> {
-
     this.newRout.add('statistics', () => {
       this.statistics.show();
       this.gridBtn.hide();
@@ -59,20 +56,28 @@ export class App {
     // this.rootElement.appendChild(this.mainPage.element);
     this.gridBtn.drawAllCategories();
 
-    for(let i=0;i<categories.length;i++){
-      for(let j=0;j<categories[i].cardsContent.length;j++){
-        if(await this.dataBaseIamDarya.getWord(categories[i].category+categories[i].cardsContent[j].word+categories[i].cardsContent[j].translation) === undefined){
+    for (let i = 0; i < categories.length; i++) {
+      for (let j = 0; j < categories[i].cardsContent.length; j++) {
+        if (
+          (await this.dataBaseIamDarya.getWord(
+            categories[i].category
+              + categories[i].cardsContent[j].word
+              + categories[i].cardsContent[j].translation,
+          )) === undefined
+        ) {
           const wordStatistic = new WordStatistic(
             categories[i].category,
             categories[i].cardsContent[j].word,
             categories[i].cardsContent[j].translation,
             0,
-            categories[i].category+categories[i].cardsContent[j].word+categories[i].cardsContent[j].translation,
+            categories[i].category
+              + categories[i].cardsContent[j].word
+              + categories[i].cardsContent[j].translation,
             0,
             0,
             0,
-            );
-            await this.dataBaseIamDarya.transaction(wordStatistic);
+          );
+          await this.dataBaseIamDarya.transaction(wordStatistic);
         }
       }
     }

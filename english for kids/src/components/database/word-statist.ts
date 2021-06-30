@@ -11,7 +11,7 @@ export class WordStatistic {
 
   correct: number | undefined;
 
-  wrong : number | undefined;
+  wrong: number | undefined;
 
   persOfErrors: number | undefined;
 
@@ -22,7 +22,7 @@ export class WordStatistic {
     click: number,
     id: string,
     correct: number,
-    wrong : number,
+    wrong: number,
     persOfErrors: number,
   ) {
     this.category = category;
