@@ -200,9 +200,10 @@ $off: #d74141;
   text-shadow: 2px 2px 0 #e67409;
 }
 
+.btn-to-repeat-audio:hover,
 .btn-to-start-play:hover {
   transform: translateY(5px);
-  text-shadow: 2px 2px 0 #42964c;
+  text-shadow: 0px 0px 20px #67ff28, 0px 0px 6px #fcff2a;
 }
 
 .btn-to-start-play:target,

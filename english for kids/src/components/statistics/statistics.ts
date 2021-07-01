@@ -15,6 +15,10 @@ export class Statistics extends BaseComponent {
 
   sortIconCategory: HTMLElement | undefined;
 
+    divWithBtnToResetStatistic: HTMLDivElement;
+      btnToReset: HTMLButtonElement;
+      btnToPlayHard: HTMLButtonElement;
+
   topPart: HTMLElement;
 
   allWords: WordStatistic[];
@@ -37,6 +41,9 @@ export class Statistics extends BaseComponent {
     super('div', ['statistics-wrapper']);
     this.databaseIamDarya = databaseIamDarya;
     this.allWords = [];
+    this.divWithBtnToResetStatistic = document.createElement('div');
+        this.btnToReset = document.createElement('button');
+        this.btnToPlayHard = document.createElement('button');
     this.sortStateCategory = false;
     this.sortStateWord = false;
     this.sortStateTranslation = false;
@@ -48,6 +55,16 @@ export class Statistics extends BaseComponent {
     const htwo = document.createElement('h2');
     htwo.innerText = 'Statistic';
     this.element.appendChild(htwo);
+
+    this.divWithBtnToResetStatistic.classList.add('div-with-btn-to-reset')
+    this.btnToReset.classList.add('btn-to-reset');
+    this.btnToReset.innerText = 'Reset';
+    this.btnToPlayHard.classList.add('btn-to-reset');
+    this.btnToPlayHard.innerText = 'Repeat difficult words';
+
+    this.element.appendChild(this.divWithBtnToResetStatistic);
+    this.divWithBtnToResetStatistic.appendChild(this.btnToReset)
+    this.divWithBtnToResetStatistic.appendChild(this.btnToPlayHard);
 
     this.statisticGridWrapper = document.createElement('div');
     this.ulWithWordsInfoTop = document.createElement('ul');
@@ -84,6 +101,10 @@ export class Statistics extends BaseComponent {
       oneDivOfStatisticsValue.appendChild(this.sortIconCategory);
       this.topPart.appendChild(oneDivOfStatisticsValue);
     }
+
+    this.btnToReset.addEventListener('click', ()=>{
+      this.resetStatistic();
+    })
   }
 
   async sortBy(sortBy: string | undefined) {
@@ -200,5 +221,16 @@ export class Statistics extends BaseComponent {
       wordLi.appendChild(wrong);
       wordLi.appendChild(errorsPers);
     }
+  }
+
+  resetStatistic(){
+for(let i=0;i<this.allWords.length;i++){
+  this.allWords[i].click = 0;
+  this.allWords[i].correct = 0;
+  this.allWords[i].persOfErrors = 0;
+  this.allWords[i].wrong = 0;
+  this.databaseIamDarya.update(this.allWords[i]);
+}
+this.statisticShow();
   }
 }
