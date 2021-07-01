@@ -149,7 +149,7 @@ export class Statistics extends BaseComponent {
       this.allWords = this.allWords.sort((a, b) => ((this.sortStateWrong) ? b.wrong - a.wrong : a.wrong - b.wrong));
       this.sortStateWrong = !this.sortStateWrong;
     }
-    if (sortBy === 'errors(%)') {
+    if (sortBy === 'correct(%)') {
       this.allWords = this.allWords.sort((a, b) => ((this.sortStateErrors) ? b.persOfErrors - a.persOfErrors : a.persOfErrors - b.persOfErrors));
       this.sortStateErrors = !this.sortStateErrors;
     }
