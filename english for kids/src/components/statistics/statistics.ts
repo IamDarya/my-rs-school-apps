@@ -61,7 +61,7 @@ export class Statistics extends BaseComponent {
     this.topPart.classList.add('topPart-li');
     this.ulWithWordsInfoTop.appendChild(this.topPart);
 
-    const arrOfStatisticsValues = ['category', 'word', 'translation', 'clicks', 'correct', 'wrong', 'errors(%)'];
+    const arrOfStatisticsValues = ['category', 'word', 'translation', 'clicks', 'correct', 'wrong', 'correct(%)'];
     for (let i = 0; i < arrOfStatisticsValues.length; i++) {
       const oneDivOfStatisticsValue = document.createElement('div');
       oneDivOfStatisticsValue.classList.add('one-category', `${arrOfStatisticsValues[i]}-category`);
@@ -182,16 +182,14 @@ export class Statistics extends BaseComponent {
       const wrong = document.createElement('p');
       wrong.innerText = `${this.allWords[i].wrong}`;
       const errorsPers = document.createElement('p');
+      // if (this.allWords[i].correct > 0 || this.allWords[i].wrong > 0) {
+        errorsPers.innerText = `${
+          this.allWords[i].persOfErrors.toFixed(0)}%`;
+      // } else {
+      //   errorsPers.innerText = `${this.allWords[i].persOfErrors}%`;
+      // }
       if (i % 2 === 0) {
         wordLi.classList.add('color-line');
-      }
-      if (this.allWords[i].correct > 0 || this.allWords[i].wrong > 0) {
-        errorsPers.innerText = `${(
-          (this.allWords[i].correct / (this.allWords[i].correct + this.allWords[i].wrong))
-          * 100
-        ).toFixed(0)}%`;
-      } else {
-        errorsPers.innerText = `${this.allWords[i].persOfErrors}%`;
       }
 
       wordLi.appendChild(category);

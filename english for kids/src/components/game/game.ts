@@ -103,7 +103,10 @@ export class Game extends BaseComponent {
 
               if (currentCard.correct !== undefined) {
                 currentCard.correct++;
-                this.databaseIamDarya.update(currentCard);
+                                this.databaseIamDarya.update(currentCard);
+                currentCard.persOfErrors = currentCard.correct / (currentCard.correct + currentCard.wrong) * 100;
+                               this.databaseIamDarya.update(currentCard);
+                //this.allWords[i].correct / (this.allWords[i].correct + this.allWords[i].wrong)
               }
             }
           }
@@ -116,7 +119,10 @@ export class Game extends BaseComponent {
 
           if (currentCard.wrong !== undefined) {
             currentCard.wrong++;
-            this.databaseIamDarya.update(currentCard);
+                        this.databaseIamDarya.update(currentCard);
+            currentCard.persOfErrors = currentCard.correct / (currentCard.correct + currentCard.wrong) * 100;
+                       this.databaseIamDarya.update(currentCard);
+            //this.allWords[i].correct / (this.allWords[i].correct + this.allWords[i].wrong)
           }
         }
         if (cardView.length === 0) {
