@@ -1,5 +1,6 @@
 .nav-burger {
   width: 80%;
+  margin-left: 16%;
 }
 
 #menuToggle {
@@ -71,8 +72,8 @@
 #menu {
   position: absolute;
   width: fit-content;
-  margin: -100px 0 0 -50px;
-  padding: 100px 18% 300px 25%;
+  margin: -100px 0 0 -27%;
+  padding: 100px 10% 300px 25%;
   padding-top: 125px;
   background: #ededed;
   list-style-type: none;
@@ -287,4 +288,38 @@ $off: #d74141;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
   }
+}
+
+//LOGIN BTN
+
+.login-btn-div {
+  position: absolute;
+  bottom: 60px;
+}
+
+.login-btn  {
+  border: 2px solid #ffa812;
+  background-color: #ff9900;
+  color: white;
+  border-radius: 10px;
+  padding: 0.3em;
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: 0 5px 0 #e67409;
+  transition-duration: 0.4s;
+  text-shadow: 2px 2px 0 #e67409;
+}
+
+.login-btn:hover {
+  transform: translateY(5px);
+  text-shadow: 0px 0px 20px #67ff28, 0px 0px 6px #fcff2a;
+}
+
+.login-btn:target,
+.login-btn:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 #e67409;
+  text-shadow: 2px 2px 0 #42964c;
+  background-color: #69c160;
+  border: 2px solid #42964c;
 }

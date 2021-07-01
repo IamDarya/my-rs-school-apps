@@ -12,11 +12,17 @@ export class Header extends BaseComponent {
 
   newRout: NewRout;
 
+  loginBtn: HTMLElement;
+
+  loginBtnLi: HTMLElement;
+
   constructor(gridBtn: GridBtn, newRout: NewRout) {
     super('nav', ['nav-burger']);
     this.categories = [];
     this.newRout = newRout;
     this.gridBtn = gridBtn;
+    this.loginBtnLi = document.createElement('li');
+    this.loginBtn = document.createElement('button');
   }
 
   drawHeader(categories: ImageCategoryModel[]): void {
@@ -79,6 +85,15 @@ export class Header extends BaseComponent {
     liToStatistics.innerText = 'Statistics';
     ulOfTopics.appendChild(linkToStatistics);
     linkToStatistics.appendChild(liToStatistics);
+
+    this.loginBtn.innerText = `Login`;
+    this.loginBtn.classList.add('login-btn');
+    this.loginBtnLi.classList.add('login-btn-div');
+    this.loginBtnLi.appendChild(this.loginBtn);
+    ulOfTopics.appendChild(this.loginBtnLi);
+    this.loginBtn.addEventListener('click', ()=>{
+
+    })
 
     window.addEventListener('click', (e) => {
       const eventWindow = e.target as HTMLElement;
