@@ -182,6 +182,9 @@ export class Statistics extends BaseComponent {
       const wrong = document.createElement('p');
       wrong.innerText = `${this.allWords[i].wrong}`;
       const errorsPers = document.createElement('p');
+      if (i % 2 === 0) {
+        wordLi.classList.add('color-line');
+      }
       if (this.allWords[i].correct > 0 || this.allWords[i].wrong > 0) {
         errorsPers.innerText = `${(
           (this.allWords[i].correct / (this.allWords[i].correct + this.allWords[i].wrong))
