@@ -24,7 +24,7 @@
 .cansel-btn-popup,
 .login-btn-popup {
   border: 2px solid #ffa812;
-  background-color: #ff9900;
+  background-color: #ff99008a;
   color: white;
   border-radius: 10px;
   padding: 0.3em;
@@ -32,7 +32,7 @@
   cursor: pointer;
   box-shadow: 0 5px 0 #e67409;
   transition-duration: 0.4s;
-  text-shadow: 2px 2px 0 #e67409;
+  text-shadow: 2px 2px 0 #e674098a;
   box-sizing: border-box;
 }
 
@@ -46,7 +46,7 @@
 .cansel-btn-popup:active,
 .login-btn-popup:active {
   transform: translateY(5px);
-  box-shadow: 0 0 0 #e67409;
+  box-shadow: 0 0 0 #e674098a;
   text-shadow: 2px 2px 0 #42964c;
   background-color: #69c160;
   border: 2px solid #42964c;
@@ -59,6 +59,6 @@
   padding: 0.3em;
   font-size: 1.3rem;
   transition-duration: 0.4s;
-  text-shadow: 2px 2px 0 #e67409;
+  text-shadow: 2px 2px 0 #e674098a;
   box-sizing: border-box;
 }
