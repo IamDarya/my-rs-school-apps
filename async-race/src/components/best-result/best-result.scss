@@ -1,0 +1,39 @@
+li {
+  display: grid;
+  grid-template-columns: 66px 80px 120px 65px 150px;
+  column-gap: 25px;
+  height: 72px;
+  align-items: center;
+  width: fit-content;
+  border-bottom: solid;
+  border-color: #57d5d71a;
+}
+
+h2,
+.page-winners,
+.num-of-page-winners,
+.amount-of-winners-on-page {
+  display: inline-block;
+}
+
+.best-result-wrapper {
+  margin-left: 15px;
+}
+
+.column-with-btn {
+  display: flex;
+}
+
+.sort-by-wins,
+.sort-by-time {
+  background-image: url("../../assets/arrow.png");
+  filter: brightness(1.5);
+  background-size: cover;
+  width: 20px;
+  background-color: transparent;
+  border: none;
+}
+
+.resort {
+  transform: rotate(180deg);
+}
