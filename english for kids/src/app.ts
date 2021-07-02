@@ -5,6 +5,8 @@ import { Game } from './components/game/game';
 import { DatabaseIamDarya } from './components/database/database';
 import { WordStatistic } from './components/database/word-statist';
 import { Statistics } from './components/statistics/statistics';
+import { Registration } from './components/registration/registration';
+import { Overlay } from './components/grid-btn/overlay';
 
 export class App {
   private readonly newRout: NewRout;
@@ -13,6 +15,10 @@ export class App {
 
   private readonly gridBtn: GridBtn;
 
+  private readonly registration: Registration;
+
+  overlay: Overlay;
+
   game: Game;
 
   dataBaseIamDarya: DatabaseIamDarya;
@@ -20,15 +26,19 @@ export class App {
   private readonly statistics: Statistics;
 
   constructor(private readonly rootElement: HTMLElement) {
+    this.overlay = new Overlay();
+
     this.newRout = new NewRout();
 
     this.dataBaseIamDarya = new DatabaseIamDarya();
 
     this.game = new Game(this.dataBaseIamDarya);
 
-    this.gridBtn = new GridBtn(this.game, this.dataBaseIamDarya);
+    this.gridBtn = new GridBtn(this.game, this.dataBaseIamDarya, this.overlay);
 
-    this.header = new Header(this.gridBtn, this.newRout);
+    this.registration = new Registration(this.overlay);
+
+    this.header = new Header(this.gridBtn, this.newRout, this.registration);
 
     this.statistics = new Statistics(this.dataBaseIamDarya);
   }
@@ -50,9 +60,11 @@ export class App {
     const categories = await allThemesJson.json();
     this.header.drawHeader(categories);
     this.gridBtn.categories = categories;
+    this.rootElement.appendChild(this.registration.element);
     this.rootElement.appendChild(this.header.element);
     this.rootElement.appendChild(this.gridBtn.element);
     this.rootElement.appendChild(this.statistics.element);
+    this.rootElement.appendChild(this.overlay.element);
     // this.rootElement.appendChild(this.mainPage.element);
     this.gridBtn.drawAllCategories();
 

@@ -6,14 +6,17 @@ import { Game } from '../game/game';
 import correctPic from '../../assets/star-win.svg';
 import failPic from '../../assets/star.svg';
 import repeatPic from '../../assets/repeat.svg';
-import endGameNoErrors from '../../assets/success.jpg';
-import endGameWithErrors from '../../assets/failure.jpg';
+import endGameNoErrors from '../../assets/success.png';
+import endGameWithErrors from '../../assets/failure.png';
 import endGameNoErrorsAudio from '../../assets/success.mp3';
 import endGameWithErrorsAudio from '../../assets/failure.mp3';
 import { DatabaseIamDarya } from '../database/database';
+import { Overlay } from './overlay';
 
 export class GridBtn extends BaseComponent {
   dataBaseIamDarya: DatabaseIamDarya;
+
+  overlay: Overlay;
 
   train: string;
 
@@ -33,23 +36,22 @@ export class GridBtn extends BaseComponent {
 
   divWithFailCorrectSigns: HTMLElement;
 
-  overlayForEndGame: HTMLElement;
-
   overlayContent: HTMLElement;
 
   game: Game;
 
   arrayOfCardDivs: CardView[];
 
-  constructor(game: Game, dataBaseIamDarya: DatabaseIamDarya) {
+  constructor(game: Game, dataBaseIamDarya: DatabaseIamDarya, overlay: Overlay) {
     super('div', ['grid-of-img-and-switch-btn-wrapper']);
+    this.overlay = overlay;
     this.train = 'Train';
     this.themesBlock = document.createElement('div');
     this.divWithFailCorrectSigns = document.createElement('div');
     this.divWithBtnToStartPlay = document.createElement('div');
     this.btnToStartPlay = document.createElement('button');
     this.btnToRepeatAudio = document.createElement('button');
-    this.overlayForEndGame = document.createElement('div');
+    // this.overlayForEndGame = document.createElement('div');
     this.overlayContent = document.createElement('div');
     this.categories = [];
     this.activeCategoryObj = undefined;
@@ -126,10 +128,8 @@ export class GridBtn extends BaseComponent {
       }
     });
 
-    this.overlayForEndGame.classList.add('overlay', 'hidden');
     this.overlayContent.classList.add('content');
-    this.overlayForEndGame.appendChild(this.overlayContent);
-    this.element.appendChild(this.overlayForEndGame);
+    this.element.appendChild(this.overlayContent);
   }
 
   ShowPopUpEndGame(): void {
@@ -149,11 +149,11 @@ export class GridBtn extends BaseComponent {
       );
       this.game.playAudio(endGameNoErrorsAudioConvert);
     }
-    this.overlayForEndGame.classList.add('is-on');
-    this.overlayForEndGame.classList.remove('hidden');
+    this.overlay.overlayON();
+    this.overlayContent.classList.add('is-on');
     setTimeout(() => {
-      this.overlayForEndGame.classList.remove('is-on');
-      this.overlayForEndGame.classList.add('hidden');
+      this.overlayContent.classList.remove('is-on');
+      this.overlay.overlayOFF();
     }, 5000);
     this.drawAllCategories();
   }

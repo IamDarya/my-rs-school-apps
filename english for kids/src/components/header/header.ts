@@ -4,6 +4,7 @@ import { BaseComponent } from '../base-component';
 import { GridBtn } from '../grid-btn/grid-btn';
 import { ImageCategoryModel } from '../image-category-models/image-category-models';
 import { NewRout } from '../routing/newRouting';
+import { Registration } from '../registration/registration';
 
 export class Header extends BaseComponent {
   categories: ImageCategoryModel[];
@@ -16,13 +17,16 @@ export class Header extends BaseComponent {
 
   loginBtnLi: HTMLElement;
 
-  constructor(gridBtn: GridBtn, newRout: NewRout) {
+  registration: Registration;
+
+  constructor(gridBtn: GridBtn, newRout: NewRout, registration: Registration) {
     super('nav', ['nav-burger']);
     this.categories = [];
     this.newRout = newRout;
     this.gridBtn = gridBtn;
     this.loginBtnLi = document.createElement('li');
     this.loginBtn = document.createElement('button');
+    this.registration = registration;
   }
 
   drawHeader(categories: ImageCategoryModel[]): void {
@@ -86,14 +90,14 @@ export class Header extends BaseComponent {
     ulOfTopics.appendChild(linkToStatistics);
     linkToStatistics.appendChild(liToStatistics);
 
-    this.loginBtn.innerText = `Login`;
+    this.loginBtn.innerText = 'Login';
     this.loginBtn.classList.add('login-btn');
     this.loginBtnLi.classList.add('login-btn-div');
     this.loginBtnLi.appendChild(this.loginBtn);
     ulOfTopics.appendChild(this.loginBtnLi);
-    this.loginBtn.addEventListener('click', ()=>{
-
-    })
+    this.loginBtn.addEventListener('click', () => {
+      this.registration.drawRegistrPopUp();
+    });
 
     window.addEventListener('click', (e) => {
       const eventWindow = e.target as HTMLElement;
