@@ -1,5 +1,5 @@
 import '../header/main-page.scss';
-import picForFlip from '../../assets/rotate.svg';
+import picForFlip from '../../assets/share.png';
 import { BaseComponent } from '../base-component';
 import { Card } from '../image-category-models/card';
 import { DatabaseIamDarya } from '../database/database';
