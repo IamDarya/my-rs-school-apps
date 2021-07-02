@@ -46,7 +46,7 @@ export class CardView extends BaseComponent {
 
   drawPlay(): void {
     this.element.innerHTML = '';
-     this.audio = document.createElement('audio');
+    this.audio = document.createElement('audio');
     this.audio.setAttribute('src', `${this.cardObj.audioSrc}`);
     this.element.classList.add('one-theme-block', 'front');
     this.element.removeAttribute('data-topic');
@@ -66,9 +66,9 @@ export class CardView extends BaseComponent {
     this.element.innerHTML = '';
     const divWithPicToFlipCard = document.createElement('img');
     const back = document.createElement('div');
-     this.audio = document.createElement('audio');
+    this.audio = document.createElement('audio');
     back.classList.add('back', 'hidden');
-    let y = document.createElement('span');
+    const y = document.createElement('span');
     back.appendChild(y);
     y.innerText = `${this.cardObj.translation}`;
     this.audio.setAttribute('src', `${this.cardObj.audioSrc}`);
@@ -89,7 +89,7 @@ export class CardView extends BaseComponent {
       'style',
       `background-image:url('${this.cardObj.image}');`,
     );
-    let x = document.createElement('span');
+    const x = document.createElement('span');
     x.innerText = `${this.cardObj.word}`;
     this.element.appendChild(x);
     // this.element.innerHTML = `${this.cardObj.word}`;
@@ -97,7 +97,7 @@ export class CardView extends BaseComponent {
     this.element.appendChild(back);
     this.element.appendChild(this.audio);
 
-    divWithPicToFlipCard.addEventListener('click',async (e: Event)=>{
+    divWithPicToFlipCard.addEventListener('click', async (e: Event) => {
       const clickOnCard = e.target as HTMLElement;
       const keyToWordInDB = this.category + this.cardObj.word + this.cardObj.translation;
       const currentCard = await this.databaseIamDarya.getWord(keyToWordInDB);
@@ -107,7 +107,7 @@ export class CardView extends BaseComponent {
         back.classList.remove('hidden');
         this.flippCard(clickOnCard);
       }
-    })
+    });
 
     this.element.addEventListener('click', async (e: Event) => {
       const keyToWordInDB = this.category + this.cardObj.word + this.cardObj.translation;
@@ -128,7 +128,7 @@ export class CardView extends BaseComponent {
     this.element.innerHTML = '';
     this.element.classList.add('one-theme-block', 'front');
     // this.element.innerText = `${this.category}`;
-    let y = document.createElement('span');
+    const y = document.createElement('span');
     y.innerText = `${this.category}`;
     this.element.appendChild(y);
     this.element.setAttribute('data-topic', `${this.category}`);
@@ -158,7 +158,7 @@ export class CardView extends BaseComponent {
         if (wholeCard !== null) {
           wholeCard.classList.remove('flipp');
         }
-        setTimeout(()=>wholeCard.getElementsByClassName('back')[0].classList.add('hidden'), 500);
+        setTimeout(() => wholeCard.getElementsByClassName('back')[0].classList.add('hidden'), 500);
       });
     }
   }

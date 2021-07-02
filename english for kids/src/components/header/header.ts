@@ -55,7 +55,7 @@ export class Header extends BaseComponent {
     ulOfTopics.appendChild(linkTopcMainPage);
     linkTopcMainPage.appendChild(liTopicMainPage);
     liTopicMainPage.addEventListener('click', (e: Event) => {
-      this.gridBtn.divWithFailCorrectSigns.innerHTML = ``;
+      this.gridBtn.divWithFailCorrectSigns.innerHTML = '';
       this.addActiveToLi(e);
       this.gridBtn.drawAllCategories();
     });
@@ -70,7 +70,7 @@ export class Header extends BaseComponent {
       linkTopc.appendChild(liTopic);
 
       liTopic.addEventListener('click', (e: Event) => {
-        this.gridBtn.divWithFailCorrectSigns.innerHTML = ``;
+        this.gridBtn.divWithFailCorrectSigns.innerHTML = '';
         this.addActiveToLi(e);
         const activeTheme = (e.target as HTMLElement).getAttribute(
           'data-topic',
@@ -94,17 +94,17 @@ export class Header extends BaseComponent {
     liToStatistics.innerText = 'Statistics';
     ulOfTopics.appendChild(linkToStatistics);
     linkToStatistics.appendChild(liToStatistics);
-    liToStatistics.addEventListener('click',(e:Event)=>{
-      this.gridBtn.divWithFailCorrectSigns.innerHTML = ``;
+    liToStatistics.addEventListener('click', (e:Event) => {
+      this.gridBtn.divWithFailCorrectSigns.innerHTML = '';
       this.addActiveToLi(e);
-    })
+    });
 
     this.loginBtn.innerText = 'Login';
     this.loginBtn.classList.add('login-btn');
     this.loginBtnLi.classList.add('login-btn-div');
     this.loginBtnLi.appendChild(this.loginBtn);
     ulOfTopics.appendChild(this.loginBtnLi);
-    this.loginBtn.addEventListener('click', (e: Event) => {
+    this.loginBtn.addEventListener('click', () => {
       this.registration.drawRegistrPopUp();
     });
 
@@ -119,11 +119,11 @@ export class Header extends BaseComponent {
     });
   }
 
-  addActiveToLi(e:Event){
-    if(document.getElementsByClassName('active')[0] !== undefined){
+  addActiveToLi(e:Event): void { // eslint-disable-line class-methods-use-this
+    if (document.getElementsByClassName('active')[0] !== undefined) {
       document.getElementsByClassName('active')[0].classList.remove('active');
     }
-    let ev = e.target as HTMLElement;
+    const ev = e.target as HTMLElement;
     ev.classList.add('active');
   }
 }
