@@ -55,7 +55,6 @@ export class GridBtn extends BaseComponent {
     this.divWithBtnToStartPlay = document.createElement('div');
     this.btnToStartPlay = document.createElement('button');
     this.btnToRepeatAudio = document.createElement('button');
-    // this.overlayForEndGame = document.createElement('div');
     this.overlayContent = document.createElement('div');
     this.categories = [];
     this.activeCategoryObj = undefined;

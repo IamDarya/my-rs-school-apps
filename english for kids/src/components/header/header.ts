@@ -48,12 +48,15 @@ export class Header extends BaseComponent {
 
     const linkTopcMainPage = document.createElement('a');
     const liTopicMainPage = document.createElement('li');
+    liTopicMainPage.classList.add('active');
     linkTopcMainPage.setAttribute('href', '#');
     liTopicMainPage.setAttribute('data-topic', 'Main Page');
     liTopicMainPage.innerText = 'Main Page';
     ulOfTopics.appendChild(linkTopcMainPage);
     linkTopcMainPage.appendChild(liTopicMainPage);
-    liTopicMainPage.addEventListener('click', () => {
+    liTopicMainPage.addEventListener('click', (e: Event) => {
+      this.gridBtn.divWithFailCorrectSigns.innerHTML = '';
+      this.addActiveToLi(e);
       this.gridBtn.drawAllCategories();
     });
 
@@ -67,6 +70,8 @@ export class Header extends BaseComponent {
       linkTopc.appendChild(liTopic);
 
       liTopic.addEventListener('click', (e: Event) => {
+        this.gridBtn.divWithFailCorrectSigns.innerHTML = '';
+        this.addActiveToLi(e);
         const activeTheme = (e.target as HTMLElement).getAttribute(
           'data-topic',
         );
@@ -89,6 +94,10 @@ export class Header extends BaseComponent {
     liToStatistics.innerText = 'Statistics';
     ulOfTopics.appendChild(linkToStatistics);
     linkToStatistics.appendChild(liToStatistics);
+    liToStatistics.addEventListener('click', (e:Event) => {
+      this.gridBtn.divWithFailCorrectSigns.innerHTML = '';
+      this.addActiveToLi(e);
+    });
 
     this.loginBtn.innerText = 'Login';
     this.loginBtn.classList.add('login-btn');
@@ -108,5 +117,13 @@ export class Header extends BaseComponent {
         inputCheckBox.checked = false;
       }
     });
+  }
+
+  addActiveToLi(e:Event): void { // eslint-disable-line class-methods-use-this
+    if (document.getElementsByClassName('active')[0] !== undefined) {
+      document.getElementsByClassName('active')[0].classList.remove('active');
+    }
+    const ev = e.target as HTMLElement;
+    ev.classList.add('active');
   }
 }
