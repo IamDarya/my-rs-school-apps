@@ -1,0 +1,15 @@
+.overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-image: linear-gradient(to bottom right, #00000075, #292c2cde);
+  opacity: 1;
+  z-index: 10;
+  overflow-y: hidden;
+  &.is-on {
+    opacity: 1;
+    visibility: visible;
+  }
+}
