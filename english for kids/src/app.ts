@@ -71,7 +71,7 @@ export class App {
     for (let i = 0; i < categories.length; i++) {
       for (let j = 0; j < categories[i].cardsContent.length; j++) {
         if (
-          (await this.dataBaseIamDarya.getWord(
+          (await this.dataBaseIamDarya.getWord( // eslint-disable-line no-await-in-loop
             categories[i].category
               + categories[i].cardsContent[j].word
               + categories[i].cardsContent[j].translation,
@@ -89,7 +89,7 @@ export class App {
             0,
             0,
           );
-          await this.dataBaseIamDarya.transaction(wordStatistic);
+          await this.dataBaseIamDarya.transaction(wordStatistic); // eslint-disable-line no-await-in-loop
         }
       }
     }

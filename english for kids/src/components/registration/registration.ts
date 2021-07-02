@@ -26,7 +26,7 @@ export class Registration extends BaseComponent {
     this.element.appendChild(this.inputPassword);
   }
 
-  drawRegistrPopUp() {
+  drawRegistrPopUp(): void {
     this.overlay.overlayON();
 
     this.element.classList.remove('hidden');
@@ -47,7 +47,7 @@ export class Registration extends BaseComponent {
     });
   }
 
-  canselRegistrPopUp() {
+  canselRegistrPopUp(): void {
     this.overlay.overlayOFF();
     this.element.classList.add('hidden');
   }

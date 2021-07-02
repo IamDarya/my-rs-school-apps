@@ -13,7 +13,7 @@ export class CardView extends BaseComponent {
 
   category: string;
 
-  callBacks: Function[];
+  callBacks: (() => void)[];
 
   constructor(
     cardState: string,
@@ -120,16 +120,16 @@ export class CardView extends BaseComponent {
     });
   }
 
-  onClickTheme(callBack: Function): void {
+  onClickTheme(callBack: { (): void; (): void }): void {
     this.callBacks.push(callBack);
   }
 
-  playAudio(clickOnCard: HTMLElement): void {
+  playAudio(clickOnCard: HTMLElement): void { // eslint-disable-line class-methods-use-this
     const audio = clickOnCard.nextElementSibling as HTMLAudioElement;
     audio.play();
   }
 
-  flippCard(selectedCardFlipPic: HTMLElement): void {
+  flippCard(selectedCardFlipPic: HTMLElement): void { // eslint-disable-line class-methods-use-this
     const wholeCard = selectedCardFlipPic.parentElement;
     if (wholeCard !== null) {
       wholeCard.classList.add('flipp');

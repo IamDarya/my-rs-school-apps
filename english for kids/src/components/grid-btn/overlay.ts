@@ -10,12 +10,12 @@ export class Overlay extends BaseComponent {
     // this.overlayForEndGame = overlayForEndGame;
   }
 
-  overlayON() {
+  overlayON(): void {
     this.element.classList.add('is-on');
     this.element.classList.remove('hidden');
   }
 
-  overlayOFF() {
+  overlayOFF(): void {
     this.element.classList.remove('is-on');
     this.element.classList.add('hidden');
   }

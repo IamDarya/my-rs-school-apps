@@ -42,7 +42,11 @@ export class GridBtn extends BaseComponent {
 
   arrayOfCardDivs: CardView[];
 
-  constructor(game: Game, dataBaseIamDarya: DatabaseIamDarya, overlay: Overlay) {
+  constructor(
+    game: Game,
+    dataBaseIamDarya: DatabaseIamDarya,
+    overlay: Overlay,
+  ) {
     super('div', ['grid-of-img-and-switch-btn-wrapper']);
     this.overlay = overlay;
     this.train = 'Train';
@@ -55,7 +59,7 @@ export class GridBtn extends BaseComponent {
     this.overlayContent = document.createElement('div');
     this.categories = [];
     this.activeCategoryObj = undefined;
-    this.activeCategory;
+    this.activeCategory = undefined;
     this.game = game;
     this.arrayOfCardDivs = [];
     this.dataBaseIamDarya = dataBaseIamDarya;
@@ -133,6 +137,7 @@ export class GridBtn extends BaseComponent {
   }
 
   ShowPopUpEndGame(): void {
+    this.overlayContent.innerText = '';
     const endGameNoErrorsAudioConvert = new Audio(endGameNoErrorsAudio);
     const endGameWithErrorsAudioConvert = new Audio(endGameWithErrorsAudio);
     if (this.game.amountOfErrors > 0) {

@@ -254,36 +254,36 @@ $off: #d74141;
 //   &.is-on {
 //     opacity: 1;
 //     visibility: visible;
-    .content.is-on {
-      background-repeat: no-repeat;
-      background-position: center;
-      text-align: center;
-      min-width: max-content;
-      opacity: 1;
-      visibility: visible;
-      top: 0;
-      text-shadow: 2px 2px 0px #685e67, -1px -1px 0px #f37e7f;
-      font-size: 2rem;
-      color: #fee565;
-      z-index: 11;
-    // }
-  }
-  .content {
-    background: rgba(255, 255, 255, 0);
-    position: absolute;
-    top: -50%;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    width: 50%;
-    height: 80%;
-    opacity: 0;
-    visibility: hidden;
-    -webkit-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-  }
+.content.is-on {
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  min-width: max-content;
+  opacity: 1;
+  visibility: visible;
+  top: 0;
+  text-shadow: 2px 2px 0px #685e67, -1px -1px 0px #f37e7f;
+  font-size: 2rem;
+  color: #fee565;
+  z-index: 11;
+  // }
+}
+.content {
+  background: rgba(255, 255, 255, 0);
+  position: absolute;
+  top: -50%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 50%;
+  height: 80%;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
 // }
 
 //LOGIN BTN
@@ -293,7 +293,7 @@ $off: #d74141;
   bottom: 60px;
 }
 
-.login-btn  {
+.login-btn {
   border: 2px solid #ffa812;
   background-color: #ff9900;
   color: white;

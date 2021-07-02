@@ -37,7 +37,10 @@ export class Game extends BaseComponent {
     this.databaseIamDarya = databaseIamDarya;
   }
 
-  async startGame(category: ImageCategoryModel, cardView: CardView[]): Promise<void> {
+  async startGame(
+    category: ImageCategoryModel,
+    cardView: CardView[],
+  ): Promise<void> {
     this.callBacks = [];
     this.callBacksForEndGame = [];
     this.amountOfErrors = 0;
@@ -73,9 +76,9 @@ export class Game extends BaseComponent {
             );
 
             el.element.classList.add('inactive-card');
-            cardView = cardView.filter((card) => card !== el);
+            cardView = cardView.filter((card) => card !== el); // eslint-disable-line no-param-reassign
 
-            this.callBacks.forEach((el) => el('Correct'));
+            this.callBacks.forEach((elm) => elm('Correct'));
             this.playAudio(this.correctAudio);
 
             if (
@@ -104,9 +107,10 @@ export class Game extends BaseComponent {
               if (currentCard.correct !== undefined) {
                 currentCard.correct++;
                 this.databaseIamDarya.update(currentCard);
-                currentCard.persOfErrors = currentCard.correct / (currentCard.correct + currentCard.wrong) * 100;
+                currentCard.persOfErrors = (currentCard.correct
+                    / (currentCard.correct + currentCard.wrong))
+                  * 100;
                 this.databaseIamDarya.update(currentCard);
-                // this.allWords[i].correct / (this.allWords[i].correct + this.allWords[i].wrong)
               }
             }
           }
@@ -120,9 +124,10 @@ export class Game extends BaseComponent {
           if (currentCard.wrong !== undefined) {
             currentCard.wrong++;
             this.databaseIamDarya.update(currentCard);
-            currentCard.persOfErrors = currentCard.correct / (currentCard.correct + currentCard.wrong) * 100;
+            currentCard.persOfErrors = (currentCard.correct
+                / (currentCard.correct + currentCard.wrong))
+              * 100;
             this.databaseIamDarya.update(currentCard);
-            // this.allWords[i].correct / (this.allWords[i].correct + this.allWords[i].wrong)
           }
         }
         if (cardView.length === 0) {
@@ -136,7 +141,7 @@ export class Game extends BaseComponent {
     this.callBacksForEndGame.forEach((el) => el());
   }
 
-  playAudio(audio: HTMLAudioElement): void {
+  playAudio(audio: HTMLAudioElement): void { // eslint-disable-line class-methods-use-this
     setTimeout(() => audio.play(), 1000);
   }
 
