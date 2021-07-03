@@ -199,9 +199,9 @@ $off: #ffffff;
 
 .one-theme-block {
   width: 250px;
-  height: 250px;
+  height: 230px;
   background-size: cover;
-  margin: 20px 30px 20px 30px;
+  margin: 0px 30px 20px 10px;
   border: solid;
   background-color: #e8dd7c;
   border-color: #fdff81;
@@ -335,7 +335,15 @@ $off: #ffffff;
 }
 
 
-@media screen and (max-width: 1541px) and (min-width: 321px) {
+@media screen and (max-width: 329px) and (min-width: 320px) {
+
+  .themes-block {
+    margin: 0;
+  }
+
+}
+
+@media screen and (max-width: 1541px) and (min-width: 330px) {
 
   .themes-block {
     margin: 0 2px 15px 2px;
