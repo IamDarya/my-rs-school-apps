@@ -6,6 +6,14 @@ import { ImageCategoryModel } from '../image-category-models/image-category-mode
 import { NewRout } from '../routing/newRouting';
 import { Registration } from '../registration/registration';
 
+function addActiveToLi(e:Event): void {
+  if (document.getElementsByClassName('active')[0] !== undefined) {
+    document.getElementsByClassName('active')[0].classList.remove('active');
+  }
+  const ev = e.target as HTMLElement;
+  ev.classList.add('active');
+}
+
 export class Header extends BaseComponent {
   categories: ImageCategoryModel[];
 
@@ -56,7 +64,7 @@ export class Header extends BaseComponent {
     linkTopcMainPage.appendChild(liTopicMainPage);
     liTopicMainPage.addEventListener('click', (e: Event) => {
       this.gridBtn.divWithFailCorrectSigns.innerHTML = '';
-      this.addActiveToLi(e);
+      addActiveToLi(e);
       this.gridBtn.drawAllCategories();
     });
 
@@ -71,7 +79,7 @@ export class Header extends BaseComponent {
 
       liTopic.addEventListener('click', (e: Event) => {
         this.gridBtn.divWithFailCorrectSigns.innerHTML = '';
-        this.addActiveToLi(e);
+        addActiveToLi(e);
         const activeTheme = (e.target as HTMLElement).getAttribute(
           'data-topic',
         );
@@ -96,7 +104,7 @@ export class Header extends BaseComponent {
     linkToStatistics.appendChild(liToStatistics);
     liToStatistics.addEventListener('click', (e:Event) => {
       this.gridBtn.divWithFailCorrectSigns.innerHTML = '';
-      this.addActiveToLi(e);
+      addActiveToLi(e);
     });
 
     this.loginBtn.innerText = 'Login';
@@ -117,13 +125,5 @@ export class Header extends BaseComponent {
         inputCheckBox.checked = false;
       }
     });
-  }
-
-  addActiveToLi(e:Event): void { // eslint-disable-line class-methods-use-this
-    if (document.getElementsByClassName('active')[0] !== undefined) {
-      document.getElementsByClassName('active')[0].classList.remove('active');
-    }
-    const ev = e.target as HTMLElement;
-    ev.classList.add('active');
   }
 }

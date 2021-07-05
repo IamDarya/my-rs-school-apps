@@ -2,7 +2,7 @@ import '../header/main-page.scss';
 import { BaseComponent } from '../base-component';
 import { CardView } from '../card-view/card-view';
 import { ImageCategoryModel } from '../image-category-models/image-category-models';
-import { Game } from '../game/game';
+import { Game, playAudio } from '../game/game';
 import correctPic from '../../assets/star-win.svg';
 import failPic from '../../assets/star.svg';
 import repeatPic from '../../assets/repeat.svg';
@@ -115,7 +115,7 @@ export class GridBtn extends BaseComponent {
         );
         this.divWithBtnToStartPlay.appendChild(this.btnToRepeatAudio);
         this.btnToRepeatAudio.addEventListener('click', () => {
-          this.game.playAudio(this.game.currentAuodio);
+          playAudio(this.game.currentAuodio);
         });
 
         this.game.startGame(this.activeCategoryObj, this.arrayOfCardDivs);
@@ -145,13 +145,13 @@ export class GridBtn extends BaseComponent {
         `background-image:url('${endGameWithErrors}');`,
       );
       this.overlayContent.innerText = `You made ${this.game.amountOfErrors} mistake(s). Train more.`;
-      this.game.playAudio(endGameWithErrorsAudioConvert);
+      playAudio(endGameWithErrorsAudioConvert);
     } else {
       this.overlayContent.setAttribute(
         'style',
         `background-image:url('${endGameNoErrors}');`,
       );
-      this.game.playAudio(endGameNoErrorsAudioConvert);
+      playAudio(endGameNoErrorsAudioConvert);
     }
     this.overlay.overlayON();
     this.overlayContent.classList.add('is-on');

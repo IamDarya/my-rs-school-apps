@@ -208,12 +208,20 @@ $off: #ffffff;
   box-shadow: 0px 0px 20px #fdff70, 0px 0px 6px #7b7b63;
 }
 
+.one-theme-block:hover {
+  box-shadow: 0px 0px 12px 0px #fdff70, 0px 6px 11px 3px #4d4d3d;
+}
+
 .themes-block.play-mode > * {
   border: solid;
   background-size: contain;
   background-color: #4cd0e7;
   border-color: hsl(189deg 100% 88%);
   box-shadow: 0px 0px 20px #9cd6ff, 0px 0px 6px #7b7b63;
+}
+
+.themes-block.play-mode > *:hover {
+  box-shadow: 0px 0px 12px 0px #9cd6ff, 0px 6px 11px 3px #4d4d3d;
 }
 
 .btn-to-start-play {

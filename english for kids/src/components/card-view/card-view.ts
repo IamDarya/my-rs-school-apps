@@ -4,6 +4,24 @@ import { BaseComponent } from '../base-component';
 import { Card } from '../image-category-models/card';
 import { DatabaseIamDarya } from '../database/database';
 
+function playAudio(aud: HTMLAudioElement): void {
+  aud.play();
+}
+
+function flippCard(selectedCardFlipPic: HTMLElement): void {
+  const wholeCard = selectedCardFlipPic.parentElement;
+
+  if (wholeCard !== null) {
+    wholeCard.classList.add('flipp');
+    wholeCard.addEventListener('mouseleave', () => {
+      if (wholeCard !== null) {
+        wholeCard.classList.remove('flipp');
+      }
+      setTimeout(() => wholeCard.getElementsByClassName('back')[0].classList.add('hidden'), 500);
+    });
+  }
+}
+
 export class CardView extends BaseComponent {
   databaseIamDarya: DatabaseIamDarya;
 
@@ -105,7 +123,7 @@ export class CardView extends BaseComponent {
         currentCard.click++;
         this.databaseIamDarya.update(currentCard);
         back.classList.remove('hidden');
-        this.flippCard(clickOnCard);
+        flippCard(clickOnCard);
       }
     });
 
@@ -119,7 +137,7 @@ export class CardView extends BaseComponent {
 
       const clickOnCard = e.target as HTMLElement;
       if (!clickOnCard.classList.contains('flip-pic')) {
-        this.playAudio();
+        playAudio(this.audio);
       }
     });
   }
@@ -143,23 +161,5 @@ export class CardView extends BaseComponent {
 
   onClickTheme(callBack: { (): void; (): void }): void {
     this.callBacks.push(callBack);
-  }
-
-  playAudio(): void { // eslint-disable-line class-methods-use-this
-    this.audio.play();
-  }
-
-  flippCard(selectedCardFlipPic: HTMLElement): void { // eslint-disable-line class-methods-use-this
-    const wholeCard = selectedCardFlipPic.parentElement;
-
-    if (wholeCard !== null) {
-      wholeCard.classList.add('flipp');
-      wholeCard.addEventListener('mouseleave', () => {
-        if (wholeCard !== null) {
-          wholeCard.classList.remove('flipp');
-        }
-        setTimeout(() => wholeCard.getElementsByClassName('back')[0].classList.add('hidden'), 500);
-      });
-    }
   }
 }
