@@ -6,6 +6,10 @@ import errorAud from '../../assets/error.mp3';
 import correctAudio from '../../assets/correct.mp3';
 import { DatabaseIamDarya } from '../database/database';
 
+export function playAudio(audio: HTMLAudioElement): void {
+  setTimeout(() => audio.play(), 1000);
+}
+
 export class Game extends BaseComponent {
   databaseIamDarya: DatabaseIamDarya;
 
@@ -52,7 +56,7 @@ export class Game extends BaseComponent {
           .audioSrc
       }`,
     );
-    this.playAudio(randomAudio);
+    playAudio(randomAudio);
     let currentRandomObj = categoryToFilter.filter(
       (x) => x.audioSrc === randomAudio.getAttribute('src'),
     );
@@ -79,7 +83,7 @@ export class Game extends BaseComponent {
             cardView = cardView.filter((card) => card !== el); // eslint-disable-line no-param-reassign
 
             this.callBacks.forEach((elm) => elm('Correct'));
-            this.playAudio(this.correctAudio);
+            playAudio(this.correctAudio);
 
             if (
               categoryToFilter[
@@ -94,7 +98,7 @@ export class Game extends BaseComponent {
                 }`,
               );
               this.currentAuodio = randomAudio;
-              this.playAudio(randomAudio);
+              playAudio(randomAudio);
 
               currentRandomObj = categoryToFilter.filter(
                 (x) => x.audioSrc === randomAudio.getAttribute('src'),
@@ -117,7 +121,7 @@ export class Game extends BaseComponent {
         } else if (cardView.indexOf(el) >= 0) {
           this.callBacks.forEach((elm) => elm('Fail'));
 
-          this.playAudio(this.errorAudio);
+          playAudio(this.errorAudio);
 
           this.amountOfErrors++;
 
@@ -139,10 +143,6 @@ export class Game extends BaseComponent {
 
   endGame(): void {
     this.callBacksForEndGame.forEach((el) => el());
-  }
-
-  playAudio(audio: HTMLAudioElement): void { // eslint-disable-line class-methods-use-this
-    setTimeout(() => audio.play(), 1000);
   }
 
   onUserAnswer(callBack: (str: string) => void): void {

@@ -60,13 +60,14 @@
 }
 
 .picFailCorrect {
-  height: 58px;
+  height: 55px;
   width: 58px;
   background-repeat: no-repeat;
   background-size: contain;
   overflow: hidden;
   flex-shrink: 0;
   margin: 0 5px 0 5px;
+  filter: drop-shadow(1px 1px 1px grey);
 }
 
 span {
