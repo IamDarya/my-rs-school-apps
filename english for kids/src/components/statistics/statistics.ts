@@ -6,7 +6,6 @@ import { WordStatistic } from '../database/word-statist';
 import { CardView } from '../card-view/card-view';
 
 export class Statistics extends BaseComponent {
-
   private dataBaseDarya: DatabaseDarya;
 
   statisticGridWrapper: HTMLElement;

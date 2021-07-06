@@ -13,12 +13,17 @@ import endGameWithErrorsAudio from '../../assets/failure.mp3';
 import { DatabaseDarya } from '../database/database';
 import { Overlay } from './overlay';
 
+export enum PlayMode {
+  Train = 'Train',
+  Play = 'Play',
+}
+
 export class GridBtn extends BaseComponent {
   dataBaseDarya: DatabaseDarya;
 
   overlay: Overlay;
 
-  train: string;
+  // train: string;
 
   categories: ImageCategoryModel[];
 
@@ -42,6 +47,8 @@ export class GridBtn extends BaseComponent {
 
   arrayOfCardDivs: CardView[];
 
+  train: PlayMode;
+
   constructor(
     game: Game,
     dataBaseDarya: DatabaseDarya,
@@ -49,7 +56,7 @@ export class GridBtn extends BaseComponent {
   ) {
     super('div', ['grid-of-img-and-switch-btn-wrapper']);
     this.overlay = overlay;
-    this.train = 'Train';
+    this.train = PlayMode.Train;
     this.themesBlock = document.createElement('div');
     this.divWithFailCorrectSigns = document.createElement('div');
     this.divWithBtnToStartPlay = document.createElement('div');
@@ -72,13 +79,13 @@ export class GridBtn extends BaseComponent {
     this.element.appendChild(this.divWithFailCorrectSigns);
 
     playTrainSwitch.addEventListener('click', () => {
-      if (this.train === 'Train') {
-        this.train = 'Play';
+      if (this.train === PlayMode.Train) {
+        this.train = PlayMode.Play;
         if (this.activeCategory !== undefined) {
           this.drawCategory(this.activeCategory);
         }
       } else {
-        this.train = 'Train';
+        this.train = PlayMode.Train;
         if (this.activeCategory !== undefined) {
           this.drawCategory(this.activeCategory);
         }
@@ -115,12 +122,12 @@ export class GridBtn extends BaseComponent {
         );
         this.divWithBtnToStartPlay.appendChild(this.btnToRepeatAudio);
         this.btnToRepeatAudio.addEventListener('click', () => {
-          playAudio(this.game.currentAuodio);
+          playAudio(this.game.currentAudio);
         });
 
         this.game.startGame(this.activeCategoryObj, this.arrayOfCardDivs);
         this.game.onUserAnswer((str) => {
-          this.addCorrectFailsign(str);
+          this.addCorrectFailSign(str);
         });
         this.game.onEndGame(() => {
           this.btnToRepeatAudio.classList.add('hidden');
@@ -208,7 +215,7 @@ export class GridBtn extends BaseComponent {
     }
   }
 
-  addCorrectFailsign(sign: string): void {
+  addCorrectFailSign(sign: string): void {
     const picCorrectFail = document.createElement('div');
     if (sign === 'Correct') {
       picCorrectFail.classList.add('picFailCorrect', 'correct');

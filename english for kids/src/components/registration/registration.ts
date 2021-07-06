@@ -34,20 +34,20 @@ export class Registration extends BaseComponent {
     loginBtn.innerText = 'Login';
     loginBtn.classList.add('login-btn-popup');
     this.element.appendChild(loginBtn);
-    const canselBtn = document.createElement('button');
-    canselBtn.innerText = 'Cansel';
-    canselBtn.classList.add('cansel-btn-popup');
-    this.element.appendChild(canselBtn);
+    const cancelBtn = document.createElement('button');
+    cancelBtn.innerText = 'Cancel';
+    cancelBtn.classList.add('cancel-btn-popup');
+    this.element.appendChild(cancelBtn);
 
-    canselBtn.addEventListener('click', () => {
-      this.canselRegistrPopUp();
+    cancelBtn.addEventListener('click', () => {
+      this.cancelRegistrPopUp();
     });
     this.overlay.element.addEventListener('click', () => {
-      this.canselRegistrPopUp();
+      this.cancelRegistrPopUp();
     });
   }
 
-  canselRegistrPopUp(): void {
+  cancelRegistrPopUp(): void {
     this.overlay.overlayOFF();
     this.element.classList.add('hidden');
   }
