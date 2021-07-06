@@ -4,14 +4,14 @@ import { CardView } from '../card-view/card-view';
 import { ImageCategoryModel } from '../image-category-models/image-category-models';
 import errorAud from '../../assets/error.mp3';
 import correctAudio from '../../assets/correct.mp3';
-import { DatabaseIamDarya } from '../database/database';
+import { DatabaseDarya } from '../database/database';
 
 export function playAudio(audio: HTMLAudioElement): void {
   setTimeout(() => audio.play(), 1000);
 }
 
 export class Game extends BaseComponent {
-  databaseIamDarya: DatabaseIamDarya;
+  dataBaseDarya: DatabaseDarya;
 
   cardView: CardView | undefined;
 
@@ -29,7 +29,7 @@ export class Game extends BaseComponent {
 
   amountOfErrors: number;
 
-  constructor(databaseIamDarya: DatabaseIamDarya) {
+  constructor(dataBaseDarya: DatabaseDarya) {
     super();
     this.callBacks = [];
     this.callBacksForEndGame = [];
@@ -38,7 +38,7 @@ export class Game extends BaseComponent {
     this.errorAudio = new Audio(errorAud);
     this.correctAudio = new Audio(correctAudio);
     this.amountOfErrors = 0;
-    this.databaseIamDarya = databaseIamDarya;
+    this.dataBaseDarya = dataBaseDarya;
   }
 
   async startGame(
@@ -64,7 +64,7 @@ export class Game extends BaseComponent {
     let keyToWordInDB = category.category
       + currentRandomObj[0].word
       + currentRandomObj[0].translation;
-    let currentCard = await this.databaseIamDarya.getWord(keyToWordInDB);
+    let currentCard = await this.dataBaseDarya.getWord(keyToWordInDB);
 
     this.currentAuodio = randomAudio;
 
@@ -106,15 +106,15 @@ export class Game extends BaseComponent {
               keyToWordInDB = category.category
                 + currentRandomObj[0].word
                 + currentRandomObj[0].translation;
-              currentCard = await this.databaseIamDarya.getWord(keyToWordInDB);
+              currentCard = await this.dataBaseDarya.getWord(keyToWordInDB);
 
               if (currentCard.correct !== undefined) {
                 currentCard.correct++;
-                this.databaseIamDarya.update(currentCard);
+                this.dataBaseDarya.update(currentCard);
                 currentCard.persOfErrors = (currentCard.correct
                     / (currentCard.correct + currentCard.wrong))
                   * 100;
-                this.databaseIamDarya.update(currentCard);
+                this.dataBaseDarya.update(currentCard);
               }
             }
           }
@@ -127,11 +127,11 @@ export class Game extends BaseComponent {
 
           if (currentCard.wrong !== undefined) {
             currentCard.wrong++;
-            this.databaseIamDarya.update(currentCard);
+            this.dataBaseDarya.update(currentCard);
             currentCard.persOfErrors = (currentCard.correct
                 / (currentCard.correct + currentCard.wrong))
               * 100;
-            this.databaseIamDarya.update(currentCard);
+            this.dataBaseDarya.update(currentCard);
           }
         }
         if (cardView.length === 0) {

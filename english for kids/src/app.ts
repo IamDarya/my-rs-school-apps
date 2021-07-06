@@ -2,7 +2,7 @@ import { NewRout } from './components/routing/newRouting';
 import { Header } from './components/header/header';
 import { GridBtn } from './components/grid-btn/grid-btn';
 import { Game } from './components/game/game';
-import { DatabaseIamDarya } from './components/database/database';
+import { DatabaseDarya } from './components/database/database';
 import { WordStatistic } from './components/database/word-statist';
 import { Statistics } from './components/statistics/statistics';
 import { Registration } from './components/registration/registration';
@@ -21,7 +21,7 @@ export class App {
 
   game: Game;
 
-  dataBaseIamDarya: DatabaseIamDarya;
+  dataBaseDarya: DatabaseDarya;
 
   private readonly statistics: Statistics;
 
@@ -30,17 +30,17 @@ export class App {
 
     this.newRout = new NewRout();
 
-    this.dataBaseIamDarya = new DatabaseIamDarya();
+    this.dataBaseDarya = new DatabaseDarya();
 
-    this.game = new Game(this.dataBaseIamDarya);
+    this.game = new Game(this.dataBaseDarya);
 
-    this.gridBtn = new GridBtn(this.game, this.dataBaseIamDarya, this.overlay);
+    this.gridBtn = new GridBtn(this.game, this.dataBaseDarya, this.overlay);
 
     this.registration = new Registration(this.overlay);
 
     this.header = new Header(this.gridBtn, this.newRout, this.registration);
 
-    this.statistics = new Statistics(this.dataBaseIamDarya);
+    this.statistics = new Statistics(this.dataBaseDarya);
   }
 
   async start(): Promise<void> {
@@ -55,7 +55,7 @@ export class App {
       this.gridBtn.show();
     });
 
-    await this.dataBaseIamDarya.load();
+    await this.dataBaseDarya.load();
     const allThemesJson = await fetch('./cards.json');
     const categories = await allThemesJson.json();
     this.header.drawHeader(categories);
@@ -68,11 +68,11 @@ export class App {
     // this.rootElement.appendChild(this.mainPage.element);
     this.gridBtn.drawAllCategories();
 
-    const rez = [];
+    // const rez = [];
     for (let i = 0; i < categories.length; i++) {
       for (let j = 0; j < categories[i].cardsContent.length; j++) {
         if (
-          (this.dataBaseIamDarya.getWord(
+          (await this.dataBaseDarya.getWord( // eslint-disable-line no-await-in-loop
             categories[i].category
               + categories[i].cardsContent[j].word
               + categories[i].cardsContent[j].translation,
@@ -90,13 +90,14 @@ export class App {
             0,
             0,
           );
-          rez.push(wordStatistic);
+          await this.dataBaseDarya.transaction(wordStatistic); // eslint-disable-line no-await-in-loop
+          // rez.push(wordStatistic);
         }
       }
     }
-    await Promise.all(rez);
-    for (let i = 0; i < rez.length; i++) {
-      this.dataBaseIamDarya.transaction(rez[i]);
-    }
+    // await Promise.all(rez);
+    // for (let i = 0; i < rez.length; i++) {
+    //   this.dataBaseDarya.transaction(rez[i]);
+    // }
   }
 }

@@ -10,11 +10,11 @@ import endGameNoErrors from '../../assets/success.png';
 import endGameWithErrors from '../../assets/failure.png';
 import endGameNoErrorsAudio from '../../assets/success.mp3';
 import endGameWithErrorsAudio from '../../assets/failure.mp3';
-import { DatabaseIamDarya } from '../database/database';
+import { DatabaseDarya } from '../database/database';
 import { Overlay } from './overlay';
 
 export class GridBtn extends BaseComponent {
-  dataBaseIamDarya: DatabaseIamDarya;
+  dataBaseDarya: DatabaseDarya;
 
   overlay: Overlay;
 
@@ -44,7 +44,7 @@ export class GridBtn extends BaseComponent {
 
   constructor(
     game: Game,
-    dataBaseIamDarya: DatabaseIamDarya,
+    dataBaseDarya: DatabaseDarya,
     overlay: Overlay,
   ) {
     super('div', ['grid-of-img-and-switch-btn-wrapper']);
@@ -61,7 +61,7 @@ export class GridBtn extends BaseComponent {
     this.activeCategory = undefined;
     this.game = game;
     this.arrayOfCardDivs = [];
-    this.dataBaseIamDarya = dataBaseIamDarya;
+    this.dataBaseDarya = dataBaseDarya;
 
     const playTrainSwitch = document.createElement('input');
     playTrainSwitch.classList.add('toggle');
@@ -172,7 +172,7 @@ export class GridBtn extends BaseComponent {
         'Themes',
         this.categories[i].cardsContent[3],
         this.categories[i].category,
-        this.dataBaseIamDarya,
+        this.dataBaseDarya,
       );
       this.themesBlock.appendChild(divWithTheme.element);
       divWithTheme.onClickTheme(() => {
@@ -195,7 +195,7 @@ export class GridBtn extends BaseComponent {
           this.train,
           this.activeCategoryObj.cardsContent[i],
           this.activeCategoryObj.category,
-          this.dataBaseIamDarya,
+          this.dataBaseDarya,
         );
         this.arrayOfCardDivs.push(divWithWord);
         this.themesBlock.appendChild(divWithWord.element);

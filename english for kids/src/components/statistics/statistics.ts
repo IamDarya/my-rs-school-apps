@@ -1,11 +1,13 @@
 import './statistics.scss';
 import sortIcon from '../../assets/sort-descending.png';
 import { BaseComponent } from '../base-component';
-import { DatabaseIamDarya } from '../database/database';
+import { DatabaseDarya } from '../database/database';
 import { WordStatistic } from '../database/word-statist';
+import { CardView } from '../card-view/card-view';
 
 export class Statistics extends BaseComponent {
-  private databaseIamDarya: DatabaseIamDarya;
+
+  private dataBaseDarya: DatabaseDarya;
 
   statisticGridWrapper: HTMLElement;
 
@@ -39,9 +41,13 @@ export class Statistics extends BaseComponent {
 
   sortStateErrors: boolean;
 
-  constructor(databaseIamDarya: DatabaseIamDarya) {
+  hardWords: WordStatistic[];
+
+  cardView: CardView | undefined;
+
+  constructor(dataBaseDarya: DatabaseDarya) {
     super('div', ['statistics-wrapper']);
-    this.databaseIamDarya = databaseIamDarya;
+    this.dataBaseDarya = dataBaseDarya;
     this.allWords = [];
     this.divWithBtnToResetStatistic = document.createElement('div');
     this.btnToReset = document.createElement('button');
@@ -53,6 +59,7 @@ export class Statistics extends BaseComponent {
     this.sortStateCorrect = false;
     this.sortStateWrong = false;
     this.sortStateErrors = false;
+    this.hardWords = [];
 
     const htwo = document.createElement('h2');
     htwo.innerText = 'Statistic';
@@ -121,6 +128,9 @@ export class Statistics extends BaseComponent {
     this.btnToReset.addEventListener('click', () => {
       this.resetStatistic();
     });
+    // this.btnToPlayHard.addEventListener('click', () => {
+    //   this.createArrayOfHardWords();
+    // })
   }
 
   async sortBy(sortBy: string | undefined): Promise<number> {
@@ -209,7 +219,7 @@ export class Statistics extends BaseComponent {
   }
 
   async statisticShow(): Promise<void> {
-    this.allWords = await this.databaseIamDarya.getAllWords();
+    this.allWords = await this.dataBaseDarya.getAllWords();
     this.allWords = this.allWords.sort((a, b) => b.correct - a.correct);
     this.statisticShowSorted();
   }
@@ -234,11 +244,7 @@ export class Statistics extends BaseComponent {
       const wrong = document.createElement('p');
       wrong.innerText = `${this.allWords[i].wrong}`;
       const errorsPers = document.createElement('p');
-      // if (this.allWords[i].correct > 0 || this.allWords[i].wrong > 0) {
       errorsPers.innerText = `${this.allWords[i].persOfErrors.toFixed(0)}%`;
-      // } else {
-      //   errorsPers.innerText = `${this.allWords[i].persOfErrors}%`;
-      // }
       if (i % 2 === 0) {
         wordLi.classList.add('color-line');
       }
@@ -259,8 +265,18 @@ export class Statistics extends BaseComponent {
       this.allWords[i].correct = 0;
       this.allWords[i].persOfErrors = 0;
       this.allWords[i].wrong = 0;
-      this.databaseIamDarya.update(this.allWords[i]);
+      this.dataBaseDarya.update(this.allWords[i]);
     }
     this.statisticShow();
   }
+
+  // createArrayOfHardWords(){
+  //   cardView: CardView[];
+  //   this.hardWords =  this.allWords.filter((x) => x.persOfErrors !== 0 && x.persOfErrors !== 100);
+  //   this.hardWords = this.hardWords.sort().splice(this.hardWords.length - 8, this.hardWords.length);
+  //   for(let i = 0; i < this.hardWords.length; i++){
+  //     debugger;
+  //      this.cardView?.drawTrainHardWords(this.hardWords[i]);
+  //   }
+  // }
 }
