@@ -19,7 +19,7 @@ export class NewRout {
     return path.toString().replace(/\/$/, '').replace(/^\//, '');
   }
 
-  static getfragment(): string {
+  static getFragment(): string {
     let fragment = '';
     const match = window.location.href.match(/#(.*)$/);
     fragment = match ? match[1] : '';
@@ -39,8 +39,8 @@ export class NewRout {
   }
 
   interval(): void {
-    if (this.current === NewRout.getfragment()) return;
-    this.current = NewRout.getfragment();
+    if (this.current === NewRout.getFragment()) return;
+    this.current = NewRout.getFragment();
 
     this.routes.some((route) => {
       const match = this.current === route.path;

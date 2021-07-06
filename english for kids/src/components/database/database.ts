@@ -32,11 +32,11 @@ export class DatabaseDarya {
       const request = words?.add(word);
 
       if (request !== undefined) {
-        request.onsuccess = function addword() {
+        request.onsuccess = function addWord() {
           resolve();
         };
 
-        request.onerror = function addwordError() {
+        request.onerror = function addWordError() {
           reject();
         };
       }
@@ -93,7 +93,7 @@ export class DatabaseDarya {
       const request = words?.getAll();
 
       if (request !== undefined) {
-        request.onsuccess = function allWordsget() {
+        request.onsuccess = function allWordsGet() {
           resolve(request.result);
           // console.log('ALL WORDS', request.result);
         };

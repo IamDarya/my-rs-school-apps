@@ -349,6 +349,18 @@ $off: #ffffff;
     margin: 0;
   }
 
+  .content.is-on {
+    font-size: 1.2rem;
+    width: 90%;
+    background-size: contain;
+    min-width: auto;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+  }
 }
 
 @media screen and (max-width: 1541px) and (min-width: 330px) {
@@ -362,5 +374,18 @@ $off: #ffffff;
     height: 250px;
     background-size: cover;
     margin: 10px 10px 10px 10px;
+  }
+
+  .content.is-on {
+    font-size: 1.4rem;
+    width: 90%;
+    background-size: contain;
+    min-width: auto;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
   }
 }

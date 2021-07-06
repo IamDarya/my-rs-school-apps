@@ -17,7 +17,7 @@ export class Game extends BaseComponent {
 
   allAudios: string[];
 
-  currentAuodio: HTMLAudioElement;
+  currentAudio: HTMLAudioElement;
 
   errorAudio: HTMLAudioElement;
 
@@ -34,7 +34,7 @@ export class Game extends BaseComponent {
     this.callBacks = [];
     this.callBacksForEndGame = [];
     this.allAudios = [];
-    this.currentAuodio = new Audio();
+    this.currentAudio = new Audio();
     this.errorAudio = new Audio(errorAud);
     this.correctAudio = new Audio(correctAudio);
     this.amountOfErrors = 0;
@@ -66,7 +66,7 @@ export class Game extends BaseComponent {
       + currentRandomObj[0].translation;
     let currentCard = await this.dataBaseDarya.getWord(keyToWordInDB);
 
-    this.currentAuodio = randomAudio;
+    this.currentAudio = randomAudio;
 
     cardView.forEach((el) => {
       el.element.addEventListener('click', async () => {
@@ -97,7 +97,7 @@ export class Game extends BaseComponent {
                   ].audioSrc
                 }`,
               );
-              this.currentAuodio = randomAudio;
+              this.currentAudio = randomAudio;
               playAudio(randomAudio);
 
               currentRandomObj = categoryToFilter.filter(
