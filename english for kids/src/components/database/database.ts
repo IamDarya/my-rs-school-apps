@@ -1,6 +1,6 @@
 import { WordStatistic } from './word-statist';
 
-export class DatabaseIamDarya {
+export class DatabaseDarya {
   request: IDBOpenDBRequest | undefined;
 
   db: IDBDatabase | undefined;
