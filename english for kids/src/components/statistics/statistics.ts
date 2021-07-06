@@ -5,6 +5,21 @@ import { DatabaseDarya } from '../database/database';
 import { WordStatistic } from '../database/word-statist';
 import { CardView } from '../card-view/card-view';
 
+export enum SortBy {
+  Category = 'category',
+  Word = 'word',
+  Translation = 'translation',
+  Clicks = 'click',
+  Correct = 'correct',
+  Wrong = 'wrong',
+  CorrectPerc = 'correct(%)',
+}
+
+export enum SortDirection {
+  DESC = 'DESC',
+  ASC = 'ASC',
+}
+
 export class Statistics extends BaseComponent {
   private dataBaseDarya: DatabaseDarya;
 
@@ -26,23 +41,11 @@ export class Statistics extends BaseComponent {
 
   allWords: WordStatistic[];
 
-  sortStateCategory: boolean;
-
-  sortStateWord: boolean;
-
-  sortStateTranslation: boolean;
-
-  sortStateClick: boolean;
-
-  sortStateCorrect: boolean;
-
-  sortStateWrong: boolean;
-
-  sortStateErrors: boolean;
-
   hardWords: WordStatistic[];
 
   cardView: CardView | undefined;
+
+  sortByEnum: SortBy;
 
   constructor(dataBaseDarya: DatabaseDarya) {
     super('div', ['statistics-wrapper']);
@@ -51,14 +54,9 @@ export class Statistics extends BaseComponent {
     this.divWithBtnToResetStatistic = document.createElement('div');
     this.btnToReset = document.createElement('button');
     this.btnToPlayHard = document.createElement('button');
-    this.sortStateCategory = false;
-    this.sortStateWord = false;
-    this.sortStateTranslation = false;
-    this.sortStateClick = false;
-    this.sortStateCorrect = false;
-    this.sortStateWrong = false;
-    this.sortStateErrors = false;
     this.hardWords = [];
+
+    this.sortByEnum = SortBy.Category;
 
     const htwo = document.createElement('h2');
     htwo.innerText = 'Statistic';
@@ -86,37 +84,38 @@ export class Statistics extends BaseComponent {
     this.topPart.classList.add('topPart-li');
     this.ulWithWordsInfoTop.appendChild(this.topPart);
 
-    const arrOfStatisticsValues = [
-      'category',
-      'word',
-      'translation',
-      'clicks',
-      'correct',
-      'wrong',
-      'correct(%)',
-    ];
-    for (let i = 0; i < arrOfStatisticsValues.length; i++) {
+    const arrOfKeys = Object.keys(SortBy);
+    for (let i = 0; i < arrOfKeys.length; i++) {
       const oneDivOfStatisticsValue = document.createElement('div');
       oneDivOfStatisticsValue.classList.add(
         'one-category',
-        `${arrOfStatisticsValues[i]}-category`,
+        `${SortBy[arrOfKeys[i] as keyof typeof SortBy]}-category`,
       );
 
       const category = document.createElement('p');
-      category.innerText = `${arrOfStatisticsValues[i]}`;
+      category.innerText = `${SortBy[arrOfKeys[i] as keyof typeof SortBy]}`;
 
       this.sortIconCategory = document.createElement('img');
+      this.sortIconCategory.setAttribute('data-sort', `${SortDirection.ASC}`);
       this.sortIconCategory.setAttribute('src', `${sortIcon}`);
       this.sortIconCategory.classList.add('icon-for-sort');
       this.sortIconCategory.setAttribute(
         'data-category',
-        `${arrOfStatisticsValues[i]}`,
+        `${SortBy[arrOfKeys[i] as keyof typeof SortBy]}`,
       );
       this.sortIconCategory.addEventListener('click', async (e) => {
         const el = e.target as HTMLElement;
+        const sortDirection = el.dataset.sort as SortDirection;
         const sortBy = el.dataset.category;
         el.classList.toggle('transform');
-        this.sortBy(sortBy);
+        const sortByConvEnum = sortBy as SortBy;
+        this.sortBy(sortDirection, sortByConvEnum);
+
+        if (sortDirection === SortDirection.ASC) {
+          el.dataset.sort = SortDirection.DESC;
+        } else {
+          el.dataset.sort = SortDirection.ASC;
+        }
       });
 
       oneDivOfStatisticsValue.appendChild(category);
@@ -132,89 +131,29 @@ export class Statistics extends BaseComponent {
     // })
   }
 
-  async sortBy(sortBy: string | undefined): Promise<number> {
-    if (sortBy === 'category') {
-      this.allWords = this.allWords.sort((a, b) => {
-        const nameA = a.category;
-        const nameB = b.category;
-        if (this.sortStateCategory) {
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) return 1;
-          return 0;
-        }
-
+  sortBy(sortState: SortDirection, sortBy: SortBy): void {
+    this.allWords = this.allWords.sort((a, b) => {
+      let nameA = a[sortBy as keyof WordStatistic];
+      let nameB = b[sortBy as keyof WordStatistic];
+      if (sortBy === 'correct(%)') {
+        nameA = a.persOfErrors;
+        nameB = b.persOfErrors;
+      }
+      if (sortState === SortDirection.DESC) {
         if (nameA < nameB) {
-          return 1;
+          return -1;
         }
-        if (nameA > nameB) return -1;
+        if (nameA > nameB) return 1;
         return 0;
-      });
-      this.sortStateCategory = !this.sortStateCategory;
-    }
+      }
 
-    if (sortBy === 'word') {
-      this.allWords = this.allWords.sort((a, b) => {
-        const nameA = a.word;
-        const nameB = b.word;
-        if (this.sortStateWord) {
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) return 1;
-          return 0;
-        }
-
-        if (nameA < nameB) {
-          return 1;
-        }
-        if (nameA > nameB) return -1;
-        return 0;
-      });
-      this.sortStateWord = !this.sortStateWord;
-    }
-
-    if (sortBy === 'translation') {
-      this.allWords = this.allWords.sort((a, b) => {
-        const nameA = a.translation;
-        const nameB = b.translation;
-        if (this.sortStateTranslation) {
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) return 1;
-          return 0;
-        }
-
-        if (nameA < nameB) {
-          return 1;
-        }
-        if (nameA > nameB) return -1;
-        return 0;
-      });
-      this.sortStateTranslation = !this.sortStateTranslation;
-    }
-    if (sortBy === 'clicks') {
-      this.allWords = this.allWords.sort((a, b) => (this.sortStateClick ? b.click - a.click : a.click - b.click));
-      this.sortStateClick = !this.sortStateClick;
-    }
-    if (sortBy === 'correct') {
-      this.allWords = this.allWords.sort((a, b) => (this.sortStateCorrect ? b.correct - a.correct : a.correct - b.correct));
-      this.sortStateCorrect = !this.sortStateCorrect;
-    }
-    if (sortBy === 'wrong') {
-      this.allWords = this.allWords.sort((a, b) => (this.sortStateWrong ? b.wrong - a.wrong : a.wrong - b.wrong));
-      this.sortStateWrong = !this.sortStateWrong;
-    }
-    if (sortBy === 'correct(%)') {
-      this.allWords = this.allWords.sort((a, b) => (this.sortStateErrors
-        ? b.persOfErrors - a.persOfErrors
-        : a.persOfErrors - b.persOfErrors));
-      this.sortStateErrors = !this.sortStateErrors;
-    }
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) return -1;
+      return 0;
+    });
     this.statisticShowSorted();
-    return 0;
   }
 
   async statisticShow(): Promise<void> {
