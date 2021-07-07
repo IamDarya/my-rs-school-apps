@@ -41,3 +41,35 @@ body {
     background-position: 0% 50%;
   }
 }
+
+footer {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5.5rem;
+  transition-duration: 1s;
+  color: #23a5d53b;
+}
+
+footer > a {
+  color: #e94d1e56;
+}
+
+footer > a:hover {
+  color: #22c7466c;
+}
+
+footer > img {
+  width: 2.5rem;
+}
+
+@media screen and (min-width: 320px) and (max-width: 380px) {
+  footer {
+    margin-top: 4rem;
+    font-size: 0.8rem;
+  }
+  footer > img {
+    width: 2rem;
+  }
+    }

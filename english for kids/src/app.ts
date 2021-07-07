@@ -65,6 +65,12 @@ export class App {
     this.rootElement.appendChild(this.gridBtn.element);
     this.rootElement.appendChild(this.statistics.element);
     this.rootElement.appendChild(this.overlay.element);
+    const footer = document.createElement('footer');
+    footer.innerHTML = `<a href="https://rs.school/js/" target="_blank">The Rolling Scopes|</a>
+    <img src ='https://rs.school/images/rs_school_js.svg'>
+    <p>|2021|</p>
+    <a href="https://github.com/IamDarya" target="_blank">My github</a>`;
+    this.rootElement.appendChild(footer);
     // this.rootElement.appendChild(this.mainPage.element);
     this.gridBtn.drawAllCategories();
 
