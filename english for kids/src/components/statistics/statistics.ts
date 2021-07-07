@@ -43,8 +43,6 @@ export class Statistics extends BaseComponent {
 
   hardWords: WordStatistic[];
 
-  cardView: CardView | undefined;
-
   sortByEnum: SortBy;
 
   constructor(dataBaseDarya: DatabaseDarya) {
@@ -126,19 +124,16 @@ export class Statistics extends BaseComponent {
     this.btnToReset.addEventListener('click', () => {
       this.resetStatistic();
     });
-    // this.btnToPlayHard.addEventListener('click', () => {
-    //   this.createArrayOfHardWords();
-    // })
+    this.btnToPlayHard.addEventListener('click', () => {
+      // this.createArrayOfHardWords();
+    });
   }
 
-  sortBy(sortState: SortDirection, sortBy: SortBy): void {
+  sortBy(sortState: SortDirection, sortBy: keyof WordStatistic | 'correct(%)'): void {
     this.allWords = this.allWords.sort((a, b) => {
-      let nameA = a[sortBy as keyof WordStatistic];
-      let nameB = b[sortBy as keyof WordStatistic];
-      if (sortBy === 'correct(%)') {
-        nameA = a.persOfErrors;
-        nameB = b.persOfErrors;
-      }
+      const nameA = (sortBy !== 'correct(%)') ? a[sortBy] : a.persOfErrors;
+      const nameB = (sortBy !== 'correct(%)') ? b[sortBy] : b.persOfErrors;
+
       if (sortState === SortDirection.DESC) {
         if (nameA < nameB) {
           return -1;
@@ -208,13 +203,10 @@ export class Statistics extends BaseComponent {
     this.statisticShow();
   }
 
-  // createArrayOfHardWords(){
-  //   cardView: CardView[];
-  //   this.hardWords =  this.allWords.filter((x) => x.persOfErrors !== 0 && x.persOfErrors !== 100);
-  //   this.hardWords = this.hardWords.sort().splice(this.hardWords.length - 8, this.hardWords.length);
-  //   for(let i = 0; i < this.hardWords.length; i++){
-  //     debugger;
-  //      this.cardView?.drawTrainHardWords(this.hardWords[i]);
-  //   }
-  // }
+// createArrayOfHardWords(){
+//     this.hardWords = this.allWords.filter((x) => x.persOfErrors !== 0 && x.persOfErrors !== 100);
+//     this.hardWords = this.hardWords.sort().splice(this.hardWords.length - 8, this.hardWords.length);
+//     for(let i = 0; i < this.hardWords.length; i++){
+//     }
+//   }
 }
