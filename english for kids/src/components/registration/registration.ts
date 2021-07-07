@@ -9,6 +9,8 @@ export class Registration extends BaseComponent {
 
   inputPassword: HTMLElement;
 
+  cancelBtn: HTMLElement;
+
   constructor(overlay: Overlay) {
     super('div', ['pop-up-registr-wrapper', 'hidden']);
     this.overlay = overlay;
@@ -24,22 +26,21 @@ export class Registration extends BaseComponent {
     this.inputPassword.classList.add('input-password');
     this.element.appendChild(this.inputLogin);
     this.element.appendChild(this.inputPassword);
-  }
 
-  drawRegistrPopUp(): void {
-    this.overlay.overlayON();
-
-    this.element.classList.remove('hidden');
     const loginBtn = document.createElement('button');
     loginBtn.innerText = 'Login';
     loginBtn.classList.add('login-btn-popup');
     this.element.appendChild(loginBtn);
-    const cancelBtn = document.createElement('button');
-    cancelBtn.innerText = 'Cancel';
-    cancelBtn.classList.add('cancel-btn-popup');
-    this.element.appendChild(cancelBtn);
+    this.cancelBtn = document.createElement('button');
+    this.cancelBtn.innerText = 'Cancel';
+    this.cancelBtn.classList.add('cancel-btn-popup');
+    this.element.appendChild(this.cancelBtn);
+  }
 
-    cancelBtn.addEventListener('click', () => {
+  drawRegistrPopUp(): void {
+    this.overlay.overlayON();
+    this.element.classList.remove('hidden');
+    this.cancelBtn.addEventListener('click', () => {
       this.cancelRegistrPopUp();
     });
     this.overlay.element.addEventListener('click', () => {

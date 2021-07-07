@@ -3,7 +3,6 @@ import picForFlip from '../../assets/share.png';
 import { BaseComponent } from '../base-component';
 import { Card } from '../image-category-models/card';
 import { DatabaseDarya } from '../database/database';
-import { WordStatistic } from '../database/word-statist';
 
 function playAudio(aud: HTMLAudioElement): void {
   aud.play();

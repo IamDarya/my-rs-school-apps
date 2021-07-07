@@ -1,0 +1,29 @@
+.one-theme-block-admin {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+  justify-content: center;
+}
+
+.one-theme-block-admin > button{
+height: fit-content;
+margin: 5px;
+}
+
+.one-theme-block-admin > p{
+  width: inherit;
+  }
+
+.close-card {
+  background-color: transparent;
+  border: none;
+  font-size: 1.1rem;
+  justify-self: stretch;
+  position: absolute;
+  right: 0;
+}
+
+.update-btn,
+.add-word-btn {
+  width: 5rem;
+}

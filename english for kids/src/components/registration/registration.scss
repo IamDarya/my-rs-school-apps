@@ -1,5 +1,5 @@
 .pop-up-registr-wrapper {
-  height: 45vh;
+  height: fit-content;
   width: 45vh;
   background-color: seashell;
   position: absolute;
@@ -10,15 +10,16 @@
   margin: auto;
   padding: 10px;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   z-index: 11;
+  border-radius: 10px;
 }
 
 .pop-up-registr-wrapper > button {
-  width: 50%;
-  margin: 10px;
+  width: 11.9vw;
+  margin: 10px 5px;
 }
 
 .cancel-btn-popup,
@@ -57,6 +58,7 @@
   border: 2px solid #ffa812;
   border-radius: 10px;
   padding: 0.3em;
+  margin: 1rem;
   font-size: 1.3rem;
   transition-duration: 0.4s;
   text-shadow: 2px 2px 0 #e674098a;
@@ -73,6 +75,10 @@
   width: 80vw;
 }
 
+.pop-up-registr-wrapper > button {
+  width: 37vw;
+}
+
 }
 
 @media screen and (max-width: 1000px) and (min-width: 501px) {
@@ -83,5 +89,9 @@
   .input-login,
   .input-password {
     width: 80vw;
+  }
+
+  .pop-up-registr-wrapper > button {
+    width: 37vw;
   }
 }
