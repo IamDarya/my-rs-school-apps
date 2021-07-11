@@ -13,4 +13,8 @@ app.use(cors());
 app.use(/^(?!\/api\/)/, express.static(staticFilesPath));
 app.use('/api/categories', categories);
 
-app.listen(3000, () => console.log('server started on 3000'));
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = '8000';
+}
+app.listen(port);
