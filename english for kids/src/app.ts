@@ -7,6 +7,7 @@ import { WordStatistic } from './components/database/word-statist';
 import { Statistics } from './components/statistics/statistics';
 import { Registration } from './components/registration/registration';
 import { Overlay } from './components/grid-btn/overlay';
+import { AdminPage } from './components/admin-page/admin-page';
 
 export class App {
   private readonly newRout: NewRout;
@@ -23,6 +24,8 @@ export class App {
 
   dataBaseDarya: DatabaseDarya;
 
+  private readonly adminPage: AdminPage;
+
   private readonly statistics: Statistics;
 
   constructor(private readonly rootElement: HTMLElement) {
@@ -36,7 +39,9 @@ export class App {
 
     this.gridBtn = new GridBtn(this.game, this.dataBaseDarya, this.overlay);
 
-    this.registration = new Registration(this.overlay);
+    this.adminPage = new AdminPage(this.dataBaseDarya, this.overlay);
+
+    this.registration = new Registration(this.overlay, this.adminPage, this.newRout);
 
     this.header = new Header(this.gridBtn, this.newRout, this.registration);
 
@@ -48,11 +53,22 @@ export class App {
       this.statistics.show();
       this.gridBtn.hide();
       this.statistics.statisticShow();
+      this.adminPage.hide();
     });
 
     this.newRout.add('', () => {
       this.statistics.hide();
       this.gridBtn.show();
+      this.header.show();
+      this.adminPage.hide();
+    });
+
+    this.newRout.add('categories', () => {
+      this.statistics.hide();
+      this.gridBtn.hide();
+      this.header.hide();
+      this.adminPage.drawAllCategories();
+      this.adminPage.show();
     });
 
     await this.dataBaseDarya.load();
@@ -60,10 +76,13 @@ export class App {
     const categories = await allThemesJson.json();
     this.header.drawHeader(categories);
     this.gridBtn.categories = categories;
+    this.adminPage.categories = categories;
+    this.adminPage.drawAllCategories();
     this.rootElement.appendChild(this.registration.element);
     this.rootElement.appendChild(this.header.element);
     this.rootElement.appendChild(this.gridBtn.element);
     this.rootElement.appendChild(this.statistics.element);
+    this.rootElement.appendChild(this.adminPage.element);
     this.rootElement.appendChild(this.overlay.element);
     const footer = document.createElement('footer');
     footer.innerHTML = `<a href="https://rs.school/js/" target="_blank">The Rolling Scopes|</a>

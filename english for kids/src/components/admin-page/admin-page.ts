@@ -1,148 +1,143 @@
-import '../header/main-page.scss';
 import './admin.scss';
 import { BaseComponent } from '../base-component';
-import { Card } from '../image-category-models/card';
+import { AdminPageCardView } from './admin-page-card-view/admin-page-card-view';
+import { ImageCategoryModel } from '../image-category-models/image-category-models';
+import { Game, playAudio } from '../game/game';
+import repeatPic from '../../assets/repeat.svg';
 import { DatabaseDarya } from '../database/database';
+import { Overlay } from '../grid-btn/overlay';
 
-export class AdminPageCardView extends BaseComponent {
+export enum StateToDraw {
+  OneTheme = 'OneTheme',
+  OneWord = 'OneWord',
+  Themes = 'Themes',
+}
+
+export class AdminPage extends BaseComponent {
   dataBaseDarya: DatabaseDarya;
 
-  cardState: string;
+  overlay: Overlay;
 
-  cardObj: Card;
+  categories: ImageCategoryModel[];
 
-  category: string;
+  themesBlock: HTMLElement;
 
-  callBacks: (() => void)[];
+  activeCategory: string | undefined;
 
-  audio: HTMLAudioElement;
+  activeCategoryObj: ImageCategoryModel | undefined;
+
+  overlayContent: HTMLElement;
+
+  arrayOfCardDivs: AdminPageCardView[];
 
   constructor(
-    cardState: string,
-    cardObj: Card,
-    category: string,
     dataBaseDarya: DatabaseDarya,
+    overlay: Overlay,
   ) {
-    super('div', ['one-theme-block', 'front']);
-    this.callBacks = [];
-    this.cardState = cardState;
-    this.cardObj = cardObj;
-    this.category = category;
+    super('div', ['admin-page-wrapper']);
+    this.drawHeaderAdmin();
+    this.overlay = overlay;
+    this.themesBlock = document.createElement('div');
+    this.overlayContent = document.createElement('div');
+    this.categories = [];
+    this.activeCategoryObj = undefined;
+    this.activeCategory = undefined;
+    this.arrayOfCardDivs = [];
     this.dataBaseDarya = dataBaseDarya;
-    this.audio = new Audio();
 
-    this.drawThemesAdmin();
+    this.themesBlock.classList.add('themes-block');
+    this.element.appendChild(this.themesBlock);
+
+    this.overlayContent.classList.add('content');
+    this.element.appendChild(this.overlayContent);
+  }
+
+  drawAllCategories(): void {
+    this.themesBlock.innerHTML = '';
+    this.activeCategory = undefined;
+    this.activeCategoryObj = undefined;
+    for (let i = 0; i < this.categories.length; i++) {
+      const divWithTheme = new AdminPageCardView(
+        StateToDraw.Themes,
+        this.categories[i].cardsContent[3],
+        this.categories[i].category,
+        this.dataBaseDarya,
+      );
+      this.themesBlock.appendChild(divWithTheme.element);
+      divWithTheme.onClickTheme(() => {
+        this.drawCategory(this.categories[i].category);
+      });
+    }
     this.createNewCategoryCard();
   }
 
-  drawThemesAdmin(): void {
-    this.element.innerHTML = '';
-    this.element.classList.add('one-theme-block-admin');
-    const closeCard = document.createElement('button');
-    closeCard.classList.add('close-card');
-    closeCard.innerText = 'x';
-    const y = document.createElement('span');
-    y.innerText = `${this.category}`;
-    this.element.appendChild(y);
-    this.element.appendChild(closeCard);
-    this.element.setAttribute('data-topic', `${this.category}`);
-    const amountOfWords = document.createElement('p');
-    amountOfWords.innerText = `WORDS: ${this.category.length}`;
-    this.element.appendChild(amountOfWords);
-    const updateBtn = document.createElement('button');
-    updateBtn.innerText = 'Update';
-    updateBtn.classList.add('update-btn');
-    const addWordBtn = document.createElement('button');
-    addWordBtn.innerText = 'Add word';
-    addWordBtn.classList.add('add-word-btn');
-    this.element.appendChild(updateBtn);
-    this.element.appendChild(addWordBtn);
-    this.element.addEventListener('click', () => {
-      this.callBacks.forEach((el) => el());
-    });
+  drawCategory(category: string): void {
+    this.themesBlock.innerHTML = '';
+    this.arrayOfCardDivs = [];
+    this.activeCategoryObj = this.categories.find(
+      (el) => el.category === category,
+    );
+    this.activeCategory = this.activeCategoryObj?.category;
+    if (this.activeCategoryObj !== undefined) {
+      for (let i = 0; i < this.activeCategoryObj?.cardsContent.length; i++) {
+        const divWithWord = new AdminPageCardView(
+          StateToDraw.OneTheme,
+          this.activeCategoryObj.cardsContent[i],
+          this.activeCategoryObj.category,
+          this.dataBaseDarya,
+        );
+        this.arrayOfCardDivs.push(divWithWord);
+        this.themesBlock.appendChild(divWithWord.element);
+      }
+    }
+    this.createNewWordCard();
   }
 
   createNewCategoryCard():void {
-    this.element.classList.add('one-theme-block-admin', 'add-card');
-    const closeCard = document.createElement('button');
-    closeCard.classList.add('close-card');
-    closeCard.innerText = 'x';
+    const createNewCategoryCard = document.createElement('div');
+    createNewCategoryCard.classList.add('one-theme-block', 'create-new-category-card', 'one-theme-block-admin');
     const y = document.createElement('span');
-    y.innerText = `${this.category}`;
-    this.element.appendChild(y);
-    this.element.appendChild(closeCard);
-    this.element.setAttribute('data-topic', `${this.category}`);
+    createNewCategoryCard.appendChild(y);
+    const text = document.createElement('p');
+    text.innerText = 'Create new Category';
+    createNewCategoryCard.appendChild(text);
+    const addCategoryBtn = document.createElement('button');
+    addCategoryBtn.innerText = '+';
+    addCategoryBtn.classList.add('add-category-btn');
+    createNewCategoryCard.appendChild(addCategoryBtn);
+    this.themesBlock.appendChild(createNewCategoryCard);
+    addCategoryBtn.addEventListener('click', () => {
+
+    });
   }
 
-  // drawTrainHardWords(hardWord: WordStatistic) {
-  //   console.log(hardWord);
-  // this.element.innerHTML = '';
-  // const divWithPicToFlipCard = document.createElement('img');
-  // const back = document.createElement('div');
-  // this.audio = document.createElement('audio');
-  // back.classList.add('back', 'hidden');
-  // const y = document.createElement('span');
-  // back.appendChild(y);
-  // y.innerText = `${hardWord.translation}`;
-  // const hardWordFromDB = this.dataBaseDarya.getWord(hardWord.id);
-  // console.log(hardWordFromDB);
-  // this.audio.setAttribute('src', `${this.cardObj.audioSrc}`);
-  // back.setAttribute(
-  //   'style',
-  //   `background-image:url('${this.cardObj.image}');`,
-  // );
-  // back.removeAttribute('data-topic');
-  // back.setAttribute('data-topic', `${this.category}`);
-  // divWithPicToFlipCard.setAttribute('src', picForFlip);
-  // divWithPicToFlipCard.removeAttribute('data-topic');
-  // divWithPicToFlipCard.setAttribute('data-topic', `${this.category}`);
-  // divWithPicToFlipCard.classList.add('flip-pic');
-  // this.element.classList.add('one-theme-block', 'front');
-  // this.element.removeAttribute('data-topic');
-  // this.element.setAttribute('data-topic', `${this.category}`);
-  // this.element.setAttribute(
-  //   'style',
-  //   `background-image:url('${this.cardObj.image}');`,
-  // );
-  // const x = document.createElement('span');
-  // x.innerText = `${hardWord.word}`;
-  // this.element.appendChild(x);
-  // this.element.appendChild(divWithPicToFlipCard);
-  // this.element.appendChild(back);
-  // this.element.appendChild(this.audio);
+  createNewWordCard():void {
+    const createNewWordCard = document.createElement('div');
+    createNewWordCard.classList.add('one-theme-block', 'create-new-category-card', 'one-theme-block-admin');
+    const y = document.createElement('span');
+    createNewWordCard.appendChild(y);
+    const text = document.createElement('p');
+    text.innerText = 'Add new Word';
+    createNewWordCard.appendChild(text);
+    const addCategoryBtn = document.createElement('button');
+    addCategoryBtn.innerText = '+';
+    addCategoryBtn.classList.add('add-category-btn');
+    createNewWordCard.appendChild(addCategoryBtn);
+    this.themesBlock.appendChild(createNewWordCard);
+    addCategoryBtn.addEventListener('click', () => {
 
-  // divWithPicToFlipCard.addEventListener('click', async (e: Event) => {
-  //   const clickOnCard = e.target as HTMLElement;
-  //   const keyToWordInDB = this.category + this.cardObj.word + this.cardObj.translation;
-  //   const currentCard = await this.dataBaseDarya.getWord(keyToWordInDB);
-  //   if (currentCard.click !== undefined) {
-  //     currentCard.click++;
-  //     this.dataBaseDarya.update(currentCard);
-  //     back.classList.remove('hidden');
-  //     flippCard(clickOnCard);
-  //   }
-  // });
+    });
+  }
 
-  // this.element.addEventListener('click', async (e: Event) => {
-  //   const keyToWordInDB = this.category + this.cardObj.word + this.cardObj.translation;
-  //   const currentCard = await this.dataBaseDarya.getWord(keyToWordInDB);
-  //   if (currentCard.click !== undefined) {
-  //     currentCard.click++;
-  //     this.dataBaseDarya.update(currentCard);
-  //   }
-
-  //   const clickOnCard = e.target as HTMLElement;
-  //   if (!clickOnCard.classList.contains('flip-pic')) {
-  //     playAudio(this.audio);
-  //   }
-  // });
-  // }
-
-  // drawPlayHardWords() {
-
-  // }
-
-  onClickTheme(callBack: { (): void; (): void }): void {
-    this.callBacks.push(callBack);
+  drawHeaderAdmin():void {
+    const headerAdmin = document.createElement('header');
+    headerAdmin.innerHTML = `
+    <ul class="header">
+    <li class="text"><a href="#">Categories</a></li>
+    <li class="text"><a href="#">Words</a></li>
+    <li class="text"><a href="#"><button class="logout-btn">Logout</button></a></li>
+  </ul>
+    `;
+    this.element.appendChild(headerAdmin);
   }
 }
