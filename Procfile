@@ -1,0 +1,1 @@
+web: ts-node ./english-for-kids-api/src/app.ts
