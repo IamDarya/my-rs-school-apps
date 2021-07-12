@@ -18,6 +18,7 @@ export class AdminPageCardView extends BaseComponent {
   categories: ImageCategoryModel[];
 
   callBacks: (() => void)[];
+
   callBacksForNewWord: (() => void)[];
 
   categoryAmountOfCards: number;
@@ -83,12 +84,12 @@ export class AdminPageCardView extends BaseComponent {
     updateBtn.addEventListener('click', () => {
       this.drawUpdateTheme();
     });
-    deleteCard.addEventListener('click', () =>{
+    deleteCard.addEventListener('click', () => {
       this.deleteCategory();
-    })
+    });
   }
 
-  async drawUpdateTheme() {
+  async drawUpdateTheme():Promise<void> {
     this.element.innerHTML = '';
     this.element.classList.add('one-theme-block-admin');
     const deleteCategory = document.createElement('button');
@@ -111,7 +112,7 @@ export class AdminPageCardView extends BaseComponent {
     this.element.appendChild(cancelUpdateCategBtn);
     deleteCategory.addEventListener('click', () => {
       this.deleteCategory();
-    })
+    });
     updateCatBtn.addEventListener('click', async () => {
       this.updateCategoryName(inputNewNameCateg);
     });
@@ -155,10 +156,10 @@ export class AdminPageCardView extends BaseComponent {
     this.element.appendChild(cnangeBtn);
   }
 
-  async updateCategoryName(inputNewNameCateg: HTMLInputElement) {
-    const categoryToUpdate = await (await fetch(`http://localhost:8000/api/categories/${this.cardObj.categoryId}`)).json() as ImageCategoryModel; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
+  async updateCategoryName(inputNewNameCateg: HTMLInputElement): Promise<void> {
+    const categoryToUpdate = await (await fetch(`https://mighty-cliffs-95999.herokuapp.com/api/categories/${this.cardObj.categoryId}`)).json() as ImageCategoryModel; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
     categoryToUpdate.category = inputNewNameCateg.value;
-    await fetch('http://localhost:8000/api/categories/', {
+    await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories/', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -169,25 +170,26 @@ export class AdminPageCardView extends BaseComponent {
     this.drawThemesAdmin();
   }
 
-  async deleteCategory() {
- //   await (await fetch(`http://localhost:8000/api/categories/${this.cardObj.categoryId}`)).json() as ImageCategoryModel; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
-    await fetch(`http://localhost:8000/api/categories/${this.cardObj.categoryId}`, {
+  async deleteCategory(): Promise<void> {
+    //   await (await fetch(`http://localhost:8000/api/categories/${this.cardObj.categoryId}`)).json() as ImageCategoryModel; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
+    await fetch(`https://mighty-cliffs-95999.herokuapp.com/api/categories/${this.cardObj.categoryId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-      }
+      },
     });
-     let wordsToDeleteInCategory = this.categories.filter((card) => card.id === this.cardObj.categoryId);
-     for(let i = 0; i < wordsToDeleteInCategory.length; i++) {
-   //   await (await fetch(`http://localhost:8000/api/word/${this.cardObj.word}`)).json() as ImageCategoryModel; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
-      await fetch(`http://localhost:8000/api/word/${this.cardObj.word}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      });
-     }
-     this.callBacks.forEach((el) => el());
+    // let allPromises = [];
+    // const wordsToDeleteInCategory = this.categories.filter((card) => card.id === this.cardObj.categoryId);
+    // for (let i = 0; i < wordsToDeleteInCategory.length; i++) {
+    //   //   await (await fetch(`http://localhost:8000/api/word/${this.cardObj.word}`)).json() as ImageCategoryModel; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
+    //   fetch(`http://localhost:8000/api/word/${this.cardObj.word}`, {
+    //     method: 'DELETE',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //   });
+    // }
+    this.callBacks.forEach((el) => el());
   }
 
   onClickDelete(callBack: { (): void; (): void }): void {

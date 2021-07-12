@@ -84,8 +84,8 @@ export class App {
 
     await this.dataBaseDarya.load();
 
-    const cards = await (await fetch('http://localhost:8000/api/cards')).json() as Card[]; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
-    const serverCategories = await (await fetch('http://localhost:8000/api/categories')).json() as ImageCategoryModel[]; // const serverCategories = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories')).json() as ImageCategoryModel[]
+    const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
+    const serverCategories = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories')).json() as ImageCategoryModel[];
 
     for (let i = 0; i < serverCategories.length; i++) {
       const cardsOfCategory = cards.filter((c) => c.categoryId === serverCategories[i].id);

@@ -50,7 +50,6 @@ export class AdminPage extends BaseComponent {
 
     this.overlayContent.classList.add('content');
     this.element.appendChild(this.overlayContent);
-
   }
 
   async drawAllCategories(): Promise<void> {
@@ -58,8 +57,8 @@ export class AdminPage extends BaseComponent {
     this.activeCategory = undefined;
     this.activeCategoryObj = undefined;
 
-    const cards = await (await fetch('http://localhost:8000/api/cards')).json() as Card[]; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
-    this.categories = await (await fetch('http://localhost:8000/api/categories')).json() as ImageCategoryModel[]; // const serverCategories = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories')).json() as ImageCategoryModel[]
+    const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[]; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
+    this.categories = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories')).json() as ImageCategoryModel[]; // const serverCategories = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories')).json() as ImageCategoryModel[]
 
     for (let i = 0; i < this.categories.length; i++) {
       const cardsOfCategory = cards.filter((c) => c.categoryId === this.categories[i].id);
@@ -75,12 +74,12 @@ export class AdminPage extends BaseComponent {
         this.dataBaseDarya,
       );
       this.themesBlock.appendChild(divWithTheme.element);
-      divWithTheme.onClickDelete(()=>{
+      divWithTheme.onClickDelete(() => {
         this.drawAllCategories();
-      })
-      divWithTheme.onClickAddWord(()=>{
-          this.drawCategory(this.categories[i].category);
-      })
+      });
+      divWithTheme.onClickAddWord(() => {
+        this.drawCategory(this.categories[i].category);
+      });
     }
     this.createNewCategoryCard();
   }
