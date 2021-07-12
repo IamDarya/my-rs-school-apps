@@ -1,8 +1,10 @@
 import '../../header/main-page.scss';
 import '../admin.scss';
+import './admin-page-card-view.scss';
 import { BaseComponent } from '../../base-component';
 import { Card } from '../../image-category-models/card';
 import { DatabaseDarya } from '../../database/database';
+import { ImageCategoryModel } from '../../image-category-models/image-category-models';
 
 export class AdminPageCardView extends BaseComponent {
   dataBaseDarya: DatabaseDarya;
@@ -15,9 +17,12 @@ export class AdminPageCardView extends BaseComponent {
 
   callBacks: (() => void)[];
 
+  categoryAmountOfCards: number;
+
   audio: HTMLAudioElement;
 
   constructor(
+    categoryAmountOfCards: number,
     cardState: string,
     cardObj: Card,
     category: string,
@@ -25,6 +30,7 @@ export class AdminPageCardView extends BaseComponent {
   ) {
     super('div', ['one-theme-block', 'front']);
     this.callBacks = [];
+    this.categoryAmountOfCards = categoryAmountOfCards;
     this.cardState = cardState;
     this.cardObj = cardObj;
     this.category = category;
@@ -56,7 +62,7 @@ export class AdminPageCardView extends BaseComponent {
     this.element.appendChild(closeCard);
     this.element.setAttribute('data-topic', `${this.category}`);
     const amountOfWords = document.createElement('p');
-    amountOfWords.innerText = `WORDS: ${this.category.length}`;
+    amountOfWords.innerText = `WORDS: ${this.categoryAmountOfCards}`;
     this.element.appendChild(amountOfWords);
     const updateBtn = document.createElement('button');
     updateBtn.innerText = 'Update';
@@ -70,7 +76,51 @@ export class AdminPageCardView extends BaseComponent {
       this.callBacks.forEach((el) => el());
     });
     updateBtn.addEventListener('click', () => {
+      this.drawUpdateTheme();
       this.callBacks.forEach((el) => el());
+    });
+  }
+
+  async drawUpdateTheme() {
+    this.element.innerHTML = '';
+    this.element.classList.add('one-theme-block-admin');
+    const closeCard = document.createElement('button');
+    closeCard.classList.add('close-card');
+    closeCard.innerText = 'x';
+    const label = document.createElement('label');
+    label.innerHTML = 'Category Name:';
+    this.element.appendChild(label);
+    const inputNewNameCateg = document.createElement('input');
+    inputNewNameCateg.placeholder = `${this.category}`;
+    this.element.appendChild(inputNewNameCateg);
+    this.element.appendChild(closeCard);
+    const updateCatBtn = document.createElement('button');
+    updateCatBtn.innerText = 'Update';
+    updateCatBtn.classList.add('update-categ-btn');
+    const cancelUpdateCategBtn = document.createElement('button');
+    cancelUpdateCategBtn.innerText = 'Cancel';
+    cancelUpdateCategBtn.classList.add('cancel-upd-categ-btn');
+    this.element.appendChild(updateCatBtn);
+    this.element.appendChild(cancelUpdateCategBtn);
+    cancelUpdateCategBtn.addEventListener('click', () => {
+      // this.callBacks.forEach((el) => el());
+    });
+    updateCatBtn.addEventListener('click', async () => {
+      const categoryToUpdate = await (await fetch(`http://localhost:8000/api/categories/${this.cardObj.categoryId}`)).json() as ImageCategoryModel; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
+      categoryToUpdate.category = inputNewNameCateg.value;
+      await fetch('http://localhost:8000/api/categories/', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(categoryToUpdate),
+      });
+      this.category = categoryToUpdate.category;
+      this.drawThemesAdmin();
+      // this.callBacks.forEach((el) => el());
+    });
+    cancelUpdateCategBtn.addEventListener('click', () => {
+      this.drawThemesAdmin();
     });
   }
 
@@ -109,7 +159,7 @@ export class AdminPageCardView extends BaseComponent {
     this.element.appendChild(cnangeBtn);
 
     this.element.addEventListener('click', async (e: Event) => {
-     // const keyToWordInDB = this.category + this.cardObj.word + this.cardObj.translation;
+      // const keyToWordInDB = this.category + this.cardObj.word + this.cardObj.translation;
 
       const clickOnCard = e.target as HTMLElement;
       if (!clickOnCard.classList.contains('flip-pic')) {

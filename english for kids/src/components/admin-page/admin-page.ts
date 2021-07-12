@@ -57,15 +57,16 @@ export class AdminPage extends BaseComponent {
     this.activeCategoryObj = undefined;
     for (let i = 0; i < this.categories.length; i++) {
       const divWithTheme = new AdminPageCardView(
+        this.categories[i].cardsContent.length,
         StateToDraw.Themes,
         this.categories[i].cardsContent[3],
         this.categories[i].category,
         this.dataBaseDarya,
       );
       this.themesBlock.appendChild(divWithTheme.element);
-      divWithTheme.onClickTheme(() => {
-        this.drawCategory(this.categories[i].category);
-      });
+      // divWithTheme.onClickTheme(() => {
+      //   this.drawCategory(this.categories[i].category);
+      // });
     }
     this.createNewCategoryCard();
   }
@@ -80,6 +81,7 @@ export class AdminPage extends BaseComponent {
     if (this.activeCategoryObj !== undefined) {
       for (let i = 0; i < this.activeCategoryObj?.cardsContent.length; i++) {
         const divWithWord = new AdminPageCardView(
+          this.categories[i].cardsContent.length,
           StateToDraw.OneTheme,
           this.activeCategoryObj.cardsContent[i],
           this.activeCategoryObj.category,

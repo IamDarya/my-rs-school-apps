@@ -83,20 +83,19 @@ export class App {
     });
 
     await this.dataBaseDarya.load();
-    const allThemesJson = await fetch('./cards.json');
-    const categories = await allThemesJson.json();
 
-    const serverCategories = await (await fetch('localhost:8000/api/categories')).json() as ImageCategoryModel[];
-    const cards = await (await fetch('localhost:8000/api/cards')).json() as Card[];
+    const cards = await (await fetch('http://localhost:8000/api/cards')).json() as Card[]; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
+    const serverCategories = await (await fetch('http://localhost:8000/api/categories')).json() as ImageCategoryModel[]; // const serverCategories = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories')).json() as ImageCategoryModel[]
 
     for (let i = 0; i < serverCategories.length; i++) {
       const cardsOfCategory = cards.filter((c) => c.categoryId === serverCategories[i].id);
       serverCategories[i].cardsContent = cardsOfCategory;
     }
 
-    this.header.drawHeader(categories);
-    this.gridBtn.categories = categories;
-    this.adminPage.categories = categories;
+    this.header.drawHeader(serverCategories);
+    this.gridBtn.categories = serverCategories;
+    console.log(serverCategories);
+    this.adminPage.categories = serverCategories;
     this.adminPage.drawAllCategories();
     this.rootElement.appendChild(this.registration.element);
     this.rootElement.appendChild(this.header.element);
@@ -114,23 +113,23 @@ export class App {
     this.gridBtn.drawAllCategories();
 
     // const rez = [];
-    for (let i = 0; i < categories.length; i++) {
-      for (let j = 0; j < categories[i].cardsContent.length; j++) {
+    for (let i = 0; i < serverCategories.length; i++) {
+      for (let j = 0; j < serverCategories[i].cardsContent.length; j++) {
         if (
           (await this.dataBaseDarya.getWord( // eslint-disable-line no-await-in-loop
-            categories[i].category
-              + categories[i].cardsContent[j].word
-              + categories[i].cardsContent[j].translation,
+            serverCategories[i].category
+              + serverCategories[i].cardsContent[j].word
+              + serverCategories[i].cardsContent[j].translation,
           )) === undefined
         ) {
           const wordStatistic = new WordStatistic(
-            categories[i].category,
-            categories[i].cardsContent[j].word,
-            categories[i].cardsContent[j].translation,
+            serverCategories[i].category,
+            serverCategories[i].cardsContent[j].word,
+            serverCategories[i].cardsContent[j].translation,
             0,
-            categories[i].category
-              + categories[i].cardsContent[j].word
-              + categories[i].cardsContent[j].translation,
+            serverCategories[i].category
+              + serverCategories[i].cardsContent[j].word
+              + serverCategories[i].cardsContent[j].translation,
             0,
             0,
             0,

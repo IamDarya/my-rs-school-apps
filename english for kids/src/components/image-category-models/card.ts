@@ -1,5 +1,5 @@
 export interface Card {
-  categoryId?: number;
+  categoryId: number;
   word: string;
   translation: string;
   image: string;
