@@ -123,10 +123,10 @@ export class AdminPageCardView extends BaseComponent {
 
   drawOneTheme(): void {
     this.element.innerHTML = '';
-    const closeCard = document.createElement('button');
-    this.element.appendChild(closeCard);
-    closeCard.classList.add('close-card');
-    closeCard.innerText = 'x';
+    const deleteCard = document.createElement('button');
+    this.element.appendChild(deleteCard);
+    deleteCard.classList.add('close-card');
+    deleteCard.innerText = 'x';
     this.audio = document.createElement('audio');
     const y = document.createElement('div');
     y.classList.add('card-content');
@@ -154,6 +154,10 @@ export class AdminPageCardView extends BaseComponent {
     cnangeBtn.innerText = 'Change';
     cnangeBtn.classList.add('change-btn');
     this.element.appendChild(cnangeBtn);
+
+    deleteCard.addEventListener('click', () => {
+      this.deleteWord();
+    });
   }
 
   async updateCategoryName(inputNewNameCateg: HTMLInputElement): Promise<void> {
@@ -190,6 +194,16 @@ export class AdminPageCardView extends BaseComponent {
     //   });
     // }
     this.callBacks.forEach((el) => el());
+  }
+
+  async deleteWord(): Promise<void> {
+    await fetch(`https://mighty-cliffs-95999.herokuapp.com/api/cards/word/${this.cardObj.word}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    this.callBacksForNewWord.forEach((el) => el());
   }
 
   onClickDelete(callBack: { (): void; (): void }): void {

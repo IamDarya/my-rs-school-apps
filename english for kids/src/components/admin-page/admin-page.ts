@@ -84,7 +84,15 @@ export class AdminPage extends BaseComponent {
     this.createNewCategoryCard();
   }
 
-  drawCategory(category: string): void {
+  async drawCategory(category: string): Promise<void> {
+    const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[]; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
+    this.categories = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories')).json() as ImageCategoryModel[]; // const serverCategories = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories')).json() as ImageCategoryModel[]
+
+    for (let i = 0; i < this.categories.length; i++) {
+      const cardsOfCategory = cards.filter((c) => c.categoryId === this.categories[i].id);
+      this.categories[i].cardsContent = cardsOfCategory;
+    }
+
     this.themesBlock.innerHTML = '';
     this.arrayOfCardDivs = [];
     this.activeCategoryObj = this.categories.find(
@@ -104,6 +112,12 @@ export class AdminPage extends BaseComponent {
         this.themesBlock.appendChild(divWithWord.element);
 
         divWithWord.drawOneTheme();
+
+        divWithWord.onClickAddWord(() => {
+          if (this.activeCategory !== undefined) {
+            this.drawCategory(this.activeCategory);
+          }
+        });
       }
     }
     this.createNewWordCard();

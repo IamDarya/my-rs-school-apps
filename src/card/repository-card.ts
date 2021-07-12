@@ -382,7 +382,7 @@ const cards: Card[] = [
   {
     categoryId: 7,
     word: "fruit",
-    translation: "испуганный",
+    translation: "фрукт",
     image: "img/Food/fruit.jpg",
     audioSrc: "audio/Food/fruit.mp3",
   },
