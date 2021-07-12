@@ -2,8 +2,7 @@ import './admin.scss';
 import { BaseComponent } from '../base-component';
 import { AdminPageCardView } from './admin-page-card-view/admin-page-card-view';
 import { ImageCategoryModel } from '../image-category-models/image-category-models';
-import { Game, playAudio } from '../game/game';
-import repeatPic from '../../assets/repeat.svg';
+// import { Game, playAudio } from '../game/game';
 import { DatabaseDarya } from '../database/database';
 import { Overlay } from '../grid-btn/overlay';
 

@@ -3,10 +3,13 @@ import { Category } from './category';
 import {
     createCategory,
     deleteCategory,
-    getCategories, getCategoryById
+    getCategories, 
+    getCategoryById,
+    updateCategory,
 } from './repository';
 
 const router = Router();
+
 
 router.get('/', async (req, res) => {
     const categories = await getCategories();
@@ -41,10 +44,21 @@ router.delete('/:id', async (req, res) => {
 
 router.post('/', async(req, res) => {
     const data = req.body as Category;
-    if (!data.name) return res.sendStatus(404);
+    if (!data.category) return res.sendStatus(404);
     try {
         const newCategory = await createCategory(data);
         return res.json(newCategory);
+    } catch(e){
+        return res.status(400).send(e);
+    }
+})
+
+router.put('/', async(req, res) => {
+    const data = req.body as Category;
+    if (!data.category) return res.sendStatus(404);
+    try {
+        const categoryToUpdate = await updateCategory(data);
+        return res.json(categoryToUpdate);
     } catch(e){
         return res.status(400).send(e);
     }

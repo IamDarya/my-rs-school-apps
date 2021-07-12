@@ -3,6 +3,7 @@ import { BaseComponent } from '../base-component';
 import { CardView } from '../card-view/card-view';
 import { Overlay } from '../grid-btn/overlay';
 import { NewRout } from '../routing/newRouting';
+import { LoginedAdmin } from './logined-admin';
 import './registration.scss';
 
 export class Registration extends BaseComponent {
@@ -20,11 +21,14 @@ export class Registration extends BaseComponent {
 
   newRout: NewRout;
 
-  constructor(overlay: Overlay, adminPage: AdminPage, newRout: NewRout) {
+  loginedAdmin: LoginedAdmin;
+
+  constructor(overlay: Overlay, adminPage: AdminPage, newRout: NewRout, loginedAdmin: LoginedAdmin) {
     super('div', ['pop-up-registr-wrapper', 'hidden']);
     this.adminPage = adminPage;
     this.newRout = newRout;
     this.overlay = overlay;
+    this.loginedAdmin = loginedAdmin;
     this.inputLogin = document.createElement('input');
     this.inputPassword = document.createElement('input');
 
@@ -59,11 +63,22 @@ export class Registration extends BaseComponent {
     this.cancelBtn.classList.add('cancel-btn-popup');
     this.element.appendChild(this.cancelBtn);
 
+    this.loginBtn.addEventListener('click', () => {
+      this.cancelRegistrPopUp();
+      this.loginedAdmin.loginedAdmin = true;
+      this.newRout.navigate('categories');
+      // this.adminPage.drawAllCategories();
+    });
+
     this.inputLogin.addEventListener('input', (e:Event) => {
       const input = e.target as HTMLInputElement;
       if (input.value === 'login') {
         input.classList.add('valid');
         this.validatedLoginPassword();
+      } else {
+        input.classList.remove('valid');
+        this.loginBtn.disabled = true;
+        this.loginBtn.classList.add('disabled');
       }
     });
     this.inputPassword.addEventListener('input', (e:Event) => {
@@ -71,20 +86,10 @@ export class Registration extends BaseComponent {
       if (input.value === 'password') {
         input.classList.add('valid');
         this.validatedLoginPassword();
-      }
-    });
-
-    eye.addEventListener('click', () => {
-      if (eye.classList.contains('fa-eye')) {
-        this.inputPassword.classList.toggle('fa-eye-slash');
-        this.inputPassword.classList.toggle('fa-eye');
-        this.inputPassword.removeAttribute('type');
-        this.inputPassword.setAttribute('type', 'text');
       } else {
-        this.inputPassword.removeAttribute('type');
-        this.inputPassword.setAttribute('type', 'password');
-        this.inputPassword.classList.toggle('fa-eye');
-        this.inputPassword.classList.toggle('fa-eye-slash');
+        input.classList.remove('valid');
+        this.loginBtn.disabled = true;
+        this.loginBtn.classList.add('disabled');
       }
     });
   }
@@ -109,11 +114,6 @@ export class Registration extends BaseComponent {
     if (this.inputLogin.classList.contains('valid') && this.inputPassword.classList.contains('valid')) {
       this.loginBtn.disabled = false;
       this.loginBtn.classList.remove('disabled');
-      this.loginBtn.addEventListener('click', () => {
-        this.cancelRegistrPopUp();
-        this.newRout.navigate('categories');
-        // this.adminPage.drawAllCategories();
-      });
     }
   }
 }

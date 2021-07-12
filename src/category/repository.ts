@@ -1,16 +1,62 @@
 import {Category} from './category';
 
-const categories: Category[] = [{
-    id: 1,
-    name: 'Category 1',
-    description: 'My nest category 1'
-},
-{
-    id: 2,
-    name: 'Category 2',
-    description: 'My nest category 2'
-}
-]
+const categories: Category[] = [
+    {
+        id: 1,
+      category: "Action (set A)",
+    },
+  
+  
+  
+    {
+        id: 2,
+      category: "Action (set B)",
+    },
+  
+  
+  
+  
+    {
+        id: 3,
+      category: "Animal (set A)",
+    },
+  
+  
+    {
+        id: 4,
+      category: "Animal (set B)",
+    },
+  
+  
+  
+  
+    {
+        id: 5,
+      category: "Clothes"
+    },
+  
+  
+  
+    {
+        id: 6,
+      category: "Emotions"
+    },
+  
+  
+  
+    {
+        id: 7,
+      category: "Food"
+    },
+  
+  
+  
+    {
+        id: 8,
+      category: "Seasons",
+    }
+  ]
+  
 
 const newId = (function() {
     let id = categories.length+1;
@@ -34,9 +80,9 @@ export function deleteCategory(id: number): Promise<void> {
 }
 
 export function createCategory(data: Category): Promise<Category> {
-    const isExists = categories.findIndex((cat) => cat.name === data.name) >=0;
+    const isExists = categories.findIndex((cat) => cat.category === data.category) >=0;
     if (isExists) {
-        return Promise.reject(new Error(`Category with name ${data.name} already exist`));
+        return Promise.reject(new Error(`Category with name ${data.category} already exist`));
     }
     const newCategory: Category = {
         ...data,
@@ -44,4 +90,13 @@ export function createCategory(data: Category): Promise<Category> {
     }
     categories.push(newCategory);
     return Promise.resolve(newCategory);
+}
+
+export function updateCategory(data: Category): Promise<Category> {
+  const categoryToUpdate = categories.find((cat) => cat.id === data.id);
+  if(!categoryToUpdate) return Promise.reject(new Error('Category not found'));
+  if(data.category) {
+  categoryToUpdate.category = data.category
+  }
+  return Promise.resolve(categoryToUpdate);
 }

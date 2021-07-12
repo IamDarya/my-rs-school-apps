@@ -66,7 +66,10 @@ export class AdminPageCardView extends BaseComponent {
     addWordBtn.classList.add('add-word-btn');
     this.element.appendChild(updateBtn);
     this.element.appendChild(addWordBtn);
-    this.element.addEventListener('click', () => {
+    addWordBtn.addEventListener('click', () => {
+      this.callBacks.forEach((el) => el());
+    });
+    updateBtn.addEventListener('click', () => {
       this.callBacks.forEach((el) => el());
     });
   }
@@ -106,7 +109,7 @@ export class AdminPageCardView extends BaseComponent {
     this.element.appendChild(cnangeBtn);
 
     this.element.addEventListener('click', async (e: Event) => {
-      const keyToWordInDB = this.category + this.cardObj.word + this.cardObj.translation;
+     // const keyToWordInDB = this.category + this.cardObj.word + this.cardObj.translation;
 
       const clickOnCard = e.target as HTMLElement;
       if (!clickOnCard.classList.contains('flip-pic')) {

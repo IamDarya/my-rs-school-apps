@@ -8,6 +8,9 @@ import { Statistics } from './components/statistics/statistics';
 import { Registration } from './components/registration/registration';
 import { Overlay } from './components/grid-btn/overlay';
 import { AdminPage } from './components/admin-page/admin-page';
+import { LoginedAdmin } from './components/registration/logined-admin';
+import { ImageCategoryModel } from './components/image-category-models/image-category-models';
+import { Card } from './components/image-category-models/card';
 
 export class App {
   private readonly newRout: NewRout;
@@ -18,15 +21,17 @@ export class App {
 
   private readonly registration: Registration;
 
-  overlay: Overlay;
+  private readonly overlay: Overlay;
 
-  game: Game;
+  private readonly game: Game;
 
-  dataBaseDarya: DatabaseDarya;
+  private readonly dataBaseDarya: DatabaseDarya;
 
   private readonly adminPage: AdminPage;
 
   private readonly statistics: Statistics;
+
+  private readonly loginedAdmin: LoginedAdmin;
 
   constructor(private readonly rootElement: HTMLElement) {
     this.overlay = new Overlay();
@@ -41,7 +46,9 @@ export class App {
 
     this.adminPage = new AdminPage(this.dataBaseDarya, this.overlay);
 
-    this.registration = new Registration(this.overlay, this.adminPage, this.newRout);
+    this.loginedAdmin = new LoginedAdmin();
+
+    this.registration = new Registration(this.overlay, this.adminPage, this.newRout, this.loginedAdmin);
 
     this.header = new Header(this.gridBtn, this.newRout, this.registration);
 
@@ -64,16 +71,29 @@ export class App {
     });
 
     this.newRout.add('categories', () => {
-      this.statistics.hide();
-      this.gridBtn.hide();
-      this.header.hide();
-      this.adminPage.drawAllCategories();
-      this.adminPage.show();
+      if (this.loginedAdmin.loginedAdmin) {
+        this.statistics.hide();
+        this.gridBtn.hide();
+        this.header.hide();
+        this.adminPage.drawAllCategories();
+        this.adminPage.show();
+      } else {
+        this.newRout.navigate('');
+      }
     });
 
     await this.dataBaseDarya.load();
     const allThemesJson = await fetch('./cards.json');
     const categories = await allThemesJson.json();
+
+    const serverCategories = await (await fetch('localhost:8000/api/categories')).json() as ImageCategoryModel[];
+    const cards = await (await fetch('localhost:8000/api/cards')).json() as Card[];
+
+    for (let i = 0; i < serverCategories.length; i++) {
+      const cardsOfCategory = cards.filter((c) => c.categoryId === serverCategories[i].id);
+      serverCategories[i].cardsContent = cardsOfCategory;
+    }
+
     this.header.drawHeader(categories);
     this.gridBtn.categories = categories;
     this.adminPage.categories = categories;
