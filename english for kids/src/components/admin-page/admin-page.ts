@@ -78,6 +78,9 @@ export class AdminPage extends BaseComponent {
       divWithTheme.onClickDelete(()=>{
         this.drawAllCategories();
       })
+      divWithTheme.onClickAddWord(()=>{
+          this.drawCategory(this.categories[i].category);
+      })
     }
     this.createNewCategoryCard();
   }
@@ -100,6 +103,8 @@ export class AdminPage extends BaseComponent {
         );
         this.arrayOfCardDivs.push(divWithWord);
         this.themesBlock.appendChild(divWithWord.element);
+
+        divWithWord.drawOneTheme();
       }
     }
     this.createNewWordCard();

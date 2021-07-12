@@ -18,6 +18,7 @@ export class AdminPageCardView extends BaseComponent {
   categories: ImageCategoryModel[];
 
   callBacks: (() => void)[];
+  callBacksForNewWord: (() => void)[];
 
   categoryAmountOfCards: number;
 
@@ -32,6 +33,7 @@ export class AdminPageCardView extends BaseComponent {
   ) {
     super('div', ['one-theme-block', 'front']);
     this.callBacks = [];
+    this.callBacksForNewWord = [];
     this.categories = [];
     this.categoryAmountOfCards = categoryAmountOfCards;
     this.cardState = cardState;
@@ -40,13 +42,13 @@ export class AdminPageCardView extends BaseComponent {
     this.dataBaseDarya = dataBaseDarya;
     this.audio = new Audio();
 
-    if (this.cardState === 'OneTheme') {
-      this.drawOneTheme();
-    }
+    // if (this.cardState === 'OneTheme') {
+    //   this.drawOneTheme();
+    // }
 
-    if (this.cardState === 'OneWord') {
-      // this.drawOneWord();
-    }
+    // if (this.cardState === 'OneWord') {
+    //   // this.drawOneWord();
+    // }
 
     if (this.cardState === 'Themes') {
       this.drawThemesAdmin();
@@ -56,13 +58,13 @@ export class AdminPageCardView extends BaseComponent {
   async drawThemesAdmin(): Promise<void> {
     this.element.innerHTML = '';
     this.element.classList.add('one-theme-block-admin');
-    const closeCard = document.createElement('button');
-    closeCard.classList.add('close-card');
-    closeCard.innerText = 'x';
+    const deleteCard = document.createElement('button');
+    deleteCard.classList.add('close-card');
+    deleteCard.innerText = 'x';
     const y = document.createElement('span');
     y.innerText = `${this.category}`;
     this.element.appendChild(y);
-    this.element.appendChild(closeCard);
+    this.element.appendChild(deleteCard);
     this.element.setAttribute('data-topic', `${this.category}`);
     const amountOfWords = document.createElement('p');
     amountOfWords.innerText = `WORDS: ${this.categoryAmountOfCards}`;
@@ -76,13 +78,12 @@ export class AdminPageCardView extends BaseComponent {
     this.element.appendChild(updateBtn);
     this.element.appendChild(addWordBtn);
     addWordBtn.addEventListener('click', () => {
-
+      this.callBacksForNewWord.forEach((el) => el());
     });
     updateBtn.addEventListener('click', () => {
       this.drawUpdateTheme();
-
     });
-    closeCard.addEventListener('click', () =>{
+    deleteCard.addEventListener('click', () =>{
       this.deleteCategory();
     })
   }
@@ -108,8 +109,6 @@ export class AdminPageCardView extends BaseComponent {
     cancelUpdateCategBtn.classList.add('cancel-upd-categ-btn');
     this.element.appendChild(updateCatBtn);
     this.element.appendChild(cancelUpdateCategBtn);
-    cancelUpdateCategBtn.addEventListener('click', () => {
-    });
     deleteCategory.addEventListener('click', () => {
       this.deleteCategory();
     })
@@ -193,5 +192,9 @@ export class AdminPageCardView extends BaseComponent {
 
   onClickDelete(callBack: { (): void; (): void }): void {
     this.callBacks.push(callBack);
+  }
+
+  onClickAddWord(callBack: { (): void; (): void }): void {
+    this.callBacksForNewWord.push(callBack);
   }
 }
