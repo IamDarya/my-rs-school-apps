@@ -15,6 +15,8 @@ export class AdminPageCardView extends BaseComponent {
 
   category: string;
 
+  categories: ImageCategoryModel[];
+
   callBacks: (() => void)[];
 
   categoryAmountOfCards: number;
@@ -30,6 +32,7 @@ export class AdminPageCardView extends BaseComponent {
   ) {
     super('div', ['one-theme-block', 'front']);
     this.callBacks = [];
+    this.categories = [];
     this.categoryAmountOfCards = categoryAmountOfCards;
     this.cardState = cardState;
     this.cardObj = cardObj;
@@ -50,7 +53,7 @@ export class AdminPageCardView extends BaseComponent {
     }
   }
 
-  drawThemesAdmin(): void {
+  async drawThemesAdmin(): Promise<void> {
     this.element.innerHTML = '';
     this.element.classList.add('one-theme-block-admin');
     const closeCard = document.createElement('button');
@@ -73,27 +76,30 @@ export class AdminPageCardView extends BaseComponent {
     this.element.appendChild(updateBtn);
     this.element.appendChild(addWordBtn);
     addWordBtn.addEventListener('click', () => {
-      this.callBacks.forEach((el) => el());
+
     });
     updateBtn.addEventListener('click', () => {
       this.drawUpdateTheme();
-      this.callBacks.forEach((el) => el());
+
     });
+    closeCard.addEventListener('click', () =>{
+      this.deleteCategory();
+    })
   }
 
   async drawUpdateTheme() {
     this.element.innerHTML = '';
     this.element.classList.add('one-theme-block-admin');
-    const closeCard = document.createElement('button');
-    closeCard.classList.add('close-card');
-    closeCard.innerText = 'x';
+    const deleteCategory = document.createElement('button');
+    deleteCategory.classList.add('close-card');
+    deleteCategory.innerText = 'x';
     const label = document.createElement('label');
     label.innerHTML = 'Category Name:';
     this.element.appendChild(label);
     const inputNewNameCateg = document.createElement('input');
     inputNewNameCateg.placeholder = `${this.category}`;
     this.element.appendChild(inputNewNameCateg);
-    this.element.appendChild(closeCard);
+    this.element.appendChild(deleteCategory);
     const updateCatBtn = document.createElement('button');
     updateCatBtn.innerText = 'Update';
     updateCatBtn.classList.add('update-categ-btn');
@@ -103,21 +109,12 @@ export class AdminPageCardView extends BaseComponent {
     this.element.appendChild(updateCatBtn);
     this.element.appendChild(cancelUpdateCategBtn);
     cancelUpdateCategBtn.addEventListener('click', () => {
-      // this.callBacks.forEach((el) => el());
     });
+    deleteCategory.addEventListener('click', () => {
+      this.deleteCategory();
+    })
     updateCatBtn.addEventListener('click', async () => {
-      const categoryToUpdate = await (await fetch(`http://localhost:8000/api/categories/${this.cardObj.categoryId}`)).json() as ImageCategoryModel; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
-      categoryToUpdate.category = inputNewNameCateg.value;
-      await fetch('http://localhost:8000/api/categories/', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(categoryToUpdate),
-      });
-      this.category = categoryToUpdate.category;
-      this.drawThemesAdmin();
-      // this.callBacks.forEach((el) => el());
+      this.updateCategoryName(inputNewNameCateg);
     });
     cancelUpdateCategBtn.addEventListener('click', () => {
       this.drawThemesAdmin();
@@ -157,18 +154,44 @@ export class AdminPageCardView extends BaseComponent {
     cnangeBtn.innerText = 'Change';
     cnangeBtn.classList.add('change-btn');
     this.element.appendChild(cnangeBtn);
-
-    this.element.addEventListener('click', async (e: Event) => {
-      // const keyToWordInDB = this.category + this.cardObj.word + this.cardObj.translation;
-
-      const clickOnCard = e.target as HTMLElement;
-      if (!clickOnCard.classList.contains('flip-pic')) {
-        // playAudio(this.audio);
-      }
-    });
   }
 
-  onClickTheme(callBack: { (): void; (): void }): void {
+  async updateCategoryName(inputNewNameCateg: HTMLInputElement) {
+    const categoryToUpdate = await (await fetch(`http://localhost:8000/api/categories/${this.cardObj.categoryId}`)).json() as ImageCategoryModel; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
+    categoryToUpdate.category = inputNewNameCateg.value;
+    await fetch('http://localhost:8000/api/categories/', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(categoryToUpdate),
+    });
+    this.category = categoryToUpdate.category;
+    this.drawThemesAdmin();
+  }
+
+  async deleteCategory() {
+ //   await (await fetch(`http://localhost:8000/api/categories/${this.cardObj.categoryId}`)).json() as ImageCategoryModel; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
+    await fetch(`http://localhost:8000/api/categories/${this.cardObj.categoryId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+     let wordsToDeleteInCategory = this.categories.filter((card) => card.id === this.cardObj.categoryId);
+     for(let i = 0; i < wordsToDeleteInCategory.length; i++) {
+   //   await (await fetch(`http://localhost:8000/api/word/${this.cardObj.word}`)).json() as ImageCategoryModel; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
+      await fetch(`http://localhost:8000/api/word/${this.cardObj.word}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+     }
+     this.callBacks.forEach((el) => el());
+  }
+
+  onClickDelete(callBack: { (): void; (): void }): void {
     this.callBacks.push(callBack);
   }
 }

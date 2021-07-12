@@ -94,7 +94,6 @@ export class App {
 
     this.header.drawHeader(serverCategories);
     this.gridBtn.categories = serverCategories;
-    console.log(serverCategories);
     this.adminPage.categories = serverCategories;
     this.adminPage.drawAllCategories();
     this.rootElement.appendChild(this.registration.element);

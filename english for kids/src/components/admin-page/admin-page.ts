@@ -5,6 +5,7 @@ import { ImageCategoryModel } from '../image-category-models/image-category-mode
 // import { Game, playAudio } from '../game/game';
 import { DatabaseDarya } from '../database/database';
 import { Overlay } from '../grid-btn/overlay';
+import { Card } from '../image-category-models/card';
 
 export enum StateToDraw {
   OneTheme = 'OneTheme',
@@ -49,12 +50,22 @@ export class AdminPage extends BaseComponent {
 
     this.overlayContent.classList.add('content');
     this.element.appendChild(this.overlayContent);
+
   }
 
-  drawAllCategories(): void {
+  async drawAllCategories(): Promise<void> {
     this.themesBlock.innerHTML = '';
     this.activeCategory = undefined;
     this.activeCategoryObj = undefined;
+
+    const cards = await (await fetch('http://localhost:8000/api/cards')).json() as Card[]; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
+    this.categories = await (await fetch('http://localhost:8000/api/categories')).json() as ImageCategoryModel[]; // const serverCategories = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories')).json() as ImageCategoryModel[]
+
+    for (let i = 0; i < this.categories.length; i++) {
+      const cardsOfCategory = cards.filter((c) => c.categoryId === this.categories[i].id);
+      this.categories[i].cardsContent = cardsOfCategory;
+    }
+
     for (let i = 0; i < this.categories.length; i++) {
       const divWithTheme = new AdminPageCardView(
         this.categories[i].cardsContent.length,
@@ -64,9 +75,9 @@ export class AdminPage extends BaseComponent {
         this.dataBaseDarya,
       );
       this.themesBlock.appendChild(divWithTheme.element);
-      // divWithTheme.onClickTheme(() => {
-      //   this.drawCategory(this.categories[i].category);
-      // });
+      divWithTheme.onClickDelete(()=>{
+        this.drawAllCategories();
+      })
     }
     this.createNewCategoryCard();
   }
@@ -126,7 +137,6 @@ export class AdminPage extends BaseComponent {
     createNewWordCard.appendChild(addCategoryBtn);
     this.themesBlock.appendChild(createNewWordCard);
     addCategoryBtn.addEventListener('click', () => {
-
     });
   }
 
