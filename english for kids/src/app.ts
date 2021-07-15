@@ -7,6 +7,10 @@ import { WordStatistic } from './components/database/word-statist';
 import { Statistics } from './components/statistics/statistics';
 import { Registration } from './components/registration/registration';
 import { Overlay } from './components/grid-btn/overlay';
+import { AdminPage } from './components/admin-page/admin-page';
+import { LoginedAdmin } from './components/registration/logined-admin';
+import { ImageCategoryModel } from './components/image-category-models/image-category-models';
+import { Card } from './components/image-category-models/card';
 
 export class App {
   private readonly newRout: NewRout;
@@ -17,13 +21,17 @@ export class App {
 
   private readonly registration: Registration;
 
-  overlay: Overlay;
+  private readonly overlay: Overlay;
 
-  game: Game;
+  private readonly game: Game;
 
-  dataBaseDarya: DatabaseDarya;
+  private readonly dataBaseDarya: DatabaseDarya;
+
+  private readonly adminPage: AdminPage;
 
   private readonly statistics: Statistics;
+
+  private readonly loginedAdmin: LoginedAdmin;
 
   constructor(private readonly rootElement: HTMLElement) {
     this.overlay = new Overlay();
@@ -36,7 +44,11 @@ export class App {
 
     this.gridBtn = new GridBtn(this.game, this.dataBaseDarya, this.overlay);
 
-    this.registration = new Registration(this.overlay);
+    this.adminPage = new AdminPage(this.dataBaseDarya, this.overlay);
+
+    this.loginedAdmin = new LoginedAdmin();
+
+    this.registration = new Registration(this.overlay, this.adminPage, this.newRout, this.loginedAdmin);
 
     this.header = new Header(this.gridBtn, this.newRout, this.registration);
 
@@ -48,22 +60,47 @@ export class App {
       this.statistics.show();
       this.gridBtn.hide();
       this.statistics.statisticShow();
+      this.adminPage.hide();
     });
 
     this.newRout.add('', () => {
       this.statistics.hide();
       this.gridBtn.show();
+      this.header.show();
+      this.adminPage.hide();
+    });
+
+    this.newRout.add('categories', () => {
+      if (this.loginedAdmin.loginedAdmin) {
+        this.statistics.hide();
+        this.gridBtn.hide();
+        this.header.hide();
+        this.adminPage.drawAllCategories();
+        this.adminPage.show();
+      } else {
+        this.newRout.navigate('');
+      }
     });
 
     await this.dataBaseDarya.load();
-    const allThemesJson = await fetch('./cards.json');
-    const categories = await allThemesJson.json();
-    this.header.drawHeader(categories);
-    this.gridBtn.categories = categories;
+
+    const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
+    const serverCategories = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories')).json() as ImageCategoryModel[];
+
+    for (let i = 0; i < serverCategories.length; i++) {
+      const cardsOfCategory = cards.filter((c) => c.categoryId === serverCategories[i].id);
+      serverCategories[i].cardsContent = cardsOfCategory;
+    }
+
+    this.header.drawHeader(serverCategories);
+    this.gridBtn.categories = serverCategories;
+    this.adminPage.categories = serverCategories;
+    this.adminPage.drawAllCategories();
     this.rootElement.appendChild(this.registration.element);
     this.rootElement.appendChild(this.header.element);
     this.rootElement.appendChild(this.gridBtn.element);
     this.rootElement.appendChild(this.statistics.element);
+    this.rootElement.appendChild(this.adminPage.element);
     this.rootElement.appendChild(this.overlay.element);
     const footer = document.createElement('footer');
     footer.innerHTML = `<a href="https://rs.school/js/" target="_blank">The Rolling Scopes|</a>
@@ -75,23 +112,23 @@ export class App {
     this.gridBtn.drawAllCategories();
 
     // const rez = [];
-    for (let i = 0; i < categories.length; i++) {
-      for (let j = 0; j < categories[i].cardsContent.length; j++) {
+    for (let i = 0; i < serverCategories.length; i++) {
+      for (let j = 0; j < serverCategories[i].cardsContent.length; j++) {
         if (
           (await this.dataBaseDarya.getWord( // eslint-disable-line no-await-in-loop
-            categories[i].category
-              + categories[i].cardsContent[j].word
-              + categories[i].cardsContent[j].translation,
+            serverCategories[i].category
+              + serverCategories[i].cardsContent[j].word
+              + serverCategories[i].cardsContent[j].translation,
           )) === undefined
         ) {
           const wordStatistic = new WordStatistic(
-            categories[i].category,
-            categories[i].cardsContent[j].word,
-            categories[i].cardsContent[j].translation,
+            serverCategories[i].category,
+            serverCategories[i].cardsContent[j].word,
+            serverCategories[i].cardsContent[j].translation,
             0,
-            categories[i].category
-              + categories[i].cardsContent[j].word
-              + categories[i].cardsContent[j].translation,
+            serverCategories[i].category
+              + serverCategories[i].cardsContent[j].word
+              + serverCategories[i].cardsContent[j].translation,
             0,
             0,
             0,

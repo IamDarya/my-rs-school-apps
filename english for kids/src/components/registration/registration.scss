@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Ubuntu:700");
+
 .pop-up-registr-wrapper {
   height: fit-content;
   width: 45vh;
@@ -15,11 +17,19 @@
   align-items: center;
   z-index: 11;
   border-radius: 10px;
+  background: linear-gradient(
+    180deg
+    , #fef5a2, #46beea, #8effde);;
 }
 
 .pop-up-registr-wrapper > button {
   width: 11.9vw;
   margin: 10px 5px;
+}
+
+.pop-up-registr-wrapper > p {
+  text-shadow: 0px 0px 20px #fdff70, 0px 0px 6px #7b7b63;
+  margin: 1rem 0 3px 0;
 }
 
 .cancel-btn-popup,
@@ -35,6 +45,15 @@
   transition-duration: 0.4s;
   text-shadow: 2px 2px 0 #e674098a;
   box-sizing: border-box;
+}
+
+.disabled.login-btn-popup {
+  filter: opacity(0.5);
+  cursor:default;
+}
+
+.valid {
+  background-color: #7ff080;
 }
 
 .cancel-btn-popup:hover,
@@ -58,11 +77,55 @@
   border: 2px solid #ffa812;
   border-radius: 10px;
   padding: 0.3em;
-  margin: 1rem;
+  margin: 0 1rem 1rem;
   font-size: 1.3rem;
   transition-duration: 0.4s;
   text-shadow: 2px 2px 0 #e674098a;
   box-sizing: border-box;
+}
+
+.input-login:focus-visible,
+.input-password:focus-visible {
+  outline: none;
+  box-shadow: 0px 0px 3px 2px #ec9a0b;
+}
+
+
+.far {
+  position: absolute;
+  right: 14px;
+  bottom: 77px;
+  padding: 15px;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-size: 25px;
+}
+
+.fa, .far, .fas {
+  font-family: "Font Awesome 5 Free";
+}
+.far {
+  font-weight: 400;
+}
+
+.fa-eye-slash:before {
+  content: "\f070";
+}
+
+.far:hover {
+  background: #341b6385;
+}
+
+.fa, .fab, .fal, .far, .fas {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
 }
 
 @media screen and (max-width: 500px) and (min-width: 320px) {
