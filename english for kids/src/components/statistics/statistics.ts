@@ -3,7 +3,6 @@ import sortIcon from '../../assets/sort-descending.png';
 import { BaseComponent } from '../base-component';
 import { DatabaseDarya } from '../database/database';
 import { WordStatistic } from '../database/word-statist';
-import { CardView } from '../card-view/card-view';
 
 export enum SortBy {
   Category = 'category',
