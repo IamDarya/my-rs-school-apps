@@ -57,8 +57,8 @@ export class AdminPage extends BaseComponent {
     this.activeCategory = undefined;
     this.activeCategoryObj = undefined;
 
-    const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[]; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
-    this.categories = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories')).json() as ImageCategoryModel[]; // const serverCategories = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories')).json() as ImageCategoryModel[]
+    const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
+    this.categories = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories')).json() as ImageCategoryModel[];
 
     for (let i = 0; i < this.categories.length; i++) {
       const cardsOfCategory = cards.filter((c) => c.categoryId === this.categories[i].id);
@@ -72,6 +72,7 @@ export class AdminPage extends BaseComponent {
         this.categories[i].cardsContent[3],
         this.categories[i].category,
         this.dataBaseDarya,
+        this.categories[i].id,
       );
       this.themesBlock.appendChild(divWithTheme.element);
       divWithTheme.onClickDelete(() => {
@@ -85,8 +86,8 @@ export class AdminPage extends BaseComponent {
   }
 
   async drawCategory(category: string): Promise<void> {
-    const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[]; // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
-    this.categories = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories')).json() as ImageCategoryModel[]; // const serverCategories = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories')).json() as ImageCategoryModel[]
+    const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
+    this.categories = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories')).json() as ImageCategoryModel[];
 
     for (let i = 0; i < this.categories.length; i++) {
       const cardsOfCategory = cards.filter((c) => c.categoryId === this.categories[i].id);
@@ -107,6 +108,7 @@ export class AdminPage extends BaseComponent {
           this.activeCategoryObj.cardsContent[i],
           this.activeCategoryObj.category,
           this.dataBaseDarya,
+          this.activeCategoryObj.id,
         );
         this.arrayOfCardDivs.push(divWithWord);
         this.themesBlock.appendChild(divWithWord.element);
@@ -137,8 +139,45 @@ export class AdminPage extends BaseComponent {
     createNewCategoryCard.appendChild(addCategoryBtn);
     this.themesBlock.appendChild(createNewCategoryCard);
     addCategoryBtn.addEventListener('click', () => {
-
+      this.createCardWithInfoForNewCategoryAndAddit();
     });
+  }
+
+  createCardWithInfoForNewCategoryAndAddit(): void {
+    const newCategoryCardInput = document.createElement('div');
+    newCategoryCardInput.classList.add('one-theme-block-admin', 'create-new-card-category', 'one-theme-block');
+    const label = document.createElement('label');
+    label.innerHTML = 'Category Name:';
+    newCategoryCardInput.appendChild(label);
+    const inputNewNameCateg = document.createElement('input');
+    newCategoryCardInput.appendChild(inputNewNameCateg);
+    const createCardBtn = document.createElement('button');
+    createCardBtn.innerText = 'Create';
+    createCardBtn.classList.add('update-categ-btn');
+    const cancelCreateCategBtn = document.createElement('button');
+    cancelCreateCategBtn.innerText = 'Cancel';
+    cancelCreateCategBtn.classList.add('cancel-upd-categ-btn');
+    newCategoryCardInput.appendChild(createCardBtn);
+    newCategoryCardInput.appendChild(cancelCreateCategBtn);
+    this.themesBlock.appendChild(newCategoryCardInput);
+    createCardBtn.addEventListener('click', async () => {
+      this.addNewCategory(inputNewNameCateg.value);
+    });
+    cancelCreateCategBtn.addEventListener('click', () => {
+      this.drawAllCategories();
+    });
+  }
+
+  async addNewCategory(inputNewNameCateg: string): Promise<void> {
+    const newCategory = { category: inputNewNameCateg };
+    await fetch('https://mighty-cliffs-95999.herokuapp.com/api/categories/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newCategory),
+    });
+    this.drawAllCategories();
   }
 
   createNewWordCard():void {
