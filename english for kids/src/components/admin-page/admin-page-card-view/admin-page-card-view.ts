@@ -125,6 +125,90 @@ export class AdminPageCardView extends BaseComponent {
     });
   }
 
+  async drawUpdateWord():Promise<void> {
+    this.element.innerHTML = '';
+    this.element.classList.add('one-theme-block-admin');
+    const label = document.createElement('label');
+    label.classList.add('label-change-word');
+    label.innerHTML = `Category Name: ${this.category}`;
+    this.element.appendChild(label);
+
+    const labelWord = document.createElement('label');
+    labelWord.innerHTML = 'Word:';
+    labelWord.classList.add('label-change-word');
+    this.element.appendChild(labelWord);
+    const inputNewWord = document.createElement('input');
+    inputNewWord.placeholder = `${this.cardObj.word}`;
+    this.element.appendChild(inputNewWord);
+
+    const labelTranslation = document.createElement('label');
+    labelTranslation.innerHTML = 'Translation:';
+    labelTranslation.classList.add('label-change-word');
+    this.element.appendChild(labelTranslation);
+    const inputNewTranslation = document.createElement('input');
+    inputNewTranslation.placeholder = `${this.cardObj.translation}`;
+    this.element.appendChild(inputNewTranslation);
+
+    const canvas = document.createElement('div');
+    canvas.id = 'canvas';
+    const inputImg = document.createElement('input');
+    inputImg.type = 'file';
+    const labelForImg = document.createElement('label');
+    labelForImg.innerText = 'Image:';
+    labelForImg.classList.add('label-For-AudImg');
+    inputImg.classList.add('fileInputImg');
+    inputImg.multiple = false;
+    inputImg.accept = 'image/*';
+    this.element.appendChild(canvas);
+    this.element.appendChild(labelForImg);
+    this.element.appendChild(inputImg);
+    async function readURL() {
+      const file = inputImg.files![0];
+      const reader = new FileReader();
+      reader.onloadend = function () {
+        canvas.style.backgroundImage = `url(${reader.result})`;
+      };
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    }
+    inputImg.addEventListener('change', readURL, true);
+
+    const inputAud = document.createElement('input');
+    inputAud.type = 'file';
+    const labelForAud = document.createElement('label');
+    labelForAud.innerText = 'Audio:';
+    labelForAud.classList.add('label-For-AudImg');
+    inputAud.classList.add('fileInputAud');
+    inputAud.multiple = false;
+    inputAud.accept = 'audio/*';
+    this.element.appendChild(labelForAud);
+    this.element.appendChild(inputAud);
+    async function readURLAud() {
+      const file = inputAud.files![0];
+      const reader = new FileReader();
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    }
+    inputAud.addEventListener('change', readURLAud, true);
+
+    const updateCardBtn = document.createElement('button');
+    updateCardBtn.innerText = 'Update';
+    updateCardBtn.classList.add('update-categ-btn');
+    const cancelUpdateCategBtn = document.createElement('button');
+    cancelUpdateCategBtn.innerText = 'Cancel';
+    cancelUpdateCategBtn.classList.add('cancel-upd-categ-btn');
+    this.element.appendChild(updateCardBtn);
+    this.element.appendChild(cancelUpdateCategBtn);
+    updateCardBtn.addEventListener('click', async () => {
+      this.updateCategoryName(inputNewWord);
+    });
+    cancelUpdateCategBtn.addEventListener('click', () => {
+      this.drawOneTheme();
+    });
+  }
+
   drawOneTheme(): void {
     this.element.innerHTML = '';
     const deleteCard = document.createElement('button');
@@ -154,10 +238,13 @@ export class AdminPageCardView extends BaseComponent {
 
     this.element.appendChild(this.audio);
 
-    const cnangeBtn = document.createElement('button');
-    cnangeBtn.innerText = 'Change';
-    cnangeBtn.classList.add('change-btn');
-    this.element.appendChild(cnangeBtn);
+    const changeBtn = document.createElement('button');
+    changeBtn.innerText = 'Change';
+    changeBtn.classList.add('change-btn');
+    this.element.appendChild(changeBtn);
+    changeBtn.addEventListener('click', () => {
+      this.drawUpdateWord();
+    });
 
     deleteCard.addEventListener('click', () => {
       this.deleteWord();
