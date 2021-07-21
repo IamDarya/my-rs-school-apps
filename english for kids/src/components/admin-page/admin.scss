@@ -43,6 +43,7 @@ header {
   flex-wrap: wrap;
   align-content: space-around;
   justify-content: center;
+  width: 268px;
 }
 
 .one-theme-block-admin > button{
@@ -52,6 +53,19 @@ margin: 5px;
 
 .one-theme-block-admin > p{
   width: inherit;
+  }
+
+  .play-icon-wrapper{
+    display: grid;
+    grid-template-columns: 200px 30px;
+    align-items: center;
+  }
+
+  .play-icon {
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
   }
 
 .close-card {
@@ -106,10 +120,15 @@ margin: 5px;
 }
 
 .card-content {
-  font-size: 1rem;
+  font-size: 0.8rem;
   text-align: left;
   width: fit-content;
   margin-left: 0.7rem;
+}
+
+.card-content > p,
+.play-icon-wrapper > p {
+overflow-x: hidden;
 }
 
 .change-btn {

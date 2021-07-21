@@ -9,9 +9,9 @@ import './registration.scss';
 export class Registration extends BaseComponent {
   overlay: Overlay;
 
-  inputLogin: HTMLElement;
+  inputLogin: HTMLInputElement;
 
-  inputPassword: HTMLElement;
+  inputPassword: HTMLInputElement;
 
   cancelBtn: HTMLElement;
 
@@ -29,13 +29,13 @@ export class Registration extends BaseComponent {
     this.newRout = newRout;
     this.overlay = overlay;
     this.loginedAdmin = loginedAdmin;
-    this.inputLogin = document.createElement('input');
-    this.inputPassword = document.createElement('input');
+    this.inputLogin = document.createElement('input') as HTMLInputElement;
+    this.inputPassword = document.createElement('input') as HTMLInputElement;
 
     const infoInputLogin = document.createElement('p');
     const infoInputPassw = document.createElement('p');
-    infoInputLogin.innerText = 'Enter Login: login';
-    infoInputPassw.innerText = 'Enter Password: password';
+    infoInputLogin.innerText = 'Enter Login: admin';
+    infoInputPassw.innerText = 'Enter Password: admin';
 
     this.inputLogin.classList.add('input-login');
     this.inputPassword.classList.add('input-password');
@@ -72,7 +72,7 @@ export class Registration extends BaseComponent {
 
     this.inputLogin.addEventListener('input', (e:Event) => {
       const input = e.target as HTMLInputElement;
-      if (input.value === 'login') {
+      if (input.value === 'admin') {
         input.classList.add('valid');
         this.validatedLoginPassword();
       } else {
@@ -83,7 +83,7 @@ export class Registration extends BaseComponent {
     });
     this.inputPassword.addEventListener('input', (e:Event) => {
       const input = e.target as HTMLInputElement;
-      if (input.value === 'password') {
+      if (input.value === 'admin') {
         input.classList.add('valid');
         this.validatedLoginPassword();
       } else {
