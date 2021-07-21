@@ -5,6 +5,7 @@ import { BaseComponent } from '../../base-component';
 import { Card } from '../../image-category-models/card';
 import { DatabaseDarya } from '../../database/database';
 import { ImageCategoryModel } from '../../image-category-models/image-category-models';
+import playIcon from '../../../assets/play.png';
 
 export class AdminPageCardView extends BaseComponent {
   dataBaseDarya: DatabaseDarya;
@@ -27,6 +28,10 @@ export class AdminPageCardView extends BaseComponent {
 
   id: number | undefined;
 
+  readerImgResult: string;
+
+  readerAudResult: string;
+
   constructor(
     categoryAmountOfCards: number,
     cardState: string,
@@ -36,6 +41,8 @@ export class AdminPageCardView extends BaseComponent {
     id: number | undefined,
   ) {
     super('div', ['one-theme-block', 'front']);
+    this.readerImgResult = '';
+    this.readerAudResult = '';
     this.callBacks = [];
     this.callBacksForNewWord = [];
     this.categories = [];
@@ -138,6 +145,7 @@ export class AdminPageCardView extends BaseComponent {
     labelWord.classList.add('label-change-word');
     this.element.appendChild(labelWord);
     const inputNewWord = document.createElement('input');
+    inputNewWord.value = `${this.cardObj.word}`;
     inputNewWord.placeholder = `${this.cardObj.word}`;
     this.element.appendChild(inputNewWord);
 
@@ -146,6 +154,7 @@ export class AdminPageCardView extends BaseComponent {
     labelTranslation.classList.add('label-change-word');
     this.element.appendChild(labelTranslation);
     const inputNewTranslation = document.createElement('input');
+    inputNewTranslation.value = `${this.cardObj.translation}`;
     inputNewTranslation.placeholder = `${this.cardObj.translation}`;
     this.element.appendChild(inputNewTranslation);
 
@@ -162,17 +171,20 @@ export class AdminPageCardView extends BaseComponent {
     this.element.appendChild(canvas);
     this.element.appendChild(labelForImg);
     this.element.appendChild(inputImg);
-    async function readURL() {
+
+    inputImg.addEventListener('change', () => {
       const file = inputImg.files![0];
-      const reader = new FileReader();
-      reader.onloadend = function () {
-        canvas.style.backgroundImage = `url(${reader.result})`;
+      const readerImg = new FileReader();
+      readerImg.onloadend = () => {
+        if (typeof readerImg.result === 'string') {
+          this.readerImgResult = readerImg.result;
+        }
+        canvas.style.backgroundImage = `url(${readerImg.result})`;
       };
       if (file) {
-        reader.readAsDataURL(file);
+        readerImg.readAsDataURL(file);
       }
-    }
-    inputImg.addEventListener('change', readURL, true);
+    }, true);
 
     const inputAud = document.createElement('input');
     inputAud.type = 'file';
@@ -184,14 +196,19 @@ export class AdminPageCardView extends BaseComponent {
     inputAud.accept = 'audio/*';
     this.element.appendChild(labelForAud);
     this.element.appendChild(inputAud);
-    async function readURLAud() {
+
+    inputAud.addEventListener('change', () => {
       const file = inputAud.files![0];
-      const reader = new FileReader();
+      const readerAud = new FileReader();
+      readerAud.onloadend = () => {
+        if (typeof readerAud.result === 'string') {
+          this.readerAudResult = readerAud.result;
+        }
+      };
       if (file) {
-        reader.readAsDataURL(file);
+        readerAud.readAsDataURL(file);
       }
-    }
-    inputAud.addEventListener('change', readURLAud, true);
+    }, true);
 
     const updateCardBtn = document.createElement('button');
     updateCardBtn.innerText = 'Update';
@@ -202,11 +219,27 @@ export class AdminPageCardView extends BaseComponent {
     this.element.appendChild(updateCardBtn);
     this.element.appendChild(cancelUpdateCategBtn);
     updateCardBtn.addEventListener('click', async () => {
-      this.updateCategoryName(inputNewWord);
+      this.updateWord(inputNewWord, inputNewTranslation, this.readerImgResult, this.readerAudResult);
     });
     cancelUpdateCategBtn.addEventListener('click', () => {
       this.drawOneTheme();
     });
+  }
+
+  async updateWord(inputNewWord: HTMLInputElement, inputNewTranslation: HTMLInputElement, inputImg: string, inputAud: string): Promise<void> {
+  // const cards = await (await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards')).json() as Card[];
+    this.cardObj.word = inputNewWord.value;
+    this.cardObj.translation = inputNewTranslation.value;
+    this.cardObj.image = inputImg;
+    this.cardObj.audioSrc = inputAud;
+    await fetch('https://mighty-cliffs-95999.herokuapp.com/api/cards/', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.cardObj),
+    });
+    this.drawOneTheme();
   }
 
   drawOneTheme(): void {
@@ -220,7 +253,7 @@ export class AdminPageCardView extends BaseComponent {
     y.classList.add('card-content');
     y.innerHTML = `<p>Word: ${this.cardObj.word}</p>
     <p>Translation: ${this.cardObj.translation}</p>
-    <p>Sound: ${this.cardObj.audioSrc}</p>
+    <div class='play-icon-wrapper'><p>Sound: ${this.cardObj.audioSrc}</p><div class='play-icon' style="background-image:url('${playIcon}');"></div></div>
     <p>Image:</p>
     `;
     this.element.appendChild(y);
@@ -244,6 +277,12 @@ export class AdminPageCardView extends BaseComponent {
     this.element.appendChild(changeBtn);
     changeBtn.addEventListener('click', () => {
       this.drawUpdateWord();
+    });
+
+    this.element.getElementsByClassName('play-icon')[0].addEventListener('click', () => {
+      const aud = document.createElement('audio') as HTMLAudioElement;
+      aud.setAttribute('src', `${this.cardObj.audioSrc}`);
+      aud.play();
     });
 
     deleteCard.addEventListener('click', () => {
