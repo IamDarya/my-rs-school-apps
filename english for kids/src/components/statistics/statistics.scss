@@ -1,0 +1,118 @@
+h2 {
+  text-align: center;
+  text-shadow: 0px 0px 8px #0e1048;
+}
+
+.statistics-wrapper {
+  margin: 0 10% 0 10%;
+}
+
+.statistic-grid-wrapper {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.word-li,
+.topPart-li {
+  display: grid;
+  grid-template-columns:  230px 230px 230px 100px 100px 100px 120px;
+}
+
+.word-li {
+  margin-bottom: 5px;
+  border: solid rgba(50, 73, 205, 0.123);
+  border-radius: 5px;
+  background-color: rgb(15 144 255 / 31%);
+}
+
+.topPart-li {
+  margin-bottom: 15px;
+  text-shadow: 0px 0px 8px #0e1048;
+}
+
+.one-category {
+  display: flex;
+  flex-direction: row-reverse;
+  height: min-content;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.transform {
+  transform: scaleY(-1);
+  transition-duration: 0.5s;
+}
+
+.color-line {
+  background-color: #03a8f496;
+}
+
+.btn-to-reset {
+  border: 2px solid #ffa812;
+  background-color: #ff99008a;
+  color: white;
+  border-radius: 10px;
+  padding: 0.3em;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 5px 0 #e67409;
+  transition-duration: 0.4s;
+  text-shadow: 2px 2px 0 #e674098a;
+  margin: 5px;
+}
+
+.btn-to-reset:hover {
+  transform: translateY(2px);
+  text-shadow: 0px 0px 20px #67ff28, 0px 0px 6px #fcff2a;
+}
+
+.btn-to-reset:target,
+.btn-to-reset:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 #e674098a;
+  text-shadow: 2px 2px 0 #42964c;
+  background-color: #69c160;
+  border: 2px solid #42964c;
+}
+
+.div-with-btn-to-reset {
+  display: flex;
+  justify-content: center;
+}
+
+
+@media screen and (max-width: 450px) and (min-width: 320px) {
+h2 {
+  margin-top: 50px;
+  // margin-left: 25vw;
+}
+
+.statistics-wrapper {
+  margin: 0 10% 0 10%;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+}
+  }
+
+  @media screen and (max-width: 949px) and (max-width: 451px) {
+    .statistic-grid-wrapper {
+      overflow-x: scroll;
+  }
+      }
+
+  @media screen and (min-width: 320px) and (max-width: 1150px) {
+    .statistics-wrapper {
+      margin: 0;
+      overflow-x: scroll;
+  }
+
+  .statistic-grid-wrapper {
+    overflow-x: scroll;
+  }
+    .word-li,
+    .topPart-li {
+      grid-template-columns:  150px 150px 215px 100px 100px 100px 120px;
+    }
+      }

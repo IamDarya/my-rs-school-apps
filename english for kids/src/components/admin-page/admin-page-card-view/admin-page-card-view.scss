@@ -1,0 +1,28 @@
+input {
+  width: 80%;
+}
+
+.label-change-word {
+  font-size: 1rem;
+  align-self: center;
+}
+
+.label-For-AudImg {
+  font-size: 0.8rem;
+}
+
+.fileInputAud,
+.fileInputImg {
+  width: 71%;
+}
+
+#canvas {
+  width: 70px;
+  height: 70px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: solid;
+  border-color: #fef5a2 #46beea;
+  margin: 0 4rem;
+}
